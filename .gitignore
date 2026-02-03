@@ -1,8 +1,33 @@
-.env
-*.log
-node_modules/
-venv/
+# Python
 __pycache__/
-.idea/
-.vscode/
+*.pyc
+venv/
+.env
+
+# ML / YOLO / Torch
+*.pt
+*.pth
+*.onnx
+*.so
+*.dylib
+
+# Datasets
+data/
+datasets/
+coco/
+*.json
+
+# Virtual environments inside project
+lib/
+lib64/
+site-packages/
+
+# Audio / large assets
+*.sf2
+*.wav
+*.mp3
+
+# OS / IDE
 .DS_Store
+.vscode/
+.idea/
