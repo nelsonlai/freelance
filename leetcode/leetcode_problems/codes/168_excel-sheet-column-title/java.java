@@ -1,0 +1,23 @@
+/**
+ * Problem: Excel Sheet Column Title
+ * Difficulty: Easy
+ * Tags: string, math
+ * 
+ * Approach: String manipulation with hash map or two pointers
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+class Solution {
+    public String convertToTitle(int columnNumber) {
+        StringBuilder result = new StringBuilder();
+        
+        while (columnNumber > 0) {
+            columnNumber--;
+            result.append((char) ('A' + columnNumber % 26));
+            columnNumber /= 26;
+        }
+        
+        return result.reverse().toString();
+    }
+}

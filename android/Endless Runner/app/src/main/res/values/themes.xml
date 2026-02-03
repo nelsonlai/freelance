@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <!-- FIX: Change the parent to a Material 3 theme -->
+    <style name="Theme.EndlessRunner" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- 
+            You can customize your theme here.
+            For example:
+            <item name="colorPrimary">@color/purple_500</item>
+            <item name="colorPrimaryVariant">@color/purple_700</item>
+            <item name="colorOnPrimary">@color/white</item>
+        -->
+    </style>
+</resources>

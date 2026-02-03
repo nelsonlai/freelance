@@ -1,0 +1,12 @@
+# Write your MySQL query statement below
+SELECT 
+    s.company_id,
+    s.employee_id,
+    s.employee_name,
+    s.salary,
+    CASE 
+        WHEN MAX(s.salary) OVER (PARTITION BY s.company_id) < 1000 THEN s.salary
+        WHEN MAX(s.salary) OVER (PARTITION BY s.company_id) BETWEEN 1000 AND 10000 THEN ROUND(s.salary * 0.76)
+        ELSE ROUND(s.salary * 0.51)
+    END AS salary
+FROM Salaries s;

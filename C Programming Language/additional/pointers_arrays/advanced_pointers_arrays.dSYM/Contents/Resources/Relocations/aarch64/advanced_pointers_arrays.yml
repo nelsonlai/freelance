@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     'pointers_arrays/advanced_pointers_arrays'
+relocations:     []
+...

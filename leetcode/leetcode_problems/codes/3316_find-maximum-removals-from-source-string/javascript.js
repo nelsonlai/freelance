@@ -1,0 +1,19 @@
+/**
+ * Problem: Find Maximum Removals From Source String
+ * Difficulty: Medium
+ * Tags: array, string, dp, hash, sort
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) or O(n * m) for DP table
+ */
+
+/**
+ * @param {string} source
+ * @param {string} pattern
+ * @param {number[]} targetIndices
+ * @return {number}
+ */
+var maxRemovals = function(source, pattern, targetIndices) {
+    
+};

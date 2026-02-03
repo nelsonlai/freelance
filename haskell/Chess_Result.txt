@@ -1,0 +1,256 @@
+module Chess where
+import ChessGraphics
+
+-- ----- Data types (given) -----
+data PieceType = King | Queen | Knight | Bishop | Rook | Pawn
+    deriving (Eq, Show)
+data Colour = White | Black
+    deriving (Eq, Show)
+data Piece = Piece Colour PieceType
+    deriving (Eq, Show)
+
+-- ===== Part 0 =====
+
+-- A dark square is the inversion of the provided white square picture.
+blackSquare :: Picture
+blackSquare = invert whiteSquare
+
+-- Pieces on the back rank, from left to right (white-side orientation):
+-- Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook.
+backRankPieces :: Picture 
+backRankPieces =
+  foldr beside empty
+    [ rook, knight, bishop, queen, king, bishop, knight, rook ]
+
+-- ===== Part 1 =====
+
+-- Map a Piece to its Picture; invert for Black pieces.
+piecePicture :: Piece -> Picture
+piecePicture (Piece colour ptyp) =
+  colourFilter (base ptyp)
+  where
+    base :: PieceType -> Picture
+    base King   = king
+    base Queen  = queen
+    base Bishop = bishop
+    base Knight = knight
+    base Rook   = rook
+    base Pawn   = pawn
+
+    colourFilter :: Picture -> Picture
+    colourFilter pic = case colour of
+      White -> pic
+      Black -> invert pic
+
+-- ===== Part 2 =====
+
+-- Repeat a picture horizontally n times (≤0 yields empty).
+repeatH :: Picture -> Int -> Picture
+repeatH p n
+  | n <= 0    = empty
+  | otherwise = foldr beside empty (replicate n p)
+
+-- Repeat a picture vertically n times (≤0 yields empty).
+repeatV :: Picture -> Int -> Picture
+repeatV p n
+  | n <= 0    = empty
+  | otherwise = foldr above empty (replicate n p)
+
+-- Helper: an 8-cell checker row starting with the first colour.
+checkerRow :: Picture -> Picture -> Picture
+checkerRow a b = go 8 a b
+  where
+    go k x y
+      | k <= 0    = empty
+      | k == 1    = x
+      | otherwise = beside x (go (k-1) y x)
+
+row0Squares, row1Squares :: Picture
+row0Squares = checkerRow blackSquare whiteSquare  -- top row starts dark
+row1Squares = checkerRow whiteSquare blackSquare
+
+-- Back-rank rows for each colour, assembled left→right.
+backRankFor :: Colour -> Picture
+backRankFor c =
+  foldr beside empty (map (piecePicture . Piece c)
+    [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook])
+
+pawnRankFor :: Colour -> Picture
+pawnRankFor c = foldr beside empty (replicate 8 (piecePicture (Piece c Pawn)))
+
+-- Assemble the initial chessboard as a single Picture.
+board :: Picture 
+board =
+  combineV
+    [ over (backRankFor Black) row0Squares
+    , over (pawnRankFor Black) row1Squares
+    , row0Squares
+    , row1Squares
+    , row0Squares
+    , row1Squares
+    , over (pawnRankFor White) row0Squares
+    , over (backRankFor White) row1Squares
+    ]
+
+-- ===== Part 3 =====
+
+-- Combine lists of pictures horizontally/vertically.
+combineH :: [Picture] -> Picture
+combineH = foldr beside empty
+
+combineV :: [Picture] -> Picture
+combineV = foldr above empty
+
+type Position = (Int, Int) -- row,column
+type GameState = [(Position,Piece)]
+
+-- Choose background colour by square parity: (0,0) is dark.
+backdropFor :: Position -> Picture
+backdropFor (r, c)
+  | even (r + c) = blackSquare
+  | otherwise    = whiteSquare
+
+-- Lookup a piece at a position and turn it into a Picture.
+piecePictureFor :: GameState -> Position -> Maybe Picture
+piecePictureFor gs pos = fmap piecePicture (lookup pos gs)
+
+-- Render a board for an arbitrary game state.
+boardFor :: GameState -> Picture
+boardFor gs = combineV [ row r | r <- [0..7] ]
+  where
+    cell :: Position -> Picture
+    cell pos = case piecePictureFor gs pos of
+      Just pp -> over pp (backdropFor pos)
+      Nothing -> backdropFor pos
+
+    row :: Int -> Picture
+    row r = combineH [ cell (r, c) | c <- [0..7] ]
+
+
+
+    ------------------------------------------------------
+    Part 1 — piecePicture :: Piece -> Picture
+
+Goal: turn a Piece (its Colour and PieceType) into the correct picture; if it’s a Black piece, invert the colours. The spec says exactly this: “given a Piece, produce the appropriate Picture for its PieceType. If the Colour is Black, the Picture should be inverted.” 
+
+How it works
+
+Choose the base sprite from the piece type.
+The graphics library already gives you the piece pictures king, queen, bishop, knight, rook, pawn. So you map each PieceType to one of these. Those built-ins are exported by ChessGraphics. 
+
+Apply colour: invert for Black, leave as is for White.
+invert flips the colour “white ↔ black” at the pixel level (technically, it toggles a filter flag on the picture). 
+
+Putting those together:
+
+Piece White Queen → queen
+
+Piece Black Queen → invert queen
+
+You can sanity-check with the spec’s example: rendering a white knight beside a vertically flipped black knight (the flip is just to show a different transform) should look as shown. 
+
+Part 2 — repeatH, repeatV, and board
+
+Goals:
+
+repeatH p n puts n copies of p side-by-side;
+
+repeatV p n puts n copies of p stacked;
+
+both return empty when n <= 0. That behaviour is specified explicitly. 
+
+Why repeatH/repeatV are simple folds
+
+The library primitives are:
+
+beside a b puts a left of b,
+
+above a b puts a above b,
+
+empty is the identity for “no picture”. 
+
+So:
+
+repeatH p n = p beside p beside ... (n times), or more idiomatically: fold a list of replicate n p with beside, identity empty.
+
+repeatV p n = fold ... above ....
+
+The spec even suggests testing with beside (repeatV queen 3) (repeatH king 3); that’s a good smoke test. 
+
+Building the full initial board
+
+The board picture combines (1) a checkerboard of squares and (2) the initial pieces layered on top with over. The spec hints to break this into the top 2 ranks, empty middle, bottom 2 ranks. 
+
+Squares (checkerboard):
+A chessboard alternates colours every square and every row. One clean way is a helper that builds an 8-cell row by alternating two square pictures (e.g., dark then light), then alternate which colour starts the next row. (We use whiteSquare from the library and define blackSquare = invert whiteSquare in Part 0.) 
+
+Back-rank order:
+From left to right (column 0 → 7), use the canonical order Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook. You can verify this order from the provided starting game state in Examples.hs (row 0 is Black’s back rank; row 7 is White’s). 
+
+Pawns:
+Eight pawns in a row; easiest is repeatH (piecePicture (Piece c Pawn)) 8.
+
+Layering:
+Place pieces over the appropriate square colour for each rank. over top base puts the piece picture on top of the square cell. 
+
+When you stack the 8 rows with above (or combineV, see Part 3) you’ll get the same starting position that Examples.hs calls starting. 
+
+Part 3 — combineH, combineV, and boardFor
+
+Goals:
+
+combineH :: [Picture] -> Picture places a list left→right;
+
+combineV :: [Picture] -> Picture stacks a list top→bottom;
+
+empty list ⇒ empty. This is required by the spec. 
+
+Both functions are just list folds using the library combinators (beside or above) with empty as the identity element. 
+
+The general renderer: boardFor :: GameState -> Picture
+
+The spec introduces:
+
+type Position = (Int, Int)   -- (row, column)
+type GameState = [(Position, Piece)]
+
+
+and clarifies row 0 is the top of the board; row 7 is the bottom (so our list comprehensions and checkerboard parity should assume that orientation). 
+ 
+
+It also suggests a very practical design (paraphrased):
+
+backdropFor :: Position -> Picture:
+Return whiteSquare or blackSquare depending on the cell colour. A standard trick is using parity: (r + c) even ⇒ one colour, odd ⇒ the other. (Either parity choice is fine so long as you’re consistent across the whole board.) 
+
+piecePictureFor :: GameState -> Position -> Maybe Picture:
+Use lookup to find whether a piece exists at that Position. If so, convert it with piecePicture; otherwise Nothing. The spec explicitly points you to lookup. 
+
+Build each cell and row:
+A cell is:
+
+over (that piece’s picture) (that cell’s square) if Just pic,
+
+otherwise just backdropFor.
+A row is combineH [cell (r,c) | c <- [0..7]]. The whole board is combineV [row r | r <- [0..7]]. The spec recommends this exact approach (lists of rows with combineV, each row as a list of cells with combineH, each cell composed with over). 
+
+Testing boardFor
+
+The spec provides ready-made states in Examples.hs:
+
+emptyBoard ⇒ should render an empty 8×8 checkerboard,
+
+starting ⇒ the normal chess starting layout,
+
+scholarsMate ⇒ a known checkmate arrangement. Render them with render (boardFor starting) etc. to verify orientation and layering. 
+ 
+
+Why this structure works well
+
+It isolates concerns: pictures for pieces (Part 1), repetitive layout (Part 2), generic grid composition + state lookup (Part 3). That maps directly to the spec’s decomposition and the library’s primitives. 
+
+It keeps style clean (small helpers, descriptive names, no repetition), which the spec also grades you on. 
+
+It matches the library model: everything is either above, beside, over, or invert + empty, which you can see in the library’s exported API. 
+
+If you want, I can add tiny GHCI one-liners using render to verify each part in isolation (e.g., Part 1 piece checks, Part 2 repeat tests, Part 3 row/cell inspection) — just say the word.

@@ -1,0 +1,11 @@
+// Problem: Largest Number After Digit Swaps by Parity
+// Difficulty: Easy
+// Tags: sort, queue, heap
+// 
+// Approach: Optimized algorithm based on problem constraints
+// Time Complexity: O(n) to O(n^2) depending on approach
+// Space Complexity: O(1) to O(n) depending on approach
+
+func largestInteger(num int) int {
+    
+}

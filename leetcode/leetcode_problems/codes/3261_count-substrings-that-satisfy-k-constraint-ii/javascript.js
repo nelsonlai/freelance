@@ -1,0 +1,19 @@
+/**
+ * Problem: Count Substrings That Satisfy K-Constraint II
+ * Difficulty: Hard
+ * Tags: array, string, tree, search
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(h) for recursion stack where h is height
+ */
+
+/**
+ * @param {string} s
+ * @param {number} k
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+var countKConstraintSubstrings = function(s, k, queries) {
+    
+};

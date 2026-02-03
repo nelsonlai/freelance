@@ -1,0 +1,15 @@
+/*
+ * Problem: Number Of Rectangles That Can Form The Largest Square
+ * Difficulty: Easy
+ * Tags: array
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+
+
+int countGoodRectangles(int** rectangles, int rectanglesSize, int* rectanglesColSize){
+
+}

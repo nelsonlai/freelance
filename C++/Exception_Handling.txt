@@ -1,0 +1,715 @@
+# C++ Exception Handling — Comprehensive Teaching Materials
+
+> Designed as a complete, modular curriculum. Use it as a full course, or pick and choose modules for single-session classes, workshops, or self-study. Targets C++17/20/23 where noted; highlights differences vs. older standards.
+
+---
+
+## 0) Audience, Prereqs & Outcomes
+
+**Audience:** Intermediate C++ developers (comfortable with classes, RAII, STL).
+**Prereqs:** Basics of C++ compilation/tooling; familiarity with pointers/references; standard containers/algorithms.
+**By the end, you will be able to:**
+
+* Design exception-safe C++ APIs and implementations
+* Apply RAII to guarantee resource safety under exceptions
+* Choose between exceptions, `std::error_code`, and `std::expected` (C++23) pragmatically
+* Use `noexcept` correctly (incl. conditional `noexcept`)
+* Propagate errors across threads and async tasks with `std::exception_ptr`, futures, and nested exceptions
+* Achieve basic/strong/nothrow exception safety guarantees
+* Configure toolchains and write tests that validate exception behaviour
+
+---
+
+## 1) Why Exceptions? (Conceptual)
+
+* **Goal:** Report *exceptional* (rare, unexpected) error conditions without deeply entangling normal control flow.
+* **Alternatives:** Return codes (`bool`, `enum`, `std::error_code`), optional values (`std::optional`), or expected values (`std::expected`).
+* **Zero-cost model (conceptual):** Normal paths pay near-zero overhead; throwing pays the cost.
+* **Where they shine:** Construction that must succeed-or-fail, deep call stacks, resource management via RAII.
+* **Where to avoid:** Hot inner loops; ABI/public APIs for mixed languages; predictable/expected failures where callers often branch.
+
+**Design heuristic:** *If the caller is likely to handle failure immediately and locally, consider non-throwing. If recovery is rare or far away, consider exceptions.*
+
+---
+
+## 2) Syntax Essentials
+
+### 2.1 `throw`
+
+```cpp
+throw std::runtime_error{"oh no"};
+throw;              // rethrow current exception from within a catch
+```
+
+### 2.2 `try`/`catch`
+
+```cpp
+try {
+    risky();
+} catch (const specific_error& e) {
+    handle(e);
+} catch (const std::exception& e) { // base of standard hierarchy
+    log(e.what());
+} catch (...) { // catch-all
+    recover();
+}
+```
+
+**Rules of thumb:**
+
+* Catch by **reference** to avoid slicing: `catch(const X& e)`
+* Order handlers from **most derived** to **least** derived
+* Use `catch(...)` sparingly (log/cleanup, then `throw;` if you can't recover)
+
+### 2.3 `std::exception` & common types
+
+* `std::logic_error` (contract broken): `invalid_argument`, `out_of_range`, `length_error`, `domain_error`
+* `std::runtime_error` (runtime failure): `system_error`, `ios_base::failure`, `overflow_error`, `underflow_error`
+* Memory/RTTI/functional: `bad_alloc`, `bad_cast`, `bad_typeid`, `bad_function_call`
+* Modern containers/utility: `bad_optional_access`, `bad_variant_access`, `bad_any_cast`
+
+---
+
+## 3) The Standard Hierarchy (Quick Reference)
+
+| Category | Type                       | Typical Trigger                         | Notes                                                     |
+| -------- | -------------------------- | --------------------------------------- | --------------------------------------------------------- |
+| Memory   | `std::bad_alloc`           | `new` cannot allocate                   | Use nothrow form `new (std::nothrow)` to opt-out of throw |
+| RTTI     | `std::bad_cast`            | `dynamic_cast` to ref fails             | Pointer casts return `nullptr` instead                    |
+| RTTI     | `std::bad_typeid`          | `typeid(*p)` when `p == nullptr`        | Rare; avoid by checking pointers                          |
+| Function | `std::bad_function_call`   | Calling empty `std::function`           | Check `if (f)` before calling                             |
+| Optional | `std::bad_optional_access` | `*opt` or `opt.value()` when empty      | Prefer `value_or`                                         |
+| Variant  | `std::bad_variant_access`  | Wrong alternative                       | Prefer `std::get_if`                                      |
+| Any      | `std::bad_any_cast`        | Wrong `any_cast` type                   | Validate type before cast                                 |
+| I/O      | `std::ios_base::failure`   | Stream `.exceptions()` set and op fails | See §10.2                                                 |
+| System   | `std::system_error`        | OS/errno failures                       | Carries `std::error_code`                                 |
+
+---
+
+## 4) Custom Exceptions
+
+```cpp
+#include <stdexcept>
+#include <string>
+
+class ConfigError : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error; // inherit ctors
+};
+
+class HttpError : public std::runtime_error {
+    int status_;
+public:
+    HttpError(int status, std::string msg)
+      : std::runtime_error(std::move(msg)), status_(status) {}
+    int status() const noexcept { return status_; }
+};
+```
+
+**Guidelines:**
+
+* Derive publicly from `std::exception` (usually `std::runtime_error`).
+* Store structured context (codes, file paths) alongside message.
+* Keep types small/lightweight; avoid owning heavy resources.
+
+---
+
+## 5) Stack Unwinding & RAII (The Heart of Safety)
+
+**Stack unwinding:** When an exception is thrown, C++ destroys **all** fully-constructed automatic objects on the path out.
+
+**RAII pattern:** Bind each resource to a small object whose destructor releases it. Then *throwing is safe by construction.*
+
+### 5.1 RAII wrapper example (C resource)
+
+```cpp
+#include <cstdio>
+#include <cerrno>
+#include <system_error>
+
+class File {
+    std::FILE* f_ = nullptr;
+public:
+    File(const char* path, const char* mode) {
+        f_ = std::fopen(path, mode);
+        if (!f_) throw std::system_error(errno, std::generic_category(), "fopen failed");
+    }
+    ~File() { if (f_) std::fclose(f_); }
+
+    File(const File&) = delete;
+    File& operator=(const File&) = delete;
+    File(File&& o) noexcept : f_(o.f_) { o.f_ = nullptr; }
+    File& operator=(File&& o) noexcept {
+        if (this != &o) { if (f_) std::fclose(f_); f_ = o.f_; o.f_ = nullptr; }
+        return *this;
+    }
+
+    std::FILE* get() const noexcept { return f_; }
+};
+```
+
+### 5.2 Scope guard (minimal)
+
+```cpp
+struct ScopeExit {
+    std::function<void()> f;
+    ~ScopeExit() { if (f) f(); }
+};
+
+// usage
+ScopeExit guard{[] { rollback(); }};
+commit();
+```
+
+---
+
+## 6) `noexcept` — Specifier & Operator
+
+### 6.1 Specifier
+
+```cpp
+void f() noexcept;         // promises not to throw (if it does -> terminate)
+void g() noexcept(false);  // may throw (default for most functions)
+```
+
+**Destructors are implicitly `noexcept(true)`** unless you declare otherwise. Throwing from a destructor during unwinding calls `std::terminate` — *don’t do this.*
+
+### 6.2 Conditional `noexcept`
+
+```cpp
+template <class T>
+struct Buffer {
+    Buffer(Buffer&&) noexcept(std::is_nothrow_move_constructible_v<T>);
+};
+```
+
+**Why it matters:** Standard containers prefer moving elements only if the move is `noexcept`; otherwise they may copy to preserve strong safety.
+
+### 6.3 Operator
+
+```cpp
+static_assert(noexcept(std::vector<int>{}.push_back(1)) == false);
+```
+
+---
+
+## 7) Exception Safety Guarantees
+
+* **Basic:** Invariants hold; no leaks; object remains usable (state may change)
+* **Strong:** Operation is transactional; either succeeds fully or has no effect
+* **Nothrow:** Operation never throws (guaranteed)
+
+### 7.1 Copy-and-swap idiom (achieving strong guarantee)
+
+```cpp
+class Widget {
+    std::string name_;
+public:
+    void set_name(std::string s) {       // strong guarantee
+        Widget tmp;                       // may throw inside std::string
+        tmp.name_ = std::move(s);
+        swap(tmp);                        // no-throw swap
+    }
+    void swap(Widget& other) noexcept { std::swap(name_, other.name_); }
+};
+```
+
+### 7.2 Commit/rollback pattern
+
+* Stage changes in temporaries (or a log), then commit in a no-throw step. If any stage fails, rollback using RAII.
+
+---
+
+## 8) Advanced Control Flow
+
+### 8.1 Rethrow, transformation, and logging
+
+```cpp
+try {
+    do_work();
+} catch (const parse_error& e) {
+    log(e);
+    throw;                // preserve original
+}
+
+try {
+    do_work();
+} catch (...) {
+    std::throw_with_nested(std::runtime_error{"work failed"});
+}
+```
+
+### 8.2 Handling nested exceptions
+
+```cpp
+void print_nested(const std::exception& e, int depth = 0) {
+    std::cerr << std::string(depth*2, ' ') << e.what() << '\n';
+    try { std::rethrow_if_nested(e); }
+    catch (const std::exception& inner) { print_nested(inner, depth+1); }
+    catch (...) {}
+}
+```
+
+### 8.3 Function-try-block (ctors especially)
+
+```cpp
+struct Resource { Resource(const char*); /* may throw */ };
+
+struct Gadget {
+    Resource r;
+    Gadget() try : r{"/path"} {
+        // body may also throw
+    } catch (const std::exception& e) {
+        // translate or enrich
+        throw std::runtime_error(std::string{"Gadget init failed: "} + e.what());
+    }
+};
+```
+
+---
+
+## 9) Exceptions & Destructors/Constructors
+
+* **Constructors:** If a member or base throws, already-constructed subobjects are destroyed. Use member ordering to control initialization.
+* **Destructors:** Do not throw. If cleanup can fail, provide `close()`/`commit()` that can throw *before* destruction; destructor should swallow/log only.
+* **Guideline:** If you must report failure from a destructor, catch internally and log; never let it escape during unwinding.
+
+---
+
+## 10) I/O, Memory, RTTI, and Filesystem
+
+### 10.1 Allocation
+
+```cpp
+try { auto p = std::make_unique<int[]>(10'000'000'000ULL); }
+catch (const std::bad_alloc&) { /* recover */ }
+
+int* q = new (std::nothrow) int[100];
+if (!q) { /* handle without exceptions */ }
+```
+
+### 10.2 Streams throwing
+
+```cpp
+std::ifstream in("data.txt");
+in.exceptions(std::ios::failbit | std::ios::badbit);
+try { int x; in >> x; }
+catch (const std::ios_base::failure& e) { /* handle */ }
+```
+
+### 10.3 Filesystem
+
+Many `std::filesystem` functions have both throwing and non-throwing overloads:
+
+```cpp
+namespace fs = std::filesystem;
+fs::create_directories("/tmp/a/b");                 // throws on error
+std::error_code ec; fs::create_directories("/x", ec); // no-throw; ec set
+```
+
+---
+
+## 11) `std::system_error`, `std::error_code`, and Friends
+
+* `std::error_code` wraps a numeric value + category (e.g., `generic_category()`, `system_category()`).
+* `std::system_error` carries an `error_code` *and* behaves like an exception.
+* Prefer **exceptions** for high-level operations; prefer **error\_code** at low-level boundaries where throwing may be undesirable.
+
+```cpp
+#include <system_error>
+#include <cerrno>
+
+void open_file(const char* path) {
+    if (/* ::open fails */) {
+        throw std::system_error(errno, std::generic_category(), "open failed");
+    }
+}
+```
+
+---
+
+## 12) Cross-Thread & Async Error Propagation
+
+### 12.1 `std::async` and futures
+
+```cpp
+auto fut = std::async(std::launch::async, []{
+    throw std::runtime_error("boom");
+});
+try { fut.get(); } // rethrows here
+catch (const std::exception& e) { /* handle */ }
+```
+
+### 12.2 Threads + `exception_ptr`
+
+```cpp
+std::exception_ptr ep;
+std::thread t([&]{
+    try { risky(); }
+    catch (...) { ep = std::current_exception(); }
+});
+t.join();
+if (ep) std::rethrow_exception(ep);
+```
+
+### 12.3 Nested exceptions (wrapping context)
+
+See §8.2 — essential for preserving causal chains across layers/threads.
+
+---
+
+## 13) Coroutines (C++20+) — Brief Note
+
+* Exceptions inside a coroutine propagate to the promise type; if unhandled, they surface when awaiting or destroying the coroutine handle.
+* Libraries typically store exceptions and rethrow at the suspension/resume boundary. Consult your coroutine library’s awaitable contract.
+
+---
+
+## 14) API Design Guidelines (Pragmatic)
+
+1. **Don’t throw from destructors** (esp. during unwinding). Prefer explicit `close()` that can throw.
+2. **Catch late, not early.** Let lower layers be exception-neutral; translate at module boundaries.
+3. **Prefer RAII.** If there’s a resource, wrap it.
+4. **Specify guarantees** (basic/strong/nothrow) in docs and enforce with tests.
+5. **Use `noexcept` deliberately.** Make moves/swaps `noexcept` where possible.
+6. **Choose the right channel:**
+
+   * **Exceptions:** rare, unrecoverable locally, long unwinds
+   * **`std::optional`/`std::expected`:** frequent/anticipated failures
+   * **`std::error_code`:** low-level, perf/ABI-sensitive, or non-throwing APIs
+7. **Don’t use exceptions for control flow** or common cases.
+8. **Be careful across ABI/language boundaries** (C, plugins); prefer error codes there.
+
+---
+
+## 15) Tooling & Build Flags
+
+* **GCC/Clang:** Exceptions on by default. Use `-fno-exceptions` to disable (not recommended broadly). ASan/UBSan don’t replace exceptions; they find bugs.
+* **MSVC:** Use `/EHsc` (C++ exceptions only) for standard behaviour; `/EHa` also catches SEH (Windows structured exceptions) at a cost.
+* **C++23 `<stacktrace>`:**
+
+```cpp
+#include <stacktrace>
+#include <exception>
+#include <iostream>
+#include <cstdlib>
+
+void my_terminate() {
+    std::cerr << "terminate called. stacktrace:\n" << std::stacktrace::current() << '\n';
+    std::quick_exit(1);
+}
+
+int main() {
+    std::set_terminate(my_terminate);
+    // ...
+}
+```
+
+---
+
+## 16) Testing & Debugging Exceptions
+
+* **GTest snippets:**
+
+```cpp
+EXPECT_THROW(parse(""), parse_error);
+EXPECT_NO_THROW(open_db(":memory:"));
+```
+
+* **Property test idea:** Mutation should not leak or corrupt state when exceptions are injected.
+* **Fault injection:** Custom allocators that throw after N allocations to verify strong guarantees.
+
+---
+
+## 17) End-to-End Example: Exception-Safe File Import
+
+**Goal:** Parse a CSV and upsert into a DB with strong guarantee: either all rows for a batch commit successfully, or none.
+
+**Sketch:**
+
+```cpp
+struct Transaction {
+    DB& db;
+    bool committed = false;
+    Transaction(DB& db): db(db) { db.begin(); }
+    ~Transaction() { if (!committed) db.rollback(); }
+    void commit() { db.commit(); committed = true; }
+};
+
+void import_batch(const std::filesystem::path& file, DB& db) {
+    Transaction tx{db};                     // RAII rollback on failure
+    File f{file.string().c_str(), "r"};    // RAII file
+
+    for (Row r : parse_csv(f.get())) {     // may throw parse_error
+        db.upsert(r);                       // may throw db_error
+    }
+    tx.commit();
+}
+```
+
+* **Properties:** No leaks; partial work rolled back via RAII; strong guarantee for the batch.
+
+---
+
+## 18) Common Pitfalls & How to Avoid Them
+
+* **Exception slicing:** Catch by reference, not by value.
+* **Catching `std::exception` too early:** You may swallow critical signals and hide failure context.
+* **Throwing from a destructor:** Leads to `std::terminate` during unwinding.
+* **Overusing `noexcept`:** Marking a function `noexcept` that can realistically fail forces termination on failure.
+* **Throwing raw strings/ints:** Use (or wrap into) `std::exception` types for interoperability.
+* **Re-throwing with a new exception while losing context:** Prefer `std::throw_with_nested`.
+
+---
+
+## 19) Patterns Catalog (Ready-to-Use)
+
+### 19.1 Translate low-level errno to exception
+
+```cpp
+int fd = ::open(path, O_RDONLY);
+if (fd == -1) {
+    throw std::system_error(errno, std::generic_category(), "open failed");
+}
+```
+
+### 19.2 Exception-neutral algorithms
+
+```cpp
+template <class It, class F>
+void for_each_throwing(It first, It last, F f) {
+    for (; first != last; ++first) f(*first); // do not catch here
+}
+```
+
+### 19.3 Strong guarantee via two-phase update
+
+```cpp
+void set_config(Config& c, Config newC) { // pass by value: copy first
+    validate(newC);                        // may throw
+    c.swap(newC);                          // commit is no-throw
+}
+```
+
+### 19.4 Guarding side effects
+
+```cpp
+struct DirGuard {
+    std::filesystem::path p;
+    bool committed = false;
+    DirGuard(const std::filesystem::path& p): p(p) { std::filesystem::create_directories(p); }
+    ~DirGuard() { if (!committed) std::filesystem::remove_all(p); }
+    void commit() noexcept { committed = true; }
+};
+```
+
+---
+
+## 20) Beyond Exceptions: `std::expected` (C++23)
+
+* **Idea:** Return either a value **or** an error in one type; no throw/unwind. Great for common, recoverable failures.
+
+```cpp
+#include <expected>
+
+std::expected<int, std::string> parse_int(std::string_view s) {
+    try {
+        return std::stoi(std::string{s});
+    } catch (const std::exception& e) {
+        return std::unexpected(std::string{"parse failed: "} + e.what());
+    }
+}
+
+auto r = parse_int("abc");
+if (!r) std::cerr << r.error();
+```
+
+* **Guideline:** Combine with exceptions: low-level or hot-path code may use `expected`; higher levels may convert to exceptions with context.
+
+---
+
+## 21) Lab Exercises (with Hints)
+
+> Solutions follow in §22. Encourage students to attempt first.
+
+1. **Warm-up:** Write a function that opens a file, reads an `int`, and returns it. Provide both a throwing version and a non-throwing version (`std::optional<int>`).
+2. **Custom exception:** Define `config_error` (derived from `std::runtime_error`) carrying a filename and line number. Throw it from a parser on invalid key.
+3. **RAII wrapper:** Implement a RAII guard for a `MUTEX*` C API with `lock(m)`/`unlock(m)` that may throw on lock failure. Ensure no deadlocks if `lock` throws.
+4. **Strong guarantee:** Implement `set_name(std::string)` on a class so it provides the strong guarantee. (Hint: copy-and-swap.)
+5. **`noexcept` & containers:** Create a type whose move constructor can throw and another whose move is `noexcept`. Compare `std::vector::push_back` reallocation behaviour.
+6. **I/O exceptions:** Configure an `ifstream` to throw on `failbit|badbit`. Demonstrate catching `ios_base::failure` and printing the path.
+7. **Nested exceptions:** Wrap a `parse()` error with context using `std::throw_with_nested` and print the chain.
+8. **Threads:** Start a `std::thread` that throws; capture via `exception_ptr` and rethrow in the main thread.
+9. **Transaction guard:** Mock a DB with `begin/commit/rollback`. Write `Transaction` RAII and an `import_batch()` function with strong guarantee.
+10. **Destructor hazard:** Create a class with a destructor that can fail. Show how to redesign to avoid throwing from the destructor while still reporting failures.
+11. **Filesystem dual APIs:** Use the throwing vs. non-throwing overloads of `std::filesystem::copy_file` and compare ergonomics.
+12. **`std::expected` bridge:** Implement a function that returns `expected<T, error_code>`; at a higher layer, convert error to `system_error` and throw.
+
+---
+
+## 22) Model Solutions (Selected)
+
+> Keep these hidden during labs; reveal as needed.
+
+**1. Throwing & non-throwing file read**
+
+```cpp
+int read_int_throwing(const std::filesystem::path& p) {
+    std::ifstream in(p);
+    if (!in) throw std::runtime_error("open failed");
+    int x{}; if (!(in >> x)) throw std::runtime_error("parse int failed");
+    return x;
+}
+
+std::optional<int> read_int_optional(const std::filesystem::path& p) {
+    std::ifstream in(p);
+    int x{}; if (in && (in >> x)) return x; else return std::nullopt;
+}
+```
+
+**3. Mutex guard**
+
+```cpp
+struct MutexGuard {
+    MUTEX* m;
+    explicit MutexGuard(MUTEX* m): m(m) {
+        if (!lock(m)) throw std::runtime_error("lock failed");
+    }
+    ~MutexGuard() { unlock(m); } // assume no-throw
+    MutexGuard(const MutexGuard&) = delete;
+    MutexGuard& operator=(const MutexGuard&) = delete;
+};
+```
+
+**5. `noexcept` effect**
+
+```cpp
+struct MightThrowMove {
+    MightThrowMove(MightThrowMove&&) { if (std::rand()%2) throw std::runtime_error("move failed"); }
+};
+
+struct NoThrowMove {
+    NoThrowMove(NoThrowMove&&) noexcept {}
+};
+```
+
+**7. Nested**
+
+```cpp
+try { parse(); }
+catch (...) { std::throw_with_nested(std::runtime_error("while parsing config.cfg")); }
+```
+
+**8. Threads**
+
+```cpp
+std::exception_ptr ep;
+std::thread t([&]{ try { work(); } catch (...) { ep = std::current_exception(); }});
+t.join(); if (ep) std::rethrow_exception(ep);
+```
+
+**9. Transaction** — see §17 for full sketch.
+
+---
+
+## 23) Mini-Quizzes (with Answers)
+
+1. **Q:** Why catch by `const&`?
+   **A:** Avoid slicing; preserve dynamic type; no copy.
+2. **Q:** What happens if a `noexcept` function throws?
+   **A:** `std::terminate` is called.
+3. **Q:** Which guarantee does `std::vector::push_back` provide?
+   **A:** Basic; but strong for reallocation only when moving elements is `noexcept`.
+4. **Q:** Is `throw()` the same as `noexcept(true)`?
+   **A:** Conceptually yes, but `throw()` is deprecated/removed; use `noexcept`.
+5. **Q:** Can a destructor be `noexcept(false)`?
+   **A:** Yes, but strongly discouraged; can cause termination during unwinding.
+
+---
+
+## 24) Cheat Sheet
+
+* Catch by `const&`; order from most to least derived; use `catch(...)` sparingly
+* RAII for every resource; prefer `noexcept` on move/swap
+* Guarantees: **basic** (invariants), **strong** (transactional), **nothrow** (never throws)
+* Use `std::throw_with_nested` + `rethrow_if_nested` to keep context
+* `noexcept` affects optimization (containers) and termination on throw
+* Prefer exceptions for rare, non-local recovery; prefer `expected`/`optional` for frequent failures
+* Never throw from destructors; use explicit `close()` that may throw
+
+---
+
+## 25) Practical Checklists
+
+**Before throwing:**
+
+* Is this truly exceptional? Is there a cheaper/clearer alternative?
+* Can you add contextual info (path, id, counts)?
+
+**When catching:**
+
+* Can you **recover** or only **log & rethrow**? Prefer the latter unless you truly fix the problem.
+* Are you catching at the right layer/boundary?
+
+**When designing types:**
+
+* Make `swap` and move ops `noexcept` if possible.
+* Document guarantees. Test with fault injection.
+
+---
+
+## 26) Ready-to-Teach Slide Outline (40–90 minutes)
+
+1. Motivation & models (5)
+2. Syntax review (10)
+3. RAII & unwinding (10)
+4. `noexcept` & guarantees (10)
+5. Design guidelines (10)
+6. Advanced patterns (10)
+7. Labs intro (choice of 2–3) (15)
+
+---
+
+## 27) Appendix: Diagnostics & Introspection
+
+* **Demangling types (GCC/Clang ABI):**
+
+```cpp
+#include <typeinfo>
+#include <cxxabi.h>
+std::string demangle(const std::type_info& t) {
+    int status{}; char* p = abi::__cxa_demangle(t.name(), nullptr, nullptr, &status);
+    std::string s = (status==0 && p) ? p : t.name();
+    std::free(p); return s;
+}
+```
+
+* **Printing nested exceptions:** see §8.2
+* **Top-level handler:** register `std::set_terminate` and log `std::stacktrace` (C++23) if available.
+
+---
+
+## 28) Additional Exercises for Mastery
+
+13. Build a small `http_client` facade that uses error codes at the socket layer and throws `HttpError` at the facade layer.
+14. Write an allocator that throws after the Nth allocation; validate your container type’s strong guarantee under reallocation.
+15. Refactor a library that throws raw strings to use a proper exception hierarchy.
+16. Implement a generic `scope_exit` (C++20 CTAD, movable, non-copyable).
+17. Use coroutines to implement a pipeline; propagate parse failures to the consumer with nested exceptions.
+18. Replace exceptions with `std::expected` in one module and measure instruction counts/hot-path performance.
+19. Explore `std::filesystem` error reporting differences across OSes using `error_code`.
+20. Build a tiny logger that records exception chains and stacktraces (C++23) to a file.
+
+---
+
+## 29) Suggested Reading & Study Paths
+
+* *RAII & resource management* — any modern C++ text (Scott Meyers, Herb Sutter talks)
+* *Error handling strategies* — look up “exception safety guarantees” and “exception neutrality” in reputable C++ references
+* *Modern stdlib types* — `std::expected`, `std::filesystem`, `std::system_error`
+
+---
+
+**End of Materials.**
+
+> Tip: Convert selected sections into hands-on lab sheets and assessments. Mix §21 labs with §23 quizzes for a full-day workshop.

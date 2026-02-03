@@ -1,0 +1,43 @@
+# Write your MySQL query statement below
+WITH AllDates AS (
+    SELECT DISTINCT spend_date FROM Spending
+),
+AllPlatforms AS (
+    SELECT 'desktop' AS platform
+    UNION ALL
+    SELECT 'mobile' AS platform
+    UNION ALL
+    SELECT 'both' AS platform
+),
+UserSpending AS (
+    SELECT
+        spend_date,
+        user_id,
+        SUM(CASE WHEN platform = 'mobile' THEN amount ELSE 0 END) AS mobile_amount,
+        SUM(CASE WHEN platform = 'desktop' THEN amount ELSE 0 END) AS desktop_amount
+    FROM Spending
+    GROUP BY spend_date, user_id
+),
+UserPlatform AS (
+    SELECT
+        spend_date,
+        user_id,
+        CASE
+            WHEN mobile_amount > 0 AND desktop_amount > 0 THEN 'both'
+            WHEN mobile_amount > 0 THEN 'mobile'
+            WHEN desktop_amount > 0 THEN 'desktop'
+        END AS platform,
+        mobile_amount + desktop_amount AS total_amount
+    FROM UserSpending
+)
+SELECT
+    ad.spend_date,
+    ap.platform,
+    COALESCE(SUM(up.total_amount), 0) AS total_amount,
+    COUNT(DISTINCT up.user_id) AS total_users
+FROM AllDates ad
+CROSS JOIN AllPlatforms ap
+LEFT JOIN UserPlatform up ON ad.spend_date = up.spend_date 
+    AND ap.platform = up.platform
+GROUP BY ad.spend_date, ap.platform
+ORDER BY ad.spend_date, ap.platform;

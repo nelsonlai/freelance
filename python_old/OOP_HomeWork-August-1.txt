@@ -1,0 +1,66 @@
+Homework 1: In python class, how many double underscore methods are available? What their purpose on each?
+
+Homework 2: Library Book Tracker (Class & Instance Methods)
+📌 Objective:
+Create a Book class that represents a book in a library system.
+
+✏️ Requirements:
+Attributes: title, author, year, is_checked_out (boolean)
+
+Method check_out() that marks the book as checked out
+
+Method check_in() that marks the book as available
+
+@classmethod to count how many books have been created
+
+🧪 Example:
+book1 = Book("1984", "George Orwell", 1949)
+book1.check_out()
+book1.check_in()
+Book.total_books_created()  # e.g., returns 1
+🏠 Homework 2: Animal Kingdom (Inheritance + Polymorphism)
+📌 Objective:
+Practice inheritance and method overriding using animals.
+
+✏️ Requirements:
+Create a base class Animal with method make_sound()
+
+Create subclasses Dog, Cat, Cow that override make_sound()
+
+Write a function speak_all(animals) that loops through a list and calls .make_sound() on each
+
+🧪 Example:
+animals = [Dog(), Cat(), Cow()]
+speak_all(animals)
+Expected output:
+
+Woof!
+Meow!
+Moo!
+🏠 Homework 3: Banking System (Encapsulation + Static Method)
+📌 Objective:
+Use encapsulation and static methods in a banking context.
+
+✏️ Requirements:
+Class BankAccount with private balance attribute __balance
+
+Methods: deposit(amount), withdraw(amount), get_balance()
+
+Static method validate_amount(amount) that returns True if amount > 0
+
+🧪 Example:
+acc = BankAccount("Alice")
+acc.deposit(500)
+acc.withdraw(200)
+print(acc.get_balance())  # Output: 300
+
+## In a class,what __xxx__ do we have? and what is it for on each?
+__init__
+__str__
+__repr__
+__len__
+.....
+.....
+
+** Dimanon Circle - the problem of multiple inheritances
+** UML Design

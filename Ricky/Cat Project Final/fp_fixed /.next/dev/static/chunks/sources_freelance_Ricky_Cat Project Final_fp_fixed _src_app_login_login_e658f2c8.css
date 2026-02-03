@@ -1,0 +1,106 @@
+/* [project]/sources/freelance/Ricky/Cat Project Final/fp_fixed /src/app/login/login.css [app-client] (css) */
+:root {
+  --bg: #faf6f0;
+  --orange: #f58b46;
+  --orange-dark: #e06e1c;
+  --border: #e7e3dc;
+  --text: #333;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  font-family: Inter, Noto Sans TC, sans-serif;
+}
+
+.login-container {
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  display: flex;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 8px 20px #00000014;
+}
+
+.left {
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  padding: 60px 50px;
+  display: flex;
+}
+
+.left h1 {
+  color: var(--orange-dark);
+  margin-bottom: 12px;
+  font-size: 1.8rem;
+}
+
+.subtitle {
+  color: #777;
+  margin-bottom: 32px;
+}
+
+form label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  display: block;
+}
+
+form input {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px 14px;
+  font-size: .95rem;
+}
+
+form input:focus {
+  border-color: var(--orange);
+  outline: none;
+  box-shadow: 0 0 0 3px #f58b4626;
+}
+
+button {
+  background: var(--orange);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+button:hover {
+  background: var(--orange-dark);
+}
+
+.right {
+  background: var(--bg);
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.cat-image {
+  border-radius: 12px;
+  width: 80%;
+  max-width: 600px;
+}
+
+/*# sourceMappingURL=sources_freelance_Ricky_Cat%20Project%20Final_fp_fixed%20_src_app_login_login_e658f2c8.css.map*/

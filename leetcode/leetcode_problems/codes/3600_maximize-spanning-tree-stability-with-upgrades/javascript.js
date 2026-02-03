@@ -1,0 +1,19 @@
+/**
+ * Problem: Maximize Spanning Tree Stability with Upgrades
+ * Difficulty: Hard
+ * Tags: tree, graph, greedy, search
+ * 
+ * Approach: DFS or BFS traversal
+ * Time Complexity: O(n) where n is number of nodes
+ * Space Complexity: O(h) for recursion stack where h is height
+ */
+
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {number} k
+ * @return {number}
+ */
+var maxStability = function(n, edges, k) {
+    
+};

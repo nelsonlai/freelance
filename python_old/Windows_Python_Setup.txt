@@ -1,0 +1,23 @@
+
+Quick start (PowerShell)
+powershell
+
+# 1) Check Python is installed
+py --version          # or: python --version
+
+# 2) Create a project folder and a venv inside it
+mkdir myproject; cd myproject
+py -m venv .venv      # creates a local env in .venv/
+
+# 3) Activate the venv
+.\.venv\Scripts\Activate.ps1
+
+# 4) Upgrade pip and install packages
+python -m pip install --upgrade pip
+pip install requests  # example
+
+# 5) Save dependencies
+pip freeze > requirements.txt
+
+# 6) Deactivate when done
+deactivate

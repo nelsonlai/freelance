@@ -1,0 +1,24 @@
+/**
+ * Problem: Check If All 1's Are at Least Length K Places Away
+ * Difficulty: Easy
+ * Tags: array
+ * 
+ * Approach: Track last position of 1, check distance to current 1
+ * Time Complexity: O(n) where n is length of nums
+ * Space Complexity: O(1)
+ */
+
+class Solution {
+    public boolean kLengthApart(int[] nums, int k) {
+        int lastOne = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                if (i - lastOne <= k) {
+                    return false;
+                }
+                lastOne = i;
+            }
+        }
+        return true;
+    }
+}

@@ -1,0 +1,13 @@
+// Problem: Find Eventual Safe States
+// Difficulty: Medium
+// Tags: array, graph, sort, search
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(1) to O(n) depending on approach
+
+impl Solution {
+    pub fn eventual_safe_nodes(graph: Vec<Vec<i32>>) -> Vec<i32> {
+        
+    }
+}

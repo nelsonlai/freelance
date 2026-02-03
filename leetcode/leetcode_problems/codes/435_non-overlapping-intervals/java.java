@@ -1,0 +1,34 @@
+/**
+ * Problem: Non-overlapping Intervals
+ * Difficulty: Medium
+ * Tags: array, dp, greedy, sort
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) or O(n * m) for DP table
+ */
+
+import java.util.*;
+
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        if (intervals.length == 0) {
+            return 0;
+        }
+        
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1]));
+        
+        int count = 0;
+        int end = intervals[0][1];
+        
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] < end) {
+                count++;
+            } else {
+                end = intervals[i][1];
+            }
+        }
+        
+        return count;
+    }
+}

@@ -1,0 +1,16 @@
+/*
+ * Problem: Check if a String Is an Acronym of Words
+ * Difficulty: Easy
+ * Tags: array, string
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+class Solution {
+public:
+    bool isAcronym(vector<string>& words, string s) {
+        
+    }
+};

@@ -1,0 +1,17 @@
+/**
+ * Problem: Queue Reconstruction by Height
+ * Difficulty: Medium
+ * Tags: array, tree, sort, queue
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(h) for recursion stack where h is height
+ */
+
+/**
+ * @param {number[][]} people
+ * @return {number[][]}
+ */
+var reconstructQueue = function(people) {
+    
+};

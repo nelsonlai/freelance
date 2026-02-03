@@ -1,0 +1,13 @@
+/**
+ * Problem: Truncate Sentence
+ * Difficulty: Easy
+ * Tags: array, string
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+function truncateSentence(s: string, k: number): string {
+    
+};

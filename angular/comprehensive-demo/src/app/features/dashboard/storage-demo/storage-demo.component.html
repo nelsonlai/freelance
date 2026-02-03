@@ -1,0 +1,80 @@
+<div class="storage-demo-container">
+  <h1>Storage APIs Demo</h1>
+  <p>This component demonstrates LocalStorage, SessionStorage, Cookies, and IndexedDB</p>
+
+  <div class="input-section">
+    <h2>Store Data</h2>
+    <div class="form-group">
+      <label>Key:</label>
+      <input type="text" [(ngModel)]="storageData.key" placeholder="Enter key">
+    </div>
+    <div class="form-group">
+      <label>Value:</label>
+      <input type="text" [(ngModel)]="storageData.value" placeholder="Enter value">
+    </div>
+  </div>
+
+  <div class="storage-sections">
+    <!-- LocalStorage Section -->
+    <div class="storage-section">
+      <h3>LocalStorage</h3>
+      <p>Persists until explicitly cleared</p>
+      <div class="actions">
+        <button class="btn btn-primary" (click)="saveToLocalStorage()">Save</button>
+        <button class="btn btn-secondary" (click)="loadLocalStorageData()">Load</button>
+        <button class="btn btn-danger" (click)="clearLocalStorage()">Clear All</button>
+      </div>
+      <div class="data-display" *ngIf="localStorageData">
+        <strong>Value:</strong> {{ localStorageData }}
+      </div>
+    </div>
+
+    <!-- SessionStorage Section -->
+    <div class="storage-section">
+      <h3>SessionStorage</h3>
+      <p>Cleared when tab closes</p>
+      <div class="actions">
+        <button class="btn btn-primary" (click)="saveToSessionStorage()">Save</button>
+        <button class="btn btn-secondary" (click)="loadSessionStorageData()">Load</button>
+        <button class="btn btn-danger" (click)="clearSessionStorage()">Clear All</button>
+      </div>
+      <div class="data-display" *ngIf="sessionStorageData">
+        <strong>Value:</strong> {{ sessionStorageData }}
+      </div>
+    </div>
+
+    <!-- Cookies Section -->
+    <div class="storage-section">
+      <h3>Cookies</h3>
+      <p>Sent with HTTP requests</p>
+      <div class="actions">
+        <button class="btn btn-primary" (click)="saveToCookie()">Save</button>
+        <button class="btn btn-secondary" (click)="loadCookieData()">Load</button>
+        <button class="btn btn-danger" (click)="removeCookie()">Remove</button>
+      </div>
+      <div class="data-display" *ngIf="cookieData">
+        <strong>Value:</strong> {{ cookieData }}
+      </div>
+    </div>
+
+    <!-- IndexedDB Section -->
+    <div class="storage-section">
+      <h3>IndexedDB</h3>
+      <p>Large structured data storage</p>
+      <div class="actions">
+        <button class="btn btn-primary" (click)="saveToIndexedDB()">Save</button>
+        <button class="btn btn-secondary" (click)="loadIndexedDBData()">Load All</button>
+        <button class="btn btn-danger" (click)="clearIndexedDB()">Clear All</button>
+      </div>
+      <div class="data-display" *ngIf="indexedDBData.length > 0">
+        <strong>Records:</strong>
+        <ul>
+          <li *ngFor="let item of indexedDBData">
+            {{ item.key }}: {{ item.value }} ({{ item.timestamp }})
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+

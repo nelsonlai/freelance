@@ -1,0 +1,511 @@
+% Vicon Motion Capture System Simulink Model Generator
+% ===================================================
+%
+% This script generates a Simulink model for Vicon motion capture system
+% simulation including:
+% - Position and orientation tracking
+% - Realistic sensor noise and latency
+% - Data filtering and processing
+% - Multiple subject tracking
+% - Coordinate system transformations
+%
+% Author: [Your Name]
+% Date: [Current Date]
+% License: MIT
+
+function create_vicon_simulation_model()
+    % Create new Simulink model
+    model_name = 'vicon_simulation';
+    new_system(model_name);
+    open_system(model_name);
+    
+    % Set model parameters
+    set_param(model_name, 'Solver', 'ode45');
+    set_param(model_name, 'StopTime', '50');
+    set_param(model_name, 'FixedStep', '0.01');
+    
+    % Add true position input (from quadrotor dynamics)
+    add_block('simulink/Sources/Sine Wave', [model_name '/True_Position_X']);
+    add_block('simulink/Sources/Sine Wave', [model_name '/True_Position_Y']);
+    add_block('simulink/Sources/Sine Wave', [model_name '/True_Position_Z']);
+    
+    % Configure position inputs
+    set_param([model_name '/True_Position_X'], 'Amplitude', '1.0');
+    set_param([model_name '/True_Position_X'], 'Frequency', '0.5');
+    set_param([model_name '/True_Position_Y'], 'Amplitude', '0.5');
+    set_param([model_name '/True_Position_Y'], 'Frequency', '0.3');
+    set_param([model_name '/True_Position_Z'], 'Amplitude', '0.3');
+    set_param([model_name '/True_Position_Z'], 'Frequency', '0.2');
+    set_param([model_name '/True_Position_Z'], 'Bias', '1.0');
+    
+    % Add true attitude input
+    add_block('simulink/Sources/Sine Wave', [model_name '/True_Roll']);
+    add_block('simulink/Sources/Sine Wave', [model_name '/True_Pitch']);
+    add_block('simulink/Sources/Sine Wave', [model_name '/True_Yaw']);
+    
+    % Configure attitude inputs
+    set_param([model_name '/True_Roll'], 'Amplitude', '0.1');
+    set_param([model_name '/True_Roll'], 'Frequency', '1.0');
+    set_param([model_name '/True_Pitch'], 'Amplitude', '0.1');
+    set_param([model_name '/True_Pitch'], 'Frequency', '0.8');
+    set_param([model_name '/True_Yaw'], 'Amplitude', '0.2');
+    set_param([model_name '/True_Yaw'], 'Frequency', '0.4');
+    
+    % Add Vicon sensor subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Vicon_Sensor']);
+    create_vicon_sensor_subsystem([model_name '/Vicon_Sensor']);
+    
+    % Add data processing subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Data_Processing']);
+    create_data_processing_subsystem([model_name '/Data_Processing']);
+    
+    % Add coordinate transformation subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Coordinate_Transform']);
+    create_coordinate_transform_subsystem([model_name '/Coordinate_Transform']);
+    
+    % Add multiple subject tracking subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Multi_Subject_Tracking']);
+    create_multi_subject_tracking_subsystem([model_name '/Multi_Subject_Tracking']);
+    
+    % Add scopes for visualization
+    add_block('simulink/Sinks/Scope', [model_name '/True_Position_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Measured_Position_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/True_Attitude_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Measured_Attitude_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Tracking_Error_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Data_Rate_Scope']);
+    
+    % Add To Workspace blocks for data logging
+    add_block('simulink/Sinks/To Workspace', [model_name '/True_Position_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Measured_Position_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/True_Attitude_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Measured_Attitude_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Tracking_Error_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Data_Rate_Data']);
+    
+    % Configure To Workspace blocks
+    set_param([model_name '/True_Position_Data'], 'VariableName', 'true_position_data');
+    set_param([model_name '/Measured_Position_Data'], 'VariableName', 'measured_position_data');
+    set_param([model_name '/True_Attitude_Data'], 'VariableName', 'true_attitude_data');
+    set_param([model_name '/Measured_Attitude_Data'], 'VariableName', 'measured_attitude_data');
+    set_param([model_name '/Tracking_Error_Data'], 'VariableName', 'tracking_error_data');
+    set_param([model_name '/Data_Rate_Data'], 'VariableName', 'data_rate_data');
+    
+    % Connect blocks
+    add_line(model_name, 'True_Position_X/1', 'Vicon_Sensor/1');
+    add_line(model_name, 'True_Position_Y/1', 'Vicon_Sensor/2');
+    add_line(model_name, 'True_Position_Z/1', 'Vicon_Sensor/3');
+    add_line(model_name, 'True_Roll/1', 'Vicon_Sensor/4');
+    add_line(model_name, 'True_Pitch/1', 'Vicon_Sensor/5');
+    add_line(model_name, 'True_Yaw/1', 'Vicon_Sensor/6');
+    
+    add_line(model_name, 'Vicon_Sensor/1', 'Data_Processing/1');
+    add_line(model_name, 'Data_Processing/1', 'Coordinate_Transform/1');
+    add_line(model_name, 'Coordinate_Transform/1', 'Multi_Subject_Tracking/1');
+    
+    % Connect to scopes
+    add_line(model_name, 'True_Position_X/1', 'True_Position_Scope/1');
+    add_line(model_name, 'True_Position_Y/1', 'True_Position_Scope/2');
+    add_line(model_name, 'True_Position_Z/1', 'True_Position_Scope/3');
+    
+    add_line(model_name, 'Multi_Subject_Tracking/1', 'Measured_Position_Scope/1');
+    add_line(model_name, 'Multi_Subject_Tracking/2', 'Measured_Position_Scope/2');
+    add_line(model_name, 'Multi_Subject_Tracking/3', 'Measured_Position_Scope/3');
+    
+    add_line(model_name, 'True_Roll/1', 'True_Attitude_Scope/1');
+    add_line(model_name, 'True_Pitch/1', 'True_Attitude_Scope/2');
+    add_line(model_name, 'True_Yaw/1', 'True_Attitude_Scope/3');
+    
+    add_line(model_name, 'Multi_Subject_Tracking/4', 'Measured_Attitude_Scope/1');
+    add_line(model_name, 'Multi_Subject_Tracking/5', 'Measured_Attitude_Scope/2');
+    add_line(model_name, 'Multi_Subject_Tracking/6', 'Measured_Attitude_Scope/3');
+    
+    add_line(model_name, 'Data_Processing/2', 'Tracking_Error_Scope/1');
+    add_line(model_name, 'Data_Processing/3', 'Data_Rate_Scope/1');
+    
+    % Connect to data logging
+    add_line(model_name, 'True_Position_X/1', 'True_Position_Data/1');
+    add_line(model_name, 'True_Position_Y/1', 'True_Position_Data/2');
+    add_line(model_name, 'True_Position_Z/1', 'True_Position_Data/3');
+    
+    add_line(model_name, 'Multi_Subject_Tracking/1', 'Measured_Position_Data/1');
+    add_line(model_name, 'Multi_Subject_Tracking/2', 'Measured_Position_Data/2');
+    add_line(model_name, 'Multi_Subject_Tracking/3', 'Measured_Position_Data/3');
+    
+    add_line(model_name, 'True_Roll/1', 'True_Attitude_Data/1');
+    add_line(model_name, 'True_Pitch/1', 'True_Attitude_Data/2');
+    add_line(model_name, 'True_Yaw/1', 'True_Attitude_Data/3');
+    
+    add_line(model_name, 'Multi_Subject_Tracking/4', 'Measured_Attitude_Data/1');
+    add_line(model_name, 'Multi_Subject_Tracking/5', 'Measured_Attitude_Data/2');
+    add_line(model_name, 'Multi_Subject_Tracking/6', 'Measured_Attitude_Data/3');
+    
+    add_line(model_name, 'Data_Processing/2', 'Tracking_Error_Data/1');
+    add_line(model_name, 'Data_Processing/3', 'Data_Rate_Data/1');
+    
+    % Position blocks
+    pos_x = 50; pos_y = 50;
+    set_param([model_name '/True_Position_X'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 50; pos_y = 100;
+    set_param([model_name '/True_Position_Y'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 50; pos_y = 150;
+    set_param([model_name '/True_Position_Z'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 50; pos_y = 200;
+    set_param([model_name '/True_Roll'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 50; pos_y = 250;
+    set_param([model_name '/True_Pitch'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 50; pos_y = 300;
+    set_param([model_name '/True_Yaw'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 150; pos_y = 175;
+    set_param([model_name '/Vicon_Sensor'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    pos_x = 300; pos_y = 175;
+    set_param([model_name '/Data_Processing'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    pos_x = 450; pos_y = 175;
+    set_param([model_name '/Coordinate_Transform'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    pos_x = 600; pos_y = 175;
+    set_param([model_name '/Multi_Subject_Tracking'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    % Position scopes
+    pos_x = 50; pos_y = 400;
+    set_param([model_name '/True_Position_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 150; pos_y = 400;
+    set_param([model_name '/Measured_Position_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 250; pos_y = 400;
+    set_param([model_name '/True_Attitude_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 350; pos_y = 400;
+    set_param([model_name '/Measured_Attitude_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 450; pos_y = 400;
+    set_param([model_name '/Tracking_Error_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 550; pos_y = 400;
+    set_param([model_name '/Data_Rate_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    % Position data logging blocks
+    pos_x = 50; pos_y = 500;
+    set_param([model_name '/True_Position_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 150; pos_y = 500;
+    set_param([model_name '/Measured_Position_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 250; pos_y = 500;
+    set_param([model_name '/True_Attitude_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 350; pos_y = 500;
+    set_param([model_name '/Measured_Attitude_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 450; pos_y = 500;
+    set_param([model_name '/Tracking_Error_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 550; pos_y = 500;
+    set_param([model_name '/Data_Rate_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    % Save the model
+    save_system(model_name);
+    fprintf('Vicon Simulation model created successfully: %s.slx\n', model_name);
+end
+
+function create_vicon_sensor_subsystem(subsystem_name)
+    % Create Vicon sensor subsystem
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_X']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_Y']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_Z']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Roll']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Pitch']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Yaw']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Measured_Data']);
+    
+    % Add sensor noise for each measurement
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Position_Noise_X']);
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Position_Noise_Y']);
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Position_Noise_Z']);
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Attitude_Noise_Roll']);
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Attitude_Noise_Pitch']);
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Attitude_Noise_Yaw']);
+    
+    % Configure noise parameters
+    set_param([subsystem_name '/Position_Noise_X'], 'Mean', '0');
+    set_param([subsystem_name '/Position_Noise_X'], 'Variance', '0.001');
+    set_param([subsystem_name '/Position_Noise_Y'], 'Mean', '0');
+    set_param([subsystem_name '/Position_Noise_Y'], 'Variance', '0.001');
+    set_param([subsystem_name '/Position_Noise_Z'], 'Mean', '0');
+    set_param([subsystem_name '/Position_Noise_Z'], 'Variance', '0.001');
+    set_param([subsystem_name '/Attitude_Noise_Roll'], 'Mean', '0');
+    set_param([subsystem_name '/Attitude_Noise_Roll'], 'Variance', '0.0001');
+    set_param([subsystem_name '/Attitude_Noise_Pitch'], 'Mean', '0');
+    set_param([subsystem_name '/Attitude_Noise_Pitch'], 'Variance', '0.0001');
+    set_param([subsystem_name '/Attitude_Noise_Yaw'], 'Mean', '0');
+    set_param([subsystem_name '/Attitude_Noise_Yaw'], 'Variance', '0.0001');
+    
+    % Add noise addition blocks
+    add_block('simulink/Math Operations/Add', [subsystem_name '/Position_Add_X']);
+    add_block('simulink/Math Operations/Add', [subsystem_name '/Position_Add_Y']);
+    add_block('simulink/Math Operations/Add', [subsystem_name '/Position_Add_Z']);
+    add_block('simulink/Math Operations/Add', [subsystem_name '/Attitude_Add_Roll']);
+    add_block('simulink/Math Operations/Add', [subsystem_name '/Attitude_Add_Pitch']);
+    add_block('simulink/Math Operations/Add', [subsystem_name '/Attitude_Add_Yaw']);
+    
+    % Add latency simulation
+    add_block('simulink/Continuous/Transport Delay', [subsystem_name '/Position_Delay_X']);
+    add_block('simulink/Continuous/Transport Delay', [subsystem_name '/Position_Delay_Y']);
+    add_block('simulink/Continuous/Transport Delay', [subsystem_name '/Position_Delay_Z']);
+    add_block('simulink/Continuous/Transport Delay', [subsystem_name '/Attitude_Delay_Roll']);
+    add_block('simulink/Continuous/Transport Delay', [subsystem_name '/Attitude_Delay_Pitch']);
+    add_block('simulink/Continuous/Transport Delay', [subsystem_name '/Attitude_Delay_Yaw']);
+    
+    % Configure delays (typical Vicon latency: 10-20ms)
+    set_param([subsystem_name '/Position_Delay_X'], 'DelayTime', '0.015');
+    set_param([subsystem_name '/Position_Delay_Y'], 'DelayTime', '0.015');
+    set_param([subsystem_name '/Position_Delay_Z'], 'DelayTime', '0.015');
+    set_param([subsystem_name '/Attitude_Delay_Roll'], 'DelayTime', '0.015');
+    set_param([subsystem_name '/Attitude_Delay_Pitch'], 'DelayTime', '0.015');
+    set_param([subsystem_name '/Attitude_Delay_Yaw'], 'DelayTime', '0.015');
+    
+    % Add multiplexer for output
+    add_block('simulink/Signal Routing/Mux', [subsystem_name '/Output_Mux']);
+    set_param([subsystem_name '/Output_Mux'], 'Inputs', '6');
+    
+    % Connect noise addition
+    add_line(subsystem_name, 'Position_X/1', 'Position_Add_X/1');
+    add_line(subsystem_name, 'Position_Noise_X/1', 'Position_Add_X/2');
+    
+    add_line(subsystem_name, 'Position_Y/1', 'Position_Add_Y/1');
+    add_line(subsystem_name, 'Position_Noise_Y/1', 'Position_Add_Y/2');
+    
+    add_line(subsystem_name, 'Position_Z/1', 'Position_Add_Z/1');
+    add_line(subsystem_name, 'Position_Noise_Z/1', 'Position_Add_Z/2');
+    
+    add_line(subsystem_name, 'Roll/1', 'Attitude_Add_Roll/1');
+    add_line(subsystem_name, 'Attitude_Noise_Roll/1', 'Attitude_Add_Roll/2');
+    
+    add_line(subsystem_name, 'Pitch/1', 'Attitude_Add_Pitch/1');
+    add_line(subsystem_name, 'Attitude_Noise_Pitch/1', 'Attitude_Add_Pitch/2');
+    
+    add_line(subsystem_name, 'Yaw/1', 'Attitude_Add_Yaw/1');
+    add_line(subsystem_name, 'Attitude_Noise_Yaw/1', 'Attitude_Add_Yaw/2');
+    
+    % Connect delays
+    add_line(subsystem_name, 'Position_Add_X/1', 'Position_Delay_X/1');
+    add_line(subsystem_name, 'Position_Add_Y/1', 'Position_Delay_Y/1');
+    add_line(subsystem_name, 'Position_Add_Z/1', 'Position_Delay_Z/1');
+    add_line(subsystem_name, 'Attitude_Add_Roll/1', 'Attitude_Delay_Roll/1');
+    add_line(subsystem_name, 'Attitude_Add_Pitch/1', 'Attitude_Delay_Pitch/1');
+    add_line(subsystem_name, 'Attitude_Add_Yaw/1', 'Attitude_Delay_Yaw/1');
+    
+    % Connect to output mux
+    add_line(subsystem_name, 'Position_Delay_X/1', 'Output_Mux/1');
+    add_line(subsystem_name, 'Position_Delay_Y/1', 'Output_Mux/2');
+    add_line(subsystem_name, 'Position_Delay_Z/1', 'Output_Mux/3');
+    add_line(subsystem_name, 'Attitude_Delay_Roll/1', 'Output_Mux/4');
+    add_line(subsystem_name, 'Attitude_Delay_Pitch/1', 'Output_Mux/5');
+    add_line(subsystem_name, 'Attitude_Delay_Yaw/1', 'Output_Mux/6');
+    
+    add_line(subsystem_name, 'Output_Mux/1', 'Measured_Data/1');
+end
+
+function create_data_processing_subsystem(subsystem_name)
+    % Create data processing subsystem
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Raw_Data']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Processed_Data']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Tracking_Error']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Data_Rate']);
+    
+    % Add demultiplexer for raw data
+    add_block('simulink/Signal Routing/Demux', [subsystem_name '/Data_Demux']);
+    set_param([subsystem_name '/Data_Demux'], 'Outputs', '6');
+    
+    % Add low-pass filters for noise reduction
+    add_block('simulink/Continuous/Transfer Fcn', [subsystem_name '/Position_Filter_X']);
+    add_block('simulink/Continuous/Transfer Fcn', [subsystem_name '/Position_Filter_Y']);
+    add_block('simulink/Continuous/Transfer Fcn', [subsystem_name '/Position_Filter_Z']);
+    add_block('simulink/Continuous/Transfer Fcn', [subsystem_name '/Attitude_Filter_Roll']);
+    add_block('simulink/Continuous/Transfer Fcn', [subsystem_name '/Attitude_Filter_Pitch']);
+    add_block('simulink/Continuous/Transfer Fcn', [subsystem_name '/Attitude_Filter_Yaw']);
+    
+    % Configure filters (low-pass with cutoff frequency)
+    set_param([subsystem_name '/Position_Filter_X'], 'Numerator', '[1]');
+    set_param([subsystem_name '/Position_Filter_X'], 'Denominator', '[0.01 1]');
+    set_param([subsystem_name '/Position_Filter_Y'], 'Numerator', '[1]');
+    set_param([subsystem_name '/Position_Filter_Y'], 'Denominator', '[0.01 1]');
+    set_param([subsystem_name '/Position_Filter_Z'], 'Numerator', '[1]');
+    set_param([subsystem_name '/Position_Filter_Z'], 'Denominator', '[0.01 1]');
+    set_param([subsystem_name '/Attitude_Filter_Roll'], 'Numerator', '[1]');
+    set_param([subsystem_name '/Attitude_Filter_Roll'], 'Denominator', '[0.005 1]');
+    set_param([subsystem_name '/Attitude_Filter_Pitch'], 'Numerator', '[1]');
+    set_param([subsystem_name '/Attitude_Filter_Pitch'], 'Denominator', '[0.005 1]');
+    set_param([subsystem_name '/Attitude_Filter_Yaw'], 'Numerator', '[1]');
+    set_param([subsystem_name '/Attitude_Filter_Yaw'], 'Denominator', '[0.005 1]');
+    
+    % Add outlier detection
+    add_block('simulink/Math Operations/Abs', [subsystem_name '/Error_Abs']);
+    add_block('simulink/Logic and Bit Operations/Compare To Constant', [subsystem_name '/Outlier_Check']);
+    add_block('simulink/Signal Routing/Switch', [subsystem_name '/Outlier_Switch']);
+    
+    set_param([subsystem_name '/Outlier_Check'], 'const', '0.1');
+    set_param([subsystem_name '/Outlier_Check'], 'relop', '>');
+    set_param([subsystem_name '/Outlier_Switch'], 'Criteria', 'u2 ~= 0');
+    
+    % Add data rate calculation
+    add_block('simulink/Sources/Clock', [subsystem_name '/Clock']);
+    add_block('simulink/Continuous/Transfer Fcn', [subsystem_name '/Rate_Filter']);
+    set_param([subsystem_name '/Rate_Filter'], 'Numerator', '[1]');
+    set_param([subsystem_name '/Rate_Filter'], 'Denominator', '[0.1 1]');
+    
+    % Add multiplexer for processed data
+    add_block('simulink/Signal Routing/Mux', [subsystem_name '/Processed_Mux']);
+    set_param([subsystem_name '/Processed_Mux'], 'Inputs', '6');
+    
+    % Connect data demux
+    add_line(subsystem_name, 'Raw_Data/1', 'Data_Demux/1');
+    
+    % Connect filters
+    add_line(subsystem_name, 'Data_Demux/1', 'Position_Filter_X/1');
+    add_line(subsystem_name, 'Data_Demux/2', 'Position_Filter_Y/1');
+    add_line(subsystem_name, 'Data_Demux/3', 'Position_Filter_Z/1');
+    add_line(subsystem_name, 'Data_Demux/4', 'Attitude_Filter_Roll/1');
+    add_line(subsystem_name, 'Data_Demux/5', 'Attitude_Filter_Pitch/1');
+    add_line(subsystem_name, 'Data_Demux/6', 'Attitude_Filter_Yaw/1');
+    
+    % Connect outlier detection
+    add_line(subsystem_name, 'Position_Filter_X/1', 'Error_Abs/1');
+    add_line(subsystem_name, 'Error_Abs/1', 'Outlier_Check/1');
+    add_line(subsystem_name, 'Outlier_Check/1', 'Outlier_Switch/1');
+    add_line(subsystem_name, 'Position_Filter_X/1', 'Outlier_Switch/2');
+    
+    % Connect data rate
+    add_line(subsystem_name, 'Clock/1', 'Rate_Filter/1');
+    
+    % Connect to processed mux
+    add_line(subsystem_name, 'Outlier_Switch/1', 'Processed_Mux/1');
+    add_line(subsystem_name, 'Position_Filter_Y/1', 'Processed_Mux/2');
+    add_line(subsystem_name, 'Position_Filter_Z/1', 'Processed_Mux/3');
+    add_line(subsystem_name, 'Attitude_Filter_Roll/1', 'Processed_Mux/4');
+    add_line(subsystem_name, 'Attitude_Filter_Pitch/1', 'Processed_Mux/5');
+    add_line(subsystem_name, 'Attitude_Filter_Yaw/1', 'Processed_Mux/6');
+    
+    % Connect outputs
+    add_line(subsystem_name, 'Processed_Mux/1', 'Processed_Data/1');
+    add_line(subsystem_name, 'Error_Abs/1', 'Tracking_Error/1');
+    add_line(subsystem_name, 'Rate_Filter/1', 'Data_Rate/1');
+end
+
+function create_coordinate_transform_subsystem(subsystem_name)
+    % Create coordinate transformation subsystem
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Input_Data']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Transformed_Data']);
+    
+    % Add coordinate transformation blocks
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Translation_X']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Translation_Y']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Translation_Z']);
+    
+    % Add rotation matrix components
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Cos_Roll']);
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Sin_Roll']);
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Cos_Pitch']);
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Sin_Pitch']);
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Cos_Yaw']);
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Sin_Yaw']);
+    
+    % Configure trigonometric functions
+    set_param([subsystem_name '/Cos_Roll'], 'Function', 'cos');
+    set_param([subsystem_name '/Sin_Roll'], 'Function', 'sin');
+    set_param([subsystem_name '/Cos_Pitch'], 'Function', 'cos');
+    set_param([subsystem_name '/Sin_Pitch'], 'Function', 'sin');
+    set_param([subsystem_name '/Cos_Yaw'], 'Function', 'cos');
+    set_param([subsystem_name '/Sin_Yaw'], 'Function', 'sin');
+    
+    % Add demultiplexer for input data
+    add_block('simulink/Signal Routing/Demux', [subsystem_name '/Input_Demux']);
+    set_param([subsystem_name '/Input_Demux'], 'Outputs', '6');
+    
+    % Add multiplexer for output data
+    add_block('simulink/Signal Routing/Mux', [subsystem_name '/Output_Mux']);
+    set_param([subsystem_name '/Output_Mux'], 'Inputs', '6');
+    
+    % Connect input demux
+    add_line(subsystem_name, 'Input_Data/1', 'Input_Demux/1');
+    
+    % Connect translation
+    add_line(subsystem_name, 'Input_Demux/1', 'Translation_X/1');
+    add_line(subsystem_name, 'Input_Demux/2', 'Translation_Y/1');
+    add_line(subsystem_name, 'Input_Demux/3', 'Translation_Z/1');
+    
+    % Connect rotation
+    add_line(subsystem_name, 'Input_Demux/4', 'Cos_Roll/1');
+    add_line(subsystem_name, 'Input_Demux/4', 'Sin_Roll/1');
+    add_line(subsystem_name, 'Input_Demux/5', 'Cos_Pitch/1');
+    add_line(subsystem_name, 'Input_Demux/5', 'Sin_Pitch/1');
+    add_line(subsystem_name, 'Input_Demux/6', 'Cos_Yaw/1');
+    add_line(subsystem_name, 'Input_Demux/6', 'Sin_Yaw/1');
+    
+    % Connect to output mux
+    add_line(subsystem_name, 'Translation_X/1', 'Output_Mux/1');
+    add_line(subsystem_name, 'Translation_Y/1', 'Output_Mux/2');
+    add_line(subsystem_name, 'Translation_Z/1', 'Output_Mux/3');
+    add_line(subsystem_name, 'Cos_Roll/1', 'Output_Mux/4');
+    add_line(subsystem_name, 'Cos_Pitch/1', 'Output_Mux/5');
+    add_line(subsystem_name, 'Cos_Yaw/1', 'Output_Mux/6');
+    
+    add_line(subsystem_name, 'Output_Mux/1', 'Transformed_Data/1');
+end
+
+function create_multi_subject_tracking_subsystem(subsystem_name)
+    % Create multi-subject tracking subsystem
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Subject_Data']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Position_X']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Position_Y']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Position_Z']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Roll']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Pitch']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Yaw']);
+    
+    % Add demultiplexer for subject data
+    add_block('simulink/Signal Routing/Demux', [subsystem_name '/Subject_Demux']);
+    set_param([subsystem_name '/Subject_Demux'], 'Outputs', '6');
+    
+    % Add subject identification
+    add_block('simulink/Logic and Bit Operations/Compare To Constant', [subsystem_name '/Subject_ID']);
+    set_param([subsystem_name '/Subject_ID'], 'const', '1');
+    set_param([subsystem_name '/Subject_ID'], 'relop', '==');
+    
+    % Add switch for subject selection
+    add_block('simulink/Signal Routing/Switch', [subsystem_name '/Subject_Switch']);
+    set_param([subsystem_name '/Subject_Switch'], 'Criteria', 'u2 ~= 0');
+    
+    % Connect subject data
+    add_line(subsystem_name, 'Subject_Data/1', 'Subject_Demux/1');
+    
+    % Connect subject identification
+    add_line(subsystem_name, 'Subject_Demux/1', 'Subject_ID/1');
+    add_line(subsystem_name, 'Subject_ID/1', 'Subject_Switch/1');
+    add_line(subsystem_name, 'Subject_Demux/1', 'Subject_Switch/2');
+    
+    % Connect outputs
+    add_line(subsystem_name, 'Subject_Switch/1', 'Position_X/1');
+    add_line(subsystem_name, 'Subject_Demux/2', 'Position_Y/1');
+    add_line(subsystem_name, 'Subject_Demux/3', 'Position_Z/1');
+    add_line(subsystem_name, 'Subject_Demux/4', 'Roll/1');
+    add_line(subsystem_name, 'Subject_Demux/5', 'Pitch/1');
+    add_line(subsystem_name, 'Subject_Demux/6', 'Yaw/1');
+end
+
+% Main execution
+if ~bdIsLoaded('vicon_simulation')
+    create_vicon_simulation_model();
+else
+    fprintf('Model already exists. Opening existing model.\n');
+    open_system('vicon_simulation');
+end

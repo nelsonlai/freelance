@@ -1,0 +1,17 @@
+/**
+ * Problem: Can Make Arithmetic Progression From Sequence
+ * Difficulty: Easy
+ * Tags: array, sort
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var canMakeArithmeticProgression = function(arr) {
+    
+};

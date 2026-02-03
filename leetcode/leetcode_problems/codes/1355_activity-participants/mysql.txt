@@ -1,0 +1,15 @@
+# Write your MySQL query statement below
+WITH ActivityCounts AS (
+    SELECT 
+        activity,
+        COUNT(*) AS participant_count
+    FROM Friends
+    GROUP BY activity
+)
+SELECT activity
+FROM ActivityCounts
+WHERE participant_count NOT IN (
+    SELECT MAX(participant_count) FROM ActivityCounts
+    UNION
+    SELECT MIN(participant_count) FROM ActivityCounts
+);

@@ -1,0 +1,36 @@
+### Prisma Teaching Project — HTTP Examples (use VS Code REST Client or IntelliJ HTTP Client)
+
+GET http://localhost:3000/health
+
+### Users
+GET http://localhost:3000/users
+
+### Create User
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{ "email": "carol@example.com", "name": "Carol" }
+
+### Posts list (published only, first page)
+GET http://localhost:3000/posts?take=5&published=true
+
+### Create Post
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{ "title": "Intro", "content": "hi", "authorEmail": "carol@example.com" }
+
+### Publish Post 1
+POST http://localhost:3000/posts/1/publish
+
+### Comments on Post 1
+GET http://localhost:3000/posts/1/comments
+
+### Add Comment
+POST http://localhost:3000/posts/1/comments
+Content-Type: application/json
+
+{ "authorEmail": "carol@example.com", "content": "Nice!" }
+
+### Stats
+GET http://localhost:3000/stats/post-count?published=true

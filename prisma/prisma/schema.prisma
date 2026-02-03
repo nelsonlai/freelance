@@ -1,0 +1,22 @@
+/// Prisma Schema: defines models and DB connection.
+/// Models: User —< Post —< Comment
+/// Demonstrates: defaults, updatedAt, optional relation, indexes.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"            // swap to "postgresql" or "mysql" later
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  password  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08 - Image Drawing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>08 - Image Drawing</h1>
+    
+    <div class="explanation">
+        <h2>Loading and Drawing Images</h2>
+        <p>You can draw images on canvas, but images must be loaded first. Use the Image object and wait for the 'load' event.</p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="700"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // ============================================
+        // 1. CREATING AND LOADING IMAGES
+        // ============================================
+        
+        // Method 1: Create Image object and set source
+        const img = new Image();
+        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzRFRENEQzQiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjUwIiBmaWxsPSIjRkY2QjZCIi8+PC9zdmc+';
+        
+        // Method 2: Create a pattern/image programmatically
+        function createPatternImage() {
+            const patternCanvas = document.createElement('canvas');
+            patternCanvas.width = 100;
+            patternCanvas.height = 100;
+            const patternCtx = patternCanvas.getContext('2d');
+            
+            // Draw a simple pattern
+            patternCtx.fillStyle = '#FF6B6B';
+            patternCtx.fillRect(0, 0, 50, 50);
+            patternCtx.fillStyle = '#4ECDC4';
+            patternCtx.fillRect(50, 0, 50, 50);
+            patternCtx.fillStyle = '#95E1D3';
+            patternCtx.fillRect(0, 50, 50, 50);
+            patternCtx.fillStyle = '#F38181';
+            patternCtx.fillRect(50, 50, 50, 50);
+            
+            return patternCanvas;
+        }
+        
+        // ============================================
+        // 2. DRAWING IMAGES
+        // ============================================
+        
+        function drawExamples() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Wait for image to load (will be set up below)
+            
+            // ============================================
+            // 3. IMAGE PATTERNS
+            // ============================================
+            
+            const patternImg = createPatternImage();
+            const pattern = ctx.createPattern(patternImg, 'repeat');
+            ctx.fillStyle = pattern;
+            ctx.fillRect(50, 300, 200, 200);
+            
+            // Non-repeating pattern
+            const pattern2 = ctx.createPattern(patternImg, 'no-repeat');
+            ctx.fillStyle = pattern2;
+            ctx.fillRect(300, 300, 200, 200);
+            
+            // ============================================
+            // 4. DRAWING FROM CANVAS TO CANVAS
+            // ============================================
+            
+            // Create a source canvas
+            const sourceCanvas = document.createElement('canvas');
+            sourceCanvas.width = 150;
+            sourceCanvas.height = 150;
+            const sourceCtx = sourceCanvas.getContext('2d');
+            
+            // Draw something on source canvas
+            sourceCtx.fillStyle = '#6C5CE7';
+            sourceCtx.fillRect(0, 0, 150, 150);
+            sourceCtx.fillStyle = '#FFD93D';
+            sourceCtx.beginPath();
+            sourceCtx.arc(75, 75, 50, 0, Math.PI * 2);
+            sourceCtx.fill();
+            
+            // Draw source canvas onto main canvas
+            ctx.drawImage(sourceCanvas, 550, 300);
+            
+            // ============================================
+            // 5. IMAGE MANIPULATION (Pixel Data)
+            // ============================================
+            
+            // Get image data
+            const imageData = ctx.createImageData(200, 200);
+            const data = imageData.data;
+            
+            // Create a gradient pattern
+            for (let y = 0; y < 200; y++) {
+                for (let x = 0; x < 200; x++) {
+                    const index = (y * 200 + x) * 4;
+                    data[index] = (x / 200) * 255; // Red
+                    data[index + 1] = (y / 200) * 255; // Green
+                    data[index + 2] = 200; // Blue
+                    data[index + 3] = 255; // Alpha
+                }
+            }
+            
+            ctx.putImageData(imageData, 50, 550);
+            
+            // ============================================
+            // 6. IMAGE FILTERS (Simple Example)
+            // ============================================
+            
+            // Set up image load handler (combines all image drawing)
+            img.onload = function() {
+                // Basic drawImage - draw at original size
+                ctx.drawImage(img, 50, 50);
+                
+                // drawImage with scaling
+                ctx.drawImage(img, 300, 50, 150, 150); // x, y, width, height
+                
+                // drawImage with cropping and scaling
+                // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+                ctx.drawImage(img, 0, 0, 100, 100, 500, 50, 200, 200);
+                
+                // Draw original image for filter example
+                ctx.drawImage(img, 300, 550, 150, 150);
+                
+                // Get pixel data
+                const imgData = ctx.getImageData(300, 550, 150, 150);
+                const pixels = imgData.data;
+                
+                // Apply grayscale filter
+                for (let i = 0; i < pixels.length; i += 4) {
+                    const gray = pixels[i] * 0.299 + pixels[i + 1] * 0.587 + pixels[i + 2] * 0.114;
+                    pixels[i] = gray; // Red
+                    pixels[i + 1] = gray; // Green
+                    pixels[i + 2] = gray; // Blue
+                    // pixels[i + 3] is alpha, leave it unchanged
+                }
+                
+                ctx.putImageData(imgData, 500, 550);
+            };
+            
+            // ============================================
+            // 7. LABELS
+            // ============================================
+            
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Arial';
+            ctx.fillText('Original Image', 50, 40);
+            ctx.fillText('Scaled Image', 300, 40);
+            ctx.fillText('Cropped & Scaled', 500, 40);
+            ctx.fillText('Pattern (Repeat)', 50, 290);
+            ctx.fillText('Pattern (No Repeat)', 300, 290);
+            ctx.fillText('Canvas to Canvas', 550, 290);
+            ctx.fillText('Pixel Data Gradient', 50, 540);
+            ctx.fillText('Original', 300, 540);
+            ctx.fillText('Grayscale Filter', 500, 540);
+        }
+        
+        // Initial draw
+        drawExamples();
+    </script>
+</body>
+</html>
+

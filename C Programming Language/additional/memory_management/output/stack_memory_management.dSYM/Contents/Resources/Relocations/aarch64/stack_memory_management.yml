@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/nelsonlai/sources/freelance/The C Programming Language/additional/memory_management/output/stack_memory_management'
+relocations:     []
+...

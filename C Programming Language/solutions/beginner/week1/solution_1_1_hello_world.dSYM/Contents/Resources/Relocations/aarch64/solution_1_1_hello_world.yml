@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     'beginner/week1/solution_1_1_hello_world'
+relocations:     []
+...

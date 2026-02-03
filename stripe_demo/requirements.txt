@@ -1,0 +1,9 @@
+# Stripe Python SDK - Official library for Stripe API
+# Docs: https://docs.stripe.com/api?lang=python
+stripe>=14.0.0
+
+# Optional: for webhook server examples
+flask>=3.0.0
+
+# Optional: for loading .env files
+python-dotenv>=1.0.0

@@ -1,0 +1,55 @@
+{
+  "camera_config": {
+    "optical_camera": {
+      "device_id": 0,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "exposure_time": -1,
+      "gain": -1,
+      "type": "OPTICAL",
+      "calibration_file": ""
+    },
+    "infrared_camera": {
+      "device_id": 1,
+      "width": 640,
+      "height": 480,
+      "fps": 15,
+      "exposure_time": -1,
+      "gain": -1,
+      "type": "INFRARED",
+      "calibration_file": ""
+    }
+  },
+  "capture_settings": {
+    "output_directory": "data/output",
+    "synchronized_capture": true,
+    "save_metadata": true,
+    "image_format": "png",
+    "compression_quality": 95
+  },
+  "preprocessing_settings": {
+    "enable_noise_reduction": true,
+    "noise_method": "bilateral",
+    "enable_contrast_enhancement": true,
+    "clahe_clip_limit": 2.0,
+    "clahe_tile_size": [8, 8],
+    "enable_alignment": false,
+    "reference_image_path": "",
+    "save_intermediate": false,
+    "intermediate_dir": "data/output/intermediate"
+  },
+  "calibration_settings": {
+    "enable_calibration": false,
+    "calibration_directory": "config/calibration",
+    "auto_calibration": false,
+    "calibration_interval": 24
+  },
+  "logging_settings": {
+    "log_level": "INFO",
+    "log_file": "data/output/logs/capture.log",
+    "enable_console_logging": true,
+    "max_log_size": "10MB",
+    "log_rotation": true
+  }
+}

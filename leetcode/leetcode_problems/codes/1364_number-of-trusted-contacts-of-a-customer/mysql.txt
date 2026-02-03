@@ -1,0 +1,12 @@
+# Write your MySQL query statement below
+SELECT 
+    i.invoice_id,
+    c1.customer_name,
+    i.price,
+    COALESCE(COUNT(DISTINCT c2.contact_name), 0) AS contacts_cnt,
+    COALESCE(SUM(CASE WHEN c2.contact_email IN (SELECT email FROM Customers) THEN 1 ELSE 0 END), 0) AS trusted_contacts_cnt
+FROM Invoices i
+JOIN Customers c1 ON i.user_id = c1.customer_id
+LEFT JOIN Contacts c2 ON i.user_id = c2.user_id
+GROUP BY i.invoice_id, c1.customer_name, i.price
+ORDER BY i.invoice_id;

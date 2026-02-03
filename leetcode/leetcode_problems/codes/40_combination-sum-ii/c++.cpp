@@ -1,0 +1,44 @@
+/*
+ * Problem: Combination Sum II
+ * Difficulty: Medium
+ * Tags: array
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> result;
+        vector<int> path;
+        backtrack(candidates, target, 0, path, result);
+        return result;
+    }
+    
+private:
+    void backtrack(vector<int>& candidates, int target, int start, vector<int>& path, vector<vector<int>>& result) {
+        if (target == 0) {
+            result.push_back(path);
+            return;
+        }
+        if (target < 0) {
+            return;
+        }
+        
+        for (int i = start; i < candidates.size(); i++) {
+            if (i > start && candidates[i] == candidates[i - 1]) {
+                continue;
+            }
+            path.push_back(candidates[i]);
+            backtrack(candidates, target - candidates[i], i + 1, path, result);
+            path.pop_back();
+        }
+    }
+};

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07 - Transformations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>07 - Transformations</h1>
+    
+    <div class="explanation">
+        <h2>Transformations: Translate, Rotate, Scale</h2>
+        <p>Transformations allow you to move, rotate, and scale drawings. Use <code>save()</code> and <code>restore()</code> to manage transformation state.</p>
+    </div>
+
+    <div class="controls">
+        <button id="animateBtn">Animate Transformations</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="700"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let isAnimating = false;
+        let animationId = null;
+        let angle = 0;
+        
+        // ============================================
+        // 1. TRANSLATE (Moving the origin)
+        // ============================================
+        
+        function drawTranslateExample() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw coordinate system
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, 200);
+            ctx.lineTo(canvas.width, 200);
+            ctx.moveTo(200, 0);
+            ctx.lineTo(200, canvas.height);
+            ctx.stroke();
+            
+            // Original position
+            ctx.fillStyle = '#FF6B6B';
+            ctx.fillRect(150, 150, 100, 50);
+            
+            // Translated (moved)
+            ctx.save(); // Save current state
+            ctx.translate(300, 100); // Move origin to (300, 100)
+            ctx.fillStyle = '#4ECDC4';
+            ctx.fillRect(150, 150, 100, 50); // Same coordinates, but drawn at new position
+            ctx.restore(); // Restore state
+            
+            // Labels
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Arial';
+            ctx.fillText('Original', 150, 140);
+            ctx.fillText('Translated', 450, 240);
+        }
+        
+        // ============================================
+        // 2. ROTATE
+        // ============================================
+        
+        function drawRotateExample() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const centerX = 200;
+            const centerY = 200;
+            
+            // Original (not rotated)
+            ctx.fillStyle = '#FF6B6B';
+            ctx.fillRect(centerX - 50, centerY - 25, 100, 50);
+            
+            // Rotated 45 degrees
+            ctx.save();
+            ctx.translate(centerX, centerY); // Move origin to center
+            ctx.rotate(Math.PI / 4); // Rotate 45 degrees
+            ctx.fillStyle = '#4ECDC4';
+            ctx.fillRect(-50, -25, 100, 50); // Draw centered at origin
+            ctx.restore();
+            
+            // Rotated 90 degrees
+            ctx.save();
+            ctx.translate(500, centerY);
+            ctx.rotate(Math.PI / 2); // Rotate 90 degrees
+            ctx.fillStyle = '#95E1D3';
+            ctx.fillRect(-50, -25, 100, 50);
+            ctx.restore();
+            
+            // Draw rotation center points
+            ctx.fillStyle = '#333';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(500, centerY, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        // ============================================
+        // 3. SCALE
+        // ============================================
+        
+        function drawScaleExample() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const baseX = 200;
+            const baseY = 400;
+            
+            // Original size
+            ctx.fillStyle = '#FF6B6B';
+            ctx.fillRect(baseX, baseY, 50, 50);
+            
+            // Scaled 2x
+            ctx.save();
+            ctx.translate(baseX + 25, baseY + 25); // Move to center
+            ctx.scale(2, 2); // Scale 2x
+            ctx.fillStyle = '#4ECDC4';
+            ctx.fillRect(-25, -25, 50, 50); // Draw centered
+            ctx.restore();
+            
+            // Scaled 0.5x
+            ctx.save();
+            ctx.translate(400, baseY + 25);
+            ctx.scale(0.5, 0.5);
+            ctx.fillStyle = '#95E1D3';
+            ctx.fillRect(-25, -25, 50, 50);
+            ctx.restore();
+            
+            // Different X and Y scale
+            ctx.save();
+            ctx.translate(500, baseY + 25);
+            ctx.scale(2, 0.5); // Wide but short
+            ctx.fillStyle = '#F38181';
+            ctx.fillRect(-25, -25, 50, 50);
+            ctx.restore();
+        }
+        
+        // ============================================
+        // 4. COMBINING TRANSFORMATIONS
+        // ============================================
+        
+        function drawCombinedExample() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Order matters! Transformations are applied in reverse order
+            // This example: translate, then rotate, then scale
+            
+            const centerX = 450;
+            const centerY = 350;
+            
+            ctx.save();
+            ctx.translate(centerX, centerY); // 1. Move to center
+            ctx.rotate(angle); // 2. Rotate
+            ctx.scale(1.5, 1.5); // 3. Scale
+            ctx.fillStyle = '#6C5CE7';
+            ctx.fillRect(-40, -40, 80, 80);
+            
+            // Draw a small square to show rotation
+            ctx.fillStyle = '#FFD93D';
+            ctx.fillRect(30, -10, 20, 20);
+            ctx.restore();
+            
+            // Draw center point
+            ctx.fillStyle = '#333';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        // ============================================
+        // 5. ANIMATED TRANSFORMATIONS
+        // ============================================
+        
+        function animate() {
+            if (!isAnimating) return;
+            
+            angle += 0.02; // Increment rotation angle
+            
+            drawCombinedExample();
+            
+            animationId = requestAnimationFrame(animate);
+        }
+        
+        // ============================================
+        // 6. TRANSFORM MATRIX (Advanced)
+        // ============================================
+        
+        function drawMatrixExample() {
+            // transform(a, b, c, d, e, f)
+            // Creates a transformation matrix
+            // a, b, c, d: transformation matrix
+            // e, f: translation
+            
+            ctx.save();
+            // This is equivalent to: translate(100, 0) then rotate(45deg) then scale(1.5, 1.5)
+            const cos = Math.cos(Math.PI / 4);
+            const sin = Math.sin(Math.PI / 4);
+            ctx.transform(1.5 * cos, 1.5 * sin, -1.5 * sin, 1.5 * cos, 100, 0);
+            ctx.fillStyle = '#E17055';
+            ctx.fillRect(0, 0, 50, 50);
+            ctx.restore();
+        }
+        
+        // ============================================
+        // INITIAL DRAW
+        // ============================================
+        
+        function drawAll() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw examples side by side
+            ctx.save();
+            ctx.translate(0, 0);
+            drawTranslateExample();
+            ctx.restore();
+            
+            ctx.save();
+            ctx.translate(0, 250);
+            drawRotateExample();
+            ctx.restore();
+            
+            ctx.save();
+            ctx.translate(0, 0);
+            drawScaleExample();
+            ctx.restore();
+            
+            if (isAnimating) {
+                drawCombinedExample();
+            } else {
+                drawCombinedExample();
+            }
+        }
+        
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        
+        document.getElementById('animateBtn').addEventListener('click', () => {
+            isAnimating = !isAnimating;
+            if (isAnimating) {
+                animate();
+            } else {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+                drawAll();
+            }
+        });
+        
+        // Initial draw
+        drawAll();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>600</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>image/bg_step4.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>254</x>
+     <y>56</y>
+     <width>515</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+        color: white;                /* 文字顏色 */
+        font-size: 24pt;             /* 字體大小 */
+        font-family: &quot;Arial&quot;;
+    }
+  </string>
+   </property>
+   <property name="text">
+    <string>Choose one to start charging</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_qrcode">
+   <property name="geometry">
+    <rect>
+     <x>305</x>
+     <y>176</y>
+     <width>171</width>
+     <height>248</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_qrcode_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: #FFFFFF;                /* 文字顏色 */
+        font-size: 32pt;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_qrcode_act.png&quot;) 0 0 0 0 stretch stretch;
+color: #FFFF00;                /* 文字顏色 */
+        font-size: 32pt;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>171</width>
+     <height>248</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_card">
+   <property name="geometry">
+    <rect>
+     <x>548</x>
+     <y>176</y>
+     <width>171</width>
+     <height>248</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_card_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: #FFFFFF;                /* 文字顏色 */
+        font-size: 32px;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_card_act.png&quot;) 0 0 0 0 stretch stretch;
+color: #FFFF00;                /* 文字顏色 */
+        font-size: 32px;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>171</width>
+     <height>248</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_previous">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>485</y>
+     <width>196</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_gr_196x70_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: #E9E9E9;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_gr_196x70_act.png&quot;) 0 0 0 0 stretch stretch;
+color: #FFFF00;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string>Previous</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>196</width>
+     <height>70</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_exit">
+   <property name="geometry">
+    <rect>
+     <x>558</x>
+     <y>485</y>
+     <width>196</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_196x70_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: #FFFFFF;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_196x70_act.png&quot;) 0 0 0 0 stretch stretch;
+color: #FFFF00;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>196</width>
+     <height>70</height>
+    </size>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

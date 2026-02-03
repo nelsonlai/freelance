@@ -1,0 +1,25 @@
+# Write your MySQL query statement below
+SELECT id, 'Jan' AS month, Jan AS revenue FROM Department
+UNION ALL
+SELECT id, 'Feb' AS month, Feb AS revenue FROM Department
+UNION ALL
+SELECT id, 'Mar' AS month, Mar AS revenue FROM Department
+UNION ALL
+SELECT id, 'Apr' AS month, Apr AS revenue FROM Department
+UNION ALL
+SELECT id, 'May' AS month, May AS revenue FROM Department
+UNION ALL
+SELECT id, 'Jun' AS month, Jun AS revenue FROM Department
+UNION ALL
+SELECT id, 'Jul' AS month, Jul AS revenue FROM Department
+UNION ALL
+SELECT id, 'Aug' AS month, Aug AS revenue FROM Department
+UNION ALL
+SELECT id, 'Sep' AS month, Sep AS revenue FROM Department
+UNION ALL
+SELECT id, 'Oct' AS month, Oct AS revenue FROM Department
+UNION ALL
+SELECT id, 'Nov' AS month, Nov AS revenue FROM Department
+UNION ALL
+SELECT id, 'Dec' AS month, Dec AS revenue FROM Department
+ORDER BY id, month;

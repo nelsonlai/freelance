@@ -1,0 +1,331 @@
+---
+title: "Linear Regression in R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(ggplot2)
+library(car)
+```
+
+# Linear Regression in R
+
+Linear regression is used to model relationships between variables and make predictions.
+
+## Simple Linear Regression
+
+Modeling the relationship between two variables.
+
+```{r simple-regression}
+# Load data
+data(mtcars)
+
+# Fit simple linear regression: mpg ~ weight
+model <- lm(mpg ~ wt, data = mtcars)
+summary(model)
+```
+
+### Interpreting Results
+
+- **Coefficients**: Intercept and slope
+- **p-values**: Test if coefficients differ from 0
+- **R²**: Proportion of variance explained
+- **F-statistic**: Overall model significance
+
+### Visualization
+
+```{r simple-regression-plot}
+# Create scatter plot with regression line
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Simple Linear Regression: MPG vs Weight",
+       x = "Weight (1000 lbs)",
+       y = "Miles per Gallon")
+```
+
+### Getting Coefficients
+
+```{r coefficients}
+# Extract coefficients
+coef(model)
+
+# Confidence intervals
+confint(model)
+
+# Predicted values
+predict(model)
+
+# Predict for new values
+new_data <- data.frame(wt = c(2.5, 3.0, 3.5))
+predict(model, new_data)
+predict(model, new_data, interval = "confidence")  # CI for mean
+predict(model, new_data, interval = "prediction")  # CI for prediction
+```
+
+## Multiple Linear Regression
+
+Modeling relationships with multiple predictors.
+
+```{r multiple-regression}
+# Multiple regression: mpg ~ weight + hp + qsec
+model_multiple <- lm(mpg ~ wt + hp + qsec, data = mtcars)
+summary(model_multiple)
+```
+
+### Stepwise Selection
+
+```{r stepwise}
+# Full model
+full_model <- lm(mpg ~ ., data = mtcars)
+
+# Stepwise regression
+step_model <- step(full_model, direction = "both")
+summary(step_model)
+```
+
+## Model Diagnostics
+
+Essential checks before interpreting results.
+
+### 1. Linearity
+
+```{r linearity}
+# Residuals vs fitted
+plot(model, which = 1)
+
+# Component plus residual plot
+crPlots(model)
+```
+
+### 2. Independence
+
+```{r independence}
+# Durbin-Watson test
+library(lmtest)
+dwtest(model)
+```
+
+### 3. Homoscedasticity (Equal Variance)
+
+```{r homoscedasticity}
+# Scale-location plot
+plot(model, which = 3)
+
+# Breusch-Pagan test
+library(lmtest)
+bptest(model)
+```
+
+### 4. Normality of Residuals
+
+```{r normality}
+# Q-Q plot of residuals
+plot(model, which = 2)
+
+# Histogram of residuals
+hist(residuals(model), main = "Distribution of Residuals")
+
+# Shapiro-Wilk test
+shapiro.test(residuals(model))
+```
+
+### 5. Leverage and Influence
+
+```{r leverage}
+# Cook's distance
+plot(model, which = 4)
+
+# Leverage points
+plot(model, which = 5)
+
+# Identify influential points
+influence.measures(model)
+
+# Cook's distance values
+cooksd <- cooks.distance(model)
+which(cooksd > 4 / length(cooksd))  # Potential outliers
+```
+
+## All Diagnostic Plots
+
+```{r all-diagnostics}
+par(mfrow = c(2, 2))
+plot(model)
+```
+
+## Correcting Violations
+
+### Transformations
+
+```{r transformations}
+# Log transformation
+model_log <- lm(mpg ~ log(wt), data = mtcars)
+summary(model_log)
+
+# Polynomial regression
+model_poly <- lm(mpg ~ wt + I(wt^2), data = mtcars)
+summary(model_poly)
+
+# Box-Cox transformation
+library(MASS)
+bc <- boxcox(mpg ~ wt, data = mtcars)
+```
+
+### Handling Outliers
+
+```{r outliers}
+# Robust regression
+library(MASS)
+model_robust <- rlm(mpg ~ wt + hp, data = mtcars)
+summary(model_robust)
+
+# Compare with OLS
+summary(lm(mpg ~ wt + hp, data = mtcars))
+```
+
+## Interaction Effects
+
+```{r interactions}
+# Model with interaction
+model_int <- lm(mpg ~ wt * hp, data = mtcars)
+summary(model_int)
+
+# Visualize interaction
+ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Interaction Effect")
+```
+
+## Dummy Variables
+
+```{r dummy}
+# Automatic encoding of factors
+model_dummy <- lm(mpg ~ factor(cyl) + wt, data = mtcars)
+summary(model_dummy)
+
+# With reference level
+mtcars$cyl_ref <- relevel(factor(mtcars$cyl), ref = "4")
+model_ref <- lm(mpg ~ cyl_ref + wt, data = mtcars)
+summary(model_ref)
+```
+
+## Model Comparison
+
+```{r model-comparison}
+# Compare models
+model1 <- lm(mpg ~ wt, data = mtcars)
+model2 <- lm(mpg ~ wt + hp, data = mtcars)
+model3 <- lm(mpg ~ wt * hp, data = mtcars)
+
+# AIC (lower is better)
+AIC(model1, model2, model3)
+
+# BIC
+BIC(model1, model2, model3)
+
+# ANOVA comparison
+anova(model1, model2, model3)
+```
+
+## Cross-Validation
+
+```{r cross-validation}
+# Leave-one-out cross-validation
+library(boot)
+
+# CV function
+cv.glm(mtcars, model_multiple)$delta
+
+# k-fold CV
+cv_10fold <- function(model, data, k = 10) {
+  folds <- cut(seq(1, nrow(data)), breaks = k, labels = FALSE)
+  errors <- numeric(k)
+  
+  for (i in 1:k) {
+    test_indices <- which(folds == i)
+    train_data <- data[-test_indices, ]
+    test_data <- data[test_indices, ]
+    
+    train_model <- lm(formula(model), data = train_data)
+    predictions <- predict(train_model, test_data)
+    errors[i] <- mean((test_data$mpg - predictions)^2)
+  }
+  
+  return(mean(errors))
+}
+
+cv_10fold(model_multiple, mtcars)
+```
+
+## Predictive Accuracy
+
+```{r accuracy}
+# R-squared
+summary(model_multiple)$r.squared
+
+# Adjusted R-squared
+summary(model_multiple)$adj.r.squared
+
+# RMSE
+sqrt(mean(residuals(model_multiple)^2))
+
+# MAE
+mean(abs(residuals(model_multiple)))
+```
+
+## Complete Example
+
+```{r complete-example}
+# Research question: What predicts fuel efficiency?
+
+# Step 1: Explore relationships
+pairs(mtcars[, c("mpg", "wt", "hp", "cyl", "disp")])
+
+# Step 2: Fit initial model
+model_full <- lm(mpg ~ ., data = mtcars)
+summary(model_full)
+
+# Step 3: Check assumptions
+par(mfrow = c(2, 2))
+plot(model_full)
+
+# Step 4: Transform if needed
+model_log <- lm(mpg ~ wt + hp, data = mtcars)
+summary(model_log)
+
+# Step 5: Final model
+final_model <- lm(mpg ~ wt + hp + factor(cyl), data = mtcars)
+summary(final_model)
+
+# Step 6: Model diagnostics
+shapiro.test(residuals(final_model))
+bptest(final_model)
+dwtest(final_model)
+
+# Step 7: Report and interpret
+cat("\n=== FINAL MODEL SUMMARY ===\n")
+print(summary(final_model))
+cat("\nR-squared =", round(summary(final_model)$r.squared, 3))
+cat("\nAdjusted R-squared =", 
+    round(summary(final_model)$adj.r.squared, 3))
+```
+
+## Summary
+
+In this lesson, you learned:
+- Simple and multiple linear regression
+- Model diagnostics (assumptions)
+- Handling violations
+- Interactions and dummy variables
+- Model comparison
+- Cross-validation
+- Predictive accuracy
+- Complete regression workflow
+
+## Next Steps
+
+Learn advanced ANOVA techniques in the next lesson!
+

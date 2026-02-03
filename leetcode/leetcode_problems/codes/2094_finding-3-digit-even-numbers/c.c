@@ -1,0 +1,16 @@
+/*
+ * Problem: Finding 3-Digit Even Numbers
+ * Difficulty: Easy
+ * Tags: array, hash, sort
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) for hash map
+ */
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* findEvenNumbers(int* digits, int digitsSize, int* returnSize) {
+    
+}

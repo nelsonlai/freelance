@@ -1,0 +1,12 @@
+student_id,name,age,math,english,science,grade
+1,Alice,20,85,88,90,Freshman
+2,Bob,21,90,82,85,Sophomore
+3,Charlie,19,78,92,87,Juniors
+4,Diana,22,92,85,95,Sophomore
+5,Eve,20,88,90,89,Freshman
+6,Frank,23,75,78,80,Juniors
+7,Grace,21,95,92,94,Sophomore
+8,Henry,20,82,88,85,Freshman
+9,Iris,22,91,87,93,Sophomore
+10,Jack,21,79,85,83,Juniors
+

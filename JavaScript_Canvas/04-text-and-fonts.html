@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 - Text and Fonts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>04 - Text and Fonts</h1>
+    
+    <div class="explanation">
+        <h2>Drawing Text on Canvas</h2>
+        <p>Canvas provides methods to draw text with various fonts, sizes, and styles. You can also measure text dimensions.</p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="700"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set background
+        ctx.fillStyle = '#f8f8f8';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // ============================================
+        // 1. BASIC TEXT DRAWING
+        // ============================================
+        
+        // fillText() - draws filled text
+        ctx.fillStyle = '#333';
+        ctx.font = '30px Arial';
+        ctx.fillText('Hello Canvas!', 50, 50);
+        
+        // strokeText() - draws outlined text
+        ctx.strokeStyle = '#FF6B6B';
+        ctx.lineWidth = 2;
+        ctx.font = '30px Arial';
+        ctx.strokeText('Outlined Text', 50, 100);
+        
+        // Both fill and stroke
+        ctx.fillStyle = '#4ECDC4';
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 1;
+        ctx.font = '40px Arial';
+        ctx.fillText('Filled + Stroked', 50, 150);
+        ctx.strokeText('Filled + Stroked', 50, 150);
+        
+        // ============================================
+        // 2. FONT PROPERTIES
+        // ============================================
+        
+        // Font syntax: [style] [weight] size family
+        // Examples:
+        
+        ctx.fillStyle = '#333';
+        
+        // Normal
+        ctx.font = '20px Arial';
+        ctx.fillText('Normal 20px', 50, 220);
+        
+        // Bold
+        ctx.font = 'bold 20px Arial';
+        ctx.fillText('Bold 20px', 50, 250);
+        
+        // Italic
+        ctx.font = 'italic 20px Arial';
+        ctx.fillText('Italic 20px', 50, 280);
+        
+        // Bold and Italic
+        ctx.font = 'bold italic 20px Arial';
+        ctx.fillText('Bold Italic 20px', 50, 310);
+        
+        // Different sizes
+        ctx.font = '12px Arial';
+        ctx.fillText('Small 12px', 300, 220);
+        
+        ctx.font = '24px Arial';
+        ctx.fillText('Medium 24px', 300, 250);
+        
+        ctx.font = '36px Arial';
+        ctx.fillText('Large 36px', 300, 300);
+        
+        // Different font families
+        ctx.font = '30px "Times New Roman"';
+        ctx.fillText('Times New Roman', 50, 360);
+        
+        ctx.font = '30px "Courier New"';
+        ctx.fillText('Courier New', 50, 400);
+        
+        ctx.font = '30px Georgia';
+        ctx.fillText('Georgia', 50, 440);
+        
+        // ============================================
+        // 3. TEXT ALIGNMENT
+        // ============================================
+        
+        // Horizontal alignment
+        const centerX = 450;
+        const startY = 500;
+        
+        // Left align (default)
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#FF6B6B';
+        ctx.font = '20px Arial';
+        ctx.fillText('Left Aligned', centerX, startY);
+        ctx.strokeStyle = '#999';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(centerX, startY - 30);
+        ctx.lineTo(centerX, startY + 10);
+        ctx.stroke();
+        
+        // Center align
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#4ECDC4';
+        ctx.fillText('Center Aligned', centerX, startY + 40);
+        ctx.strokeStyle = '#999';
+        ctx.beginPath();
+        ctx.moveTo(centerX, startY + 10);
+        ctx.lineTo(centerX, startY + 50);
+        ctx.stroke();
+        
+        // Right align
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#95E1D3';
+        ctx.fillText('Right Aligned', centerX, startY + 80);
+        ctx.strokeStyle = '#999';
+        ctx.beginPath();
+        ctx.moveTo(centerX, startY + 50);
+        ctx.lineTo(centerX, startY + 90);
+        ctx.stroke();
+        
+        // Reset to left
+        ctx.textAlign = 'left';
+        
+        // ============================================
+        // 4. TEXT BASELINE
+        // ============================================
+        
+        const baselineX = 650;
+        const baselineY = 500;
+        
+        // Draw a reference line
+        ctx.strokeStyle = '#999';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.moveTo(550, baselineY);
+        ctx.lineTo(750, baselineY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        
+        // Top baseline
+        ctx.textBaseline = 'top';
+        ctx.fillStyle = '#FF6B6B';
+        ctx.font = '20px Arial';
+        ctx.fillText('Top', baselineX, baselineY);
+        
+        // Middle baseline
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#4ECDC4';
+        ctx.fillText('Middle', baselineX, baselineY + 40);
+        
+        // Bottom baseline
+        ctx.textBaseline = 'bottom';
+        ctx.fillStyle = '#95E1D3';
+        ctx.fillText('Bottom', baselineX, baselineY + 80);
+        
+        // Reset to alphabetic (default)
+        ctx.textBaseline = 'alphabetic';
+        
+        // ============================================
+        // 5. TEXT MEASUREMENT
+        // ============================================
+        
+        ctx.fillStyle = '#333';
+        ctx.font = '24px Arial';
+        const text = 'Measure this text!';
+        ctx.fillText(text, 50, 600);
+        
+        // measureText() returns a TextMetrics object
+        const metrics = ctx.measureText(text);
+        
+        // Draw a rectangle showing the text width
+        ctx.strokeStyle = '#FF6B6B';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(50, 580, metrics.width, 30);
+        
+        // Display measurements
+        ctx.fillStyle = '#666';
+        ctx.font = '14px Arial';
+        ctx.fillText(`Width: ${metrics.width.toFixed(2)}px`, 50, 650);
+        ctx.fillText(`ActualBoundingBoxLeft: ${metrics.actualBoundingBoxLeft}px`, 50, 670);
+        ctx.fillText(`ActualBoundingBoxRight: ${metrics.actualBoundingBoxRight}px`, 50, 690);
+        
+        // ============================================
+        // 6. TEXT WITH GRADIENTS
+        // ============================================
+        
+        const gradient = ctx.createLinearGradient(300, 600, 500, 600);
+        gradient.addColorStop(0, '#FF6B6B');
+        gradient.addColorStop(0.5, '#4ECDC4');
+        gradient.addColorStop(1, '#95E1D3');
+        
+        ctx.fillStyle = gradient;
+        ctx.font = 'bold 36px Arial';
+        ctx.fillText('Gradient Text', 300, 640);
+        
+        // ============================================
+        // 7. TEXT WITH SHADOWS
+        // ============================================
+        
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetX = 3;
+        ctx.shadowOffsetY = 3;
+        
+        ctx.fillStyle = '#6C5CE7';
+        ctx.font = 'bold 32px Arial';
+        ctx.fillText('Shadow Text', 550, 640);
+        
+        // Reset shadows
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+    </script>
+</body>
+</html>
+

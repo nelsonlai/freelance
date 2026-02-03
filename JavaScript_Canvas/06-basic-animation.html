@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06 - Basic Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>06 - Basic Animation</h1>
+    
+    <div class="explanation">
+        <h2>Creating Animations</h2>
+        <p>Animations in Canvas are created by repeatedly clearing and redrawing the canvas. We use <code>requestAnimationFrame</code> for smooth animations.</p>
+        <ul>
+            <li><strong>requestAnimationFrame:</strong> Browser-optimized animation loop (typically 60fps)</li>
+            <li><strong>Clear and Redraw:</strong> Clear the canvas, update positions, redraw</li>
+            <li><strong>Frame Rate:</strong> Control animation speed with timing</li>
+        </ul>
+    </div>
+
+    <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="stopBtn">Stop</button>
+        <button id="resetBtn">Reset</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Animation state
+        let animationId = null;
+        let isAnimating = false;
+        
+        // Ball properties
+        let ball = {
+            x: 100,
+            y: 100,
+            radius: 30,
+            speedX: 3,
+            speedY: 3,
+            color: '#FF6B6B'
+        };
+        
+        // ============================================
+        // ANIMATION LOOP
+        // ============================================
+        
+        function animate() {
+            if (!isAnimating) return;
+            
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw background
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update ball position
+            ball.x += ball.speedX;
+            ball.y += ball.speedY;
+            
+            // Bounce off walls
+            if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+                ball.speedX = -ball.speedX;
+            }
+            if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+                ball.speedY = -ball.speedY;
+            }
+            
+            // Draw the ball
+            ctx.fillStyle = ball.color;
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 5;
+            ctx.fill();
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            
+            // Continue animation
+            animationId = requestAnimationFrame(animate);
+        }
+        
+        // ============================================
+        // CONTROL FUNCTIONS
+        // ============================================
+        
+        function startAnimation() {
+            if (!isAnimating) {
+                isAnimating = true;
+                animate();
+            }
+        }
+        
+        function stopAnimation() {
+            isAnimating = false;
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+        }
+        
+        function resetAnimation() {
+            stopAnimation();
+            ball.x = 100;
+            ball.y = 100;
+            ball.speedX = 3;
+            ball.speedY = 3;
+            
+            // Draw initial state
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = ball.color;
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        
+        document.getElementById('startBtn').addEventListener('click', startAnimation);
+        document.getElementById('stopBtn').addEventListener('click', stopAnimation);
+        document.getElementById('resetBtn').addEventListener('click', resetAnimation);
+        
+        // Initialize
+        resetAnimation();
+        
+        // ============================================
+        // ADDITIONAL EXAMPLES (Multiple Balls)
+        // ============================================
+        
+        // Uncomment below to see multiple bouncing balls
+        /*
+        let balls = [];
+        for (let i = 0; i < 5; i++) {
+            balls.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: 20 + Math.random() * 20,
+                speedX: (Math.random() - 0.5) * 6,
+                speedY: (Math.random() - 0.5) * 6,
+                color: `hsl(${Math.random() * 360}, 70%, 60%)`
+            });
+        }
+        
+        function animateMultiple() {
+            if (!isAnimating) return;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            balls.forEach(ball => {
+                ball.x += ball.speedX;
+                ball.y += ball.speedY;
+                
+                if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+                    ball.speedX = -ball.speedX;
+                }
+                if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+                    ball.speedY = -ball.speedY;
+                }
+                
+                ctx.fillStyle = ball.color;
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            animationId = requestAnimationFrame(animateMultiple);
+        }
+        */
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,17 @@
+WITH ProductCounts AS (
+    SELECT
+        customer_id,
+        product_id,
+        COUNT(*) AS order_count,
+        RANK() OVER (PARTITION BY customer_id ORDER BY COUNT(*) DESC) AS rnk
+    FROM Orders
+    GROUP BY customer_id, product_id
+)
+SELECT
+    customer_id,
+    product_id,
+    product_name
+FROM ProductCounts pc
+JOIN Products p ON pc.product_id = p.product_id
+WHERE rnk = 1
+ORDER BY customer_id, product_id;

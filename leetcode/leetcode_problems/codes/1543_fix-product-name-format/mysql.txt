@@ -1,0 +1,11 @@
+-- Problem: Fix Product Name Format
+-- Difficulty: Easy
+-- Tags: Database
+
+SELECT 
+    LOWER(TRIM(product_name)) AS product_name,
+    sale_date,
+    COUNT(*) AS total
+FROM Sales
+GROUP BY LOWER(TRIM(product_name)), sale_date
+ORDER BY product_name, sale_date;

@@ -1,0 +1,14 @@
+"""
+Problem: Shortest String That Contains Three Strings
+Difficulty: Medium
+Tags: string, tree, graph, greedy
+
+Approach: String manipulation with hash map or two pointers
+Time Complexity: O(n) or O(n log n)
+Space Complexity: O(h) for recursion stack where h is height
+"""
+
+class Solution:
+    def minimumString(self, a: str, b: str, c: str) -> str:
+        # TODO: Implement optimized solution
+        pass

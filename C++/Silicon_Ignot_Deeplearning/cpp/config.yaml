@@ -1,0 +1,24 @@
+camera:
+  device_id: 0
+  width: 1920
+  height: 1080
+  fps: 30
+
+preprocessing:
+  roi_x: 200
+  roi_y: 150
+  roi_width: 1520
+  roi_height: 780
+  target_size: 224
+  clahe_clip_limit: 2.0
+
+inference:
+  matlab_script_path: "../matlab/inference"
+  model_file: "defect_classifier_v1.mat"
+  confidence_threshold: 0.75
+  process_every_n_frames: 3
+
+logging:
+  db_path: "./defects.db"
+  save_images: true
+  image_output_dir: "./detections"

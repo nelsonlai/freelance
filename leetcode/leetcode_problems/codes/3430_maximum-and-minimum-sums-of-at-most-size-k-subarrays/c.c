@@ -1,0 +1,13 @@
+/*
+ * Problem: Maximum and Minimum Sums of at Most Size K Subarrays
+ * Difficulty: Hard
+ * Tags: array, math, stack
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+long long minMaxSubarraySum(int* nums, int numsSize, int k) {
+    
+}

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>600</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>image/bg_step3.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>56</y>
+     <width>764</width>
+     <height>92</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+        color: white;                /* 文字顏色 */
+        font-size: 24pt;             /* 字體大小 */
+        font-family: &quot;Arial&quot;;
+    }
+  </string>
+   </property>
+   <property name="text">
+    <string>Remove the charging gun and insert it into
+the vehicle’s charging interface</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>304</x>
+     <y>148</y>
+     <width>415</width>
+     <height>317</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>image/fig_02.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_previous">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>485</y>
+     <width>196</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_gr_196x70_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: #E9E9E9;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_gr_196x70_act.png&quot;) 0 0 0 0 stretch stretch;
+color: #FFFF00;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string>Previous</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>196</width>
+     <height>70</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_next">
+   <property name="geometry">
+    <rect>
+     <x>558</x>
+     <y>485</y>
+     <width>196</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_196x70_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: #FFFFFF;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_196x70_act.png&quot;) 0 0 0 0 stretch stretch;
+color: #FFFF00;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string>Next</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>196</width>
+     <height>70</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>pushButton_previous</zorder>
+  <zorder>pushButton_next</zorder>
+  <zorder>label_3</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

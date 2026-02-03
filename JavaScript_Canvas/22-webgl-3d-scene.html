@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22 - WebGL 3D Scene</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .canvas-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #444;
+            display: block;
+            margin: 20px auto;
+            background: #000;
+            cursor: move;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #2a2a2a;
+            border-radius: 5px;
+        }
+        .explanation {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>22 - WebGL 3D Interactive Scene</h1>
+    
+    <div class="explanation">
+        <h2>Interactive 3D Scene with Multiple Objects</h2>
+        <p>Create a complete 3D scene with multiple objects, camera controls, and lighting. Drag to rotate the camera around the scene.</p>
+    </div>
+
+    <div class="controls">
+        <p>Drag to rotate camera | Scroll to zoom</p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        let gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        
+        if (!gl) {
+            const error = document.createElement('div');
+            error.className = 'error';
+            error.textContent = 'WebGL is not supported';
+            canvas.parentElement.insertBefore(error, canvas);
+            gl = null;
+        }
+        
+        if (gl) {
+            // ============================================
+            // SHADERS
+            // ============================================
+            
+            const vertexShaderSource = `
+                attribute vec3 a_position;
+                attribute vec3 a_color;
+                uniform mat4 u_matrix;
+                varying vec3 v_color;
+                
+                void main() {
+                    gl_Position = u_matrix * vec4(a_position, 1.0);
+                    v_color = a_color;
+                }
+            `;
+            
+            const fragmentShaderSource = `
+                precision mediump float;
+                varying vec3 v_color;
+                
+                void main() {
+                    gl_FragColor = vec4(v_color, 1.0);
+                }
+            `;
+            
+            // ============================================
+            // UTILITY FUNCTIONS
+            // ============================================
+            
+            function createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.error(gl.getShaderInfoLog(shader));
+                    return null;
+                }
+                return shader;
+            }
+            
+            function createProgram(gl, vs, fs) {
+                const program = gl.createProgram();
+                gl.attachShader(program, vs);
+                gl.attachShader(program, fs);
+                gl.linkProgram(program);
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                    console.error(gl.getProgramInfoLog(program));
+                    return null;
+                }
+                return program;
+            }
+            
+            function multiplyMatrices(a, b) {
+                const result = new Float32Array(16);
+                for (let i = 0; i < 4; i++) {
+                    for (let j = 0; j < 4; j++) {
+                        result[i * 4 + j] = 
+                            a[i*4+0]*b[0*4+j] + a[i*4+1]*b[1*4+j] + 
+                            a[i*4+2]*b[2*4+j] + a[i*4+3]*b[3*4+j];
+                    }
+                }
+                return result;
+            }
+            
+            function perspective(fov, aspect, near, far) {
+                const f = 1.0 / Math.tan(fov / 2);
+                const rangeInv = 1 / (near - far);
+                return new Float32Array([
+                    f/aspect,0,0,0, 0,f,0,0, 
+                    0,0,(near+far)*rangeInv,-1, 
+                    0,0,near*far*rangeInv*2,0
+                ]);
+            }
+            
+            function translate(m, x, y, z) {
+                return multiplyMatrices(m, new Float32Array([
+                    1,0,0,0, 0,1,0,0, 0,0,1,0, x,y,z,1
+                ]));
+            }
+            
+            function rotateY(m, angle) {
+                const c = Math.cos(angle), s = Math.sin(angle);
+                return multiplyMatrices(m, new Float32Array([
+                    c,0,s,0, 0,1,0,0, -s,0,c,0, 0,0,0,1
+                ]));
+            }
+            
+            function rotateX(m, angle) {
+                const c = Math.cos(angle), s = Math.sin(angle);
+                return multiplyMatrices(m, new Float32Array([
+                    1,0,0,0, 0,c,s,0, 0,-s,c,0, 0,0,0,1
+                ]));
+            }
+            
+            function identity() {
+                return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+            }
+            
+            // ============================================
+            // CREATE SHAPES
+            // ============================================
+            
+            function createCube(size = 1.0, color = [1, 0.5, 0.5]) {
+                const positions = [];
+                const colors = [];
+                
+                const faces = [
+                    [[-1,-1,1],[-1,1,1],[1,1,1],[-1,-1,1],[1,1,1],[1,-1,1]], // front
+                    [[1,-1,-1],[1,1,-1],[-1,1,-1],[1,-1,-1],[-1,1,-1],[-1,-1,-1]], // back
+                    [[-1,1,-1],[-1,1,1],[1,1,1],[-1,1,-1],[1,1,1],[1,1,-1]], // top
+                    [[-1,-1,-1],[1,-1,-1],[1,-1,1],[-1,-1,-1],[1,-1,1],[-1,-1,1]], // bottom
+                    [[1,-1,-1],[1,-1,1],[1,1,1],[1,-1,-1],[1,1,1],[1,1,-1]], // right
+                    [[-1,-1,-1],[-1,1,-1],[-1,1,1],[-1,-1,-1],[-1,1,1],[-1,-1,1]] // left
+                ];
+                
+                faces.forEach(face => {
+                    face.forEach(vertex => {
+                        positions.push(vertex[0]*size, vertex[1]*size, vertex[2]*size);
+                        colors.push(...color);
+                    });
+                });
+                
+                return { positions, colors, count: 36 };
+            }
+            
+            function createSphere(radius = 1.0, segments = 20, color = [0.5, 0.8, 1.0]) {
+                const positions = [];
+                const colors = [];
+                const indices = [];
+                
+                for (let lat = 0; lat <= segments; lat++) {
+                    const theta = lat * Math.PI / segments;
+                    const sinTheta = Math.sin(theta);
+                    const cosTheta = Math.cos(theta);
+                    
+                    for (let lon = 0; lon <= segments; lon++) {
+                        const phi = lon * 2 * Math.PI / segments;
+                        const sinPhi = Math.sin(phi);
+                        const cosPhi = Math.cos(phi);
+                        
+                        positions.push(
+                            cosPhi * sinTheta * radius,
+                            cosTheta * radius,
+                            sinPhi * sinTheta * radius
+                        );
+                        colors.push(...color);
+                    }
+                }
+                
+                for (let lat = 0; lat < segments; lat++) {
+                    for (let lon = 0; lon < segments; lon++) {
+                        const first = lat * (segments + 1) + lon;
+                        const second = first + segments + 1;
+                        indices.push(first, second, first + 1);
+                        indices.push(second, second + 1, first + 1);
+                    }
+                }
+                
+                return { positions, colors, indices, count: indices.length };
+            }
+            
+            // ============================================
+            // CAMERA CONTROLS
+            // ============================================
+            
+            let cameraAngleX = 0.5;
+            let cameraAngleY = 0.5;
+            let cameraDistance = 8;
+            let isDragging = false;
+            let lastMouseX = 0;
+            let lastMouseY = 0;
+            
+            canvas.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+            });
+            
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaX = e.clientX - lastMouseX;
+                    const deltaY = e.clientY - lastMouseY;
+                    cameraAngleY += deltaX * 0.01;
+                    cameraAngleX += deltaY * 0.01;
+                    cameraAngleX = Math.max(-Math.PI/2, Math.min(Math.PI/2, cameraAngleX));
+                    lastMouseX = e.clientX;
+                    lastMouseY = e.clientY;
+                }
+            });
+            
+            canvas.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+            
+            canvas.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                cameraDistance += e.deltaY * 0.01;
+                cameraDistance = Math.max(3, Math.min(15, cameraDistance));
+            });
+            
+            // ============================================
+            // INITIALIZE
+            // ============================================
+            
+            const vs = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+            const fs = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+            const program = createProgram(gl, vs, fs);
+            
+            // Create scene objects
+            const objects = [
+                { shape: createCube(0.8, [1, 0.3, 0.3]), x: -2, y: 0, z: 0, rotY: 0 },
+                { shape: createCube(0.8, [0.3, 1, 0.3]), x: 2, y: 0, z: 0, rotY: 0 },
+                { shape: createSphere(0.6, 20, [0.3, 0.3, 1]), x: 0, y: 1.5, z: 0, rotY: 0 },
+                { shape: createSphere(0.6, 20, [1, 1, 0.3]), x: 0, y: -1.5, z: 0, rotY: 0 },
+            ];
+            
+            // ============================================
+            // RENDERING
+            // ============================================
+            
+            function draw() {
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.enable(gl.DEPTH_TEST);
+                gl.clearColor(0.05, 0.05, 0.1, 1.0);
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                
+                gl.useProgram(program);
+                
+                const aspect = canvas.width / canvas.height;
+                const proj = perspective(Math.PI / 4, aspect, 0.1, 100);
+                
+                // Calculate camera position
+                const camX = Math.sin(cameraAngleY) * Math.cos(cameraAngleX) * cameraDistance;
+                const camY = Math.sin(cameraAngleX) * cameraDistance;
+                const camZ = Math.cos(cameraAngleY) * Math.cos(cameraAngleX) * cameraDistance;
+                
+                // View matrix (camera at origin looking at 0,0,0)
+                let view = identity();
+                view = translate(view, -camX, -camY, -camZ);
+                
+                // Draw each object
+                objects.forEach(obj => {
+                    obj.rotY += 0.01;
+                    
+                    // Setup buffers
+                    const posBuffer = gl.createBuffer();
+                    gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.shape.positions), gl.STATIC_DRAW);
+                    
+                    const colorBuffer = gl.createBuffer();
+                    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.shape.colors), gl.STATIC_DRAW);
+                    
+                    // Model matrix
+                    let model = identity();
+                    model = translate(model, obj.x, obj.y, obj.z);
+                    model = rotateY(model, obj.rotY);
+                    
+                    // MVP matrix
+                    const mvp = multiplyMatrices(proj, multiplyMatrices(view, model));
+                    
+                    // Setup attributes
+                    gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+                    const posLoc = gl.getAttribLocation(program, 'a_position');
+                    gl.enableVertexAttribArray(posLoc);
+                    gl.vertexAttribPointer(posLoc, 3, gl.FLOAT, false, 0, 0);
+                    
+                    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+                    const colorLoc = gl.getAttribLocation(program, 'a_color');
+                    gl.enableVertexAttribArray(colorLoc);
+                    gl.vertexAttribPointer(colorLoc, 3, gl.FLOAT, false, 0, 0);
+                    
+                    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'u_matrix'), false, mvp);
+                    
+                    // Draw
+                    if (obj.shape.indices) {
+                        const indexBuffer = gl.createBuffer();
+                        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+                        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.shape.indices), gl.STATIC_DRAW);
+                        gl.drawElements(gl.TRIANGLES, obj.shape.count, gl.UNSIGNED_SHORT, 0);
+                    } else {
+                        gl.drawArrays(gl.TRIANGLES, 0, obj.shape.count);
+                    }
+                });
+                
+                requestAnimationFrame(draw);
+            }
+            
+            draw();
+        }
+    </script>
+</body>
+</html>
+

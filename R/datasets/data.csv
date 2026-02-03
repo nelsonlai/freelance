@@ -1,0 +1,11 @@
+name,age,score,status
+John Smith,25,85,Active
+Sarah Johnson,30,92,Active
+Mike Williams,28,-,Inactive
+Emily Brown,,78,Active
+David Miller,35,NA,Active
+Lisa Davis,29,88,Active
+James Wilson,27,95,Active
+Anna Lee,-,82,Inactive
+Robert Taylor,31,,Active
+Michelle Chen,26,90,Active

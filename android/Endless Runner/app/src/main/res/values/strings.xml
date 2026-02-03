@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Endless Runner</string>
+    
+    <!-- Navigation -->
+    <string name="home">Home</string>
+    <string name="game">Game</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Game -->
+    <string name="start_game">Start Game</string>
+    <string name="pause_game">Pause</string>
+    <string name="resume_game">Resume</string>
+    <string name="game_over">Game Over</string>
+    <string name="restart_game">Restart</string>
+    <string name="new_game">New Game</string>
+    <string name="score">Score</string>
+    <string name="coins">Coins</string>
+    <string name="high_score">High Score</string>
+    
+    <!-- Power-ups -->
+    <string name="magnet">Magnet</string>
+    <string name="shield">Shield</string>
+    <string name="speed_boost">Speed Boost</string>
+    
+    <!-- Instructions -->
+    <string name="swipe_instructions">Swipe to control your character:\n• Left/Right: Change lanes\n• Up: Jump\n• Down: Slide</string>
+</resources>

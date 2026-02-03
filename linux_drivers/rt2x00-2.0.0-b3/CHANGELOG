@@ -1,0 +1,75 @@
+/*
+	Copyright (C) 2004 - 2005 rt2x00 SourceForge Project
+	<http://rt2x00.serialmonkey.com>
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the
+	Free Software Foundation, Inc.,
+	59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+ - Version: rt2x00 beta 3
+	# Increase all offsets of USB registers with 0x0400. (27 October 2005)
+	# Change build process, ieee80211 are build at same time as rt2x00. (03 November 2005)
+	# rt2500usb EEPROM access should not be byteordered. (10 November 2005)
+	# The MAC address should be printed from core module. (10 November 2005)
+	# Wait with PCI interrupt line registration untill device is initialized. (10 November 2005)
+	# Perform optimizations to reduce stack size of several functions. (11 November 2005)
+	# Periodically update statistics from device (i.e. noise). (11 November 2005)
+	# When authentication has timed out, check what step needs to be retried. (11 November 2005)
+	# Implement signal level measurement and periodically update this. (12 November 2005)
+	# rt2500usb EEPROM is little endian. (15 November 2005)
+	# Correctly handle little endian to big endian conversions. (17 November 2005)
+	# Don't report BSSID with iwconfig when not associated. (19 November 2005)
+	# Don't attempt to connect to encrypted networks when encryption is disabled. (19 November 2005)
+	# Allow scanning while interface is down by temporarily enabling radio. (21 November 2005)
+	# Remove overhead in get_scan ioctl by using semaphores instead of msleep(). (22 November 2005)
+	# By default and invalid geography setting should allow channels 1 to 11 and no 5GHz. (23 November 2005)
+	# Add wireless event handling for association/disassociation and scan completion. (25 November 2005)
+	# Base set_security() on the same implementation as the ipw2200 driver. (27 November 2005)
+	# Add private ioctl calls {set,get}_adhoc_ofdm for 54Mbit support in ad-hoc mode. (01 December 2005)
+	# USB requires its DMA buffers to be 2400 bytes for RX and 2342 bytes for TX. (03 December 2005)
+	# Write size of rx data bufer to the device register, preventing overlapping data. (04 December 2005)
+	# USB device should not use its own sequence number inside TX frames. (04 December 2005)
+	# ACK timeout and consume time should be calculated with 1Mb/s instead of active speed. (04 December 2005)
+	# Only read EEPROM at probe time, store BBP init information in private structure. (08 December 2005)
+
+ - Version: rt2x00 beta 2
+	# Replace readl & writel with ioread32 & iowrite32. (3 September 2005)
+	# Add register_multiread and register_multiwrite functions for PCI. (3 September 2005)
+	# Move DMA allocation to device specific modules. (4 September 2005)
+	# Implement SIOCSIWGENIE/SIOCGIWGENIE. (4 September 2005)
+	# USB devices don't need to work with little_endian/big_endian conversions. (7 September 2005)
+	# Rewrite authentication/association routines. (10 September 2005)
+	# MAC address from netdev structure must be treated as little endian. (16 September 2005)
+	# Enable carrier and kernel packetqueue after a successfull association. (16 September 2005)
+	# Only allocate DMA memory after enabling device. (17 September 2005)
+	# Adopt the netdev-2.6 ieee80211 stack, and drop ieee80211-devel. (23 September 2005)
+	# Drop tkip_countermeasures support. (24 September 2005)
+	# Fix PLCP calculations in descriptors. (29 September 2005)
+	# Follow ieee80211 specs and apply the correct buffer types to each mgmt frame type. (30 September 2005)
+	# Allow setting of ad-hoc mode by auto-dropping down out of 802.11g channel space. (30 September 2005)
+	# Only enable LED when after a succesfull association. (30 September 2005)
+	# Switch back to readl & writel. (1 October 2005)
+	# Add the function name to all debug lines. (5 October 2005)
+	# When transmitting packets, fill in the duration field of the header. (8 October 2005)
+	# Add set_security callback, to fix WEP/WPA key setting problem. (14 October 2005)
+	# The IOCTL set_antenna no longer requires both RX and TX antenna values. (20 October 2005)
+	# The IOCTL get_antenna will now return the correct results. (20 October 2005)
+	# SIOCSIWFREQ will now work with the FIXED and AUTO flags. (21 October 2005)
+	# Add support for the advanced SIOCSIWSCAN options found in iw_scan_req. (21 October 2005)
+	# Don't respond to assoc or auth requests when core->network is not allocated. (22 October 2005)
+	# Don't send probe responses when in adhoc or monitor mode. (23 October 2005)
+
+ - Version: rt2x00 beta 1
+	# Initial release. (3 September 2005)

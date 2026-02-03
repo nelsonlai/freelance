@@ -1,0 +1,32 @@
+<div class="product-list-container">
+  <h1>Products</h1>
+
+  <div class="search-section">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search products..."
+      class="search-input"
+    />
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading products...</div>
+
+  <div class="products-grid" *ngIf="!loading">
+    <div
+      *ngFor="let product of products | filter:searchTerm"
+      class="product-card"
+      [appHighlight]="'#f0f0f0'"
+    >
+      <h3>{{ product.name }}</h3>
+      <p class="description">{{ product.description | truncate:50 }}</p>
+      <p class="price">{{ product.price | currencyFormat }}</p>
+      <p class="category">Category: {{ product.category }}</p>
+      <p class="stock">Stock: {{ product.stock }}</p>
+      <span class="badge" [class.available]="product.isAvailable" [class.unavailable]="!product.isAvailable">
+        {{ product.isAvailable ? 'Available' : 'Out of Stock' }}
+      </span>
+    </div>
+  </div>
+</div>
+

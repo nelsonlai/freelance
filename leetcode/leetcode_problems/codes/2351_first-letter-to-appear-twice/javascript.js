@@ -1,0 +1,17 @@
+/**
+ * Problem: First Letter to Appear Twice
+ * Difficulty: Easy
+ * Tags: string, hash
+ * 
+ * Approach: String manipulation with hash map or two pointers
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) for hash map
+ */
+
+/**
+ * @param {string} s
+ * @return {character}
+ */
+var repeatedCharacter = function(s) {
+    
+};

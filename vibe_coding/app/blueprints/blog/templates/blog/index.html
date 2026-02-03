@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Blog – Vibe Coding{% endblock %}
+{% block content %}
+<h1>Blog</h1>
+{% if current_user.is_authenticated %}
+  <p><a href="{{ url_for('blog.create') }}" class="btn">New post</a></p>
+{% endif %}
+<ul class="post-list">
+  {% for post in pagination.items %}
+  <li class="post-item">
+    <div class="post-meta">By {{ post.author.username }} · {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+    <h2><a href="{{ url_for('blog.view', post_id=post.id) }}">{{ post.title }}</a></h2>
+    <p class="post-excerpt">{{ post.body[:200] }}{% if post.body|length > 200 %}…{% endif %}</p>
+  </li>
+  {% else %}
+  <li class="post-item">No posts yet.</li>
+  {% endfor %}
+</ul>
+{% if pagination.pages > 1 %}
+<nav class="pagination">
+  {% if pagination.has_prev %}
+    <a href="{{ url_for('blog.index', page=pagination.prev_num) }}">← Prev</a>
+  {% endif %}
+  {% for p in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+    {% if p %}
+      {% if p == pagination.page %}
+        <span class="current">{{ p }}</span>
+      {% else %}
+        <a href="{{ url_for('blog.index', page=p) }}">{{ p }}</a>
+      {% endif %}
+    {% else %}
+      <span>…</span>
+    {% endif %}
+  {% endfor %}
+  {% if pagination.has_next %}
+    <a href="{{ url_for('blog.index', page=pagination.next_num) }}">Next →</a>
+  {% endif %}
+</nav>
+{% endif %}
+{% endblock %}

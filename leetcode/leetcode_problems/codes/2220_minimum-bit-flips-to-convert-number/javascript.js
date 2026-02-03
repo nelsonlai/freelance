@@ -1,0 +1,18 @@
+/**
+ * Problem: Minimum Bit Flips to Convert Number
+ * Difficulty: Easy
+ * Tags: general
+ * 
+ * Approach: Optimized algorithm based on problem constraints
+ * Time Complexity: O(n) to O(n^2) depending on approach
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+/**
+ * @param {number} start
+ * @param {number} goal
+ * @return {number}
+ */
+var minBitFlips = function(start, goal) {
+    
+};

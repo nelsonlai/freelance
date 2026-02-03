@@ -1,0 +1,19 @@
+/**
+ * Problem: Evaluate Division
+ * Difficulty: Medium
+ * Tags: array, string, graph, search
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+/**
+ * @param {string[][]} equations
+ * @param {number[]} values
+ * @param {string[][]} queries
+ * @return {number[]}
+ */
+var calcEquation = function(equations, values, queries) {
+    
+};

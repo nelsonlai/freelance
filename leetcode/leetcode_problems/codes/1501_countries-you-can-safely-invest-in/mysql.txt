@@ -1,0 +1,13 @@
+-- Problem: Countries You Can Safely Invest In
+-- Difficulty: Medium
+-- Tags: Database
+
+SELECT country
+FROM (
+    SELECT c.name AS country, AVG(cr.duration) AS avg_duration
+    FROM Person p
+    INNER JOIN Country c ON SUBSTRING(p.phone_number, 1, 3) = c.country_code
+    INNER JOIN Calls cr ON p.id IN (cr.caller_id, cr.callee_id)
+    GROUP BY c.name
+) t
+WHERE avg_duration > (SELECT AVG(duration) FROM Calls);

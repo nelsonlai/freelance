@@ -1,0 +1,16 @@
+/*
+ * Problem: Count Subarrays With Score Less Than K
+ * Difficulty: Hard
+ * Tags: array, search
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, long long k) {
+        
+    }
+};

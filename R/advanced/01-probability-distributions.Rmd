@@ -1,0 +1,234 @@
+---
+title: "Probability Distributions in R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Probability Distributions in R
+
+Understanding probability distributions is fundamental to statistical analysis.
+
+## Normal Distribution
+
+The normal (Gaussian) distribution is the most important distribution in statistics.
+
+### Probability Density Function
+
+```{r normal-pdf}
+# Generate sequence for plotting
+x <- seq(-4, 4, length = 100)
+
+# Calculate PDF
+norm_density <- dnorm(x, mean = 0, sd = 1)
+
+# Plot
+plot(x, norm_density, type = "l", 
+     main = "Standard Normal Distribution",
+     xlab = "x", ylab = "Density")
+```
+
+### Cumulative Distribution Function
+
+```{r normal-cdf}
+# Calculate CDF
+pnorm(0)   # P(X < 0)
+pnorm(1.96) # P(X < 1.96) ≈ 0.975
+pnorm(-1.96) # P(X < -1.96) ≈ 0.025
+```
+
+### Quantile Function
+
+```{r normal-quantile}
+# Find critical values
+qnorm(0.95)  # 95th percentile
+qnorm(0.025) # 2.5th percentile (for 95% CI)
+qnorm(0.975) # 97.5th percentile
+```
+
+### Random Generation
+
+```{r normal-random}
+# Generate random numbers
+set.seed(123)
+random_normal <- rnorm(1000, mean = 0, sd = 1)
+hist(random_normal, main = "Normal Distribution", 
+     xlab = "Value", breaks = 30)
+```
+
+## t-Distribution
+
+The t-distribution is used for sample means when population variance is unknown.
+
+```{r t-distribution}
+# t-distribution for different degrees of freedom
+x <- seq(-4, 4, length = 100)
+
+plot(x, dnorm(x), type = "l", lty = 2, 
+     main = "t-Distribution vs Normal",
+     xlab = "x", ylab = "Density")
+
+lines(x, dt(x, df = 5), col = "red")
+lines(x, dt(x, df = 10), col = "blue")
+lines(x, dt(x, df = 30), col = "green")
+
+legend("topright", 
+       legend = c("Normal", "t(df=5)", "t(df=10)", "t(df=30)"),
+       lty = c(2, 1, 1, 1), 
+       col = c("black", "red", "blue", "green"))
+```
+
+```{r t-critical}
+# Critical values for t-tests
+# 95% confidence, two-tailed, df = 20
+qt(0.975, df = 20)
+
+# One-tailed
+qt(0.95, df = 20)
+```
+
+## Chi-Square Distribution
+
+Used for testing independence and goodness of fit.
+
+```{r chi-square}
+# Chi-square distribution
+x <- seq(0, 20, length = 100)
+plot(x, dchisq(x, df = 5), type = "l",
+     main = "Chi-Square Distribution",
+     xlab = "x", ylab = "Density")
+```
+
+```{r chi-critical}
+# Critical values for chi-square tests
+# df = 5, alpha = 0.05
+qchisq(0.95, df = 5)
+
+# For two-tailed test
+qchisq(0.025, df = 5)
+qchisq(0.975, df = 5)
+```
+
+## F-Distribution
+
+Used for comparing variances (ANOVA).
+
+```{r f-distribution}
+# F-distribution
+x <- seq(0, 5, length = 100)
+plot(x, df(x, df1 = 10, df2 = 20), type = "l",
+     main = "F-Distribution",
+     xlab = "x", ylab = "Density")
+```
+
+```{r f-critical}
+# Critical values for F-tests
+# df1 = 3, df2 = 30, alpha = 0.05
+qf(0.95, df1 = 3, df2 = 30)
+```
+
+## Bernoulli and Binomial Distributions
+
+Discrete probability distributions.
+
+```{r binomial}
+# Binomial distribution
+# n = 10, p = 0.5
+x <- 0:10
+probs <- dbinom(x, size = 10, prob = 0.5)
+
+barplot(probs, names.arg = x,
+        main = "Binomial Distribution (n=10, p=0.5)",
+        xlab = "Number of Successes",
+        ylab = "Probability")
+```
+
+## Poisson Distribution
+
+For modeling count data.
+
+```{r poisson}
+# Poisson distribution
+x <- 0:20
+lambda <- 5
+probs <- dpois(x, lambda = lambda)
+
+barplot(probs, names.arg = x,
+        main = "Poisson Distribution (lambda=5)",
+        xlab = "Count",
+        ylab = "Probability")
+```
+
+## Exponential Distribution
+
+For modeling waiting times.
+
+```{r exponential}
+# Exponential distribution
+x <- seq(0, 10, length = 100)
+rate <- 1
+density <- dexp(x, rate = rate)
+
+plot(x, density, type = "l",
+     main = "Exponential Distribution",
+     xlab = "Time",
+     ylab = "Density")
+```
+
+## Practical Applications
+
+### Example: Testing Normality
+
+```{r normality-test}
+# Generate data
+set.seed(123)
+data <- rnorm(100)
+
+# Visual check
+hist(data, main = "Distribution Check",
+     xlab = "Value", breaks = 15)
+
+# Quantile-quantile plot
+qqnorm(data)
+qqline(data, col = "red")
+
+# Shapiro-Wilk test
+shapiro.test(data)
+```
+
+### Example: Sample Distribution
+
+```{r sampling-distribution}
+# Simulate sampling distribution of the mean
+set.seed(123)
+population <- rnorm(10000, mean = 50, sd = 10)
+
+samples <- replicate(1000, mean(sample(population, size = 30)))
+hist(samples, main = "Sampling Distribution of the Mean",
+     xlab = "Sample Mean", breaks = 30)
+abline(v = mean(samples), col = "red", lwd = 2)
+
+# Central Limit Theorem in action
+mean(samples)
+sd(samples)
+10 / sqrt(30)  # Theoretical standard error
+```
+
+## Summary
+
+In this lesson, you learned:
+- Normal distribution and its uses
+- t-distribution for small samples
+- Chi-square distribution for independence tests
+- F-distribution for variance comparison
+- Discrete distributions (binomial, Poisson)
+- How to use distribution functions in R
+- Testing assumptions (normality)
+- Sampling distributions and CLT
+
+## Next Steps
+
+Apply these distributions to hypothesis testing in the next lesson!
+

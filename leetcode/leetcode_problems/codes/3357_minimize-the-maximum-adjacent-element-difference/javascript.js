@@ -1,0 +1,17 @@
+/**
+ * Problem: Minimize the Maximum Adjacent Element Difference
+ * Difficulty: Hard
+ * Tags: array, greedy, search
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minDifference = function(nums) {
+    
+};

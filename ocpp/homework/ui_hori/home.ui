@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>600</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>image/bg_index1.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>337</x>
+     <y>84</y>
+     <width>350</width>
+     <height>92</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>52</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+        color: white;                /* 文字顏色 */
+        font-size: 52pt;             /* 字體大小 */
+        font-weight: bold;           /* 粗體 */
+        font-family: &quot;Arial&quot;;
+    }
+  </string>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
+   <property name="text">
+    <string>Welcome</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::NoTextInteraction</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>405</x>
+     <y>206</y>
+     <width>214</width>
+     <height>72</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>image/logo1.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>333</x>
+     <y>294</y>
+     <width>421</width>
+     <height>55</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>33</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+        color: white;                /* 文字顏色 */
+        font-size: 33pt;             /* 字體大小 */
+        font-family: &quot;Arial&quot;;
+    }
+  </string>
+   </property>
+   <property name="text">
+    <string>Charging Station</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_start">
+   <property name="geometry">
+    <rect>
+     <x>387</x>
+     <y>440</y>
+     <width>250</width>
+     <height>88</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_250x88_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: white;                /* 文字顏色 */
+        font-size: 24pt;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_250x88_act.png&quot;) 0 0 0 0 stretch stretch;
+	   color: #FFFF00;                /* 文字顏色 */
+        font-size: 24pt;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string>Start</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>250</width>
+     <height>88</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="language_combo">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>84</y>
+     <width>200</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QComboBox {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #4A90E2;
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 16pt;
+    font-family: &quot;Arial&quot;;
+    color: #333;
+}
+QComboBox::drop-down {
+    border: none;
+    width: 30px;
+}
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #4A90E2;
+    margin-right: 10px;
+}
+QComboBox QAbstractItemView {
+    background-color: white;
+    border: 2px solid #4A90E2;
+    border-radius: 0px;
+    padding: 0px;
+    margin: 0px;
+    selection-background-color: #4A90E2;
+    selection-color: white;
+    outline: none;
+}
+QComboBox QAbstractItemView::item {
+    padding: 8px 12px;
+    border: none;
+    margin: 0px;
+    font-size: 16pt;
+}
+QComboBox QAbstractItemView::item:selected {
+    background-color: #4A90E2;
+    color: white;
+}</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="version_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>560</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    color: white;
+    font-size: 12pt;
+    font-family: &quot;Arial&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>v1.0.1</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

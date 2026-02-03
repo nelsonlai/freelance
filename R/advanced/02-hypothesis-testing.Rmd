@@ -1,0 +1,259 @@
+---
+title: "Hypothesis Testing in R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Hypothesis Testing in R
+
+Hypothesis testing is fundamental to statistical inference. We test hypotheses about population parameters using sample data.
+
+## Concepts
+
+- **Null hypothesis (H₀)**: Statement of no effect
+- **Alternative hypothesis (H₁)**: Statement of effect
+- **Type I error**: Rejecting H₀ when it's true (false positive)
+- **Type II error**: Failing to reject H₀ when it's false (false negative)
+- **α (alpha)**: Significance level, probability of Type I error
+- **p-value**: Probability of observing data as extreme, assuming H₀ is true
+
+## One-Sample t-Test
+
+Test if sample mean differs from a known value.
+
+```{r one-sample-t}
+# Example: Test if mean mpg = 20
+data(mtcars)
+
+# One-sample t-test
+t.test(mtcars$mpg, mu = 20)
+
+# Alternative: two-tailed (default), one-tailed
+t.test(mtcars$mpg, mu = 20, alternative = "greater")
+t.test(mtcars$mpg, mu = 20, alternative = "less")
+
+# Confidence interval
+t.test(mtcars$mpg, conf.level = 0.95)
+```
+
+## Two-Sample t-Test (Independent)
+
+Compare means of two independent groups.
+
+```{r two-sample-t}
+# Test if automatic vs manual cars have different mpg
+automatic <- mtcars$mpg[mtcars$am == 0]
+manual <- mtcars$mpg[mtcars$am == 1]
+
+# Two-sample t-test
+t.test(automatic, manual)
+
+# Assume equal variances
+t.test(automatic, manual, var.equal = TRUE)
+
+# One-tailed: automatic < manual
+t.test(automatic, manual, alternative = "less")
+```
+
+### Checking Assumptions
+
+```{r assumptions-t}
+# Check normality
+shapiro.test(automatic)
+shapiro.test(manual)
+
+# Visual inspection
+par(mfrow = c(1, 2))
+hist(automatic, main = "Automatic")
+hist(manual, main = "Manual")
+
+# Q-Q plots
+qqnorm(automatic)
+qqline(automatic)
+qqnorm(manual)
+qqline(manual)
+
+# Check for equal variances (F-test)
+var.test(automatic, manual)
+```
+
+## Paired t-Test
+
+Compare means of two paired/matched groups.
+
+```{r paired-t}
+# Example: Test scores before and after treatment
+set.seed(123)
+before <- rnorm(30, mean = 75, sd = 10)
+after <- before + rnorm(30, mean = 5, sd = 3)
+
+# Paired t-test
+t.test(before, after, paired = TRUE)
+
+# Calculate differences
+diffs <- after - before
+t.test(diffs, mu = 0)
+```
+
+## Wilcoxon Rank-Sum Test (Mann-Whitney)
+
+Non-parametric alternative to two-sample t-test.
+
+```{r wilcoxon}
+# When normality assumption is violated
+wilcox.test(automatic, manual)
+
+# One-tailed
+wilcox.test(automatic, manual, alternative = "less")
+```
+
+## Wilcoxon Signed-Rank Test
+
+Non-parametric alternative to paired t-test.
+
+```{r wilcoxon-paired}
+# Paired data
+wilcox.test(before, after, paired = TRUE)
+```
+
+## Chi-Square Test for Independence
+
+Test if two categorical variables are independent.
+
+```{r chi-square}
+# Create contingency table
+table(mtcars$cyl, mtcars$vs)
+
+# Perform chi-square test
+chisq.test(table(mtcars$cyl, mtcars$vs))
+
+# With expected values shown
+result <- chisq.test(table(mtcars$cyl, mtcars$vs))
+result$expected
+```
+
+```{r chi-square-warning}
+# Warning if expected counts < 5
+small_table <- table(mtcars$cyl, mtcars$vs)
+chisq.test(small_table)
+
+# Use Fisher's exact test for small samples
+fisher.test(small_table)
+```
+
+## ANOVA (Analysis of Variance)
+
+Compare means across multiple groups.
+
+```{r anova}
+# Test if mpg differs by number of cylinders
+anova_result <- aov(mpg ~ factor(cyl), data = mtcars)
+summary(anova_result)
+
+# Post-hoc tests (if significant)
+# Tukey's HSD
+TukeyHSD(anova_result)
+
+# Pairwise t-tests with correction
+pairwise.t.test(mtcars$mpg, mtcars$cyl, p.adjust.method = "bonferroni")
+```
+
+### Checking ANOVA Assumptions
+
+```{r anova-assumptions}
+# 1. Normality (by group)
+by(mtcars$mpg, mtcars$cyl, shapiro.test)
+
+# 2. Equal variances (Levene's test)
+library(car)
+leveneTest(mpg ~ factor(cyl), data = mtcars)
+
+# 3. Residuals
+plot(anova_result)
+```
+
+## One-Way ANOVA
+
+```{r one-way-anova}
+# Formal one-way ANOVA
+fit <- lm(mpg ~ cyl, data = mtcars)
+anova(fit)
+
+# With unbalanced design
+fit_full <- aov(mpg ~ cyl, data = mtcars)
+summary(fit_full)
+```
+
+## Practical Example: Complete Analysis
+
+```{r complete-example}
+# Research question: Do cars with different cylinder counts 
+# differ in fuel efficiency?
+
+# Step 1: Explore the data
+boxplot(mpg ~ cyl, data = mtcars,
+        main = "MPG by Cylinder Count",
+        xlab = "Cylinders",
+        ylab = "MPG")
+
+# Step 2: Check assumptions
+# Normality
+shapiro.test(mtcars$mpg)
+
+# Equal variances
+leveneTest(mpg ~ factor(cyl), data = mtcars)
+
+# Step 3: Perform ANOVA
+fit <- aov(mpg ~ cyl, data = mtcars)
+summary(fit)
+
+# Step 4: Post-hoc tests
+TukeyHSD(fit)
+
+# Step 5: Effect size (eta squared)
+summary(fit)
+# Calculate manually
+ss_cyl <- 824.8
+ss_total <- 1126.0
+eta_sq <- ss_cyl / (ss_cyl + ss_total)
+print(paste("Effect size (eta-squared):", round(eta_sq, 3)))
+
+# Step 6: Report results
+# There was a significant effect of cylinder count on MPG,
+# F(2, 29) = 67.66, p < 0.001, eta² = 0.732
+```
+
+## Cohen's d (Effect Size)
+
+Measure of practical significance.
+
+```{r cohens-d}
+# Cohen's d for two-sample t-test
+library(effectsize)
+
+# Calculate Cohen's d
+automatic <- mtcars$mpg[mtcars$am == 0]
+manual <- mtcars$mpg[mtcars$am == 1]
+
+cohens_d(automatic, manual)
+```
+
+## Summary
+
+In this lesson, you learned:
+- One-sample and two-sample t-tests
+- Paired t-tests
+- Non-parametric tests (Wilcoxon)
+- Chi-square tests
+- ANOVA and post-hoc tests
+- Checking assumptions
+- Effect sizes
+- Interpreting results
+
+## Next Steps
+
+Learn regression analysis in the next lesson!
+

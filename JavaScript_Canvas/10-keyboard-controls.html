@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 - Keyboard Controls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #e8f4f8;
+            border-radius: 5px;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>10 - Keyboard Controls</h1>
+    
+    <div class="explanation">
+        <h2>Keyboard Input for Canvas</h2>
+        <p>Use keyboard events to control canvas animations and interactions. Track key states for smooth movement.</p>
+    </div>
+
+    <div class="controls">
+        <p><strong>Use Arrow Keys or WASD to move the square</strong></p>
+        <p><strong>Press Space to change color</strong></p>
+        <p><strong>Press R to reset position</strong></p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // ============================================
+        // 1. KEYBOARD STATE TRACKING
+        // ============================================
+        
+        // Track which keys are currently pressed
+        const keys = {};
+        
+        // Player object
+        const player = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            size: 40,
+            speed: 5,
+            color: '#FF6B6B'
+        };
+        
+        // ============================================
+        // 2. KEYBOARD EVENT LISTENERS
+        // ============================================
+        
+        // Key down - set key as pressed
+        window.addEventListener('keydown', (e) => {
+            keys[e.key.toLowerCase()] = true;
+            keys[e.code] = true; // Also track by code for arrow keys
+            
+            // Prevent default for arrow keys and space
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
+                e.preventDefault();
+            }
+        });
+        
+        // Key up - set key as released
+        window.addEventListener('keyup', (e) => {
+            keys[e.key.toLowerCase()] = false;
+            keys[e.code] = false;
+        });
+        
+        // ============================================
+        // 3. MOVEMENT LOGIC
+        // ============================================
+        
+        function updatePlayer() {
+            // Arrow keys or WASD
+            if (keys['ArrowUp'] || keys['w'] || keys['W']) {
+                player.y -= player.speed;
+            }
+            if (keys['ArrowDown'] || keys['s'] || keys['S']) {
+                player.y += player.speed;
+            }
+            if (keys['ArrowLeft'] || keys['a'] || keys['A']) {
+                player.x -= player.speed;
+            }
+            if (keys['ArrowRight'] || keys['d'] || keys['D']) {
+                player.x += player.speed;
+            }
+            
+            // Keep player within canvas bounds
+            player.x = Math.max(player.size / 2, Math.min(canvas.width - player.size / 2, player.x));
+            player.y = Math.max(player.size / 2, Math.min(canvas.height - player.size / 2, player.y));
+            
+            // Space bar - change color
+            if (keys[' ']) {
+                const colors = ['#FF6B6B', '#4ECDC4', '#95E1D3', '#F38181', '#6C5CE7', '#FFD93D', '#55EFC4'];
+                player.color = colors[Math.floor(Math.random() * colors.length)];
+                keys[' '] = false; // Reset so it doesn't change every frame
+            }
+            
+            // R key - reset position
+            if (keys['r'] || keys['R']) {
+                player.x = canvas.width / 2;
+                player.y = canvas.height / 2;
+                keys['r'] = false;
+                keys['R'] = false;
+            }
+        }
+        
+        // ============================================
+        // 4. DRAWING FUNCTION
+        // ============================================
+        
+        function draw() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw background
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw grid
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < canvas.width; x += 50) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += 50) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            // Draw player
+            ctx.fillStyle = player.color;
+            ctx.fillRect(
+                player.x - player.size / 2,
+                player.y - player.size / 2,
+                player.size,
+                player.size
+            );
+            
+            // Draw player center point
+            ctx.fillStyle = '#333';
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, 3, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw instructions
+            ctx.fillStyle = '#333';
+            ctx.font = '16px Arial';
+            ctx.fillText(`Position: (${Math.floor(player.x)}, ${Math.floor(player.y)})`, 10, 30);
+        }
+        
+        // ============================================
+        // 5. ANIMATION LOOP
+        // ============================================
+        
+        function gameLoop() {
+            updatePlayer();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Start the game loop
+        gameLoop();
+        
+        // ============================================
+        // 6. ADDITIONAL EXAMPLE: SHOOTING GAME
+        // ============================================
+        
+        // Uncomment to see a simple shooting example
+        /*
+        const bullets = [];
+        
+        window.addEventListener('keydown', (e) => {
+            if (e.key === ' ') {
+                // Create bullet
+                bullets.push({
+                    x: player.x,
+                    y: player.y,
+                    speedX: (Math.random() - 0.5) * 10,
+                    speedY: (Math.random() - 0.5) * 10,
+                    radius: 5
+                });
+            }
+        });
+        
+        function updateBullets() {
+            bullets.forEach((bullet, index) => {
+                bullet.x += bullet.speedX;
+                bullet.y += bullet.speedY;
+                
+                // Remove if out of bounds
+                if (bullet.x < 0 || bullet.x > canvas.width ||
+                    bullet.y < 0 || bullet.y > canvas.height) {
+                    bullets.splice(index, 1);
+                }
+            });
+        }
+        
+        function drawBullets() {
+            bullets.forEach(bullet => {
+                ctx.fillStyle = '#FFD93D';
+                ctx.beginPath();
+                ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+        */
+    </script>
+</body>
+</html>
+

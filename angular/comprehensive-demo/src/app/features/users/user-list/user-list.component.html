@@ -1,0 +1,36 @@
+<div class="user-list-container">
+  <h1>Users</h1>
+
+  <div *ngIf="loading" class="loading">Loading users...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table class="table" *ngIf="!loading && users.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.firstName }} {{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.isActive ? 'Active' : 'Inactive' }}</td>
+        <td>
+          <a [routerLink]="['/users', user.id]" class="btn btn-primary btn-sm">View</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && users.length === 0" class="no-data">
+    No users found.
+  </div>
+</div>
+

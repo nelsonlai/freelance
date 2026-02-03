@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 - Performance Optimization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .canvas-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #444;
+            display: block;
+            margin: 20px auto;
+            background: #000;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #2a2a2a;
+            border-radius: 5px;
+        }
+        .info {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #4ECDC4;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+        button:hover {
+            background: #3bb5ad;
+        }
+        .explanation {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>15 - Performance Optimization</h1>
+    
+    <div class="explanation">
+        <h2>Optimizing Canvas Performance</h2>
+        <p>Learn techniques to improve canvas performance: dirty rectangles, object pooling, requestAnimationFrame optimization, and reducing redraws.</p>
+    </div>
+
+    <div class="info">
+        <div>FPS: <span id="fps">0</span> | Particles: <span id="particleCount">0</span></div>
+        <div style="font-size: 14px; margin-top: 10px;">Compare performance: Full Redraw vs Optimized</div>
+    </div>
+
+    <div class="controls">
+        <button id="optimizedBtn">Optimized Mode</button>
+        <button id="unoptimizedBtn">Unoptimized Mode</button>
+        <button id="addParticlesBtn">Add 100 Particles</button>
+        <button id="clearBtn">Clear</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Performance tracking
+        let lastTime = performance.now();
+        let frameCount = 0;
+        let fps = 0;
+        
+        // Mode
+        let optimized = true;
+        
+        // ============================================
+        // 1. OBJECT POOLING
+        // ============================================
+        
+        class ParticlePool {
+            constructor() {
+                this.pool = [];
+                this.active = [];
+            }
+            
+            get() {
+                let particle;
+                if (this.pool.length > 0) {
+                    particle = this.pool.pop();
+                } else {
+                    particle = new Particle();
+                }
+                this.active.push(particle);
+                return particle;
+            }
+            
+            release(particle) {
+                const index = this.active.indexOf(particle);
+                if (index > -1) {
+                    this.active.splice(index, 1);
+                    this.pool.push(particle);
+                }
+            }
+            
+            releaseAll() {
+                this.pool.push(...this.active);
+                this.active = [];
+            }
+        }
+        
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = Math.random() * 3 + 1;
+                this.color = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                this.life = 1.0;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= 0.002;
+                
+                // Wrap around
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+                
+                return this.life > 0;
+            }
+            
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            }
+        }
+        
+        const particlePool = new ParticlePool();
+        
+        // ============================================
+        // 2. DIRTY RECTANGLES (Partial Redraw)
+        // ============================================
+        
+        let dirtyRects = [];
+        
+        function addDirtyRect(x, y, width, height) {
+            dirtyRects.push({ x, y, width, height });
+        }
+        
+        function clearDirtyRects() {
+            dirtyRects.forEach(rect => {
+                ctx.clearRect(rect.x - 1, rect.y - 1, rect.width + 2, rect.height + 2);
+            });
+            dirtyRects = [];
+        }
+        
+        // ============================================
+        // 3. OPTIMIZED DRAWING
+        // ============================================
+        
+        function drawOptimized() {
+            // Only clear dirty rectangles
+            clearDirtyRects();
+            
+            // Draw background only in dirty areas (simplified - in real app, cache background)
+            dirtyRects.forEach(rect => {
+                ctx.fillStyle = '#000';
+                ctx.fillRect(rect.x - 1, rect.y - 1, rect.width + 2, rect.height + 2);
+            });
+            
+            // Update and draw particles
+            particlePool.active.forEach(particle => {
+                const prevX = particle.x;
+                const prevY = particle.y;
+                
+                if (particle.update()) {
+                    // Mark previous and current positions as dirty
+                    addDirtyRect(prevX - particle.radius - 1, prevY - particle.radius - 1, 
+                                 particle.radius * 2 + 2, particle.radius * 2 + 2);
+                    addDirtyRect(particle.x - particle.radius - 1, particle.y - particle.radius - 1,
+                                 particle.radius * 2 + 2, particle.radius * 2 + 2);
+                    particle.draw();
+                } else {
+                    particlePool.release(particle);
+                }
+            });
+        }
+        
+        // ============================================
+        // 4. UNOPTIMIZED DRAWING (Full Redraw)
+        // ============================================
+        
+        function drawUnoptimized() {
+            // Clear entire canvas every frame
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw all particles
+            particlePool.active.forEach(particle => {
+                if (particle.update()) {
+                    particle.draw();
+                } else {
+                    particlePool.release(particle);
+                }
+            });
+        }
+        
+        // ============================================
+        // 5. PERFORMANCE MONITORING
+        // ============================================
+        
+        function updateFPS() {
+            frameCount++;
+            const currentTime = performance.now();
+            const delta = currentTime - lastTime;
+            
+            if (delta >= 1000) {
+                fps = Math.round((frameCount * 1000) / delta);
+                frameCount = 0;
+                lastTime = currentTime;
+                
+                document.getElementById('fps').textContent = fps;
+                document.getElementById('particleCount').textContent = particlePool.active.length;
+            }
+        }
+        
+        // ============================================
+        // 6. ANIMATION LOOP
+        // ============================================
+        
+        function animate() {
+            updateFPS();
+            
+            if (optimized) {
+                drawOptimized();
+            } else {
+                drawUnoptimized();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // ============================================
+        // 7. EVENT LISTENERS
+        // ============================================
+        
+        document.getElementById('optimizedBtn').addEventListener('click', () => {
+            optimized = true;
+            // Clear and redraw everything for clean state
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particlePool.active.forEach(p => p.draw());
+        });
+        
+        document.getElementById('unoptimizedBtn').addEventListener('click', () => {
+            optimized = false;
+        });
+        
+        document.getElementById('addParticlesBtn').addEventListener('click', () => {
+            for (let i = 0; i < 100; i++) {
+                particlePool.get();
+            }
+        });
+        
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            particlePool.releaseAll();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+        
+        // ============================================
+        // ADDITIONAL OPTIMIZATION TIPS
+        // ============================================
+        
+        /*
+        Other optimization techniques:
+        
+        1. Use offscreen canvas for static backgrounds
+        2. Batch similar drawing operations
+        3. Use imageData for pixel manipulation instead of individual pixel operations
+        4. Reduce the number of draw calls
+        5. Use CSS transforms for simple animations instead of canvas
+        6. Cache gradients and patterns
+        7. Use willReadFrequently: false for contexts that don't need pixel reading
+        8. Reduce canvas size if possible
+        9. Use requestAnimationFrame instead of setInterval
+        10. Avoid unnecessary state changes (fillStyle, strokeStyle, etc.)
+        */
+        
+        // Start animation
+        animate();
+        
+        // Initial particles
+        for (let i = 0; i < 50; i++) {
+            particlePool.get();
+        }
+    </script>
+</body>
+</html>
+

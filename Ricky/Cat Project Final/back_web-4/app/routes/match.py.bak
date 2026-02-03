@@ -1,0 +1,202 @@
+import json
+from flask import Blueprint, jsonify, current_app, request
+
+from ..services.storage import Storage
+from ..services.poe_analyze import (
+    analyze_with_poe,
+    generate_kitten_image,
+    generate_kitten_image_with_retry
+)
+from ..utils.auth import require_jwt
+
+bp = Blueprint("match", __name__, url_prefix="/api")
+
+
+# ----------------------------
+# Matching score logic
+# ----------------------------
+def _score(my_cat: dict, other: dict) -> dict:
+    score = 0
+
+    # 1. Same breed (strong signal)
+    if (my_cat.get("breed") or "") == (other.get("breed") or ""):
+        score += 30
+
+    # 2. Age similarity (0–25)
+    try:
+        age_diff = abs(int(my_cat.get("age", 0)) - int(other.get("age", 0)))
+        score += max(0, 25 - min(25, age_diff * 5))
+    except Exception:
+        pass
+
+    # 3. Vaccination overlap (0–10)
+    my_v = set(my_cat.get("vaccinations") or [])
+    ot_v = set(other.get("vaccinations") or [])
+    score += min(10, len(my_v.intersection(ot_v)) * 2)
+
+    # 4. Health status similarity (0–10)
+    if (my_cat.get("health") or "").lower() == (other.get("health") or "").lower():
+        score += 10
+
+    return {
+        "cat": other,
+        "score": int(score),
+    }
+
+
+# ----------------------------
+# Prompt builder (Poe analyze)
+# ----------------------------
+def _build_prompt(my_cat: dict, top_matches: list) -> str:
+    my_profile = my_cat.get("profile") or {}
+
+    my_summary = {
+        "name": my_cat.get("name"),
+        "breed": my_cat.get("breed"),
+        "age": my_cat.get("age"),
+        "sex_status": my_cat.get("gender"),
+        "health": my_cat.get("health"),
+        "vaccinations": my_cat.get("vaccinations"),
+        "source": my_profile.get("source"),
+        "owner_experience_years": my_profile.get("experience_years"),
+        "origin_knowledge": my_profile.get("origin_knowledge"),
+    }
+
+    candidates = []
+    for item in top_matches:
+        c = item.get("cat") or {}
+        candidates.append({
+            "name": c.get("name"),
+            "breed": c.get("breed"),
+            "age": c.get("age"),
+            "sex_status": c.get("gender"),
+            "health": c.get("health"),
+            "vaccinations": c.get("vaccinations"),
+            "score": item.get("score"),
+        })
+
+    return f"""
+# Role:
+Professional AI Feline Health & Breed Consultant.
+
+# Context:
+I am developing an AI platform for cat breeding and health analysis.
+You will receive structured questionnaire data collected from cat owners.
+
+# User's Cat:
+{json.dumps(my_summary, ensure_ascii=False, indent=2)}
+
+# Potential Match Cats:
+{json.dumps(candidates, ensure_ascii=False, indent=2)}
+
+# Analysis Requirements:
+1. Suitability Assessment
+2. Medical Cost Estimation
+3. Ease of Care
+4. Genetic & Health Risks
+
+# Output Language:
+Traditional Chinese (Taiwan / Hong Kong)
+""".strip()
+
+
+# ----------------------------
+# API: GET /api/match-result
+# ----------------------------
+@bp.get("/match-result")
+def match_result():
+    user = require_jwt()
+    user_id = int(user.get("user_id"))
+    email = user.get("email")
+
+    store = Storage(current_app.config["SQLITE_PATH"])
+    my_cat = store.get_cat_by_user_id(user_id)
+
+    if not my_cat:
+        return jsonify({
+            "status": "error",
+            "message": "No cat profile found for this user"
+        }), 404
+
+    others = store.list_other_cats(user_id=user_id, limit=200)
+    scored = sorted(
+        [_score(my_cat, c) for c in others],
+        key=lambda x: x["score"],
+        reverse=True
+    )
+
+    top_matches = scored[:5]
+
+    # ---------- AI 分析 ----------
+    try:
+        prompt = _build_prompt(my_cat, top_matches)
+        poe_review = analyze_with_poe(prompt)
+    except Exception:
+        current_app.logger.exception("Poe AI analyze failed")
+        poe_review = "AI 分析暫時無法使用（後端已記錄錯誤）"
+
+    # ---------- 小貓圖片生成 ----------
+    kitten_image_url = None
+
+    if top_matches:
+        try:
+            top_match = top_matches[0]["cat"]
+
+            image_result = generate_kitten_image_with_retry(
+                cat1_breed=my_cat.get("breed", "mixed"),
+                cat2_breed=top_match.get("breed", "mixed"),
+                max_retries=2,
+                logger=current_app.logger
+            )
+
+            if image_result.get("success"):
+                kitten_image_url = image_result.get("image_url")
+                current_app.logger.info(f"✅ Generated kitten image: {kitten_image_url}")
+            else:
+                current_app.logger.warning(
+                    f"❌ Image generation failed: {image_result.get('error')}"
+                )
+
+        except Exception:
+            current_app.logger.exception("Failed to generate kitten image")
+
+    return jsonify({
+        "status": "ok",
+        "user": {
+            "email": email,
+            "user_id": user_id
+        },
+        "your_feline": my_cat,
+        "match_review": poe_review,
+        "potential_matches": top_matches,
+        "kitten_image_url": kitten_image_url
+    }), 200
+
+
+# ----------------------------
+# API: POST /api/generate-kitten-image
+# ----------------------------
+@bp.post("/generate-kitten-image")
+def generate_kitten():
+    user = require_jwt()
+    
+    data = request.get_json() or {}
+    cat1_breed = data.get("cat1_breed")
+    cat2_breed = data.get("cat2_breed")
+
+    if not cat1_breed or not cat2_breed:
+        return jsonify({
+            "success": False,
+            "error": "需要提供兩隻貓的品種"
+        }), 400
+
+    try:
+        result = generate_kitten_image(cat1_breed, cat2_breed)
+        return jsonify(result), 200 if result.get("success") else 500
+
+    except Exception as e:
+        current_app.logger.exception("Generate kitten image failed")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500

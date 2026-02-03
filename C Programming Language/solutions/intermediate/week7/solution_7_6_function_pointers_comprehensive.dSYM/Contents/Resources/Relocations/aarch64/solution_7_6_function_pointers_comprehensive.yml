@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     'intermediate/week7/solution_7_6_function_pointers_comprehensive'
+relocations:     []
+...

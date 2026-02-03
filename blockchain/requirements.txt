@@ -1,0 +1,13 @@
+# Blockchain Implementation Requirements
+# 
+# This implementation uses only Python standard library modules:
+# - hashlib (for SHA-256 hashing)
+# - json (for data serialization)
+# - time (for timestamps)
+# - typing (for type hints)
+# - datetime (for date formatting)
+# - collections (for defaultdict)
+#
+# No external dependencies required!
+#
+# Python 3.7+ is recommended for full type hint support.

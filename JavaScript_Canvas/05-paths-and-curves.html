@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05 - Paths and Curves</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>05 - Paths and Curves</h1>
+    
+    <div class="explanation">
+        <h2>Creating Complex Paths and Curves</h2>
+        <p>Paths allow you to create complex shapes by combining lines and curves. You can build intricate drawings step by step.</p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="700"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set background
+        ctx.fillStyle = '#f8f8f8';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // ============================================
+        // 1. UNDERSTANDING PATHS
+        // ============================================
+        
+        // A path is a series of connected points
+        // You build it step by step, then draw it
+        
+        ctx.strokeStyle = '#FF6B6B';
+        ctx.lineWidth = 3;
+        ctx.beginPath(); // Start a new path
+        ctx.moveTo(50, 50); // Move to starting point (doesn't draw)
+        ctx.lineTo(150, 50); // Draw line to this point
+        ctx.lineTo(150, 150); // Draw line to this point
+        ctx.lineTo(50, 150); // Draw line to this point
+        ctx.closePath(); // Connect back to start
+        ctx.stroke(); // Actually draw the path
+        
+        // ============================================
+        // 2. QUADRATIC CURVES
+        // ============================================
+        
+        // quadraticCurveTo(cpx, cpy, x, y)
+        // Creates a curve using one control point
+        
+        ctx.strokeStyle = '#4ECDC4';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(200, 100);
+        ctx.quadraticCurveTo(250, 50, 300, 100); // Control point at (250, 50)
+        ctx.stroke();
+        
+        // Draw the control point for visualization
+        ctx.fillStyle = '#4ECDC4';
+        ctx.beginPath();
+        ctx.arc(250, 50, 5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Multiple quadratic curves
+        ctx.strokeStyle = '#95E1D3';
+        ctx.beginPath();
+        ctx.moveTo(350, 100);
+        ctx.quadraticCurveTo(400, 50, 450, 100);
+        ctx.quadraticCurveTo(500, 150, 550, 100);
+        ctx.stroke();
+        
+        // ============================================
+        // 3. BEZIER CURVES
+        // ============================================
+        
+        // bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+        // Creates a curve using two control points (more control!)
+        
+        ctx.strokeStyle = '#F38181';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(50, 200);
+        ctx.bezierCurveTo(100, 150, 200, 250, 250, 200);
+        ctx.stroke();
+        
+        // Draw control points
+        ctx.fillStyle = '#F38181';
+        ctx.beginPath();
+        ctx.arc(100, 150, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(200, 250, 5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Smooth S-curve
+        ctx.strokeStyle = '#AA96DA';
+        ctx.beginPath();
+        ctx.moveTo(300, 200);
+        ctx.bezierCurveTo(350, 150, 400, 250, 450, 200);
+        ctx.stroke();
+        
+        // ============================================
+        // 4. ARC CURVES
+        // ============================================
+        
+        // arc(x, y, radius, startAngle, endAngle, anticlockwise)
+        // Angles are in radians (0 to 2π)
+        
+        ctx.strokeStyle = '#FCBAD3';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(150, 300, 50, 0, Math.PI); // Semicircle
+        ctx.stroke();
+        
+        ctx.strokeStyle = '#FFD93D';
+        ctx.beginPath();
+        ctx.arc(300, 300, 50, Math.PI / 4, Math.PI * 1.5); // Partial arc
+        ctx.stroke();
+        
+        // ============================================
+        // 5. ARC TO (TANGENT ARC)
+        // ============================================
+        
+        // arcTo(x1, y1, x2, y2, radius)
+        // Creates an arc tangent to two lines
+        
+        ctx.strokeStyle = '#6C5CE7';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(50, 400);
+        ctx.lineTo(150, 400); // First line
+        ctx.arcTo(200, 400, 200, 450, 30); // Arc to second line
+        ctx.lineTo(200, 500); // Second line
+        ctx.stroke();
+        
+        // ============================================
+        // 6. COMPLEX SHAPES
+        // ============================================
+        
+        // Star shape
+        ctx.fillStyle = '#55EFC4';
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        const centerX = 400;
+        const centerY = 400;
+        const spikes = 5;
+        const outerRadius = 50;
+        const innerRadius = 25;
+        
+        for (let i = 0; i < spikes * 2; i++) {
+            const radius = i % 2 === 0 ? outerRadius : innerRadius;
+            const angle = (i * Math.PI) / spikes - Math.PI / 2;
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        
+        // Heart shape using bezier curves
+        ctx.fillStyle = '#E17055';
+        ctx.beginPath();
+        const heartX = 550;
+        const heartY = 400;
+        ctx.moveTo(heartX, heartY);
+        ctx.bezierCurveTo(heartX, heartY - 20, heartX - 30, heartY - 40, heartX - 30, heartY - 20);
+        ctx.bezierCurveTo(heartX - 30, heartY, heartX, heartY + 20, heartX, heartY + 30);
+        ctx.bezierCurveTo(heartX, heartY + 20, heartX + 30, heartY, heartX + 30, heartY - 20);
+        ctx.bezierCurveTo(heartX + 30, heartY - 40, heartX, heartY - 20, heartX, heartY);
+        ctx.fill();
+        
+        // ============================================
+        // 7. CLIPPING PATHS
+        // ============================================
+        
+        // Create a clipping region
+        ctx.save(); // Save current state
+        ctx.beginPath();
+        ctx.arc(700, 400, 60, 0, Math.PI * 2);
+        ctx.clip(); // Set as clipping region
+        
+        // Draw something (only visible inside the clip)
+        const gradient = ctx.createLinearGradient(640, 340, 760, 460);
+        gradient.addColorStop(0, '#FF6B6B');
+        gradient.addColorStop(1, '#4ECDC4');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(640, 340, 120, 120);
+        
+        // Draw text (also clipped)
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 20px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('CLIP', 700, 405);
+        
+        ctx.restore(); // Restore state (remove clip)
+        
+        // ============================================
+        // 8. PATH OPERATIONS
+        // ============================================
+        
+        // isPointInPath(x, y) - check if point is in current path
+        ctx.fillStyle = '#74B9FF';
+        ctx.beginPath();
+        ctx.arc(150, 550, 40, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Check if mouse position (example: 150, 550) is in path
+        // Note: This would typically be used with mouse events
+        ctx.beginPath();
+        ctx.arc(150, 550, 40, 0, Math.PI * 2);
+        const isInside = ctx.isPointInPath(150, 550);
+        console.log('Point (150, 550) is in path:', isInside);
+        
+        // ============================================
+        // 9. COMBINING PATHS
+        // ============================================
+        
+        // You can build complex paths by combining multiple shapes
+        ctx.fillStyle = '#A29BFE';
+        ctx.beginPath();
+        // First shape
+        ctx.arc(350, 550, 30, 0, Math.PI * 2);
+        // Second shape (adds to path)
+        ctx.arc(400, 550, 30, 0, Math.PI * 2);
+        // Third shape
+        ctx.arc(450, 550, 30, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // ============================================
+        // 10. LABELS
+        // ============================================
+        
+        ctx.fillStyle = '#333';
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillText('Basic Path', 50, 30);
+        ctx.fillText('Quadratic Curves', 200, 30);
+        ctx.fillText('Bezier Curves', 50, 180);
+        ctx.fillText('Arcs', 50, 280);
+        ctx.fillText('ArcTo', 50, 480);
+        ctx.fillText('Complex Shapes', 400, 280);
+        ctx.fillText('Clipping', 650, 280);
+        ctx.fillText('Combined Paths', 350, 520);
+    </script>
+</body>
+</html>
+

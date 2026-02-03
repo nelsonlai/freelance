@@ -1,0 +1,38 @@
+# OCPP 2.1 Implementation Requirements
+
+## Core Dependencies
+websockets>=11.0.3          # WebSocket communication for OCPP
+asyncio-mqtt>=0.13.0        # MQTT support for OCPP over MQTT
+pydantic>=2.0.0
+pydantic-settings>=2.0.0             # Data validation and serialization
+jsonschema>=4.0.0           # JSON schema validation
+uvloop>=0.17.0              # High-performance event loop
+aiofiles>=23.0.0            # Async file operations
+aiohttp>=3.8.0              # HTTP client/server for REST APIs
+aiosqlite>=0.19.0           # Async SQLite database
+cryptography>=41.0.0        # Cryptographic operations for security
+pyjwt>=2.8.0                # JWT token handling
+bcrypt>=4.0.0               # Password hashing
+python-multipart>=0.0.6     # Multipart form data handling
+
+## Development Dependencies
+pytest>=7.4.0              # Testing framework
+pytest-asyncio>=0.21.0     # Async testing support
+pytest-cov>=4.1.0          # Coverage reporting
+black>=23.0.0              # Code formatting
+flake8>=6.0.0              # Code linting
+mypy>=1.5.0                # Type checking
+pre-commit>=3.3.0          # Git hooks
+
+## Optional Dependencies
+redis>=4.6.0               # Redis for caching and session storage
+celery>=5.3.0              # Task queue for background processing
+prometheus-client>=0.17.0  # Metrics collection
+grafana-api>=1.0.3         # Grafana integration
+elasticsearch>=8.8.0       # Log aggregation
+kafka-python>=2.0.2        # Apache Kafka integration
+
+## Documentation Dependencies
+sphinx>=7.0.0              # Documentation generation
+sphinx-rtd-theme>=1.3.0    # Read the Docs theme
+myst-parser>=2.0.0         # Markdown support for Sphinx

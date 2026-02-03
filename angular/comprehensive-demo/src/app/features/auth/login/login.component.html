@@ -1,0 +1,109 @@
+<!--
+  Login Component Template
+  
+  This template demonstrates:
+  - Template-driven forms
+  - Two-way data binding with [(ngModel)]
+  - Form validation
+  - Error display
+  - Conditional rendering with *ngIf
+  - CSS classes with [ngClass]
+-->
+
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+    <p class="subtitle">Please sign in to your account</p>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Login Form -->
+    <!-- 
+      Template-driven form:
+      - #formRef="ngForm" creates a template reference variable
+      - ngForm directive is automatically added to <form> elements
+      - (ngSubmit) handles form submission
+    -->
+    <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" class="login-form">
+      
+      <!-- Email Input -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="loginForm.email"
+          #email="ngModel"
+          required
+          email
+          [ngClass]="{
+            'invalid': email.invalid && email.touched,
+            'valid': email.valid && email.touched
+          }"
+          placeholder="Enter your email"
+        />
+        <!-- Validation Messages -->
+        <div *ngIf="email.invalid && email.touched" class="error-message">
+          <span *ngIf="email.errors?.['required']">Email is required</span>
+          <span *ngIf="email.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="loginForm.password"
+          #password="ngModel"
+          required
+          minlength="6"
+          [ngClass]="{
+            'invalid': password.invalid && password.touched,
+            'valid': password.valid && password.touched
+          }"
+          placeholder="Enter your password"
+        />
+        <!-- Validation Messages -->
+        <div *ngIf="password.invalid && password.touched" class="error-message">
+          <span *ngIf="password.errors?.['required']">Password is required</span>
+          <span *ngIf="password.errors?.['minlength']">
+            Password must be at least 6 characters
+          </span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="formRef.invalid || isLoading"
+        >
+          <span *ngIf="!isLoading">Login</span>
+          <span *ngIf="isLoading">Logging in...</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+          [disabled]="isLoading"
+        >
+          Reset
+        </button>
+      </div>
+
+      <!-- Register Link -->
+      <div class="form-footer">
+        <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+      </div>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,273 @@
+---
+title: "Data Visualization with ggplot2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(ggplot2)
+```
+
+# Data Visualization with ggplot2
+
+ggplot2 is R's most popular visualization package. It uses a "grammar of graphics" approach to building plots.
+
+## Load the Package
+
+```{r load-package}
+library(ggplot2)
+```
+
+## Why ggplot2?
+
+- **Grammar-based**: Consistent system for building plots
+- **Layered**: Build plots layer by layer
+- **Customizable**: Control every aspect of appearance
+- **Beautiful**: Create publication-quality graphics
+
+## The Grammar of Graphics
+
+Every plot is made up of:
+- **Data**: The dataset
+- **Aesthetics** (`aes`): Mapping variables to visual properties
+- **Geometries** (`geom_*`): The actual visual elements
+- **Scales**: Control how aesthetics are mapped
+- **Facets**: Create subplots
+- **Themes**: Control overall appearance
+
+## Basic Structure
+
+```{r basic-structure}
+# Template:
+# ggplot(data, aes(x = var1, y = var2)) +
+#   geom_point()
+```
+
+## Scatter Plots
+
+```{r scatter-plot}
+# Load data
+data(mtcars)
+
+# Basic scatter plot
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+
+# Add color by variable
+ggplot(mtcars, aes(x = wt, y = mpg, color = cyl)) +
+  geom_point()
+
+# Change point size
+ggplot(mtcars, aes(x = wt, y = mpg, size = hp)) +
+  geom_point()
+```
+
+## Line Plots
+
+```{r line-plot}
+# Simple line plot
+time_series <- data.frame(
+  year = 2010:2019,
+  sales = c(100, 120, 150, 140, 160, 180, 170, 200, 220, 240)
+)
+
+ggplot(time_series, aes(x = year, y = sales)) +
+  geom_line()
+
+# With points
+ggplot(time_series, aes(x = year, y = sales)) +
+  geom_line() +
+  geom_point()
+```
+
+## Bar Charts
+
+```{r bar-chart}
+# Count data (no y-axis specified)
+ggplot(mtcars, aes(x = cyl)) +
+  geom_bar()
+
+# With y-axis
+cyl_counts <- data.frame(
+  cyl = c(4, 6, 8),
+  count = c(11, 7, 14)
+)
+
+ggplot(cyl_counts, aes(x = cyl, y = count)) +
+  geom_col()
+
+# Horizontal bars
+ggplot(cyl_counts, aes(x = cyl, y = count)) +
+  geom_col() +
+  coord_flip()
+```
+
+## Histograms
+
+```{r histogram}
+# Basic histogram
+ggplot(mtcars, aes(x = mpg)) +
+  geom_histogram()
+
+# Adjust bins
+ggplot(mtcars, aes(x = mpg)) +
+  geom_histogram(bins = 20)
+
+# Add color
+ggplot(mtcars, aes(x = mpg, fill = as.factor(cyl))) +
+  geom_histogram(bins = 20, alpha = 0.7)
+```
+
+## Box Plots
+
+```{r box-plot}
+# Basic box plot
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg)) +
+  geom_boxplot()
+
+# With color
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) +
+  geom_boxplot()
+
+# Violin plots (show distribution shape)
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg)) +
+  geom_violin()
+```
+
+## Density Plots
+
+```{r density-plot}
+# Basic density plot
+ggplot(mtcars, aes(x = mpg)) +
+  geom_density()
+
+# Multiple densities
+ggplot(mtcars, aes(x = mpg, color = as.factor(cyl))) +
+  geom_density()
+```
+
+## Customizing Plots
+
+```{r customization}
+# Add titles and labels
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  labs(
+    title = "Fuel Efficiency vs Weight",
+    subtitle = "Cars from 1974",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon",
+    caption = "Source: mtcars dataset"
+  ) +
+  theme_minimal()
+```
+
+## Adding Multiple Layers
+
+```{r multiple-layers}
+# Combine multiple geoms
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    title = "MPG vs Weight with Trend Line",
+    x = "Weight",
+    y = "MPG"
+  )
+```
+
+## Facets (Multiple Panels)
+
+```{r facets}
+# Create facets
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  facet_wrap(~ cyl)
+```
+
+## Themes
+
+```{r themes}
+# Different built-in themes
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+
+# Theme minimal
+p + theme_minimal()
+
+# Theme classic
+p + theme_classic()
+
+# Theme dark
+p + theme_dark()
+
+# Custom theme
+p +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.title = element_text(size = 12),
+    panel.background = element_rect(fill = "white"),
+    panel.grid.major = element_line(color = "gray80")
+  )
+```
+
+## Color Scales
+
+```{r color-scales}
+# Discrete colors
+ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1")
+
+# Continuous colors
+ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +
+  geom_point() +
+  scale_color_gradient(low = "blue", high = "red")
+```
+
+## Saving Plots
+
+```{r save-plots, eval=FALSE}
+# Save as PNG
+ggsave("my_plot.png", width = 8, height = 6, dpi = 300)
+
+# Save as PDF
+ggsave("my_plot.pdf", width = 8, height = 6)
+```
+
+## Advanced Example
+
+```{r advanced-example}
+# Complex visualization
+ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +
+  geom_point(aes(size = hp), alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ cyl) +
+  labs(
+    title = "Fuel Efficiency Analysis",
+    subtitle = "By Number of Cylinders",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon",
+    color = "Cylinders",
+    size = "Horsepower"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+## Summary
+
+In this lesson, you learned:
+- The grammar of graphics
+- How to create scatter plots
+- How to create bar charts and histograms
+- How to create box plots
+- How to customize plots with labels and themes
+- How to add multiple layers
+- How to create facets
+- How to save plots
+
+## Next Steps
+
+Practice creating visualizations with your own data and move to descriptive statistics!
+

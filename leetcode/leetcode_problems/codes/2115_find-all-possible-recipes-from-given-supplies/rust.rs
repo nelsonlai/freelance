@@ -1,0 +1,13 @@
+// Problem: Find All Possible Recipes from Given Supplies
+// Difficulty: Medium
+// Tags: array, string, graph, hash, sort
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(n) for hash map
+
+impl Solution {
+    pub fn find_all_recipes(recipes: Vec<String>, ingredients: Vec<Vec<String>>, supplies: Vec<String>) -> Vec<String> {
+        
+    }
+}

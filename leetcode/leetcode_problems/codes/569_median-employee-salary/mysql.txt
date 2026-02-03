@@ -1,0 +1,15 @@
+-- Problem: Median Employee Salary
+-- Difficulty: Hard
+-- Tags: Database
+
+SELECT id, company, salary
+FROM (
+    SELECT 
+        id,
+        company,
+        salary,
+        ROW_NUMBER() OVER (PARTITION BY company ORDER BY salary) AS rn,
+        COUNT(*) OVER (PARTITION BY company) AS cnt
+    FROM Employee
+) t
+WHERE rn IN (FLOOR((cnt + 1) / 2), FLOOR((cnt + 2) / 2));

@@ -1,0 +1,13 @@
+// Problem: Queue Reconstruction by Height
+// Difficulty: Medium
+// Tags: array, tree, sort, queue
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(h) for recursion stack where h is height
+
+impl Solution {
+    pub fn reconstruct_queue(people: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+        
+    }
+}

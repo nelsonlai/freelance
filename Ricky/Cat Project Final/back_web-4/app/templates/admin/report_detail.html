@@ -1,0 +1,41 @@
+{% extends "admin/_layout.html" %}
+{% set title = "Report detail" %}
+{% set subtitle = report.id if report else "Not found" %}
+
+{% block content %}
+  {% if not report %}
+    <div class="bg-white border rounded-2xl p-5">Report not found.</div>
+  {% else %}
+    <div class="mb-4">
+      <a href="/admin/reports" class="text-sm text-slate-600 hover:underline">← Back to list</a>
+    </div>
+
+    <div class="bg-white border rounded-2xl p-5">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <div class="text-sm text-slate-500">Report ID</div>
+          <div class="font-mono text-sm break-all mt-1">{{ report.id }}</div>
+        </div>
+        <div>
+          <div class="text-sm text-slate-500">Owner email</div>
+          <div class="text-sm mt-1">{{ report.owner_email }}</div>
+        </div>
+        <div>
+          <div class="text-sm text-slate-500">Created (unix)</div>
+          <div class="text-sm mt-1">{{ report.created_at }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="font-semibold mb-2">Payload (from Make)</div>
+        <pre class="text-xs bg-slate-50 border rounded-xl p-3 overflow-auto">{{ report.payload | tojson(indent=2) }}</pre>
+      </div>
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="font-semibold mb-2">Result (from Poe)</div>
+        <pre class="text-xs bg-slate-50 border rounded-xl p-3 overflow-auto">{{ report.result | tojson(indent=2) }}</pre>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17 - WebGL Introduction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .canvas-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #444;
+            display: block;
+            margin: 20px auto;
+            background: #000;
+        }
+        .explanation {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .error {
+            color: #ff6b6b;
+            padding: 10px;
+            background: #3a1a1a;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>17 - WebGL Introduction</h1>
+    
+    <div class="explanation">
+        <h2>Introduction to WebGL</h2>
+        <p>WebGL is a low-level 3D graphics API that uses the GPU. It's more complex than 2D canvas but much more powerful for 3D graphics and complex visual effects.</p>
+        <p><strong>Note:</strong> This is a basic introduction. Full WebGL development requires understanding shaders, matrices, and 3D math.</p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <div id="error" class="error" style="display: none;"></div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const errorDiv = document.getElementById('error');
+        
+        // ============================================
+        // 1. GET WEBGL CONTEXT
+        // ============================================
+        
+        let gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        
+        if (!gl) {
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = 'WebGL is not supported in your browser.';
+            gl = null;
+        }
+        
+        if (gl) {
+            // ============================================
+            // 2. SHADER SOURCE CODE
+            // ============================================
+            
+            // Vertex shader - processes vertex positions
+            const vertexShaderSource = `
+                attribute vec2 a_position;
+                uniform vec2 u_resolution;
+                void main() {
+                    vec2 zeroToOne = a_position / u_resolution;
+                    vec2 zeroToTwo = zeroToOne * 2.0;
+                    vec2 clipSpace = zeroToTwo - 1.0;
+                    gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+                }
+            `;
+            
+            // Fragment shader - processes pixel colors
+            const fragmentShaderSource = `
+                precision mediump float;
+                uniform vec4 u_color;
+                void main() {
+                    gl_FragColor = u_color;
+                }
+            `;
+            
+            // ============================================
+            // 3. CREATE SHADER
+            // ============================================
+            
+            function createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
+                    gl.deleteShader(shader);
+                    return null;
+                }
+                
+                return shader;
+            }
+            
+            // ============================================
+            // 4. CREATE PROGRAM
+            // ============================================
+            
+            function createProgram(gl, vertexShader, fragmentShader) {
+                const program = gl.createProgram();
+                gl.attachShader(program, vertexShader);
+                gl.attachShader(program, fragmentShader);
+                gl.linkProgram(program);
+                
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                    console.error('Program linking error:', gl.getProgramInfoLog(program));
+                    gl.deleteProgram(program);
+                    return null;
+                }
+                
+                return program;
+            }
+            
+            // ============================================
+            // 5. SETUP SHADERS
+            // ============================================
+            
+            const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+            const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+            const program = createProgram(gl, vertexShader, fragmentShader);
+            
+            // ============================================
+            // 6. CREATE BUFFERS
+            // ============================================
+            
+            // Position buffer
+            const positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            
+            // ============================================
+            // 7. DRAWING FUNCTIONS
+            // ============================================
+            
+            function drawRectangle(x, y, width, height, color) {
+                // Set up rectangle coordinates
+                const x1 = x;
+                const y1 = y;
+                const x2 = x + width;
+                const y2 = y + height;
+                
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+                    x1, y1,
+                    x2, y1,
+                    x1, y2,
+                    x1, y2,
+                    x2, y1,
+                    x2, y2,
+                ]), gl.STATIC_DRAW);
+                
+                // Use program
+                gl.useProgram(program);
+                
+                // Set resolution uniform
+                const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+                gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+                
+                // Set color uniform
+                const colorLocation = gl.getUniformLocation(program, 'u_color');
+                gl.uniform4f(colorLocation, color[0], color[1], color[2], color[3]);
+                
+                // Set up position attribute
+                const positionLocation = gl.getAttribLocation(program, 'a_position');
+                gl.enableVertexAttribArray(positionLocation);
+                gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+                
+                // Draw
+                gl.drawArrays(gl.TRIANGLES, 0, 6);
+            }
+            
+            // ============================================
+            // 8. CLEAR AND DRAW
+            // ============================================
+            
+            function draw() {
+                // Clear canvas
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.clearColor(0, 0, 0, 1);
+                gl.clear(gl.COLOR_BUFFER_BIT);
+                
+                // Draw some rectangles
+                drawRectangle(100, 100, 150, 100, [0.3, 0.8, 0.8, 1.0]); // Cyan
+                drawRectangle(300, 150, 150, 100, [0.95, 0.4, 0.4, 1.0]); // Red
+                drawRectangle(500, 200, 150, 100, [0.6, 0.9, 0.6, 1.0]); // Green
+                
+                // Draw animated rectangle
+                const time = Date.now() * 0.001;
+                const x = 350 + Math.sin(time) * 100;
+                const y = 400 + Math.cos(time) * 50;
+                drawRectangle(x, y, 80, 80, [0.9, 0.8, 0.3, 1.0]); // Yellow
+            }
+            
+            // ============================================
+            // 9. ANIMATION LOOP
+            // ============================================
+            
+            function animate() {
+                draw();
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // ============================================
+            // 10. ADDITIONAL NOTES
+            // ============================================
+            
+            /*
+            WebGL Concepts:
+            
+            1. Shaders: Programs that run on GPU
+               - Vertex Shader: Processes vertices (positions)
+               - Fragment Shader: Processes pixels (colors)
+            
+            2. Buffers: Store data on GPU
+               - Vertex buffers: Store vertex data
+               - Index buffers: Store indices for indexed drawing
+            
+            3. Attributes: Inputs to vertex shader
+               - Position, color, texture coordinates, etc.
+            
+            4. Uniforms: Constants for shaders
+               - Same value for all vertices/pixels in a draw call
+            
+            5. Textures: Images used in shaders
+            
+            6. Matrices: For transformations (translate, rotate, scale)
+            
+            For more advanced WebGL:
+            - Use libraries like Three.js, Babylon.js
+            - Learn GLSL (shader language)
+            - Study 3D math (vectors, matrices)
+            */
+        }
+    </script>
+</body>
+</html>
+

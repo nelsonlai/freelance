@@ -1,0 +1,11 @@
+// Problem: Apply Operations to Maximize Frequency Score
+// Difficulty: Hard
+// Tags: array, sort, search
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(1) to O(n) depending on approach
+
+func maxFrequencyScore(nums []int, k int64) int {
+    
+}

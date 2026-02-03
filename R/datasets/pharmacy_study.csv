@@ -1,0 +1,32 @@
+participant_id,drug,gender,age,bp_before,bp_after
+1,Drug A,Male,45,140,130
+2,Drug A,Female,52,145,133
+3,Drug A,Male,38,138,126
+4,Drug A,Female,61,152,140
+5,Drug A,Male,29,135,125
+6,Drug A,Female,55,148,136
+7,Drug A,Male,42,142,130
+8,Drug A,Female,48,139,131
+9,Drug A,Male,36,137,127
+10,Drug A,Female,54,143,133
+11,Drug B,Male,44,141,126
+12,Drug B,Female,51,147,132
+13,Drug B,Male,40,138,124
+14,Drug B,Female,58,150,135
+15,Drug B,Male,33,136,121
+16,Drug B,Female,49,145,130
+17,Drug B,Male,46,140,125
+18,Drug B,Female,53,142,128
+19,Drug B,Male,35,139,124
+20,Drug B,Female,56,146,131
+21,Drug C,Male,47,143,131
+22,Drug C,Female,50,144,132
+23,Drug C,Male,39,137,129
+24,Drug C,Female,60,151,143
+25,Drug C,Male,32,135,127
+26,Drug C,Female,57,149,141
+27,Drug C,Male,43,141,133
+28,Drug C,Female,55,142,134
+29,Drug C,Male,37,139,131
+30,Drug C,Female,59,148,140
+

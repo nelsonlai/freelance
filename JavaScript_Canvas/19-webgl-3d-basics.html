@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19 - WebGL 3D Basics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .canvas-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #444;
+            display: block;
+            margin: 20px auto;
+            background: #000;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #2a2a2a;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #4ECDC4;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+        button:hover {
+            background: #3bb5ad;
+        }
+        .explanation {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .error {
+            color: #ff6b6b;
+            padding: 10px;
+            background: #3a1a1a;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>19 - WebGL 3D Basics: Drawing 3D Shapes</h1>
+    
+    <div class="explanation">
+        <h2>Creating 3D Objects in WebGL</h2>
+        <p>Learn to create 3D shapes like cubes, spheres, and pyramids using WebGL. This example demonstrates vertex buffers, indices, and 3D transformations.</p>
+    </div>
+
+    <div class="controls">
+        <button id="cubeBtn">Cube</button>
+        <button id="pyramidBtn">Pyramid</button>
+        <button id="sphereBtn">Sphere</button>
+        <button id="rotateBtn">Toggle Rotation</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        if (!canvas) {
+            console.error('Canvas element not found!');
+        }
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error';
+        errorDiv.style.display = 'none';
+        if (canvas && canvas.parentElement) {
+            canvas.parentElement.insertBefore(errorDiv, canvas);
+        }
+        
+        let gl = null;
+        if (canvas) {
+            gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            
+            if (!gl) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = 'WebGL is not supported in your browser.';
+            } else {
+                console.log('WebGL context created successfully');
+            }
+        }
+        
+        if (gl) {
+            // ============================================
+            // SHADER SOURCES
+            // ============================================
+            
+            const vertexShaderSource = `
+                attribute vec3 a_position;
+                attribute vec3 a_color;
+                uniform mat4 u_matrix;
+                varying vec3 v_color;
+                
+                void main() {
+                    gl_Position = u_matrix * vec4(a_position, 1.0);
+                    v_color = a_color;
+                }
+            `;
+            
+            const fragmentShaderSource = `
+                precision mediump float;
+                varying vec3 v_color;
+                
+                void main() {
+                    gl_FragColor = vec4(v_color, 1.0);
+                }
+            `;
+            
+            // ============================================
+            // SHADER FUNCTIONS
+            // ============================================
+            
+            function createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.error('Shader error:', gl.getShaderInfoLog(shader));
+                    gl.deleteShader(shader);
+                    return null;
+                }
+                return shader;
+            }
+            
+            function createProgram(gl, vertexShader, fragmentShader) {
+                const program = gl.createProgram();
+                gl.attachShader(program, vertexShader);
+                gl.attachShader(program, fragmentShader);
+                gl.linkProgram(program);
+                
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                    console.error('Program error:', gl.getProgramInfoLog(program));
+                    gl.deleteProgram(program);
+                    return null;
+                }
+                return program;
+            }
+            
+            // ============================================
+            // MATRIX FUNCTIONS
+            // ============================================
+            
+            function multiplyMatrices(a, b) {
+                const result = new Float32Array(16);
+                for (let i = 0; i < 4; i++) {
+                    for (let j = 0; j < 4; j++) {
+                        result[i * 4 + j] = 
+                            a[i * 4 + 0] * b[0 * 4 + j] +
+                            a[i * 4 + 1] * b[1 * 4 + j] +
+                            a[i * 4 + 2] * b[2 * 4 + j] +
+                            a[i * 4 + 3] * b[3 * 4 + j];
+                    }
+                }
+                return result;
+            }
+            
+            function perspective(fov, aspect, near, far) {
+                const f = 1.0 / Math.tan(fov / 2);
+                const rangeInv = 1 / (near - far);
+                
+                return new Float32Array([
+                    f / aspect, 0, 0, 0,
+                    0, f, 0, 0,
+                    0, 0, (near + far) * rangeInv, -1,
+                    0, 0, near * far * rangeInv * 2, 0
+                ]);
+            }
+            
+            function createTranslateMatrix(x, y, z) {
+                const m = identity();
+                m[12] = x;
+                m[13] = y;
+                m[14] = z;
+                return m;
+            }
+            
+            function translate(matrix, tx, ty, tz) {
+                return multiplyMatrices(matrix, createTranslateMatrix(tx, ty, tz));
+            }
+            
+            function createRotateXMatrix(angle) {
+                const c = Math.cos(angle);
+                const s = Math.sin(angle);
+                return new Float32Array([
+                    1, 0, 0, 0,
+                    0, c, s, 0,
+                    0, -s, c, 0,
+                    0, 0, 0, 1
+                ]);
+            }
+            
+            function createRotateYMatrix(angle) {
+                const c = Math.cos(angle);
+                const s = Math.sin(angle);
+                return new Float32Array([
+                    c, 0, -s, 0,
+                    0, 1, 0, 0,
+                    s, 0, c, 0,
+                    0, 0, 0, 1
+                ]);
+            }
+            
+            function rotateX(matrix, angle) {
+                return multiplyMatrices(matrix, createRotateXMatrix(angle));
+            }
+            
+            function rotateY(matrix, angle) {
+                return multiplyMatrices(matrix, createRotateYMatrix(angle));
+            }
+            
+            function rotateZ(matrix, angle) {
+                const c = Math.cos(angle);
+                const s = Math.sin(angle);
+                return multiplyMatrices(matrix, new Float32Array([
+                    c, s, 0, 0,
+                    -s, c, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1
+                ]));
+            }
+            
+            function identity() {
+                return new Float32Array([
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1
+                ]);
+            }
+            
+            // ============================================
+            // CREATE SHAPES
+            // ============================================
+            
+            function createCube() {
+                const size = 1.0;
+                const positions = [
+                    // Front face
+                    -size, -size,  size,  size, -size,  size,  size,  size,  size,
+                    -size, -size,  size,  size,  size,  size, -size,  size,  size,
+                    // Back face
+                    -size, -size, -size, -size,  size, -size,  size,  size, -size,
+                    -size, -size, -size,  size,  size, -size,  size, -size, -size,
+                    // Top face
+                    -size,  size, -size, -size,  size,  size,  size,  size,  size,
+                    -size,  size, -size,  size,  size,  size,  size,  size, -size,
+                    // Bottom face
+                    -size, -size, -size,  size, -size, -size,  size, -size,  size,
+                    -size, -size, -size,  size, -size,  size, -size, -size,  size,
+                    // Right face
+                     size, -size, -size,  size,  size, -size,  size,  size,  size,
+                     size, -size, -size,  size,  size,  size,  size, -size,  size,
+                    // Left face
+                    -size, -size, -size, -size, -size,  size, -size,  size,  size,
+                    -size, -size, -size, -size,  size,  size, -size,  size, -size,
+                ];
+                
+                const colors = [];
+                const faceColors = [
+                    [1.0, 0.0, 0.0], // Front - Red
+                    [0.0, 1.0, 0.0], // Back - Green
+                    [0.0, 0.0, 1.0], // Top - Blue
+                    [1.0, 1.0, 0.0], // Bottom - Yellow
+                    [1.0, 0.0, 1.0], // Right - Magenta
+                    [0.0, 1.0, 1.0], // Left - Cyan
+                ];
+                
+                for (let i = 0; i < 6; i++) {
+                    const color = faceColors[i];
+                    for (let j = 0; j < 6; j++) {
+                        colors.push(...color);
+                    }
+                }
+                
+                return { positions, colors, count: 36 };
+            }
+            
+            function createPyramid() {
+                const positions = [
+                    // Base
+                    -1, -1, -1,  1, -1, -1,  1, -1,  1,
+                    -1, -1, -1,  1, -1,  1, -1, -1,  1,
+                    // Front
+                    -1, -1,  1,  1, -1,  1,  0,  1,  0,
+                    // Back
+                    -1, -1, -1,  0,  1,  0,  1, -1, -1,
+                    // Left
+                    -1, -1, -1, -1, -1,  1,  0,  1,  0,
+                    // Right
+                     1, -1, -1,  0,  1,  0,  1, -1,  1,
+                ];
+                
+                const colors = [];
+                const faceColors = [
+                    [0.5, 0.5, 0.5], // Base
+                    [1.0, 0.0, 0.0], // Front
+                    [0.0, 1.0, 0.0], // Back
+                    [0.0, 0.0, 1.0], // Left
+                    [1.0, 1.0, 0.0], // Right
+                ];
+                
+                for (let i = 0; i < 5; i++) {
+                    const color = faceColors[i];
+                    const count = i === 0 ? 6 : 3;
+                    for (let j = 0; j < count; j++) {
+                        colors.push(...color);
+                    }
+                }
+                
+                return { positions, colors, count: 18 };
+            }
+            
+            function createSphere(radius = 1.0, segments = 20) {
+                const positions = [];
+                const colors = [];
+                
+                for (let lat = 0; lat <= segments; lat++) {
+                    const theta = lat * Math.PI / segments;
+                    const sinTheta = Math.sin(theta);
+                    const cosTheta = Math.cos(theta);
+                    
+                    for (let lon = 0; lon <= segments; lon++) {
+                        const phi = lon * 2 * Math.PI / segments;
+                        const sinPhi = Math.sin(phi);
+                        const cosPhi = Math.cos(phi);
+                        
+                        const x = cosPhi * sinTheta;
+                        const y = cosTheta;
+                        const z = sinPhi * sinTheta;
+                        
+                        positions.push(x * radius, y * radius, z * radius);
+                        
+                        // Color based on position
+                        colors.push(
+                            (x + 1) / 2,
+                            (y + 1) / 2,
+                            (z + 1) / 2
+                        );
+                    }
+                }
+                
+                const indices = [];
+                for (let lat = 0; lat < segments; lat++) {
+                    for (let lon = 0; lon < segments; lon++) {
+                        const first = lat * (segments + 1) + lon;
+                        const second = first + segments + 1;
+                        
+                        indices.push(first, second, first + 1);
+                        indices.push(second, second + 1, first + 1);
+                    }
+                }
+                
+                return { positions, colors, indices, count: indices.length };
+            }
+            
+            // ============================================
+            // INITIALIZE WEBGL
+            // ============================================
+            
+            const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+            const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+            
+            if (!vertexShader || !fragmentShader) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = 'Failed to compile shaders. Check console for details.';
+            } else {
+                const program = createProgram(gl, vertexShader, fragmentShader);
+                
+                if (!program) {
+                    errorDiv.style.display = 'block';
+                    errorDiv.textContent = 'Failed to create WebGL program. Check console for details.';
+                } else {
+                    console.log('Shaders and program created successfully');
+                    
+                    const positionLocation = gl.getAttribLocation(program, 'a_position');
+                    const colorLocation = gl.getAttribLocation(program, 'a_color');
+                    const matrixLocation = gl.getUniformLocation(program, 'u_matrix');
+                    
+                    if (positionLocation === -1 || colorLocation === -1 || matrixLocation === null) {
+                        console.error('Failed to get attribute/uniform locations');
+                        errorDiv.style.display = 'block';
+                        errorDiv.textContent = 'Failed to get WebGL attribute/uniform locations.';
+                    } else {
+                        // ============================================
+                        // RENDERING
+                        // ============================================
+                        
+                        let currentShape = createCube();
+                        let rotationX = 0;
+                        let rotationY = 0;
+                        let isRotating = true;
+                        
+                        function checkGLError(gl, operation) {
+                            let error = gl.getError();
+                            while (error !== gl.NO_ERROR) {
+                                console.error('WebGL error during', operation + ':', error);
+                                error = gl.getError(); // Get next error if any
+                            }
+                        }
+                        
+                        function setupBuffers(shape) {
+                            console.log('setupBuffers called - positions:', shape.positions.length, 'colors:', shape.colors.length);
+                            
+                            // Position buffer
+                            const positionBuffer = gl.createBuffer();
+                            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(shape.positions), gl.STATIC_DRAW);
+                            checkGLError(gl, 'position buffer setup');
+                            console.log('Position buffer created, size:', shape.positions.length, 'floats');
+                            
+                            // Color buffer
+                            const colorBuffer = gl.createBuffer();
+                            gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+                            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(shape.colors), gl.STATIC_DRAW);
+                            checkGLError(gl, 'color buffer setup');
+                            console.log('Color buffer created, size:', shape.colors.length, 'floats');
+                            
+                            // Index buffer (for sphere)
+                            let indexBuffer = null;
+                            if (shape.indices) {
+                                indexBuffer = gl.createBuffer();
+                                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+                                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(shape.indices), gl.STATIC_DRAW);
+                                checkGLError(gl, 'index buffer setup');
+                                console.log('Index buffer created, size:', shape.indices.length, 'indices');
+                            }
+                            
+                            return { positionBuffer, colorBuffer, indexBuffer };
+                        }
+                        
+                        let drawCallCount = 0;
+                        function draw(shape, buffers) {
+                            drawCallCount++;
+                            
+                            if (!buffers || !buffers.positionBuffer || !buffers.colorBuffer) {
+                                console.error('Draw #' + drawCallCount + ': Invalid buffers!', buffers);
+                                return;
+                            }
+                            
+                            if (canvas.width === 0 || canvas.height === 0) {
+                                console.error('Draw #' + drawCallCount + ': Canvas has invalid dimensions:', canvas.width, canvas.height);
+                                return;
+                            }
+                            
+                            // Log first draw call details
+                            if (drawCallCount === 1) {
+                                console.log('=== First Draw Call ===');
+                                console.log('Shape count:', shape.count, 'Has indices:', !!shape.indices);
+                                console.log('Has position buffer:', !!buffers.positionBuffer);
+                                console.log('Has color buffer:', !!buffers.colorBuffer);
+                                console.log('Has index buffer:', !!buffers.indexBuffer);
+                            }
+                            
+                            gl.viewport(0, 0, canvas.width, canvas.height);
+                            gl.enable(gl.DEPTH_TEST);
+                            gl.disable(gl.CULL_FACE); // Don't cull faces so we see both sides
+                            gl.clearColor(0.15, 0.15, 0.2, 1.0); // Dark blue-gray background
+                            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                            checkGLError(gl, 'clear');
+                            
+                            gl.useProgram(program);
+                            checkGLError(gl, 'useProgram');
+                            
+                            // Setup position attribute
+                            gl.bindBuffer(gl.ARRAY_BUFFER, buffers.positionBuffer);
+                            gl.enableVertexAttribArray(positionLocation);
+                            gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
+                            checkGLError(gl, 'position setup');
+                            
+                            // Setup color attribute
+                            gl.bindBuffer(gl.ARRAY_BUFFER, buffers.colorBuffer);
+                            gl.enableVertexAttribArray(colorLocation);
+                            gl.vertexAttribPointer(colorLocation, 3, gl.FLOAT, false, 0, 0);
+                            checkGLError(gl, 'color setup');
+                            
+                            // Create transformation matrix (model-view-projection)
+                            // Following working example: MVP = P * (V * M)
+                            // M = model matrix (rotation), V = view matrix (translation), P = projection
+                            if (isRotating) {
+                                rotationX += 0.01;
+                                rotationY += 0.02;
+                            }
+                            
+                            // Create rotation matrix (model) - exactly like working example
+                            const rotationMatrix = multiplyMatrices(
+                                createRotateYMatrix(rotationY),
+                                createRotateXMatrix(rotationX)
+                            );
+                            
+                            // Create translation matrix (view)
+                            const viewMatrix = createTranslateMatrix(0, 0, -5);
+                            
+                            // Combine: V * M (like working example: mat4Mul(V, M))
+                            const viewModelMatrix = multiplyMatrices(viewMatrix, rotationMatrix);
+                            
+                            // Apply perspective projection: P * (V * M) (like working example)
+                            const aspect = canvas.width / canvas.height;
+                            const projection = perspective(Math.PI / 4, aspect, 0.1, 100);
+                            const matrix = multiplyMatrices(projection, viewModelMatrix);
+                            
+                            // Debug: check if matrix has NaN or invalid values
+                            if (drawCallCount === 1) {
+                                const hasNaN = Array.from(matrix).some(x => isNaN(x) || !isFinite(x));
+                                if (hasNaN) {
+                                    console.error('Matrix contains NaN or Infinity values!');
+                                }
+                            }
+                            
+                            if (drawCallCount === 1) {
+                                console.log('Matrix calculations:');
+                                console.log('  Aspect ratio:', aspect);
+                                console.log('  Rotation X:', rotationX.toFixed(3), 'Y:', rotationY.toFixed(3));
+                                const matrixValues = Array.from(matrix).map(x => x.toFixed(3));
+                                console.log('  Full matrix (16 values):');
+                                console.log('    Row 0:', matrixValues.slice(0, 4).join(', '));
+                                console.log('    Row 1:', matrixValues.slice(4, 8).join(', '));
+                                console.log('    Row 2:', matrixValues.slice(8, 12).join(', '));
+                                console.log('    Row 3:', matrixValues.slice(12, 16).join(', '));
+                                
+                                // Check first few vertex positions
+                                if (shape.positions && shape.positions.length > 0) {
+                                    console.log('  First vertex position:', shape.positions[0], shape.positions[1], shape.positions[2]);
+                                    console.log('  Last vertex position:', shape.positions[shape.positions.length-3], shape.positions[shape.positions.length-2], shape.positions[shape.positions.length-1]);
+                                    
+                                    // Transform a test vertex to see if it's in clip space
+                                    // WebGL matrices are column-major in memory: 
+                                    // Column 0: [0,4,8,12], Column 1: [1,5,9,13], Column 2: [2,6,10,14], Column 3: [3,7,11,15]
+                                    // So matrix[row][col] = matrix[col*4 + row]
+                                    const testX = shape.positions[0];
+                                    const testY = shape.positions[1];
+                                    const testZ = shape.positions[2];
+                                    const testW = 1.0;
+                                    // For column-major: result = matrix * vertex means:
+                                    // result = [matrix[0] matrix[4] matrix[8] matrix[12]]   [x]
+                                    //         [matrix[1] matrix[5] matrix[9] matrix[13]] * [y]
+                                    //         [matrix[2] matrix[6] matrix[10] matrix[14]]  [z]
+                                    //         [matrix[3] matrix[7] matrix[11] matrix[15]]  [w]
+                                    const resultX = matrix[0] * testX + matrix[4] * testY + matrix[8] * testZ + matrix[12] * testW;
+                                    const resultY = matrix[1] * testX + matrix[5] * testY + matrix[9] * testZ + matrix[13] * testW;
+                                    const resultZ = matrix[2] * testX + matrix[6] * testY + matrix[10] * testZ + matrix[14] * testW;
+                                    const resultW = matrix[3] * testX + matrix[7] * testY + matrix[11] * testZ + matrix[15] * testW;
+                                    console.log('  Transformed first vertex to clip space:', resultX.toFixed(3), resultY.toFixed(3), resultZ.toFixed(3), resultW.toFixed(3));
+                                    if (Math.abs(resultW) > 0.0001) {
+                                        console.log('  Normalized clip space (divide by w):', (resultX/resultW).toFixed(3), (resultY/resultW).toFixed(3), (resultZ/resultW).toFixed(3));
+                                        console.log('  ⚠️ Values outside [-1,1] range mean object is outside view frustum!');
+                                    }
+                                }
+                            }
+                            
+                            // Set matrix uniform
+                            gl.uniformMatrix4fv(matrixLocation, false, matrix);
+                            checkGLError(gl, 'matrix setup');
+                            
+                            // Draw
+                            if (shape.indices && buffers.indexBuffer) {
+                                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indexBuffer);
+                                if (drawCallCount === 1) {
+                                    console.log('Drawing with drawElements, count:', shape.count);
+                                }
+                                gl.drawElements(gl.TRIANGLES, shape.count, gl.UNSIGNED_SHORT, 0);
+                                checkGLError(gl, 'drawElements');
+                            } else {
+                                if (drawCallCount === 1) {
+                                    console.log('Drawing with drawArrays, count:', shape.count);
+                                }
+                                gl.drawArrays(gl.TRIANGLES, 0, shape.count);
+                                checkGLError(gl, 'drawArrays');
+                            }
+                            
+                            // Log every 60 frames (about once per second at 60fps)
+                            if (drawCallCount % 60 === 0) {
+                                console.log('Draw calls:', drawCallCount, 'Shape:', shape.count, 'vertices');
+                            }
+                        }
+                        
+                        console.log('=== Initial Setup ===');
+                        console.log('Initial shape - count:', currentShape.count);
+                        console.log('Initial shape - positions:', currentShape.positions ? currentShape.positions.length : 'none');
+                        console.log('Initial shape - colors:', currentShape.colors ? currentShape.colors.length : 'none');
+                        console.log('Initial shape - indices:', currentShape.indices ? currentShape.indices.length : 'none');
+                        let buffers = setupBuffers(currentShape);
+                        console.log('Initial buffers created');
+                        console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
+                        console.log('Program valid:', !!program);
+                        console.log('Position location:', positionLocation, 'Color location:', colorLocation, 'Matrix location:', matrixLocation);
+                        
+                        function animate() {
+                            draw(currentShape, buffers);
+                            requestAnimationFrame(animate);
+                        }
+                        
+                        // ============================================
+                        // EVENT LISTENERS
+                        // ============================================
+                        
+                        const cubeBtn = document.getElementById('cubeBtn');
+                        const pyramidBtn = document.getElementById('pyramidBtn');
+                        const sphereBtn = document.getElementById('sphereBtn');
+                        const rotateBtn = document.getElementById('rotateBtn');
+                        
+                        if (cubeBtn) {
+                            cubeBtn.addEventListener('click', () => {
+                                console.log('=== Cube button clicked ===');
+                                currentShape = createCube();
+                                console.log('Cube created, count:', currentShape.count, 'positions:', currentShape.positions.length);
+                                buffers = setupBuffers(currentShape);
+                                console.log('Buffers updated for cube');
+                            });
+                        }
+                        
+                        if (pyramidBtn) {
+                            pyramidBtn.addEventListener('click', () => {
+                                console.log('=== Pyramid button clicked ===');
+                                currentShape = createPyramid();
+                                console.log('Pyramid created, count:', currentShape.count, 'positions:', currentShape.positions.length);
+                                buffers = setupBuffers(currentShape);
+                                console.log('Buffers updated for pyramid');
+                            });
+                        }
+                        
+                        if (sphereBtn) {
+                            sphereBtn.addEventListener('click', () => {
+                                console.log('=== Sphere button clicked ===');
+                                currentShape = createSphere();
+                                console.log('Sphere created, count:', currentShape.count, 'positions:', currentShape.positions.length, 'indices:', currentShape.indices ? currentShape.indices.length : 'none');
+                                buffers = setupBuffers(currentShape);
+                                console.log('Buffers updated for sphere');
+                            });
+                        }
+                        
+                        if (rotateBtn) {
+                            rotateBtn.addEventListener('click', () => {
+                                isRotating = !isRotating;
+                                console.log('Rotation toggled:', isRotating);
+                            });
+                        }
+                        
+                        console.log('Starting animation loop');
+                        animate();
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+

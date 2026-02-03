@@ -1,0 +1,6 @@
+name	age	city
+John	25	New York
+Sarah	30	London
+Mike	28	Tokyo
+Emily	32	Paris
+David	35	Sydney

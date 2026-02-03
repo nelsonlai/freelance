@@ -1,0 +1,322 @@
+/* [project]/sources/freelance/Ricky/Cat Project Final/fp_fixed /src/app/match-result/match-result.css [app-client] (css) */
+:root {
+  --orange: #f58b46;
+  --orange-dark: #e06e1c;
+  --bg: #fff9f3;
+  --border: #e7e3dc;
+  --text: #333;
+}
+
+.match-result-page {
+  box-sizing: border-box;
+  background: linear-gradient(#fffaf5 0%, #fff6ef 100%);
+  min-height: 100vh;
+  padding: 40px 5%;
+  font-family: Segoe UI, Noto Sans TC, sans-serif;
+}
+
+.header {
+  background: #ffe7d1;
+  border-radius: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 16px 24px;
+  display: flex;
+  box-shadow: 0 2px 6px #00000014;
+}
+
+.header .logo {
+  color: #f58b46;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.header .head-titles {
+  text-align: right;
+}
+
+.header h1 {
+  color: #333;
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.header p {
+  color: #666;
+  margin: 2px 0 0;
+  font-size: .9rem;
+}
+
+.back-btn {
+  color: #fff;
+  background-color: #f58b46;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .2s;
+}
+
+.back-btn:hover {
+  background-color: #e97a36;
+}
+
+.top-row {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 50px;
+  display: flex;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 14px;
+  flex: 1;
+  min-width: 320px;
+  padding: 24px;
+  transition: transform .2s;
+  box-shadow: 0 3px 8px #00000012;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card h2 {
+  color: #f58b46;
+  border-bottom: 2px solid #ffe0ca;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  font-size: 1.2rem;
+}
+
+.cat-info, .match-info {
+  align-items: flex-start;
+  gap: 16px;
+  display: flex;
+}
+
+.cat-photo img, .match-photo img {
+  object-fit: cover;
+  border: 2px solid #fdd5b6;
+  border-radius: 12px;
+  width: 140px;
+  height: 140px;
+}
+
+.cat-info ul, .match-info ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cat-info li, .match-info li {
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.match-photo {
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  display: flex;
+}
+
+.arrow {
+  cursor: pointer;
+  color: #f58b46;
+  background: #ffd9b7;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  transition: background .2s;
+}
+
+.arrow:hover {
+  color: #fff;
+  background: #f58b46;
+}
+
+.desc {
+  color: #777;
+  margin-top: 10px;
+  font-size: .9rem;
+}
+
+.match-review {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 14px;
+  padding: 30px 24px;
+  box-shadow: 0 3px 8px #00000012;
+}
+
+.match-review h2 {
+  color: #f58b46;
+  margin-bottom: 10px;
+}
+
+.caption {
+  color: #777;
+  margin-bottom: 16px;
+}
+
+.kitten-photo {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.kitten-photo img {
+  object-fit: cover;
+  border: 3px solid #fdd5b6;
+  border-radius: 50%;
+  width: 280px;
+  height: 280px;
+  margin-bottom: 18px;
+}
+
+.ai-review {
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: .9rem;
+  font-style: italic;
+}
+
+.actions {
+  justify-content: center;
+  margin-top: 30px;
+  display: flex;
+}
+
+.share {
+  color: #fff;
+  cursor: pointer;
+  background-color: #f58b46;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.share:hover {
+  background-color: #e67633;
+}
+
+@media (max-width: 768px) {
+  .header {
+    text-align: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .header .head-titles {
+    text-align: center;
+  }
+
+  .top-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cat-info, .match-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cat-info ul, .match-info ul {
+    text-align: center;
+  }
+}
+
+.loading-page {
+  color: #555;
+  background: linear-gradient(#fffaf5 0%, #fff6ef 100%);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1rem;
+  display: flex;
+}
+
+.loading-container {
+  text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  max-width: 400px;
+  padding: 40px;
+  box-shadow: 0 4px 12px #0000001a;
+}
+
+.spinner {
+  border: 4px solid #eee;
+  border-top-color: #f58b46;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  animation: 1s linear infinite spin;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.progress-bar-container {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px #0000001a;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #f58b46 0%, #ff9d5c 100%);
+  border-radius: 10px;
+  height: 100%;
+  transition: width .3s;
+  box-shadow: 0 0 10px #f58b4666;
+}
+
+.offspring-loading {
+  background: linear-gradient(135deg, #fff9f3 0%, #ffe7d1 100%);
+  border: 3px solid #fdd5b6;
+  border-radius: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  height: 280px;
+  margin-bottom: 18px;
+  display: flex;
+}
+
+.offspring-spinner {
+  border: 4px solid #ffe0ca;
+  border-top-color: #f58b46;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  animation: 1s linear infinite spin;
+}
+
+.offspring-loading p {
+  color: #f58b46;
+  margin: 0;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+/*# sourceMappingURL=8a251_Ricky_Cat%20Project%20Final_fp_fixed%20_src_app_match-result_match-result_a52fd3b3.css.map*/

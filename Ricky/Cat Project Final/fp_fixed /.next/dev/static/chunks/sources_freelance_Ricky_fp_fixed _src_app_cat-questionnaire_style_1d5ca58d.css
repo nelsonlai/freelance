@@ -1,0 +1,145 @@
+/* [project]/sources/freelance/Ricky/fp_fixed /src/app/cat-questionnaire/style.css [app-client] (css) */
+:root {
+  --orange: #f58b46;
+  --orange-dark: #e47329;
+  --cream-bg: #fffaf5;
+  --card-bg: #fff;
+  --text: #4a3728;
+  --border: #eeded1;
+}
+
+.cat-page {
+  background: var(--cream-bg);
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: Inter, Segoe UI, sans-serif;
+  display: flex;
+}
+
+.cat-card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  padding: 40px 46px;
+  display: flex;
+  position: relative;
+  box-shadow: 0 10px 25px #00000014;
+}
+
+.title {
+  color: var(--orange-dark);
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #b07633;
+  text-align: center;
+  margin-top: -4px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.form-grid {
+  flex-wrap: wrap;
+  gap: 16px;
+  display: flex;
+}
+
+.group {
+  flex-direction: column;
+  flex: 1;
+  gap: 6px;
+  display: flex;
+}
+
+label {
+  color: var(--text);
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+input[type="text"], input[type="number"], select, input[type="file"] {
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: .95rem;
+  transition: all .2s;
+}
+
+input:focus, select:focus {
+  border-color: var(--orange);
+  outline: none;
+  box-shadow: 0 0 0 3px #f58b4626;
+}
+
+.radio-inline, .radio-row {
+  color: var(--text);
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  font-size: .9rem;
+  display: flex;
+}
+
+.checkbox {
+  margin-bottom: 4px;
+  display: block;
+}
+
+.warning {
+  color: #b9472f;
+  background: #fff0ec;
+  border: 1px solid #f7b7a3;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.submit-btn {
+  background: var(--orange);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 9999px;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background .3s;
+}
+
+.submit-btn:hover {
+  background: var(--orange-dark);
+}
+
+@media (max-width: 480px) {
+  .cat-card {
+    padding: 30px 24px;
+  }
+}
+
+input[type="email"] {
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: .95rem;
+  transition: all .2s;
+}
+
+input[type="email"]:focus {
+  border-color: var(--orange);
+  outline: none;
+  box-shadow: 0 0 0 3px #f58b4626;
+}
+
+/*# sourceMappingURL=sources_freelance_Ricky_fp_fixed%20_src_app_cat-questionnaire_style_1d5ca58d.css.map*/

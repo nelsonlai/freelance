@@ -1,0 +1,11 @@
+store,product,jan,feb,mar,apr,may,jun
+Store A,Apple,100,110,105,115,120,125
+Store A,Banana,80,85,82,88,90,95
+Store A,Orange,60,65,62,68,70,75
+Store B,Apple,150,160,155,165,170,175
+Store B,Banana,120,125,122,128,130,135
+Store B,Orange,90,95,92,98,100,105
+Store C,Apple,120,130,125,135,140,145
+Store C,Banana,100,105,102,108,110,115
+Store C,Orange,75,80,77,83,85,90
+

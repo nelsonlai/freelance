@@ -1,0 +1,13 @@
+-- Problem: The Most Recent Orders for Each Product
+-- Difficulty: Medium
+-- Tags: Database
+
+SELECT p.product_name, o.product_id, o.order_id, o.order_date
+FROM Orders o
+INNER JOIN Products p ON o.product_id = p.product_id
+WHERE (o.product_id, o.order_date) IN (
+    SELECT product_id, MAX(order_date)
+    FROM Orders
+    GROUP BY product_id
+)
+ORDER BY p.product_name, o.product_id, o.order_id;

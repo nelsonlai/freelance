@@ -1,0 +1,17 @@
+-- Problem: Find Cumulative Salary of an Employee
+-- Difficulty: Hard
+-- Tags: Database
+
+SELECT 
+    e1.Id,
+    e1.Month,
+    SUM(e2.Salary) AS Salary
+FROM Employee e1
+INNER JOIN Employee e2 
+    ON e1.Id = e2.Id 
+    AND e2.Month BETWEEN e1.Month - 2 AND e1.Month
+WHERE (e1.Id, e1.Month) NOT IN (
+    SELECT Id, MAX(Month) FROM Employee GROUP BY Id
+)
+GROUP BY e1.Id, e1.Month
+ORDER BY e1.Id, e1.Month DESC;

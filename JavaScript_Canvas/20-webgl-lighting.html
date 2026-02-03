@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 - WebGL Lighting and Shading</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .canvas-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #444;
+            display: block;
+            margin: 20px auto;
+            background: #000;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #2a2a2a;
+            border-radius: 5px;
+        }
+        .control-group {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        input[type="range"] {
+            width: 200px;
+        }
+        .explanation {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>20 - WebGL Lighting and Shading</h1>
+    
+    <div class="explanation">
+        <h2>3D Lighting: Ambient, Diffuse, and Specular</h2>
+        <p>Learn to implement Phong lighting model with ambient, diffuse, and specular components. Control light position and material properties.</p>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <label>Light X:</label>
+            <input type="range" id="lightX" min="-5" max="5" step="0.1" value="2">
+            <span id="lightXValue">2.0</span>
+        </div>
+        <div class="control-group">
+            <label>Light Y:</label>
+            <input type="range" id="lightY" min="-5" max="5" step="0.1" value="2">
+            <span id="lightYValue">2.0</span>
+        </div>
+        <div class="control-group">
+            <label>Light Z:</label>
+            <input type="range" id="lightZ" min="-5" max="5" step="0.1" value="2">
+            <span id="lightZValue">2.0</span>
+        </div>
+        <div class="control-group">
+            <label>Ambient:</label>
+            <input type="range" id="ambient" min="0" max="1" step="0.1" value="0.2">
+            <span id="ambientValue">0.2</span>
+        </div>
+        <div class="control-group">
+            <label>Diffuse:</label>
+            <input type="range" id="diffuse" min="0" max="1" step="0.1" value="0.8">
+            <span id="diffuseValue">0.8</span>
+        </div>
+        <div class="control-group">
+            <label>Specular:</label>
+            <input type="range" id="specular" min="0" max="1" step="0.1" value="0.5">
+            <span id="specularValue">0.5</span>
+        </div>
+        <div class="control-group">
+            <label>Shininess:</label>
+            <input type="range" id="shininess" min="1" max="100" step="1" value="32">
+            <span id="shininessValue">32</span>
+        </div>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        let gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        
+        if (!gl) {
+            const error = document.createElement('div');
+            error.className = 'error';
+            error.textContent = 'WebGL is not supported';
+            canvas.parentElement.insertBefore(error, canvas);
+            gl = null;
+        }
+        
+        if (gl) {
+            // ============================================
+            // SHADERS WITH LIGHTING
+            // ============================================
+            
+            const vertexShaderSource = `
+                attribute vec3 a_position;
+                attribute vec3 a_normal;
+                
+                uniform mat4 u_matrix;
+                uniform mat4 u_normalMatrix;
+                uniform vec3 u_lightPosition;
+                uniform vec3 u_viewPosition;
+                
+                varying vec3 v_normal;
+                varying vec3 v_lightDir;
+                varying vec3 v_viewDir;
+                varying vec3 v_position;
+                
+                void main() {
+                    vec4 worldPos = u_matrix * vec4(a_position, 1.0);
+                    v_position = worldPos.xyz;
+                    v_normal = normalize((u_normalMatrix * vec4(a_normal, 0.0)).xyz);
+                    v_lightDir = normalize(u_lightPosition - worldPos.xyz);
+                    v_viewDir = normalize(u_viewPosition - worldPos.xyz);
+                    gl_Position = worldPos;
+                }
+            `;
+            
+            const fragmentShaderSource = `
+                precision mediump float;
+                
+                uniform vec3 u_lightColor;
+                uniform vec3 u_ambientColor;
+                uniform float u_ambientStrength;
+                uniform float u_diffuseStrength;
+                uniform float u_specularStrength;
+                uniform float u_shininess;
+                
+                varying vec3 v_normal;
+                varying vec3 v_lightDir;
+                varying vec3 v_viewDir;
+                
+                void main() {
+                    // Ambient
+                    vec3 ambient = u_ambientStrength * u_ambientColor;
+                    
+                    // Diffuse
+                    float diff = max(dot(v_normal, v_lightDir), 0.0);
+                    vec3 diffuse = u_diffuseStrength * diff * u_lightColor;
+                    
+                    // Specular
+                    vec3 reflectDir = reflect(-v_lightDir, v_normal);
+                    float spec = pow(max(dot(v_viewDir, reflectDir), 0.0), u_shininess);
+                    vec3 specular = u_specularStrength * spec * u_lightColor;
+                    
+                    vec3 result = ambient + diffuse + specular;
+                    gl_FragColor = vec4(result, 1.0);
+                }
+            `;
+            
+            // ============================================
+            // SHADER AND MATRIX FUNCTIONS
+            // ============================================
+            
+            function createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.error(gl.getShaderInfoLog(shader));
+                    gl.deleteShader(shader);
+                    return null;
+                }
+                return shader;
+            }
+            
+            function createProgram(gl, vs, fs) {
+                const program = gl.createProgram();
+                gl.attachShader(program, vs);
+                gl.attachShader(program, fs);
+                gl.linkProgram(program);
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                    console.error(gl.getProgramInfoLog(program));
+                    gl.deleteProgram(program);
+                    return null;
+                }
+                return program;
+            }
+            
+            function multiplyMatrices(a, b) {
+                const result = new Float32Array(16);
+                for (let i = 0; i < 4; i++) {
+                    for (let j = 0; j < 4; j++) {
+                        result[i * 4 + j] = 
+                            a[i * 4 + 0] * b[0 * 4 + j] +
+                            a[i * 4 + 1] * b[1 * 4 + j] +
+                            a[i * 4 + 2] * b[2 * 4 + j] +
+                            a[i * 4 + 3] * b[3 * 4 + j];
+                    }
+                }
+                return result;
+            }
+            
+            function perspective(fov, aspect, near, far) {
+                const f = 1.0 / Math.tan(fov / 2);
+                const rangeInv = 1 / (near - far);
+                return new Float32Array([
+                    f / aspect, 0, 0, 0,
+                    0, f, 0, 0,
+                    0, 0, (near + far) * rangeInv, -1,
+                    0, 0, near * far * rangeInv * 2, 0
+                ]);
+            }
+            
+            function translate(m, x, y, z) {
+                return multiplyMatrices(m, new Float32Array([
+                    1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1
+                ]));
+            }
+            
+            function rotateY(m, angle) {
+                const c = Math.cos(angle), s = Math.sin(angle);
+                return multiplyMatrices(m, new Float32Array([
+                    c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1
+                ]));
+            }
+            
+            function rotateX(m, angle) {
+                const c = Math.cos(angle), s = Math.sin(angle);
+                return multiplyMatrices(m, new Float32Array([
+                    1, 0, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 1
+                ]));
+            }
+            
+            function identity() {
+                return new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]);
+            }
+            
+            function transpose(m) {
+                return new Float32Array([
+                    m[0], m[4], m[8], m[12],
+                    m[1], m[5], m[9], m[13],
+                    m[2], m[6], m[10], m[14],
+                    m[3], m[7], m[11], m[15]
+                ]);
+            }
+            
+            function inverse(m) {
+                // Simplified 4x4 inverse for rotation/translation matrices
+                const result = new Float32Array(16);
+                result[0] = m[0]; result[1] = m[4]; result[2] = m[8]; result[3] = 0;
+                result[4] = m[1]; result[5] = m[5]; result[6] = m[9]; result[7] = 0;
+                result[8] = m[2]; result[9] = m[6]; result[10] = m[10]; result[11] = 0;
+                result[12] = -(m[12]*m[0] + m[13]*m[1] + m[14]*m[2]);
+                result[13] = -(m[12]*m[4] + m[13]*m[5] + m[14]*m[6]);
+                result[14] = -(m[12]*m[8] + m[13]*m[9] + m[14]*m[10]);
+                result[15] = 1;
+                return result;
+            }
+            
+            // ============================================
+            // CREATE SPHERE WITH NORMALS
+            // ============================================
+            
+            function createSphere(radius = 1.0, segments = 30) {
+                const positions = [];
+                const normals = [];
+                const indices = [];
+                
+                for (let lat = 0; lat <= segments; lat++) {
+                    const theta = lat * Math.PI / segments;
+                    const sinTheta = Math.sin(theta);
+                    const cosTheta = Math.cos(theta);
+                    
+                    for (let lon = 0; lon <= segments; lon++) {
+                        const phi = lon * 2 * Math.PI / segments;
+                        const sinPhi = Math.sin(phi);
+                        const cosPhi = Math.cos(phi);
+                        
+                        const x = cosPhi * sinTheta;
+                        const y = cosTheta;
+                        const z = sinPhi * sinTheta;
+                        
+                        positions.push(x * radius, y * radius, z * radius);
+                        normals.push(x, y, z);
+                    }
+                }
+                
+                for (let lat = 0; lat < segments; lat++) {
+                    for (let lon = 0; lon < segments; lon++) {
+                        const first = lat * (segments + 1) + lon;
+                        const second = first + segments + 1;
+                        indices.push(first, second, first + 1);
+                        indices.push(second, second + 1, first + 1);
+                    }
+                }
+                
+                return { positions, normals, indices, count: indices.length };
+            }
+            
+            // ============================================
+            // INITIALIZE
+            // ============================================
+            
+            const vs = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+            const fs = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+            const program = createProgram(gl, vs, fs);
+            
+            const sphere = createSphere(1.5, 40);
+            
+            const positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(sphere.positions), gl.STATIC_DRAW);
+            
+            const normalBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(sphere.normals), gl.STATIC_DRAW);
+            
+            const indexBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(sphere.indices), gl.STATIC_DRAW);
+            
+            // ============================================
+            // RENDERING
+            // ============================================
+            
+            let rotation = 0;
+            let lightPos = [2, 2, 2];
+            let ambient = 0.2;
+            let diffuse = 0.8;
+            let specular = 0.5;
+            let shininess = 32;
+            
+            function draw() {
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.enable(gl.DEPTH_TEST);
+                gl.clearColor(0.05, 0.05, 0.1, 1.0);
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                
+                gl.useProgram(program);
+                
+                // Setup attributes
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                const posLoc = gl.getAttribLocation(program, 'a_position');
+                gl.enableVertexAttribArray(posLoc);
+                gl.vertexAttribPointer(posLoc, 3, gl.FLOAT, false, 0, 0);
+                
+                gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+                const normLoc = gl.getAttribLocation(program, 'a_normal');
+                gl.enableVertexAttribArray(normLoc);
+                gl.vertexAttribPointer(normLoc, 3, gl.FLOAT, false, 0, 0);
+                
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+                
+                // Create matrices
+                let matrix = identity();
+                matrix = translate(matrix, 0, 0, -5);
+                rotation += 0.01;
+                matrix = rotateY(matrix, rotation);
+                matrix = rotateX(matrix, rotation * 0.5);
+                
+                const aspect = canvas.width / canvas.height;
+                const proj = perspective(Math.PI / 4, aspect, 0.1, 100);
+                const mvp = multiplyMatrices(proj, matrix);
+                
+                // Normal matrix (inverse transpose of model matrix)
+                const normalMatrix = transpose(inverse(matrix));
+                
+                // Set uniforms
+                gl.uniformMatrix4fv(gl.getUniformLocation(program, 'u_matrix'), false, mvp);
+                gl.uniformMatrix4fv(gl.getUniformLocation(program, 'u_normalMatrix'), false, normalMatrix);
+                gl.uniform3f(gl.getUniformLocation(program, 'u_lightPosition'), ...lightPos);
+                gl.uniform3f(gl.getUniformLocation(program, 'u_viewPosition'), 0, 0, 0);
+                gl.uniform3f(gl.getUniformLocation(program, 'u_lightColor'), 1, 1, 1);
+                gl.uniform3f(gl.getUniformLocation(program, 'u_ambientColor'), 0.2, 0.2, 0.3);
+                gl.uniform1f(gl.getUniformLocation(program, 'u_ambientStrength'), ambient);
+                gl.uniform1f(gl.getUniformLocation(program, 'u_diffuseStrength'), diffuse);
+                gl.uniform1f(gl.getUniformLocation(program, 'u_specularStrength'), specular);
+                gl.uniform1f(gl.getUniformLocation(program, 'u_shininess'), shininess);
+                
+                gl.drawElements(gl.TRIANGLES, sphere.count, gl.UNSIGNED_SHORT, 0);
+                
+                requestAnimationFrame(draw);
+            }
+            
+            // ============================================
+            // CONTROLS
+            // ============================================
+            
+            function updateControl(id, valueId, property, setter) {
+                const slider = document.getElementById(id);
+                const valueSpan = document.getElementById(valueId);
+                slider.addEventListener('input', (e) => {
+                    const val = parseFloat(e.target.value);
+                    valueSpan.textContent = val.toFixed(1);
+                    setter(val);
+                });
+            }
+            
+            updateControl('lightX', 'lightXValue', 'lightPos[0]', (v) => lightPos[0] = v);
+            updateControl('lightY', 'lightYValue', 'lightPos[1]', (v) => lightPos[1] = v);
+            updateControl('lightZ', 'lightZValue', 'lightPos[2]', (v) => lightPos[2] = v);
+            updateControl('ambient', 'ambientValue', 'ambient', (v) => ambient = v);
+            updateControl('diffuse', 'diffuseValue', 'diffuse', (v) => diffuse = v);
+            updateControl('specular', 'specularValue', 'specular', (v) => specular = v);
+            updateControl('shininess', 'shininessValue', 'shininess', (v) => shininess = v);
+            
+            draw();
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,16 @@
+# Write your MySQL query statement below
+SELECT 
+    ad_id,
+    CASE 
+        WHEN total_clicks + total_views = 0 THEN 0
+        ELSE ROUND(100.0 * total_clicks / (total_clicks + total_views), 2)
+    END AS ctr
+FROM (
+    SELECT 
+        ad_id,
+        SUM(CASE WHEN action = 'Clicked' THEN 1 ELSE 0 END) AS total_clicks,
+        SUM(CASE WHEN action = 'Viewed' THEN 1 ELSE 0 END) AS total_views
+    FROM Ads
+    GROUP BY ad_id
+) AS stats
+ORDER BY ctr DESC, ad_id;

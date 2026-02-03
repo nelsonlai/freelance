@@ -1,0 +1,215 @@
+Learning goals
+
+By the end, students can:
+
+Explain what an exception is and read a traceback.
+
+Use try/except (with multiple except blocks), else, and finally.
+
+Raise appropriate built-in exceptions with clear messages.
+
+Define and use a custom exception type.
+
+Avoid common anti-patterns (e.g., except: catching everything).
+
+Agenda (suggested)
+
+(5 min) Why exceptions? Traceback anatomy
+
+(10 min) try / except basics; catching specific errors
+
+(7 min) else and finally (success path vs clean-up)
+
+(13 min) Raising exceptions; messages; re-raise; raise from
+
+(10 min) Custom exceptions; best practices
+
+(5 min) Quick quiz + wrap-up
+
+1) Why exceptions? (5 min)
+
+Concept: An exception interrupts normal flow when something unexpected happens.
+
+Live demo:
+
+# Run this to show a traceback
+int("twelve")         # ValueError: invalid literal for int() with base 10: 'twelve'
+
+try:
+    x = int("twelve")
+except ValueError as e:
+    print (f{e})
+except KeyboardInterrupt as e:
+...
+....
+....
+
+
+
+Explain the traceback: last call first; error type (ValueError) and message help you fix the issue.
+
+2) try / except essentials (10 min)
+Single except
+try:
+    x = int(input("Enter a whole number: "))
+    print("Half is", x / 2)
+except ValueError as e:
+    print("Please enter digits only.")
+except Exception as e:
+    print(type(e))              # <class 'ZeroDivisionError'>
+    print(e.__class__.__name__) # 'ZeroDivisionError'
+    print(e)
+
+
+Points:
+
+Put risky code inside try.
+
+Catch specific exceptions (here ValueError).
+
+as e lets you log or inspect the message.
+
+Multiple excepts (most specific first)
+try:
+    a = int(input("A: "))
+    b = int(input("B: "))
+    print("A/B =", a / b)
+except ZeroDivisionError as e:
+    print("Cannot divide by zero.")
+    print(e)
+except ValueError:
+    print("Please enter only integers.")
+
+Catch a set of exceptions in one block
+try:
+    path = input("File: ")
+    n = int(input("Line number: "))
+    with open(path) as f:
+        print(f.readlines()[n])
+except (FileNotFoundError, ValueError, IndexError) as e:
+    print("Problem:", e)
+
+
+Anti-pattern (avoid):
+
+# BAD: hides bugs, catches KeyboardInterrupt/SystemExit/etc.
+try:
+    ...
+except:
+    pass
+
+3) else and finally (7 min)
+
+else: runs only if no exception happened in try.
+
+finally: runs always (success or failure) — for clean-up.
+
+def read_int(prompt="Enter integer: "):
+    f = None
+    try:
+        # Pretend opening a resource (just for demo)
+        f = open("/dev/null", "w")
+        value = int(input(prompt))
+    except ValueError:
+        print("Not an integer.")
+    else:
+        print("Thanks! You entered:", value)
+        return value
+    finally:
+        if f:
+            f.close()  # runs regardless of success/failure
+
+
+Tip: Prefer with statements (context managers) to avoid manual finally for files/sockets.
+
+4) Raising exceptions (13 min)
+Raise a built-in exception with message
+def parse_age(text):
+    if not text.isdigit():
+        raise TypeError("Age must contain digits only.")
+    age = int(text)
+    if not (0 <= age <= 120):
+        raise ValueError("Age must be in [0, 120].")
+    return age
+
+try:
+    age = parse_age("321")
+except TypeError as e:
+    print (f"Error Msg: {e}")
+except ValueError as e:
+    print (f"Error Msg: {e}")
+
+Re-raise the current exception (after logging or partial handling)
+try:
+    risky()
+except ValueError as e:
+    print("Logging:", e)
+    raise   # re-raises the original ValueError with same traceback
+
+Exception chaining with raise ... from ...
+
+Use when one layer translates a low-level error to a domain error without losing context.
+
+def load_config(path):
+    try:
+        with open(path) as f:
+            return f.read()
+    except FileNotFoundError as e:
+        raise RuntimeError(f"Config not found: {path}") from e
+
+assert vs raise
+
+assert condition, "message" is for internal invariants during development; disabled with python -O.
+
+raise is for user/data errors that must always be enforced.
+
+def percent(x):
+    # invariant for developers:
+    assert isinstance(x, (int, float)), "x must be numeric"
+    if not (0 <= x <= 100):
+        raise ValueError("Percentage must be between 0 and 100.")
+    return x / 100.0
+
+5) Custom exceptions (10 min)
+
+Create your own type so callers can catch your domain-specific errors precisely.
+
+class BankError(Exception):
+    """Base class for bank-related errors."""
+
+class InsufficientFunds(BankError):
+    """Raised when withdrawal exceeds available balance."""
+
+class NegativeDeposit(BankError):
+    """Raised when deposit amount is negative."""
+
+
+Use them in code:
+
+class Account:
+    def __init__(self, owner, balance=0.0):
+        self.owner = owner
+        self.balance = float(balance)
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise NegativeDeposit("Deposit must be positive.")
+        self.balance += amount
+        return self.balance
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise InsufficientFunds(
+                f"Requested {amount:.2f}, available {self.balance:.2f}"
+            )
+        self.balance -= amount
+        return self.balance
+
+# Client code catching your domain errors
+acct = Account("Alex", 100)
+try:
+    acct.withdraw(250)
+except InsufficientFunds as e:
+    print("Withdrawal denied:", e)
+except NegativeDeposit as e:
+    print("Must deposit positive amount")

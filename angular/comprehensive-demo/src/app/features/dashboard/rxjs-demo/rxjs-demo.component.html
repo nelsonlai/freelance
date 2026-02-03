@@ -1,0 +1,61 @@
+<div class="rxjs-demo-container">
+  <h1>RxJS Observables Demo</h1>
+  <p>Demonstrates RxJS Observables, Operators, Subjects, and BehaviorSubjects</p>
+
+  <div class="demo-sections">
+    <!-- Observable Examples -->
+    <div class="demo-section">
+      <h2>Observable Examples</h2>
+      <div class="demo-actions">
+        <button class="btn btn-primary" (click)="runSimpleObservable()">Run Simple Observable</button>
+        <button class="btn btn-primary" (click)="runArrayObservable()">Run Array Observable</button>
+        <button class="btn btn-primary" (click)="runIntervalObservable()">Run Interval Observable</button>
+      </div>
+      <p>Check browser console for output</p>
+    </div>
+
+    <!-- Subject Example -->
+    <div class="demo-section">
+      <h2>Subject Example</h2>
+      <button class="btn btn-primary" (click)="sendSubjectMessage()">Send Message</button>
+      <div class="messages">
+        <div *ngFor="let msg of subjectMessages">{{ msg }}</div>
+      </div>
+    </div>
+
+    <!-- BehaviorSubject Example -->
+    <div class="demo-section">
+      <h2>BehaviorSubject Example</h2>
+      <p>Current Value: {{ currentBehaviorValue }}</p>
+      <div class="demo-actions">
+        <button class="btn btn-primary" (click)="incrementBehaviorSubject()">Increment</button>
+        <button class="btn btn-primary" (click)="decrementBehaviorSubject()">Decrement</button>
+      </div>
+    </div>
+
+    <!-- Search with Debounce -->
+    <div class="demo-section">
+      <h2>Search with Debounce</h2>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        placeholder="Search..."
+      />
+      <div class="search-results">
+        <div *ngFor="let result of searchResults">{{ result }}</div>
+      </div>
+    </div>
+
+    <!-- Counter Example -->
+    <div class="demo-section">
+      <h2>Counter Example</h2>
+      <p>Counter: {{ counter }}</p>
+      <div class="demo-actions">
+        <button class="btn btn-primary" (click)="startCounter()">Start</button>
+        <button class="btn btn-secondary" (click)="stopCounter()">Stop</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,9 @@
+SELECT
+    account_id,
+    month,
+    IFNULL(SUM(CASE WHEN type = 'Deposit' THEN amount ELSE -amount END) OVER (PARTITION BY account_id ORDER BY month), 0) AS balance
+FROM (
+    SELECT account_id, MONTH(day) AS month, type, amount
+    FROM Transactions
+) t
+ORDER BY account_id, month;

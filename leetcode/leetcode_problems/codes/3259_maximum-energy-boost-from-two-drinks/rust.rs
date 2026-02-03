@@ -1,0 +1,13 @@
+// Problem: Maximum Energy Boost From Two Drinks
+// Difficulty: Medium
+// Tags: array, dp
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(n) or O(n * m) for DP table
+
+impl Solution {
+    pub fn max_energy_boost(energy_drink_a: Vec<i32>, energy_drink_b: Vec<i32>) -> i64 {
+        
+    }
+}

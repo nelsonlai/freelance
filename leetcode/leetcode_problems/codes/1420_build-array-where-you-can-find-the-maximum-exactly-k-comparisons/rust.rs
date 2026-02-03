@@ -1,0 +1,13 @@
+// Problem: Build Array Where You Can Find The Maximum Exactly K Comparisons
+// Difficulty: Hard
+// Tags: array, dp, search
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(n) or O(n * m) for DP table
+
+impl Solution {
+    pub fn num_of_arrays(n: i32, m: i32, k: i32) -> i32 {
+        
+    }
+}

@@ -1,0 +1,11 @@
+// Problem: Count the Number of Beautiful Subarrays
+// Difficulty: Medium
+// Tags: array, hash
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(n) for hash map
+
+func beautifulSubarrays(nums []int) int64 {
+    
+}

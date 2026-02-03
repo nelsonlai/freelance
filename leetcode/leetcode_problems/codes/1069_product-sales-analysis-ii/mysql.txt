@@ -1,0 +1,7 @@
+-- Problem: Product Sales Analysis II
+-- Difficulty: Easy
+-- Tags: Database
+
+SELECT product_id, SUM(quantity) AS total_quantity
+FROM Sales
+GROUP BY product_id;

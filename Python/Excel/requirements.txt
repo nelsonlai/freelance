@@ -1,0 +1,57 @@
+# Python Excel Operations Course - Required Packages
+
+# Core Data Manipulation
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Excel File Reading and Writing
+openpyxl>=3.1.0        # Read/write Excel 2010+ (.xlsx, .xlsm)
+xlsxwriter>=3.1.0      # Write Excel files with formatting and charts
+xlrd>=2.0.1            # Read legacy Excel files (.xls)
+xlwt>=1.3.0            # Write legacy Excel files (.xls)
+pyxlsb>=1.0.10         # Read binary Excel files (.xlsb)
+
+# Data Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Additional Utilities
+python-dateutil>=2.8.2  # Date parsing and manipulation
+pytz>=2023.3            # Timezone support
+
+# Development and Testing
+jupyter>=1.0.0          # Interactive notebooks
+ipython>=8.12.0         # Enhanced Python shell
+pytest>=7.3.0           # Testing framework
+pytest-cov>=4.1.0       # Test coverage
+
+# Code Quality
+black>=23.3.0           # Code formatter
+flake8>=6.0.0           # Linting
+pylint>=2.17.0          # Code analysis
+
+# Performance and Progress
+tqdm>=4.65.0            # Progress bars
+psutil>=5.9.0           # System and process utilities
+
+# File Operations
+pathlib>=1.0.1          # Path manipulations (usually built-in)
+glob2>=0.7              # File pattern matching
+
+# Logging and Configuration
+python-dotenv>=1.0.0    # Environment variable management
+colorlog>=6.7.0         # Colored logging output
+
+# Additional Excel Utilities
+et-xmlfile>=1.1.0       # XML file handling for Excel
+defusedxml>=0.7.1       # Secure XML parsing
+
+# Type Hints (Python 3.8+)
+typing-extensions>=4.5.0
+
+# Optional: Database Integration
+sqlalchemy>=2.0.0       # SQL database integration (optional)
+
+# Optional: Advanced Data Processing
+polars>=0.18.0          # Fast DataFrame library (optional alternative to pandas)
+

@@ -1,0 +1,72 @@
+
+Software Requirement Specification (SRS)
+
+Application Name: Endless Runner (Swipe Game)
+Platform: Android
+
+1. Introduction
+
+The Endless Runner application is a mobile game designed for Android devices where the player controls a character that runs endlessly through a repeating background environment. The primary objective is to avoid obstacles and collect coins by swiping on the touchscreen. The game emphasizes simple mechanics, engaging gameplay, and replayability.
+
+2. Functional Requirements
+2.1 Core Gameplay
+
+The character automatically runs forward in an endless loop.
+
+The player can swipe in four directions to control the character:
+
+Left/Right: Move lanes.
+
+Up: Jump.
+
+Down: Slide/Duck.
+
+Obstacles appear randomly and must be avoided using swipes.
+
+Coins are placed along the path and can be collected for points.
+
+2.2 Power-Ups
+
+The game includes collectible power-ups such as:
+
+Magnet: Attracts nearby coins.
+
+Shield: Protects the character from one obstacle.
+
+Speed Boost: Temporarily increases running speed.
+
+2.3 Audio/Visual Features
+
+Background music loops continuously during gameplay.
+
+Sound effects play for actions such as coin collection, jumps, collisions, and power-up activation.
+
+A repeating background is used to create an endless running environment.
+
+3. Non-Functional Requirements
+
+Performance: Game must run smoothly (≥ 30 FPS) on mid-range Android devices.
+
+Usability: Swipe gestures must be responsive with minimal input lag.
+
+Scalability: Background and obstacle generation should support easy expansion for future levels/themes.
+
+Compatibility: Supports Android 10 and above.
+
+4. User Interface Requirements
+
+Home Screen: Start game, settings, and exit options.
+
+Game Screen: Character, running path, obstacles, coins, score, and power-up indicators.
+
+Pause/Resume: Player can pause and resume the game.
+
+Game Over Screen: Displays final score, coins collected, and option to restart.
+
+5. Additional Features (Future Scope)
+
+Leaderboards and achievements.
+
+Customizable characters and skins.
+
+Social sharing of scores.

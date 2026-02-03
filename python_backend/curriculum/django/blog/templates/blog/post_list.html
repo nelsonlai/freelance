@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Blog</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #fafafa; }
+        .post { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        .date { color: #888; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h1>My Django Blog</h1>
+    {% for post in posts %}
+        <div class="post">
+            <h2>{{ post.title }}</h2>
+            <p class="date">Posted on {{ post.created_at }}</p>
+            <p>{{ post.content|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>No posts yet. Go to <a href="/admin">/admin</a> to add some!</p>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16 - Offscreen Canvas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>16 - Offscreen Canvas</h1>
+    
+    <div class="explanation">
+        <h2>Using Offscreen Canvas for Performance</h2>
+        <p>OffscreenCanvas allows you to draw on a canvas in a separate thread (Web Worker) or use it as a buffer for complex drawings that don't change often.</p>
+        <p><strong>Note:</strong> Full OffscreenCanvas with Web Workers requires a server. This example shows the concept using regular canvas as a buffer.</p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // ============================================
+        // 1. CREATING AN OFFScreen CANVAS (BUFFER)
+        // ============================================
+        
+        // Create an offscreen canvas as a buffer
+        const offscreenCanvas = document.createElement('canvas');
+        offscreenCanvas.width = canvas.width;
+        offscreenCanvas.height = canvas.height;
+        const offscreenCtx = offscreenCanvas.getContext('2d');
+        
+        // ============================================
+        // 2. DRAWING STATIC BACKGROUND ON OFFScreen
+        // ============================================
+        
+        function drawBackground() {
+            // Draw complex background on offscreen canvas
+            const gradient = offscreenCtx.createLinearGradient(0, 0, 0, offscreenCanvas.height);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(1, '#16213e');
+            offscreenCtx.fillStyle = gradient;
+            offscreenCtx.fillRect(0, 0, offscreenCanvas.width, offscreenCanvas.height);
+            
+            // Draw stars (static)
+            offscreenCtx.fillStyle = '#fff';
+            for (let i = 0; i < 200; i++) {
+                const x = Math.random() * offscreenCanvas.width;
+                const y = Math.random() * offscreenCanvas.height;
+                const size = Math.random() * 2;
+                offscreenCtx.fillRect(x, y, size, size);
+            }
+            
+            // Draw mountains (static)
+            offscreenCtx.fillStyle = '#0f3460';
+            offscreenCtx.beginPath();
+            offscreenCtx.moveTo(0, offscreenCanvas.height);
+            offscreenCtx.lineTo(200, offscreenCanvas.height * 0.6);
+            offscreenCtx.lineTo(400, offscreenCanvas.height * 0.7);
+            offscreenCtx.lineTo(600, offscreenCanvas.height * 0.5);
+            offscreenCtx.lineTo(800, offscreenCanvas.height * 0.65);
+            offscreenCtx.lineTo(offscreenCanvas.width, offscreenCanvas.height);
+            offscreenCtx.closePath();
+            offscreenCtx.fill();
+        }
+        
+        // Draw background once
+        drawBackground();
+        
+        // ============================================
+        // 3. ANIMATED OBJECTS (DRAWN ON MAIN CANVAS)
+        // ============================================
+        
+        const animatedObjects = [];
+        
+        class AnimatedObject {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height * 0.5;
+                this.radius = Math.random() * 20 + 10;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.color = `hsl(${Math.random() * 360}, 70%, 60%)`;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if (this.x < this.radius || this.x > canvas.width - this.radius) {
+                    this.vx = -this.vx;
+                }
+                if (this.y < this.radius || this.y > canvas.height - this.radius) {
+                    this.vy = -this.vy;
+                }
+            }
+            
+            draw(ctx) {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Create animated objects
+        for (let i = 0; i < 20; i++) {
+            animatedObjects.push(new AnimatedObject());
+        }
+        
+        // ============================================
+        // 4. USING OFFScreen AS BUFFER
+        // ============================================
+        
+        function draw() {
+            // Copy offscreen canvas (static background) to main canvas
+            ctx.drawImage(offscreenCanvas, 0, 0);
+            
+            // Draw animated objects on top
+            animatedObjects.forEach(obj => {
+                obj.update();
+                obj.draw(ctx);
+            });
+        }
+        
+        // ============================================
+        // 5. ANIMATION LOOP
+        // ============================================
+        
+        function animate() {
+            draw();
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // ============================================
+        // 6. WEB WORKER EXAMPLE (Conceptual)
+        // ============================================
+        
+        /*
+        // For true OffscreenCanvas with Web Workers:
+        
+        // main.js
+        const offscreen = canvas.transferControlToOffscreen();
+        const worker = new Worker('worker.js');
+        worker.postMessage({ canvas: offscreen }, [offscreen]);
+        
+        // worker.js
+        self.onmessage = function(e) {
+            const canvas = e.data.canvas;
+            const ctx = canvas.getContext('2d');
+            // Draw on canvas in worker thread
+        };
+        
+        Benefits:
+        - Doesn't block main thread
+        - Better performance for complex drawings
+        - Can process data in parallel
+        */
+        
+        // ============================================
+        // 7. CACHING COMPLEX DRAWINGS
+        // ============================================
+        
+        // Example: Cache a complex shape
+        const shapeCanvas = document.createElement('canvas');
+        shapeCanvas.width = 100;
+        shapeCanvas.height = 100;
+        const shapeCtx = shapeCanvas.getContext('2d');
+        
+        // Draw complex shape once
+        const shapeGradient = shapeCtx.createRadialGradient(50, 50, 0, 50, 50, 50);
+        shapeGradient.addColorStop(0, '#FF6B6B');
+        shapeGradient.addColorStop(1, '#4ECDC4');
+        shapeCtx.fillStyle = shapeGradient;
+        shapeCtx.beginPath();
+        shapeCtx.arc(50, 50, 50, 0, Math.PI * 2);
+        shapeCtx.fill();
+        
+        // Now you can draw this cached shape multiple times efficiently
+        // ctx.drawImage(shapeCanvas, x, y);
+    </script>
+</body>
+</html>
+

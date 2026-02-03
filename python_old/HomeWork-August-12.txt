@@ -1,0 +1,58 @@
+1. What are the __xxx__ built-in methods in an OOP Object.
+2. What is MRO in OOP. (A Diamond Problem). What is Python MRO rule.
+
+** OOP Exercise.
+1) Point & Move (OOP warm-up)
+Concepts: class, __init__, instance methods, __repr__
+Build: Point(x, y) with methods:
+
+move(dx, dy) → mutates coordinates
+
+distance_to(other: Point) -> float
+
+__repr__ returns Point(x=..., y=...)
+Stretch: midpoint(other), as_tuple(); make it immutable and add moved(dx, dy) returning a new Point.
+
+2) BankAccount with Validation
+Concepts: encapsulation, properties, class/staticmethods, errors
+Build: BankAccount(owner, opening_balance=0):
+
+deposit(amount), withdraw(amount); forbid negatives/overdraft → raise ValueError
+
+read-only balance via @property
+
+class var bank_code = "C001"; classmethod from_opening_bonus(owner, amount, bonus_pct)
+
+staticmethod is_valid_amount(x)
+Stretch: keep a transaction log (list of (type, amount, new_balance, timestamp)), __repr__, and a simple transfer_to(other, amount).
+
+3) Mini Library (Composition)
+Concepts: composition, simple domain model, custom exceptions
+Build: Book(title, author, isbn), Member(name, member_id), Library():
+
+add_book(book), register(member)
+
+borrow(isbn, member_id), return_book(isbn, member_id)
+
+Track availability & who holds each copy
+Stretch: due dates + OverdueError, search(title_contains=...), count multiple copies of a book.
+
+4) Shapes (Inheritance & Polymorphism)
+Concepts: ABCs, overriding, polymorphism
+Build: Shape(ABC) with area() and perimeter() abstract methods.
+
+Implement Circle(r), Rectangle(w, h), Triangle(a, b, c) (validate triangle inequality)
+
+Function total_area(shapes: list[Shape])
+Stretch: __eq__ comparing by area within tolerance; scale(factor) returns new shape.
+
+5) Vector2D (Dunder Methods)
+Concepts: operator overloading, iteration, equality
+Build: Immutable Vector2D(x, y) implementing:
+
+__add__, __sub__, scalar __mul__/__rmul__
+
+__iter__, __len__ (return 2), __getitem__(i)
+
+__repr__ and equality with tolerance (e.g., math.isclose)
+Stretch: norm(), dot(other), support sum([v1, v2, ...], start=Vector2D(0,0)).

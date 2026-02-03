@@ -1,0 +1,212 @@
+{% extends "admin/_layout.html" %}
+{% set title = "Admin Dashboard" %}
+{% set subtitle = "Overview" %}
+
+{% block content %}
+  <!-- ===== KPI CARDS ===== -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="bg-white border rounded-2xl p-5">
+      <div class="text-sm text-slate-500">Users</div>
+      <div class="text-3xl font-semibold mt-1">{{ stats.users }}</div>
+    </div>
+    <div class="bg-white border rounded-2xl p-5">
+      <div class="text-sm text-slate-500">Reports (Poe results)</div>
+      <div class="text-3xl font-semibold mt-1">{{ stats.reports }}</div>
+    </div>
+    <div class="bg-white border rounded-2xl p-5">
+      <div class="text-sm text-slate-500">Webhook logs</div>
+      <div class="text-3xl font-semibold mt-1">{{ stats.webhooks }}</div>
+    </div>
+  </div>
+
+  <!-- ===== QUICK LINKS ===== -->
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <a href="/admin/users" class="bg-white border rounded-2xl p-5 hover:shadow-sm transition">
+      <div class="font-semibold">User management</div>
+      <div class="text-sm text-slate-600 mt-1">
+        View users and roles (super_admin can promote/demote)
+      </div>
+    </a>
+
+    <a href="/admin/reports" class="bg-white border rounded-2xl p-5 hover:shadow-sm transition">
+      <div class="font-semibold">Reports</div>
+      <div class="text-sm text-slate-600 mt-1">
+        Inspect Make → Poe generated reports
+      </div>
+    </a>
+
+    <a href="/admin/webhooks" class="bg-white border rounded-2xl p-5 hover:shadow-sm transition">
+      <div class="font-semibold">Webhook logs</div>
+      <div class="text-sm text-slate-600 mt-1">
+        See raw Make.com webhook payloads for debugging
+      </div>
+    </a>
+
+    <div class="bg-white border rounded-2xl p-5">
+      <div class="font-semibold">Security</div>
+      <div class="text-sm text-slate-600 mt-1">
+        Admin uses server-side session (needs SECRET_KEY in .env)
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ANALYTICS ===== -->
+  <div class="mt-10">
+    <h2 class="text-lg font-semibold mb-4">Analytics Overview</h2>
+
+    <!-- KPI from analytics -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="text-sm text-slate-500">Total forms</div>
+        <div id="kpiTotal" class="text-2xl font-semibold mt-1">–</div>
+      </div>
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="text-sm text-slate-500">Avg cat age</div>
+        <div id="kpiAge" class="text-2xl font-semibold mt-1">–</div>
+      </div>
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="text-sm text-slate-500">Avg owning years</div>
+        <div id="kpiYears" class="text-2xl font-semibold mt-1">–</div>
+      </div>
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="text-sm text-slate-500">Avg life fulfillment</div>
+        <div id="kpiLife" class="text-2xl font-semibold mt-1">–</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="font-semibold mb-2">Cat breed distribution</div>
+        <canvas id="breedChart" height="220"></canvas>
+      </div>
+
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="font-semibold mb-2">Cat age distribution</div>
+        <canvas id="ageChart" height="220"></canvas>
+      </div>
+
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="font-semibold mb-2">Health risks (Yes/No)</div>
+        <canvas id="healthChart" height="220"></canvas>
+      </div>
+
+      <div class="bg-white border rounded-2xl p-5">
+        <div class="font-semibold mb-2">Life fulfillment score</div>
+        <canvas id="lifeChart" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CHART.JS ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <script>
+    async function fetchJSON(url) {
+      const r = await fetch(url);
+      return await r.json();
+    }
+  
+    // ===== Pie / Bar for group_count =====
+    function renderGroupBar(canvasId, data) {
+      if (!Array.isArray(data) || data.length === 0) {
+        document.getElementById(canvasId).parentElement.innerHTML =
+          "<div class='text-slate-400 text-sm'>No data</div>";
+        return;
+      }
+  
+      new Chart(document.getElementById(canvasId), {
+        type: "bar",
+        data: {
+          labels: data.map(d => d.label),
+          datasets: [{
+            data: data.map(d => d.value),
+            backgroundColor: "#60a5fa"
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+  
+    function renderPie(canvasId, data) {
+      if (!Array.isArray(data) || data.length === 0) {
+        document.getElementById(canvasId).parentElement.innerHTML =
+          "<div class='text-slate-400 text-sm'>No data</div>";
+        return;
+      }
+  
+      new Chart(document.getElementById(canvasId), {
+        type: "pie",
+        data: {
+          labels: data.map(d => d.label),
+          datasets: [{
+            data: data.map(d => d.value)
+          }]
+        },
+        options: {
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+    }
+  
+    // ===== Histogram (labels + counts) =====
+    function renderHistogram(canvasId, hist) {
+      if (!hist || !hist.labels || hist.counts.every(v => v === 0)) {
+        document.getElementById(canvasId).parentElement.innerHTML =
+          "<div class='text-slate-400 text-sm'>No numeric data available</div>";
+        return;
+      }
+  
+      new Chart(document.getElementById(canvasId), {
+        type: "bar",
+        data: {
+          labels: hist.labels,
+          datasets: [{
+            data: hist.counts,
+            backgroundColor: "#34d399"
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+  
+    document.addEventListener("DOMContentLoaded", async () => {
+      // ===== KPIs =====
+      const kpis = await fetchJSON("/api/admin/stats/kpis");
+      document.getElementById("kpiTotal").textContent = kpis.total_forms ?? "–";
+      document.getElementById("kpiAge").textContent = kpis.avg_cat_age ?? "–";
+      document.getElementById("kpiYears").textContent = kpis.avg_owning_years ?? "–";
+      document.getElementById("kpiLife").textContent = kpis.avg_life_fulfillment ?? "–";
+  
+      // ===== Charts =====
+      renderPie(
+        "breedChart",
+        await fetchJSON("/api/admin/stats/cat-breed")
+      );
+  
+      renderGroupBar(
+        "ageChart",
+        await fetchJSON("/api/admin/stats/hist/cat-age")
+      );
+  
+      const health = await fetchJSON("/api/admin/stats/yesno/health");
+      renderGroupBar("healthChart", [
+        ...health.digestive_issues,
+        ...health.chronic_disease,
+        ...health.genetic_disease_known
+      ]);
+  
+      renderGroupBar(
+        "lifeChart",
+        await fetchJSON("/api/admin/stats/hist/life-fulfillment")
+      );
+    });
+  </script>
+  
+  {% endblock %}

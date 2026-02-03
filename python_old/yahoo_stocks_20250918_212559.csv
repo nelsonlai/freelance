@@ -1,0 +1,4 @@
+symbol,url,timestamp,price,change,change_percent,volume,market_cap
+AAPL,https://finance.yahoo.com/quote/AAPL,2025-09-18T21:25:54.768945,"6,696.50",+3.00,+1.33%,,
+GOOGL,https://finance.yahoo.com/quote/GOOGL,2025-09-18T21:25:57.610012,"6,615.28",+30.99,-0.17%,,
+MSFT,https://finance.yahoo.com/quote/MSFT,2025-09-18T21:25:59.575878,"6,696.25",+2.75,+3.49%,,

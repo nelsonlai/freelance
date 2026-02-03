@@ -1,0 +1,44 @@
+# Python Qt GUI Development Dependencies
+# =======================================
+#
+# IMPORTANT: You typically only need ONE of these frameworks, not both.
+# Install what you need:
+#   pip install PySide6          # For PySide6 examples
+#   pip install PyQt6            # For PyQt6 examples
+
+# ============================================
+# Option A: PySide6 (Recommended for beginners)
+# ============================================
+# Includes all modules: Designer, SQL, Charts, Multimedia, WebEngine
+# License: LGPL (more permissive for commercial use)
+
+PySide6>=6.5.0
+
+# ============================================
+# Option B: PyQt6
+# ============================================
+# License: GPL v3 (requires commercial license for proprietary apps)
+
+PyQt6>=6.5.0
+
+# Optional PyQt6 modules (install separately if needed):
+# PyQt6-Charts>=6.5.0
+# PyQt6-WebEngine>=6.5.0
+# PyQt6-Multimedia>=6.5.0
+
+# Note: pyqt6-tools is often outdated and conflicts with newer PyQt6.
+# PySide6 includes the Designer tool directly (pyside6-designer command).
+
+# ============================================
+# Optional: Additional Libraries
+# ============================================
+
+# For plotting and data visualization
+matplotlib>=3.5.0
+numpy>=1.21.0
+
+# For packaging/distribution
+pyinstaller>=5.0.0
+
+# Advanced plotting (uncomment if needed)
+# pyqtgraph>=0.13.0

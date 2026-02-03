@@ -1,0 +1,13 @@
+-- Problem: Winning Candidate
+-- Difficulty: Medium
+-- Tags: Database
+
+SELECT c.name
+FROM Candidate c
+INNER JOIN (
+    SELECT candidateId, COUNT(*) AS votes
+    FROM Vote
+    GROUP BY candidateId
+    ORDER BY votes DESC
+    LIMIT 1
+) v ON c.id = v.candidateId;

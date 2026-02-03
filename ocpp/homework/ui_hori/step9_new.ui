@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    background-image: url(image/bg_step9.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}</string>
+  </property>
+  <widget class="QLabel" name="label_timer">
+   <property name="geometry">
+    <rect>
+     <x>175</x>
+     <y>50</y>
+     <width>400</width>
+     <height>160</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>96</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    color: #FF0000;
+    font-size: 96pt;
+    font-family: &quot;Arial&quot;;
+    font-weight: bold;
+    border: 3px solid #FF0000;
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 10px;
+}</string>
+   </property>
+   <property name="text">
+    <string>01:59</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_instruction">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>250</y>
+     <width>500</width>
+     <height>200</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>40</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    color: white;
+    font-size: 40pt;
+    font-family: &quot;Arial&quot;;
+}</string>
+   </property>
+   <property name="text">
+    <string>Remove the charging gun and return it to the designated position on the charging station</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_charging_station">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>50</y>
+     <width>300</width>
+     <height>400</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    background-color: transparent;
+    border: none;
+}</string>
+   </property>
+   <property name="pixmap">
+    <pixmap>image/charge_station.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_next">
+   <property name="geometry">
+    <rect>
+     <x>412</x>
+     <y>480</y>
+     <width>200</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4A90E2, stop:1 #2E5BBA);
+    color: white;
+    font-size: 20pt;
+    font-family: &quot;Arial&quot;;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5BA0F2, stop:1 #3E6BCA);
+}
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #3A80D2, stop:1 #1E4BAA);
+}</string>
+   </property>
+   <property name="text">
+    <string>Next</string>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

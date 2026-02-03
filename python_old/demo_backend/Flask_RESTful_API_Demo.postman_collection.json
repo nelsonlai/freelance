@@ -1,0 +1,864 @@
+{
+	"info": {
+		"_postman_id": "flask-restful-api-demo",
+		"name": "Flask RESTful API Demo",
+		"description": "A comprehensive collection to test the Flask RESTful API demo backend. This collection demonstrates all HTTP methods, header processing, parameter handling, and various response scenarios.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Welcome & Information",
+			"item": [
+				{
+					"name": "Get API Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "Welcome endpoint that provides API information and available endpoints"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en-US",
+								"type": "text"
+							},
+							{
+								"key": "User-Agent",
+								"value": "PostmanRuntime/7.32.3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users?page=1&limit=10&active=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number for pagination"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of items per page"
+								},
+								{
+									"key": "active",
+									"value": "true",
+									"description": "Filter by active status"
+								}
+							]
+						},
+						"description": "Retrieve all users with filtering and pagination. Demonstrates query parameter handling and header processing."
+					},
+					"response": []
+				},
+				{
+					"name": "HEAD Users Collection",
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Get headers only for users collection. Demonstrates HEAD method for metadata without body."
+					},
+					"response": []
+				},
+				{
+					"name": "OPTIONS Users Collection",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Get allowed methods for users collection. Demonstrates OPTIONS method for CORS preflight."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						},
+						"description": "Retrieve a specific user by ID. Demonstrates path parameter handling."
+					},
+					"response": []
+				},
+				{
+					"name": "HEAD User by ID",
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						},
+						"description": "Get headers only for a specific user. Demonstrates HEAD method for resource metadata."
+					},
+					"response": []
+				},
+				{
+					"name": "OPTIONS User by ID",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						},
+						"description": "Get allowed methods for a specific user. Demonstrates OPTIONS method for resource operations."
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"alice_wong\",\n  \"email\": \"alice@example.com\",\n  \"age\": 28,\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Create a new user. Demonstrates JSON body parsing, validation, and 201 status code for resource creation."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User (PUT)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"john_doe_updated\",\n  \"email\": \"john.updated@example.com\",\n  \"age\": 26,\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						},
+						"description": "Update an existing user completely. Demonstrates PUT method for full resource updates."
+					},
+					"response": []
+				},
+				{
+					"name": "Partially Update User (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"age\": 27,\n  \"active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						},
+						"description": "Partially update an existing user. Demonstrates PATCH method for partial resource updates."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"3"
+							]
+						},
+						"description": "Delete a user by ID. Demonstrates DELETE method and resource removal."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Management",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products?category=Electronics&min_price=50.0&max_price=1000.0&sort_by=price&order=asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "Electronics",
+									"description": "Filter by product category"
+								},
+								{
+									"key": "min_price",
+									"value": "50.0",
+									"description": "Minimum price filter"
+								},
+								{
+									"key": "max_price",
+									"value": "1000.0",
+									"description": "Maximum price filter"
+								},
+								{
+									"key": "sort_by",
+									"value": "price",
+									"description": "Field to sort by"
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"description": "Sort order (asc/desc)"
+								}
+							]
+						},
+						"description": "Retrieve all products with filtering and sorting. Demonstrates advanced query parameter handling."
+					},
+					"response": []
+				},
+				{
+					"name": "HEAD Products Collection",
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Get headers only for products collection. Demonstrates HEAD method for metadata."
+					},
+					"response": []
+				},
+				{
+					"name": "OPTIONS Products Collection",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Get allowed methods for products collection. Demonstrates OPTIONS method."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						},
+						"description": "Retrieve a specific product by ID."
+					},
+					"response": []
+				},
+				{
+					"name": "HEAD Product by ID",
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						},
+						"description": "Get headers only for a specific product. Demonstrates HEAD method for product metadata."
+					},
+					"response": []
+				},
+				{
+					"name": "OPTIONS Product by ID",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						},
+						"description": "Get allowed methods for a specific product. Demonstrates OPTIONS method."
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Wireless Headphones\",\n  \"price\": 149.99,\n  \"category\": \"Electronics\",\n  \"stock\": 25\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Create a new product. Demonstrates product creation with validation."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product (PUT)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Gaming Laptop\",\n  \"price\": 1299.99,\n  \"category\": \"Electronics\",\n  \"stock\": 45\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						},
+						"description": "Update an existing product completely."
+					},
+					"response": []
+				},
+				{
+					"name": "Partially Update Product (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 1399.99,\n  \"stock\": 40\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						},
+						"description": "Partially update an existing product. Demonstrates PATCH method for partial updates."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"3"
+							]
+						},
+						"description": "Delete a product by ID."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order Management",
+			"item": [
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders?user_id=1&status=pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"description": "Filter by user ID"
+								},
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "Filter by order status"
+								}
+							]
+						},
+						"description": "Retrieve all orders with filtering. Demonstrates relationship handling between users, products, and orders."
+					},
+					"response": []
+				},
+				{
+					"name": "HEAD Orders Collection",
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Get headers only for orders collection. Demonstrates HEAD method for order metadata."
+					},
+					"response": []
+				},
+				{
+					"name": "OPTIONS Orders Collection",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Get allowed methods for orders collection. Demonstrates OPTIONS method."
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"product_id\": 2,\n  \"quantity\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Create a new order. Demonstrates complex validation, business logic, and relationship management."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "System & Health",
+			"item": [
+				{
+					"name": "Health Check (GET)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Health check endpoint for monitoring system status and database counts."
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check (HEAD)",
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Health check headers only. Demonstrates HEAD method for health monitoring."
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check (OPTIONS)",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Get allowed methods for health endpoint. Demonstrates OPTIONS method."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Error Testing",
+			"item": [
+				{
+					"name": "400 Bad Request - Missing Fields",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"test_user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Test 400 error by sending incomplete data (missing email field)."
+					},
+					"response": []
+				},
+				{
+					"name": "404 Not Found - Invalid User ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"999"
+							]
+						},
+						"description": "Test 404 error by requesting a non-existent user ID."
+					},
+					"response": []
+				},
+				{
+					"name": "409 Conflict - Duplicate Username",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"john_doe\",\n  \"email\": \"john2@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Test 409 error by trying to create a user with an existing username."
+					},
+					"response": []
+				},
+				{
+					"name": "422 Unprocessable Entity - Insufficient Stock",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"product_id\": 2,\n  \"quantity\": 999\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Test 422 error by trying to order more items than available in stock."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string",
+			"description": "Base URL for the Flask API server"
+		}
+	]
+}

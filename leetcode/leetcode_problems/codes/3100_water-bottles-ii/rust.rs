@@ -1,0 +1,13 @@
+// Problem: Water Bottles II
+// Difficulty: Medium
+// Tags: math
+// 
+// Approach: Optimized algorithm based on problem constraints
+// Time Complexity: O(n) to O(n^2) depending on approach
+// Space Complexity: O(1) to O(n) depending on approach
+
+impl Solution {
+    pub fn max_bottles_drunk(num_bottles: i32, num_exchange: i32) -> i32 {
+        
+    }
+}

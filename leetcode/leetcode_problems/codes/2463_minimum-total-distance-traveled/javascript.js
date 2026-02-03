@@ -1,0 +1,18 @@
+/**
+ * Problem: Minimum Total Distance Traveled
+ * Difficulty: Hard
+ * Tags: array, dp, sort
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) or O(n * m) for DP table
+ */
+
+/**
+ * @param {number[]} robot
+ * @param {number[][]} factory
+ * @return {number}
+ */
+var minimumTotalDistance = function(robot, factory) {
+    
+};

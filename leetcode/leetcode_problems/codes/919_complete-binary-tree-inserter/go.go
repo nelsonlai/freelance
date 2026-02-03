@@ -1,0 +1,42 @@
+// Problem: Complete Binary Tree Inserter
+// Difficulty: Medium
+// Tags: tree, search
+// 
+// Approach: DFS or BFS traversal
+// Time Complexity: O(n) where n is number of nodes
+// Space Complexity: O(h) for recursion stack where h is height
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+type CBTInserter struct {
+    
+}
+
+
+func Constructor(root *TreeNode) CBTInserter {
+    
+}
+
+
+func (this *CBTInserter) Insert(val int) int {
+    
+}
+
+
+func (this *CBTInserter) Get_root() *TreeNode {
+    
+}
+
+
+/**
+ * Your CBTInserter object will be instantiated and called as such:
+ * obj := Constructor(root);
+ * param_1 := obj.Insert(val);
+ * param_2 := obj.Get_root();
+ */

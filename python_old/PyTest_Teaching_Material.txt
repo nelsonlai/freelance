@@ -1,0 +1,456 @@
+Learning outcomes
+
+By the end, the student can:
+
+Write and run tests with pytest, including assertions and exception testing.
+
+Use fixtures (scopes, yield teardown, tmp_path, monkeypatch, capsys, caplog).
+
+Parametrize tests and use markers (skip, xfail, custom).
+
+Organize tests with conftest.py and a clean layout.
+
+Mock behaviour with pytest-mock.
+
+Collect coverage and wire tests into CI.
+
+Debug failing tests quickly (--lf, -k, --pdb).
+
+Setup (3 min)
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -U pytest pytest-cov pytest-mock
+mkdir -p src tests
+
+
+Recommended layout:
+
+project/
+  src/
+    mathy.py
+    io_utils.py
+  tests/
+    test_mathy.py
+    test_io_utils.py
+  conftest.py
+  pyproject.toml (or setup.cfg / pytest.ini)
+
+Agenda (90 min total)
+1) Why PyTest + Quick Start (10 min)
+
+Talking points
+
+Simple discovery: files named test_*.py or *_test.py; functions/classes named test_*.
+
+No unittest.TestCase ceremony; rich assertion introspection.
+
+Demo
+
+# src/mathy.py
+def add(a, b): return a + b
+def div(a, b): return a / b
+
+# tests/test_mathy.py
+def test_add():
+    assert 2 + 3 == 5
+
+def test_division_by_zero():
+    import pytest
+    with pytest.raises(ZeroDivisionError):
+        _ = 1 / 0
+
+
+Run:
+
+pytest -q
+pytest -vv  # verbose
+pytest -k add  # select by name substring
+
+
+Exercise A (5 min)
+Create subtract(a,b) and test it (including a negative result).
+Solution (show after attempt):
+
+# src/mathy.py (add)
+def subtract(a, b): return a - b
+
+# tests/test_mathy.py (add)
+def test_subtract_negative():
+    assert subtract(3, 5) == -2
+
+2) Assertions & Exceptions Deep-Dive (10 min)
+
+Key features
+
+Plain assert with helpful diffs.
+
+Testing exceptions: pytest.raises (as context manager or callable form).
+
+Demo
+
+import pytest
+
+def reciprocal(x):
+    if x == 0:
+        raise ValueError("x must be non-zero")
+    return 1/x
+
+def test_reciprocal_valid():
+    assert reciprocal(4) == 0.25
+
+def test_reciprocal_raises():
+    with pytest.raises(ValueError, match="non-zero"):
+        reciprocal(0)
+
+
+Exercise B (3 min)
+Use match= to assert the error message for div(a,b) when b=0.
+
+3) Fixtures: setup/teardown, scopes, power tools (20 min)
+
+Concept
+
+Fixtures are functions decorated with @pytest.fixture that return resources.
+
+Scopes: function (default), class, module, package, session.
+
+Teardown: yield fixtures.
+
+Built-ins: tmp_path, monkeypatch, capsys, caplog, request.
+
+Demo 1: basic fixture + scope
+
+# tests/conftest.py
+import pytest
+
+@pytest.fixture(scope="module")
+def numbers():
+    return [1, 2, 3, 4]
+
+# tests/test_mathy.py
+def test_sum(numbers):
+    assert sum(numbers) == 10
+
+
+Demo 2: yield fixture (teardown)
+
+# tests/conftest.py (add)
+import tempfile, os, shutil
+
+@pytest.fixture
+def temp_dir():
+    d = tempfile.mkdtemp()
+    yield d
+    shutil.rmtree(d)
+
+
+Demo 3: tmp_path (preferable to manual temp dirs)
+
+# src/io_utils.py
+def write_lines(path, lines):
+    with open(path, "w", encoding="utf-8") as f:
+        for line in lines:
+            f.write(line + "\n")
+
+def read_lines(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return [line.rstrip("\n") for line in f]
+
+# tests/test_io_utils.py
+def test_write_and_read(tmp_path):
+    p = tmp_path / "data.txt"
+    write_lines(p, ["a", "b", "c"])
+    assert read_lines(p) == ["a", "b", "c"]
+
+
+Demo 4: monkeypatch (env/attributes)
+
+# src/io_utils.py (add)
+import os
+def get_api_key():
+    return os.environ.get("API_KEY", "")
+
+# tests/test_io_utils.py (add)
+def test_get_api_key(monkeypatch):
+    monkeypatch.setenv("API_KEY", "secret123")
+    assert get_api_key() == "secret123"
+
+
+Demo 5: capsys/caplog
+
+# src/io_utils.py (add)
+import logging
+log = logging.getLogger(__name__)
+def greet(name):
+    print(f"Hello, {name}!")
+    log.info("Greeted %s", name)
+
+# tests/test_io_utils.py (add)
+def test_greet_output_and_log(capsys, caplog):
+    caplog.set_level("INFO")
+    greet("Nelson")
+    out = capsys.readouterr().out
+    assert "Hello, Nelson!" in out
+    assert any("Greeted Nelson" in r.message for r in caplog.records)
+
+
+Exercise C (5 min)
+Create a fixture that builds a small dictionary and ensure a function mutates a copy, not the original (teach immutability by test).
+
+4) Parametrization (10 min)
+
+Why
+
+Avoid repetitive tests; cover edge cases compactly.
+
+Demo
+
+import pytest
+from src.mathy import add
+
+@pytest.mark.parametrize(
+    "a,b,expected",
+    [(1,2,3), (0,0,0), (-1,1,0), (10,-7,3)],
+    ids=["simple","zeros","cancel","mixed"]
+)
+def test_add_param(a,b,expected):
+    assert add(a,b) == expected
+
+
+Advanced: Indirect param for fixtures:
+
+# tests/test_io_utils.py
+import pytest, json
+
+@pytest.fixture
+def payload(request):
+    return json.loads(request.param)
+
+@pytest.mark.parametrize("payload", ['{"x":1}', '{"x":2,"y":3}'], indirect=True)
+def test_payload_shape(payload):
+    assert "x" in payload
+
+
+Exercise D (3 min)
+Parametrize reciprocal(x) tests for several valid inputs and results.
+
+5) Markers: skip, xfail, and custom (8 min)
+
+Demo
+
+import sys, pytest
+
+@pytest.mark.skip(reason="feature not ready")
+def test_future_feature():
+    pass
+
+@pytest.mark.xfail(strict=True)
+def test_known_bug():
+    assert 1 == 2  # expected to fail until bug fixed
+
+
+Custom markers via config
+
+# pytest.ini (or in pyproject.toml under [tool.pytest.ini_options])
+[pytest]
+markers =
+    slow: marks tests as slow
+
+
+Use:
+
+import time, pytest
+
+@pytest.mark.slow
+def test_slow():
+    time.sleep(0.1)
+    assert True
+
+
+Run by marker:
+
+pytest -m slow
+pytest -m "not slow"
+
+6) Test organization & conftest.py patterns (5 min)
+
+Guidance
+
+Keep src/ for code, tests/ for tests.
+
+Put shared fixtures in tests/conftest.py (auto-discovered).
+
+Avoid __init__.py in tests/ unless you need package semantics.
+
+Name tests clearly; one behaviour per test.
+
+7) Mocking with pytest-mock (10 min)
+
+Why
+
+Replace I/O or external services; assert interactions.
+
+Demo
+
+# src/io_utils.py (add)
+import requests
+def fetch_json(url):
+    return requests.get(url, timeout=5).json()
+
+# tests/test_io_utils.py
+def test_fetch_json_mocker(mocker):
+    fake = {"ok": True}
+    get = mocker.patch("src.io_utils.requests.get")
+    get.return_value.json.return_value = fake
+
+    assert fetch_json("http://example.com") == fake
+    get.assert_called_once_with("http://example.com", timeout=5)
+
+
+Exercise E (4 min)
+Use mocker.spy to assert write_lines is called with the right path and list.
+
+8) Coverage & quality gates (5 min)
+
+Commands
+
+pytest --cov=src --cov-report=term-missing
+pytest --cov=src --cov-fail-under=90
+
+
+Explain: drive refactoring by missing-line hints.
+
+9) Debugging tricks & faster feedback (5 min)
+
+Re-run last failures: pytest --lf (or -lf), fail fast: -x, limit fails: --maxfail=1.
+
+Drop to pdb on failure: pytest --pdb.
+
+Select by keyword: -k "greet and not slow".
+
+Show print output: -s.
+
+10) CI (GitHub Actions) minimal sample (4 min)
+# .github/workflows/tests.yml
+name: tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python -m pip install -U pip
+      - run: pip install -U pytest pytest-cov pytest-mock
+      - run: pytest --cov=src --cov-report=term-missing --cov-fail-under=90
+
+Capstone Lab (last 10–12 min)
+
+Goal: TDD a tiny “slugify” helper and its edge cases.
+
+Spec
+
+Function slugify(text: str) -> str
+
+Lowercases, trims, collapses spaces to -, removes non-alnum/hyphen.
+
+Empty or whitespace-only → "".
+
+Student steps
+
+Write parametrized tests first (good/edge inputs).
+
+Add a fixture that supplies typical phrases.
+
+Add one xfail for a planned improvement (e.g., accented letters).
+
+Implement slugify to pass tests; collect coverage.
+
+Solution (reveal if needed)
+
+# src/text_utils.py
+import re
+
+def slugify(text: str) -> str:
+    s = text.strip().lower()
+    s = re.sub(r"\s+", "-", s)
+    s = re.sub(r"[^a-z0-9\-]", "", s)
+    s = re.sub(r"-{2,}", "-", s).strip("-")
+    return s
+
+# tests/test_text_utils.py
+import pytest
+from src.text_utils import slugify
+
+@pytest.mark.parametrize("inp,expected", [
+    ("Hello World", "hello-world"),
+    ("  multiple   spaces  ", "multiple-spaces"),
+    ("Symbols!@#$", "symbols"),
+    ("MiXeD-Case", "mixed-case"),
+    ("", ""),
+    ("   ", ""),
+], ids=["basic","spaces","symbols","case","empty","spaces-only"])
+def test_slugify(inp, expected):
+    assert slugify(inp) == expected
+
+@pytest.mark.xfail(reason="accent stripping not implemented", strict=False)
+def test_slugify_accents():
+    assert slugify("Café à la carte") == "cafe-a-la-carte"
+
+Optional Extensions (use if time remains)
+
+Property-based testing (hypothesis) for slugify.
+
+Parametrizing fixtures (params=[... ] on @pytest.fixture).
+
+Parallel runs via pytest -n auto (with pytest-xdist).
+
+Common pitfalls (quick checklist)
+
+Forgetting discovery names (test_*.py, test_* functions).
+
+Overusing autouse fixtures (hidden dependencies).
+
+Mocking the wrong import path (patch where used).
+
+Tests that depend on order (avoid shared mutable state).
+
+Mixing unit tests with slow I/O: mark them (@pytest.mark.slow) and exclude by default.
+
+Minimal configuration samples
+
+pytest.ini
+
+[pytest]
+addopts = -ra -q
+testpaths = tests
+markers =
+    slow: marks tests as slow
+
+
+pyproject.toml (alternative)
+
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = ["tests"]
+markers = ["slow: marks tests as slow"]
+
+Quick reference (handout)
+
+Run all / verbose: pytest / pytest -vv
+
+Select tests: pytest -k 'keyword' / pytest -m slow
+
+Rerun failures: pytest -lf (or --last-failed -x)
+
+Coverage: pytest --cov=src --cov-report=term-missing
+
+Debug: pytest --pdb -x
+
+Parametrize: @pytest.mark.parametrize("a,b,exp", [(1,2,3), ...])
+
+Exceptions: with pytest.raises(ValueError, match="msg"):
+
+Fixtures: @pytest.fixture(scope="module") / yield / tmp_path / monkeypatch / capsys / caplog
+
+Mocking: mocker.patch("pkg.mod.func"), mocker.spy(obj, "method")

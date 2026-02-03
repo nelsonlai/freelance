@@ -1,0 +1,198 @@
+Installation instructions for the rt2x00 Modules
+
+===============================================================================
+Minimal requirements:
+====================
+
+ - Kernel
+	# Only 2.6.13 and higher kernels are supported.
+
+ - Wireless extensions
+	# Your kernel should be compiled with Wireless extensions V18 or higher.
+
+ - ieee80211 stack
+	# rt2x00 depends on the ieee80211 stack developed by the netdev team.
+	# The latest ieee80211 stack can be found in the ieee80211/ folder
+	# in the rt2x00 module source. This is updated from the netdev-2.6
+	# git repository  on a frequent basis.
+
+===============================================================================
+=======
+Build Instructions:
+====================
+
+ - $make
+	# Build rt2x00 & ieee80211 modules with default options.
+ - $make nodebug
+	# Build rt2x00 & ieee80211 module without debug capabilities.
+ - $make rt2x00-nodebug
+	# Build rt2x00 module without debug capabilities.
+ - $make ieee80211-debug
+	# Build ieee80211 module without debug capabilities.
+ - $make debug
+	# Build rt2x00 & ieee80211 modules with debug capabilities enabled.
+ - $make rt2x00-debug
+	# Build rt2x00 modules with debug capabilities enabled.
+ - $make ieee80211-debug
+	# Build ieee80211 modules with debug capabilities enabled.
+ - $make install
+	# Install the rt2x00 & ieee80211 modules.
+ - $make rt2x00-install
+	# Install the rt2x00 modules.
+ - $make ieee80211-install
+	# Install the ieee80211 modules.
+ - $make clean
+	# Cleans up all rt2x00 & ieee80211 files created at build time.
+ - $make rt2x00-clean
+	# Cleans up all rt2x00 files created at build time.
+ - $make ieee80211-clean
+	# Cleans up all ieee80211 files created at build time.
+
+===============================================================================
+Module installation:
+====================
+
+ When installing the modules with 'make install' the installation routine
+ will create a new folder named 'rt2x00' inside the kernel modules directory
+ usually /lib/modules/$(uname -r)/, all modules (including the ieee80211 stack
+ will be installed into that directory.
+ Some distributions however do not comply with the kernel guidelines
+ which causes the kernel to install the modules into the wrong directory.
+ Thus users of the following distributions must manually install the modules:
+ - Debian & derivatives (i.e. Ubuntu)
+ - Mandriva
+ When manually installig the drivers you will have to find out how
+ and where these distrobutions wish kernel modules to be installed
+ and install all *.ko files to the required location.
+
+===============================================================================
+Module loading:
+====================
+
+ When the modules have been installed, the module handlers (i.e. modprobe) 
+ will automicly resolve all module dependencies.
+ When loading the modules manually with insmod,
+ you should load them in the following order:
+ - ieee80211_crypt.ko
+	# Enables encryption for ieee80211 stack.
+ - ieee80211_crypt_wep.ko (optional, needed for WEP support)
+	# Adds WEP encryption support to ieee80211 stack.
+ - ieee80211_crypt_tkip.ko (optional, needed for TKIP support)
+	# Adds TKIP encryption support to ieee80211 stack.
+ - ieee80211_crypt_ccmp.ko (optional, needed for CCMP support)
+	# Adds CCMP encryption support to ieee80211 stack.
+ - ieee80211.ko
+	# Main ieee80211 stack module.
+ - rt2x00core.ko
+	# Core module, required by all device specific modules.
+ - rt2400pci.ko (optional, needed for rt2400 support)
+	# rt2400pci module, support RT2460 chipsets on PCI & PCMCIA cards.
+ - rt2500pci.ko (optional, needed for rt2500 support)
+	# rt2500pci module, support RT2560 chipsets on PCI & PCMCIA cards.
+ - rt2500usb.ko (optional, needed for rt2570 support)
+	# rt2500usb module, support RT2570 chipsets on USB sticks.
+
+===============================================================================
+Module options:
+====================
+
+ - debug={0,1}
+	# This 'debug'module option is only available when the modules are
+	# build with debug capabilities (Which is the default build option).
+	# debug=0 (default) will disable debug output.
+	# debug=1 will enable debug output.
+	# After the module is loaded this variable can be changed by writing
+	# either 0 or 1 to the /sys/module/<devmodule>/debug file.
+	# Where <devmodule> can be rt2400pci, rt2500pci or rt2500usb.
+
+===============================================================================
+iwpriv commands:
+====================
+
+ - set_network
+	# Allowed values:
+	#	1 - Restrict to 802.11a operations.
+	#	2 - Restrict to 802.11b operations.
+	#	6 - Restrict to 802.11bg operations.
+	#	7 - Restrict to 802.11abg operations.
+	# Accepted values depend on card capabilities.
+
+ - get_network
+	# Return current network capabilities.
+
+ - set_preamble
+	# Allowed values:
+	#	1 - Enable long preamble.
+	#	2 - Enable short preamble.
+
+ - get_preamble
+	# Return current preamble status.
+
+ - set_antenna
+	# Allowed values:
+	#	1 - TX antenna diversity.
+	#	2 - TX antenna A.
+	#	4 - TX antenna B.
+	#	16 - RX antenna diversity.
+	#	32 - RX antenna A.
+	#	64 - RX antenna B.
+	# TX and RX antenna values can be set individually or simultaneously.
+	# When setting them at the same time, the requested antenna values
+	# should be added up.
+
+ - get_antenna
+	# Return current antenna status.
+
+ - set_geography
+	# Allowed values:
+	#	0 - United States
+	#	1 - Canada
+	#	2 - Europe
+	#	3 - Spain
+	#	4 - France
+	#	5 - Japan (MKK)
+	#	6 - Japan (MKK1)
+	#	7 - Israel
+
+ - get_geography
+	# Return current geography.
+
+ - set_adhoc_ofdm
+	# Allowed values:
+	#	0 - Disallow OFDM rates in adhoc mode. (ieee80211 standard)
+	#	1 - Allow OFDM in adhoc mode.
+
+ - get_adhoc_ofdm
+	# Return current adhoc_ofdm value.
+
+===============================================================================
+Bug reporting:
+====================
+
+ When reporting a bug or problem with the rt2x00 module,
+ make sure you report the following information:
+	# How to reproduce
+	# RT2x00 debug output, usually found in /var/log/messages.
+	# Module version.
+	# Wireless card chipset, model and manufacturer.
+	# Kernel version (i.e. 2.6.13)
+	# Hardware architecture (i.e. x86, AMD64, Sparc)
+	# Anything else you may think will help us resolve the issue.
+
+===============================================================================
+Contact us:
+====================
+
+ - Website
+	# http://rt2x00.serialmonkey.com/
+	# http://rt2x00.serialmonkey.com/wiki/index.php/Rt2x00_beta
+
+ - Forums:
+	# http://rt2x00.serialmonkey.com/phpBB2/
+
+ - Mailing list:
+	# general: rt2400-general@lists.sourceforge.net
+	# developers: rt2400-devel@lists.sourceforge.net
+
+ - Sourceforge:
+	# http://sourceforge.net/projects/rt2400

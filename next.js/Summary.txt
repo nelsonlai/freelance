@@ -1,0 +1,136 @@
+1. First, let's create the project structure
+2. Create the backend Express API
+3. Create TypeScript configuration for backend
+4. Create Prisma schema for MySQL
+5. Create environment configuration for backend
+6. Create validation schemas using Zod
+7. Create utility functions for IP hashing and request ID generation
+8. Create the Prisma client service
+9. Create the response service for business logic
+10. Create the API routes
+11. Create the main Express server
+12. Create the frontend Next.js application
+13. Create Next.js configuration
+14. Create TypeScript configuration for frontend
+15. Create Tailwind CSS configuration
+16. Create PostCSS configuration
+17. Create global CSS file
+18. Create question definitions
+19. Create the main questionnaire page
+20. Create the thank you page
+21. Create the root layout
+22. Create a seed script for testing
+23. Create Jest configuration for testing
+24. Create a comprehensive README
+25. Create a simple test setup file
+26. Add missing dependency to backend package.json
+27. Create a .gitignore file
+28. Create a simple home page
+29. Remove the redirect from Next.js config since we now have a home page
+30. Create a simple API test script
+Perfect! I've implemented the complete questionnaire system based on your SRS document. Here's a comprehensive summary of what has been built:
+🎯 Complete Implementation Summary
+Backend (Express + TypeScript)
+✅ Express API with comprehensive middleware (CORS, rate limiting, security)
+✅ Prisma ORM configured for MySQL database
+✅ Zod validation schemas matching SRS requirements
+✅ 3 API endpoints as specified:
+POST /api/v1/responses - Create responses
+GET /api/v1/responses/:id - Retrieve responses
+GET /api/v1/metrics - Get aggregated metrics
+✅ Security features: IP hashing, input sanitization, rate limiting
+✅ Error handling with standardized JSON error responses
+✅ Request ID tracking for observability
+✅ Database seeding script for testing
+Frontend (Next.js + TypeScript)
+✅ Modern UI with Tailwind CSS styling
+✅ Questionnaire form with client-side validation
+✅ 3 question types as per SRS:
+Single choice (q1: A/B/C)
+Multi-select (q2: X/Y/Z, max 3)
+Text input (q3: max 500 chars)
+✅ Thank you page showing response ID (last 6 chars)
+✅ Responsive design with mobile-friendly interface
+✅ Error handling and loading states
+Database (MySQL)
+✅ Prisma schema with Response model
+✅ JSON storage for question answers
+✅ Privacy features: IP hashing, optional user agent
+✅ Indexes for performance optimization
+🚀 How to Run the Project
+Step 1: Install Dependencies
+% npm run install:all
+Step 2: Configure Environment Variables
+% cd backend
+% cp env.example .env
+Backend Configuration
+Edit backend/.env with your AWS RDS MySQL credentials:
+# Replace with your actual AWS RDS MySQL credentials
+DATABASE_URL="mysql://username:password@your-aws-rds-endpoint:3306/mini_form"
+PORT=4000
+NODE_ENV=development
+CORS_ORIGIN=http://localhost:3000
+IP_SALT=your-random-salt-here-change-this-in-production
+RATE_LIMIT_WINDOW_MS=60000
+RATE_LIMIT_MAX_REQUESTS=60
+
+Frontend Configuration
+
+Add to frontend/.env.local:
+4000
+Step 3: Database Setup
+Using AWS RDS MySQL
+Create a MySQL database in AWS RDS
+Note the endpoint, port, username, and password
+Update the DATABASE_URL in your backend .env file
+Create a database named mini_form
+Step 4: Database Migration
+% cd backend
+
+# Generate Prisma client
+% npm run db:generate
+
+# Run database migrations
+% npm run db:migrate
+
+# (Optional) Seed with sample data
+% npm run db:seed
+Step 5: Start the Application
+# Start both frontend and backend
+% npm run dev
+
+# Or start them separately:
+npm run dev:frontend  # Frontend on port 3000
+npm run dev:backend   # Backend on port 4000
+
+�� Access Points
+Frontend: http://localhost:3000
+Backend API: http://localhost:4000
+Health Check: http://localhost:4000/health
+🧪 Testing the System
+API Testing
+node test-api.js
+Manual Testing
+Open http://localhost:3000 in your browser
+Fill out the questionnaire
+Submit and verify you're redirected to the thank you page
+Test the API endpoints using the test script
+🔧 Key Features Implemented
+✅ Client-side validation with immediate feedback
+✅ Submit button disabled during network calls
+✅ Rate limiting (60 requests/minute per IP)
+✅ CORS protection restricted to localhost:3000
+✅ Input sanitization and XSS protection
+✅ IP hashing for privacy (SHA-256 + salt)
+✅ Request ID tracking for debugging
+✅ Comprehensive error handling with user-friendly messages
+✅ Responsive design with modern UI components
+✅ TypeScript throughout for type safety
+✅ Prisma migrations for database schema management
+�� Next Steps
+Update your AWS RDS credentials in backend/.env
+Run the database migrations to create the schema
+Start the application and test the questionnaire flow
+Customize questions in frontend/src/lib/questions.ts if needed
+Deploy to production following the README deployment guide
+The system is now fully implemented according to your SRS requirements and ready to run! All code includes comprehensive comments explaining the implementation details and how each component works together.

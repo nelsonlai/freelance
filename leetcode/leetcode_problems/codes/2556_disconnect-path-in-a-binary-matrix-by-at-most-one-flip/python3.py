@@ -1,0 +1,14 @@
+"""
+Problem: Disconnect Path in a Binary Matrix by at Most One Flip
+Difficulty: Medium
+Tags: array, dp, search
+
+Approach: Use two pointers or sliding window technique
+Time Complexity: O(n) or O(n log n)
+Space Complexity: O(n) or O(n * m) for DP table
+"""
+
+class Solution:
+    def isPossibleToCutPath(self, grid: List[List[int]]) -> bool:
+        # TODO: Implement optimized solution
+        pass

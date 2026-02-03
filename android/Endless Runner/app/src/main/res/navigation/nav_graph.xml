@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ca.medontime.endlessrunner.ui.home.HomeFragment"
+        android:label="@string/home">
+        
+        <action
+            android:id="@+id/action_homeFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+        
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+            
+    </fragment>
+    
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="ca.medontime.endlessrunner.ui.game.GameFragment"
+        android:label="@string/game" />
+    
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ca.medontime.endlessrunner.ui.profile.ProfileFragment"
+        android:label="@string/profile" />
+    
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ca.medontime.endlessrunner.ui.settings.SettingsFragment"
+        android:label="@string/settings" />
+
+</navigation>

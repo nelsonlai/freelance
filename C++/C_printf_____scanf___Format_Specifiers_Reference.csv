@@ -1,0 +1,17 @@
+Specifier,Used In,Description,Example
+%d / %i,printf / scanf,Signed integer (base 10),"printf(""%d"", 42); scanf(""%d"", &x);"
+%u,printf / scanf,Unsigned integer (base 10),"printf(""%u"", 42); scanf(""%u"", &x);"
+%o,printf / scanf,Unsigned octal,"printf(""%o"", 42); scanf(""%o"", &x);"
+%x / %X,printf / scanf,Unsigned hexadecimal (lowercase/uppercase),"printf(""%x"", 255); scanf(""%x"", &x);"
+%f,printf / scanf,Floating point (float for scanf),"printf(""%.2f"", 3.14); scanf(""%f"", &f);"
+%lf,scanf only,Double (for scanf; printf uses %f),"scanf(""%lf"", &d);"
+%e / %E,printf / scanf,Scientific notation (lowercase/uppercase),"printf(""%e"", 3.14); scanf(""%e"", &f);"
+%g / %G,printf only,Adaptive: uses %f or %e based on value (uppercase uses E),"printf(""%g"", 12345.6);"
+%c,printf / scanf,Single character (for scanf includes whitespace),"printf(""%c"", 'A'); scanf(""%c"", &ch);"
+%s,printf / scanf,String (stops at whitespace),"printf(""%s"", str); scanf(""%s"", str);"
+%[...],scanf only,"Character class: read characters until excluded condition (e.g., %[^
+])","scanf("" %[^
+]"", str);"
+%p,printf,Pointer (address),"printf(""%p"", ptr);"
+%n,scanf only,Writes the number of characters read so far to an int* (scanf only),"scanf(""%n"", &count);"
+%*,scanf only,"Assignment suppression (skip reading value, e.g., %*d skips an integer)","scanf(""%*d %d"", &x);"

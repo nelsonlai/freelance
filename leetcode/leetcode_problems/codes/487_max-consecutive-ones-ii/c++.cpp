@@ -1,0 +1,35 @@
+/*
+ * Problem: Max Consecutive Ones II
+ * Difficulty: Medium
+ * Tags: array, dp
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) or O(n * m) for DP table
+ */
+
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int maxCount = 0;
+        int count = 0;
+        int prevCount = 0;
+        
+        for (int num : nums) {
+            if (num == 1) {
+                count++;
+            } else {
+                prevCount = count;
+                count = 0;
+            }
+            maxCount = max(maxCount, prevCount + count + 1);
+        }
+        
+        return min(maxCount, (int)nums.size());
+    }
+};

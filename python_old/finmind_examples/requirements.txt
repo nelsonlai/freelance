@@ -1,0 +1,6 @@
+finmind
+pandas
+seaborn
+matplotlib
+numpy
+python-dateutil

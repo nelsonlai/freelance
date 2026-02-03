@@ -1,0 +1,298 @@
+0) Warm‑Up (0–5 min)
+
+Quick five: (students answer verbally or in REPL)
+
+What is a variable?
+
+What does input() return?
+
+Convert the string '42' to a number.
+
+What does // do?
+
+Show $12.5 using an f‑string with 2 decimals.
+
+Answers: named box for a value; a string; int('42'); integer division; f"${12.5:.2f}".
+
+1) Booleans & Comparisons (5–15 min)
+
+Concepts: True, False, comparison operators: < <= > >= == !=
+
+Demo:
+
+print(5 > 2)       # True
+print(7 == 7)      # True
+print(3 != 3)      # False
+print("a" < "b")  # True (lexicographic)
+
+If / elif / else + indentation:
+
+age = int(input("Age: "))
+if age < 13:
+    print("Child")
+    print("Hello")
+elif age < 18:      # elif
+    print("Teen")
+else:
+    print("Adult")
+
+Common pitfalls
+
+Single = is assignment; use == for comparison.
+
+Indentation is part of Python (4 spaces recommended).
+
+Quick practice (2 min): Write a program that asks for a test score (0–100) and prints Pass if ≥ 60 else Fail.
+
+2) Logical Operators & Input Validation (15–25 min)
+
+and, or, not:
+
+age = int(input("Age: "))
+if 13 <= age <= 18:
+    print("Teen")
+
+if age >=13 and age <=18:
+    print("Teen")
+
+if temp == None: # NULL
+if not temp:
+
+if not temp < 0:    ## if temp > 0:
+temp = float(input("Temp (C): "))
+if temp < 0 or temp > 35:   # and or not
+    print("Extreme weather warning!")
+    xxx
+    yyy
+
+raining = True
+if not raining:
+    print("No umbrella needed.")
+
+Validation pattern:
+
+people = int(input("How many people? "))
+if people <= 0:
+    print("Please enter a positive number.")
+else:
+    print("Thanks! We'll continue…")
+
+if age > 18:
+    xxxx
+    yyyy
+else:
+    pass
+
+if news < 12:
+    yyy
+elif news !=0 :
+    zzz
+else:
+    pass
+
+if xxx > 0:
+    xxx
+elif zzz > 0:
+    yyy
+    if aa < 0:
+        bbb
+    elif ccc > 10:
+        mmm
+    elif kkk < mmm:
+        uuu
+    else:
+        pass
+else:
+    kkk
+
+if condition_a:
+    do_something
+else:
+    pass
+if condition_b:
+    ....
+else:
+    pass
+if condition_c:
+    xxxxx
+else:
+    pass
+
+another_line ...
+
+
+Quick practice (3 min): Ask for a mark (0–100). If outside range, print an error; otherwise print A/B/C/D/F using simple thresholds (e.g., A≥90, B≥80…).
+
+3) while Loops (25–38 min)
+
+Structure: repeat while a condition is True.
+
+count = 1
+while count <= 3:
+    print("Hello #", count)
+    count = count + 1   # update to avoid infinite loop
+
+break and continue:
+
+while True:
+    text = input("Type anything (or 'q' to quit): ")
+    if text == 'q':
+        break           # exit loop
+    if text.strip() == "":
+        continue        # skip blank inputs
+    print("You typed:", text)
+
+print ("End program")
+
+Validation loop (classic):
+
+while True:
+    people = input("People (positive integer): ")
+    if people.isdigit() and int(people) > 0:
+        people = int(people)
+        break
+    print("Invalid. Try again.")
+
+Mini drill (2 min): Print numbers 1..10 on one line separated by spaces. (Hint: counter variable and end=' ')
+
+n = 1
+while n <= 10:
+    print(n, end=' ')
+    n += 1
+print()  # newline
+
+4) Mini‑Project — Number Guessing Game (38–48 min)
+
+Goal: Computer picks a number; player guesses with limited attempts; program gives hints.
+
+Specs:
+
+Range: 1–100
+
+Attempts: 7
+
+Each turn: validate input, say "Too high" / "Too low" / "Correct!"
+
+End: show the number if not guessed
+
+Plan:
+
+import random   # pick secret = random.randint(1, 100)
+
+attempts_left = 7
+
+loop while attempts remain and not guessed
+
+read input, validate integer in range; otherwise, warn and continue
+
+compare; print hint; decrement attempts
+
+after loop, report win/lose
+
+Code (build step by step):
+
+import random
+print("Welcome to Number Guessing!")
+secret = random.randint(1, 100)
+attempts_left = 7
+
+while attempts_left > 0:
+    guess_text = input(f"Guess a number (1-100). Attempts left {attempts_left}: ")
+    if not guess_text.isdigit():
+        print("Please enter a whole number.")
+        continue
+    guess = int(guess_text)
+    if not 1 <= guess <= 100:
+        print("Number must be between 1 and 100.")
+        continue
+
+    if guess == secret:
+        print("🎉 Correct! You win!")
+        break
+    elif guess < secret:
+        print("Too low!")
+    else:
+        print("Too high!")
+
+    attempts_left -= 1
+
+if attempts_left == 0:
+    print(f"Out of attempts. The number was {secret}.")
+
+Stretch (if time):
+
+Difficulty mode: Easy (10 tries), Hard (5 tries).
+
+Track best score (fewest attempts) across games.
+
+Ask "Play again? (y/n)" → while loop around the whole game.
+
+5) Exit Ticket (48–50 min)
+
+What is the difference between = and ==?
+
+When would you use while True with a break?
+
+Write a condition that is true when age is a teen (13–19 inclusive).
+
+Sample answers: assignment vs comparison; for loops with unknown length or repeated prompts; 13 <= age <= 19.
+
+Homework (15–25 minutes)
+
+Letter Grader: Input a score (0–100). Validate. Then print A/B/C/D/F (A≥90…).
+
+PIN Lock: Ask for a secret PIN (hard‑code as "1234"). The user has 3 attempts. On success → "Unlocked"; else → "Locked out".
+
+Temperature Advisor: Ask for temperature in °C and whether it’s raining (y/n). Print suggestions: coat, sunscreen, umbrella, etc., using combined conditions.
+
+Stretch: Convert your Number Guessing Game into a loop that asks to play again until the user types n.
+
+Instructor Notes & Troubleshooting
+
+Infinite loops: Always ensure the loop condition changes.
+
+Input conversion: Don’t compare numbers to strings.
+
+Compound conditions: Use parentheses to make intent clear.
+
+Random: random.randint(a, b) includes both endpoints.
+
+Testing: Try edge values (1, 100) and invalid inputs (letters, empty, negatives).
+
+Answer Key Snippets (for instructor)
+
+Letter Grader (simple thresholds):
+
+mark = input("Mark (0-100): ")
+if not mark.isdigit():
+    print("Invalid")
+else:
+    m = int(mark)
+    if not 0 <= m <= 100:
+        print("Invalid")
+    elif m >= 90:
+        print("A")
+    elif m >= 80:
+        print("B")
+    elif m >= 70:
+        print("C")
+    elif m >= 60:
+        print("D")
+    else:
+        print("F")
+
+PIN Lock (3 tries):
+
+SECRET = "1234"
+tries = 3
+while tries > 0:
+    pin = input("PIN: ")
+    if pin == SECRET:
+        print("Unlocked")
+        break
+    tries -= 1
+    print("Wrong PIN. Tries left:", tries)
+if tries == 0:
+    print("Locked out")
+
+Play Again Loop (wrap game):

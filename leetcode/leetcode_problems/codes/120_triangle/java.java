@@ -1,0 +1,30 @@
+/**
+ * Problem: Triangle
+ * Difficulty: Medium
+ * Tags: array, dp
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) or O(n * m) for DP table
+ */
+
+import java.util.*;
+
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        int[] dp = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            dp[i] = triangle.get(n - 1).get(i);
+        }
+        
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = 0; j < triangle.get(i).size(); j++) {
+                dp[j] = triangle.get(i).get(j) + Math.min(dp[j], dp[j + 1]);
+            }
+        }
+        
+        return dp[0];
+    }
+}

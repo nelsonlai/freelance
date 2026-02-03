@@ -1,0 +1,62 @@
+/*
+ * Problem: Path Sum II
+ * Difficulty: Medium
+ * Tags: tree, search
+ * 
+ * Approach: DFS or BFS traversal
+ * Time Complexity: O(n) where n is number of nodes
+ * Space Complexity: O(h) for recursion stack where h is height
+ */
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+#include <vector>
+using namespace std;
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    void dfs(TreeNode* node, int remaining, vector<int>& path, vector<vector<int>>& result) {
+        if (node == nullptr) {
+            return;
+        }
+        
+        path.push_back(node->val);
+        
+        if (node->left == nullptr && node->right == nullptr && remaining == node->val) {
+            result.push_back(path);
+        } else {
+            dfs(node->left, remaining - node->val, path, result);
+            dfs(node->right, remaining - node->val, path, result);
+        }
+        
+        path.pop_back();
+    }
+    
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>> result;
+        vector<int> path;
+        dfs(root, targetSum, path, result);
+        return result;
+    }
+};

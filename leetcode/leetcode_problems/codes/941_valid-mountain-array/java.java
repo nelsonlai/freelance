@@ -1,0 +1,36 @@
+/**
+ * Problem: Valid Mountain Array
+ * Difficulty: Easy
+ * Tags: array
+ * 
+ * Approach: Two pointers - find peak, then check if both sides are strictly increasing/decreasing
+ * Time Complexity: O(n)
+ * Space Complexity: O(1)
+ */
+
+class Solution {
+    public boolean validMountainArray(int[] arr) {
+        int n = arr.length;
+        if (n < 3) {
+            return false;
+        }
+        
+        int i = 0;
+        // Climb up
+        while (i < n - 1 && arr[i] < arr[i + 1]) {
+            i++;
+        }
+        
+        // Peak can't be at start or end
+        if (i == 0 || i == n - 1) {
+            return false;
+        }
+        
+        // Climb down
+        while (i < n - 1 && arr[i] > arr[i + 1]) {
+            i++;
+        }
+        
+        return i == n - 1;
+    }
+}

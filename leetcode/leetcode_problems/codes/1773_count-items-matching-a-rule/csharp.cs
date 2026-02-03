@@ -1,0 +1,15 @@
+/*
+ * Problem: Count Items Matching a Rule
+ * Difficulty: Easy
+ * Tags: array, string
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+public class Solution {
+    public int CountMatches(IList<IList<string>> items, string ruleKey, string ruleValue) {
+        
+    }
+}

@@ -1,0 +1,18 @@
+/**
+ * Problem: Make Costs of Paths Equal in a Binary Tree
+ * Difficulty: Medium
+ * Tags: array, tree, dp, greedy
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) or O(n * m) for DP table
+ */
+
+/**
+ * @param {number} n
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minIncrements = function(n, cost) {
+    
+};

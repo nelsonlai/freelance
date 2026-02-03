@@ -1,0 +1,469 @@
+% Environment Model Simulink Model Generator
+% ==========================================
+%
+% This script generates a Simulink model for environment simulation including:
+% - Obstacle detection and avoidance
+% - Wind modeling and disturbances
+% - Environmental conditions (temperature, humidity, pressure)
+% - Ground effect modeling
+% - Atmospheric conditions
+%
+% Author: [Your Name]
+% Date: [Current Date]
+% License: MIT
+
+function create_environment_model()
+    % Create new Simulink model
+    model_name = 'environment_model';
+    new_system(model_name);
+    open_system(model_name);
+    
+    % Set model parameters
+    set_param(model_name, 'Solver', 'ode45');
+    set_param(model_name, 'StopTime', '100');
+    set_param(model_name, 'FixedStep', '0.01');
+    
+    % Add quadrotor position input
+    add_block('simulink/Sources/Sine Wave', [model_name '/Quadrotor_Position_X']);
+    add_block('simulink/Sources/Sine Wave', [model_name '/Quadrotor_Position_Y']);
+    add_block('simulink/Sources/Sine Wave', [model_name '/Quadrotor_Position_Z']);
+    
+    % Configure position inputs
+    set_param([model_name '/Quadrotor_Position_X'], 'Amplitude', '2.0');
+    set_param([model_name '/Quadrotor_Position_X'], 'Frequency', '0.3');
+    set_param([model_name '/Quadrotor_Position_Y'], 'Amplitude', '1.5');
+    set_param([model_name '/Quadrotor_Position_Y'], 'Frequency', '0.4');
+    set_param([model_name '/Quadrotor_Position_Z'], 'Amplitude', '1.0');
+    set_param([model_name '/Quadrotor_Position_Z'], 'Frequency', '0.2');
+    set_param([model_name '/Quadrotor_Position_Z'], 'Bias', '2.0');
+    
+    % Add obstacle detection subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Obstacle_Detection']);
+    create_obstacle_detection_subsystem([model_name '/Obstacle_Detection']);
+    
+    % Add wind modeling subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Wind_Model']);
+    create_wind_model_subsystem([model_name '/Wind_Model']);
+    
+    % Add environmental conditions subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Environmental_Conditions']);
+    create_environmental_conditions_subsystem([model_name '/Environmental_Conditions']);
+    
+    % Add ground effect subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Ground_Effect']);
+    create_ground_effect_subsystem([model_name '/Ground_Effect']);
+    
+    % Add atmospheric conditions subsystem
+    add_block('simulink/Ports & Subsystems/Subsystem', [model_name '/Atmospheric_Conditions']);
+    create_atmospheric_conditions_subsystem([model_name '/Atmospheric_Conditions']);
+    
+    % Add scopes for visualization
+    add_block('simulink/Sinks/Scope', [model_name '/Obstacle_Distance_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Wind_Velocity_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Environmental_Conditions_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Ground_Effect_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Atmospheric_Conditions_Scope']);
+    add_block('simulink/Sinks/Scope', [model_name '/Quadrotor_Position_Scope']);
+    
+    % Add To Workspace blocks for data logging
+    add_block('simulink/Sinks/To Workspace', [model_name '/Obstacle_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Wind_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Environmental_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Ground_Effect_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Atmospheric_Data']);
+    add_block('simulink/Sinks/To Workspace', [model_name '/Quadrotor_Position_Data']);
+    
+    % Configure To Workspace blocks
+    set_param([model_name '/Obstacle_Data'], 'VariableName', 'obstacle_data');
+    set_param([model_name '/Wind_Data'], 'VariableName', 'wind_data');
+    set_param([model_name '/Environmental_Data'], 'VariableName', 'environmental_data');
+    set_param([model_name '/Ground_Effect_Data'], 'VariableName', 'ground_effect_data');
+    set_param([model_name '/Atmospheric_Data'], 'VariableName', 'atmospheric_data');
+    set_param([model_name '/Quadrotor_Position_Data'], 'VariableName', 'quadrotor_position_data');
+    
+    % Connect blocks
+    add_line(model_name, 'Quadrotor_Position_X/1', 'Obstacle_Detection/1');
+    add_line(model_name, 'Quadrotor_Position_Y/1', 'Obstacle_Detection/2');
+    add_line(model_name, 'Quadrotor_Position_Z/1', 'Obstacle_Detection/3');
+    
+    add_line(model_name, 'Quadrotor_Position_X/1', 'Wind_Model/1');
+    add_line(model_name, 'Quadrotor_Position_Y/1', 'Wind_Model/2');
+    add_line(model_name, 'Quadrotor_Position_Z/1', 'Wind_Model/3');
+    
+    add_line(model_name, 'Quadrotor_Position_Z/1', 'Ground_Effect/1');
+    
+    % Connect to scopes
+    add_line(model_name, 'Obstacle_Detection/1', 'Obstacle_Distance_Scope/1');
+    add_line(model_name, 'Wind_Model/1', 'Wind_Velocity_Scope/1');
+    add_line(model_name, 'Environmental_Conditions/1', 'Environmental_Conditions_Scope/1');
+    add_line(model_name, 'Ground_Effect/1', 'Ground_Effect_Scope/1');
+    add_line(model_name, 'Atmospheric_Conditions/1', 'Atmospheric_Conditions_Scope/1');
+    
+    add_line(model_name, 'Quadrotor_Position_X/1', 'Quadrotor_Position_Scope/1');
+    add_line(model_name, 'Quadrotor_Position_Y/1', 'Quadrotor_Position_Scope/2');
+    add_line(model_name, 'Quadrotor_Position_Z/1', 'Quadrotor_Position_Scope/3');
+    
+    % Connect to data logging
+    add_line(model_name, 'Obstacle_Detection/1', 'Obstacle_Data/1');
+    add_line(model_name, 'Wind_Model/1', 'Wind_Data/1');
+    add_line(model_name, 'Environmental_Conditions/1', 'Environmental_Data/1');
+    add_line(model_name, 'Ground_Effect/1', 'Ground_Effect_Data/1');
+    add_line(model_name, 'Atmospheric_Conditions/1', 'Atmospheric_Data/1');
+    
+    add_line(model_name, 'Quadrotor_Position_X/1', 'Quadrotor_Position_Data/1');
+    add_line(model_name, 'Quadrotor_Position_Y/1', 'Quadrotor_Position_Data/2');
+    add_line(model_name, 'Quadrotor_Position_Z/1', 'Quadrotor_Position_Data/3');
+    
+    % Position blocks
+    pos_x = 50; pos_y = 50;
+    set_param([model_name '/Quadrotor_Position_X'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 50; pos_y = 100;
+    set_param([model_name '/Quadrotor_Position_Y'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 50; pos_y = 150;
+    set_param([model_name '/Quadrotor_Position_Z'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 150; pos_y = 50;
+    set_param([model_name '/Obstacle_Detection'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    pos_x = 150; pos_y = 150;
+    set_param([model_name '/Wind_Model'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    pos_x = 300; pos_y = 50;
+    set_param([model_name '/Environmental_Conditions'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    pos_x = 300; pos_y = 150;
+    set_param([model_name '/Ground_Effect'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    pos_x = 450; pos_y = 100;
+    set_param([model_name '/Atmospheric_Conditions'], 'Position', [pos_x, pos_y, pos_x+80, pos_y+60]);
+    
+    % Position scopes
+    pos_x = 50; pos_y = 300;
+    set_param([model_name '/Obstacle_Distance_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 150; pos_y = 300;
+    set_param([model_name '/Wind_Velocity_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 250; pos_y = 300;
+    set_param([model_name '/Environmental_Conditions_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 350; pos_y = 300;
+    set_param([model_name '/Ground_Effect_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 450; pos_y = 300;
+    set_param([model_name '/Atmospheric_Conditions_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 550; pos_y = 300;
+    set_param([model_name '/Quadrotor_Position_Scope'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    % Position data logging blocks
+    pos_x = 50; pos_y = 400;
+    set_param([model_name '/Obstacle_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 150; pos_y = 400;
+    set_param([model_name '/Wind_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 250; pos_y = 400;
+    set_param([model_name '/Environmental_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 350; pos_y = 400;
+    set_param([model_name '/Ground_Effect_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 450; pos_y = 400;
+    set_param([model_name '/Atmospheric_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    pos_x = 550; pos_y = 400;
+    set_param([model_name '/Quadrotor_Position_Data'], 'Position', [pos_x, pos_y, pos_x+30, pos_y+30]);
+    
+    % Save the model
+    save_system(model_name);
+    fprintf('Environment Model created successfully: %s.slx\n', model_name);
+end
+
+function create_obstacle_detection_subsystem(subsystem_name)
+    % Create obstacle detection subsystem
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_X']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_Y']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_Z']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Obstacle_Data']);
+    
+    % Add obstacle positions (static obstacles)
+    add_block('simulink/Sources/Constant', [subsystem_name '/Obstacle_1_X']);
+    add_block('simulink/Sources/Constant', [subsystem_name '/Obstacle_1_Y']);
+    add_block('simulink/Sources/Constant', [subsystem_name '/Obstacle_1_Z']);
+    add_block('simulink/Sources/Constant', [subsystem_name '/Obstacle_1_Radius']);
+    
+    add_block('simulink/Sources/Constant', [subsystem_name '/Obstacle_2_X']);
+    add_block('simulink/Sources/Constant', [subsystem_name '/Obstacle_2_Y']);
+    add_block('simulink/Sources/Constant', [subsystem_name '/Obstacle_2_Z']);
+    add_block('simulink/Sources/Constant', [subsystem_name '/Obstacle_2_Radius']);
+    
+    % Configure obstacle positions
+    set_param([subsystem_name '/Obstacle_1_X'], 'Value', '1.0');
+    set_param([subsystem_name '/Obstacle_1_Y'], 'Value', '0.5');
+    set_param([subsystem_name '/Obstacle_1_Z'], 'Value', '1.5');
+    set_param([subsystem_name '/Obstacle_1_Radius'], 'Value', '0.3');
+    
+    set_param([subsystem_name '/Obstacle_2_X'], 'Value', '-1.0');
+    set_param([subsystem_name '/Obstacle_2_Y'], 'Value', '-0.5');
+    set_param([subsystem_name '/Obstacle_2_Z'], 'Value', '1.0');
+    set_param([subsystem_name '/Obstacle_2_Radius'], 'Value', '0.2');
+    
+    % Add distance calculation blocks
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Distance_X_1']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Distance_Y_1']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Distance_Z_1']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Distance_X_2']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Distance_Y_2']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Distance_Z_2']);
+    
+    % Add magnitude calculation
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Distance_Magnitude_1']);
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Distance_Magnitude_2']);
+    set_param([subsystem_name '/Distance_Magnitude_1'], 'Function', 'sqrt');
+    set_param([subsystem_name '/Distance_Magnitude_2'], 'Function', 'sqrt');
+    
+    % Add minimum distance calculation
+    add_block('simulink/Math Operations/MinMax', [subsystem_name '/Min_Distance']);
+    set_param([subsystem_name '/Min_Distance'], 'Function', 'min');
+    set_param([subsystem_name '/Min_Distance'], 'Inputs', '2');
+    
+    % Add collision detection
+    add_block('simulink/Logic and Bit Operations/Compare To Constant', [subsystem_name '/Collision_Check']);
+    set_param([subsystem_name '/Collision_Check'], 'const', '0.5');
+    set_param([subsystem_name '/Collision_Check'], 'relop', '<');
+    
+    % Add multiplexer for output
+    add_block('simulink/Signal Routing/Mux', [subsystem_name '/Output_Mux']);
+    set_param([subsystem_name '/Output_Mux'], 'Inputs', '2');
+    
+    % Connect distance calculations for obstacle 1
+    add_line(subsystem_name, 'Position_X/1', 'Distance_X_1/1');
+    add_line(subsystem_name, 'Obstacle_1_X/1', 'Distance_X_1/2');
+    add_line(subsystem_name, 'Position_Y/1', 'Distance_Y_1/1');
+    add_line(subsystem_name, 'Obstacle_1_Y/1', 'Distance_Y_1/2');
+    add_line(subsystem_name, 'Position_Z/1', 'Distance_Z_1/1');
+    add_line(subsystem_name, 'Obstacle_1_Z/1', 'Distance_Z_1/2');
+    
+    % Connect distance calculations for obstacle 2
+    add_line(subsystem_name, 'Position_X/1', 'Distance_X_2/1');
+    add_line(subsystem_name, 'Obstacle_2_X/1', 'Distance_X_2/2');
+    add_line(subsystem_name, 'Position_Y/1', 'Distance_Y_2/1');
+    add_line(subsystem_name, 'Obstacle_2_Y/1', 'Distance_Y_2/2');
+    add_line(subsystem_name, 'Position_Z/1', 'Distance_Z_2/1');
+    add_line(subsystem_name, 'Obstacle_2_Z/1', 'Distance_Z_2/2');
+    
+    % Connect magnitude calculations
+    add_line(subsystem_name, 'Distance_X_1/1', 'Distance_Magnitude_1/1');
+    add_line(subsystem_name, 'Distance_Y_1/1', 'Distance_Magnitude_1/1');
+    add_line(subsystem_name, 'Distance_Z_1/1', 'Distance_Magnitude_1/1');
+    
+    add_line(subsystem_name, 'Distance_X_2/1', 'Distance_Magnitude_2/1');
+    add_line(subsystem_name, 'Distance_Y_2/1', 'Distance_Magnitude_2/1');
+    add_line(subsystem_name, 'Distance_Z_2/1', 'Distance_Magnitude_2/1');
+    
+    % Connect minimum distance
+    add_line(subsystem_name, 'Distance_Magnitude_1/1', 'Min_Distance/1');
+    add_line(subsystem_name, 'Distance_Magnitude_2/1', 'Min_Distance/2');
+    
+    % Connect collision detection
+    add_line(subsystem_name, 'Min_Distance/1', 'Collision_Check/1');
+    
+    % Connect to output mux
+    add_line(subsystem_name, 'Min_Distance/1', 'Output_Mux/1');
+    add_line(subsystem_name, 'Collision_Check/1', 'Output_Mux/2');
+    
+    add_line(subsystem_name, 'Output_Mux/1', 'Obstacle_Data/1');
+end
+
+function create_wind_model_subsystem(subsystem_name)
+    % Create wind modeling subsystem
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_X']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_Y']);
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Position_Z']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Wind_Data']);
+    
+    % Add wind components
+    add_block('simulink/Sources/Sine Wave', [subsystem_name '/Wind_X']);
+    add_block('simulink/Sources/Sine Wave', [subsystem_name '/Wind_Y']);
+    add_block('simulink/Sources/Sine Wave', [subsystem_name '/Wind_Z']);
+    
+    % Configure wind components
+    set_param([subsystem_name '/Wind_X'], 'Amplitude', '0.5');
+    set_param([subsystem_name '/Wind_X'], 'Frequency', '0.1');
+    set_param([subsystem_name '/Wind_Y'], 'Amplitude', '0.3');
+    set_param([subsystem_name '/Wind_Y'], 'Frequency', '0.15');
+    set_param([subsystem_name '/Wind_Z'], 'Amplitude', '0.1');
+    set_param([subsystem_name '/Wind_Z'], 'Frequency', '0.2');
+    
+    % Add wind gradient (wind speed varies with height)
+    add_block('simulink/Continuous/Gain', [subsystem_name '/Wind_Gradient_X']);
+    add_block('simulink/Continuous/Gain', [subsystem_name '/Wind_Gradient_Y']);
+    add_block('simulink/Continuous/Gain', [subsystem_name '/Wind_Gradient_Z']);
+    
+    set_param([subsystem_name '/Wind_Gradient_X'], 'Gain', '0.1');
+    set_param([subsystem_name '/Wind_Gradient_Y'], 'Gain', '0.1');
+    set_param([subsystem_name '/Wind_Gradient_Z'], 'Gain', '0.05');
+    
+    % Add wind turbulence
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Turbulence_X']);
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Turbulence_Y']);
+    add_block('simulink/Sources/Random Number', [subsystem_name '/Turbulence_Z']);
+    
+    set_param([subsystem_name '/Turbulence_X'], 'Mean', '0');
+    set_param([subsystem_name '/Turbulence_X'], 'Variance', '0.01');
+    set_param([subsystem_name '/Turbulence_Y'], 'Mean', '0');
+    set_param([subsystem_name '/Turbulence_Y'], 'Variance', '0.01');
+    set_param([subsystem_name '/Turbulence_Z'], 'Mean', '0');
+    set_param([subsystem_name '/Turbulence_Z'], 'Variance', '0.005');
+    
+    % Add wind summation
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Wind_Sum_X']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Wind_Sum_Y']);
+    add_block('simulink/Math Operations/Sum', [subsystem_name '/Wind_Sum_Z']);
+    
+    % Add wind magnitude calculation
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Wind_Magnitude']);
+    set_param([subsystem_name '/Wind_Magnitude'], 'Function', 'sqrt');
+    
+    % Add multiplexer for output
+    add_block('simulink/Signal Routing/Mux', [subsystem_name '/Output_Mux']);
+    set_param([subsystem_name '/Output_Mux'], 'Inputs', '4');
+    
+    % Connect wind components
+    add_line(subsystem_name, 'Wind_X/1', 'Wind_Sum_X/1');
+    add_line(subsystem_name, 'Wind_Y/1', 'Wind_Sum_Y/1');
+    add_line(subsystem_name, 'Wind_Z/1', 'Wind_Sum_Z/1');
+    
+    % Connect wind gradient
+    add_line(subsystem_name, 'Position_Z/1', 'Wind_Gradient_X/1');
+    add_line(subsystem_name, 'Position_Z/1', 'Wind_Gradient_Y/1');
+    add_line(subsystem_name, 'Position_Z/1', 'Wind_Gradient_Z/1');
+    
+    add_line(subsystem_name, 'Wind_Gradient_X/1', 'Wind_Sum_X/2');
+    add_line(subsystem_name, 'Wind_Gradient_Y/1', 'Wind_Sum_Y/2');
+    add_line(subsystem_name, 'Wind_Gradient_Z/1', 'Wind_Sum_Z/2');
+    
+    % Connect turbulence
+    add_line(subsystem_name, 'Turbulence_X/1', 'Wind_Sum_X/3');
+    add_line(subsystem_name, 'Turbulence_Y/1', 'Wind_Sum_Y/3');
+    add_line(subsystem_name, 'Turbulence_Z/1', 'Wind_Sum_Z/3');
+    
+    % Connect wind magnitude
+    add_line(subsystem_name, 'Wind_Sum_X/1', 'Wind_Magnitude/1');
+    add_line(subsystem_name, 'Wind_Sum_Y/1', 'Wind_Magnitude/1');
+    add_line(subsystem_name, 'Wind_Sum_Z/1', 'Wind_Magnitude/1');
+    
+    % Connect to output mux
+    add_line(subsystem_name, 'Wind_Sum_X/1', 'Output_Mux/1');
+    add_line(subsystem_name, 'Wind_Sum_Y/1', 'Output_Mux/2');
+    add_line(subsystem_name, 'Wind_Sum_Z/1', 'Output_Mux/3');
+    add_line(subsystem_name, 'Wind_Magnitude/1', 'Output_Mux/4');
+    
+    add_line(subsystem_name, 'Output_Mux/1', 'Wind_Data/1');
+end
+
+function create_environmental_conditions_subsystem(subsystem_name)
+    % Create environmental conditions subsystem
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Environmental_Data']);
+    
+    % Add temperature model
+    add_block('simulink/Sources/Sine Wave', [subsystem_name '/Temperature']);
+    set_param([subsystem_name '/Temperature'], 'Amplitude', '5');
+    set_param([subsystem_name '/Temperature'], 'Frequency', '0.01');
+    set_param([subsystem_name '/Temperature'], 'Bias', '20');
+    
+    % Add humidity model
+    add_block('simulink/Sources/Sine Wave', [subsystem_name '/Humidity']);
+    set_param([subsystem_name '/Humidity'], 'Amplitude', '10');
+    set_param([subsystem_name '/Humidity'], 'Frequency', '0.008');
+    set_param([subsystem_name '/Humidity'], 'Bias', '50');
+    
+    % Add pressure model
+    add_block('simulink/Sources/Constant', [subsystem_name '/Pressure']);
+    set_param([subsystem_name '/Pressure'], 'Value', '101325');
+    
+    % Add multiplexer for output
+    add_block('simulink/Signal Routing/Mux', [subsystem_name '/Output_Mux']);
+    set_param([subsystem_name '/Output_Mux'], 'Inputs', '3');
+    
+    % Connect to output
+    add_line(subsystem_name, 'Temperature/1', 'Output_Mux/1');
+    add_line(subsystem_name, 'Humidity/1', 'Output_Mux/2');
+    add_line(subsystem_name, 'Pressure/1', 'Output_Mux/3');
+    
+    add_line(subsystem_name, 'Output_Mux/1', 'Environmental_Data/1');
+end
+
+function create_ground_effect_subsystem(subsystem_name)
+    % Create ground effect subsystem
+    add_block('simulink/Ports & Subsystems/In1', [subsystem_name '/Altitude']);
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Ground_Effect_Data']);
+    
+    % Add ground effect calculation
+    add_block('simulink/Math Operations/Product', [subsystem_name '/Ground_Effect_Force']);
+    add_block('simulink/Continuous/Gain', [subsystem_name '/Ground_Effect_Coefficient']);
+    add_block('simulink/Math Operations/Trigonometric Function', [subsystem_name '/Ground_Effect_Function']);
+    
+    set_param([subsystem_name '/Ground_Effect_Coefficient'], 'Gain', '0.1');
+    set_param([subsystem_name '/Ground_Effect_Function'], 'Function', 'exp');
+    
+    % Add ground proximity check
+    add_block('simulink/Logic and Bit Operations/Compare To Constant', [subsystem_name '/Ground_Proximity']);
+    set_param([subsystem_name '/Ground_Proximity'], 'const', '2.0');
+    set_param([subsystem_name '/Ground_Proximity'], 'relop', '<');
+    
+    % Add switch for ground effect activation
+    add_block('simulink/Signal Routing/Switch', [subsystem_name '/Ground_Effect_Switch']);
+    set_param([subsystem_name '/Ground_Effect_Switch'], 'Criteria', 'u2 ~= 0');
+    
+    % Connect ground effect calculation
+    add_line(subsystem_name, 'Altitude/1', 'Ground_Effect_Function/1');
+    add_line(subsystem_name, 'Ground_Effect_Function/1', 'Ground_Effect_Coefficient/1');
+    add_line(subsystem_name, 'Ground_Effect_Coefficient/1', 'Ground_Effect_Force/1');
+    
+    % Connect ground proximity check
+    add_line(subsystem_name, 'Altitude/1', 'Ground_Proximity/1');
+    add_line(subsystem_name, 'Ground_Proximity/1', 'Ground_Effect_Switch/1');
+    add_line(subsystem_name, 'Ground_Effect_Force/1', 'Ground_Effect_Switch/2');
+    
+    add_line(subsystem_name, 'Ground_Effect_Switch/1', 'Ground_Effect_Data/1');
+end
+
+function create_atmospheric_conditions_subsystem(subsystem_name)
+    % Create atmospheric conditions subsystem
+    add_block('simulink/Ports & Subsystems/Out1', [subsystem_name '/Atmospheric_Data']);
+    
+    % Add air density model (varies with altitude)
+    add_block('simulink/Sources/Constant', [subsystem_name '/Air_Density']);
+    set_param([subsystem_name '/Air_Density'], 'Value', '1.225');
+    
+    % Add viscosity model
+    add_block('simulink/Sources/Constant', [subsystem_name '/Air_Viscosity']);
+    set_param([subsystem_name '/Air_Viscosity'], 'Value', '1.789e-5');
+    
+    % Add speed of sound
+    add_block('simulink/Sources/Constant', [subsystem_name '/Speed_of_Sound']);
+    set_param([subsystem_name '/Speed_of_Sound'], 'Value', '343');
+    
+    % Add multiplexer for output
+    add_block('simulink/Signal Routing/Mux', [subsystem_name '/Output_Mux']);
+    set_param([subsystem_name '/Output_Mux'], 'Inputs', '3');
+    
+    % Connect to output
+    add_line(subsystem_name, 'Air_Density/1', 'Output_Mux/1');
+    add_line(subsystem_name, 'Air_Viscosity/1', 'Output_Mux/2');
+    add_line(subsystem_name, 'Speed_of_Sound/1', 'Output_Mux/3');
+    
+    add_line(subsystem_name, 'Output_Mux/1', 'Atmospheric_Data/1');
+end
+
+% Main execution
+if ~bdIsLoaded('environment_model')
+    create_environment_model();
+else
+    fprintf('Model already exists. Opening existing model.\n');
+    open_system('environment_model');
+end

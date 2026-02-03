@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - Basic Canvas Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>01 - Basic Canvas Setup</h1>
+    
+    <div class="explanation">
+        <h2>What is HTML Canvas?</h2>
+        <p>HTML Canvas is an HTML element that provides a drawing surface for graphics. It's like a blank canvas where you can draw anything using JavaScript.</p>
+        
+        <h3>Key Concepts:</h3>
+        <ul>
+            <li><strong>Canvas Element:</strong> The HTML &lt;canvas&gt; tag creates a drawing area</li>
+            <li><strong>Context:</strong> The 2D rendering context is your "paintbrush" - you use it to draw</li>
+            <li><strong>Coordinate System:</strong> (0,0) is at the top-left corner. X increases to the right, Y increases downward</li>
+            <li><strong>Pixels:</strong> Everything is drawn in pixels</li>
+        </ul>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="800" height="400"></canvas>
+    </div>
+
+    <script>
+        // Step 1: Get the canvas element from the HTML
+        const canvas = document.getElementById('myCanvas');
+        
+        // Step 2: Get the 2D rendering context
+        // This is your "paintbrush" - you'll use it to draw everything
+        const ctx = canvas.getContext('2d');
+        
+        // Step 3: Set the canvas background color
+        // We do this by drawing a rectangle that covers the entire canvas
+        ctx.fillStyle = '#f0f0f0'; // Light gray background
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Step 4: Draw a simple shape to demonstrate
+        // This draws a blue rectangle
+        ctx.fillStyle = '#4A90E2'; // Blue color
+        ctx.fillRect(100, 100, 200, 150); // x, y, width, height
+        
+        // Step 5: Draw a red circle
+        ctx.fillStyle = '#E24A4A'; // Red color
+        ctx.beginPath(); // Start a new path
+        ctx.arc(500, 200, 75, 0, Math.PI * 2); // x, y, radius, startAngle, endAngle
+        ctx.fill(); // Fill the circle
+        
+        // Step 6: Draw a green line
+        ctx.strokeStyle = '#4AE24A'; // Green color
+        ctx.lineWidth = 5; // Line thickness
+        ctx.beginPath();
+        ctx.moveTo(50, 50); // Start point
+        ctx.lineTo(750, 350); // End point
+        ctx.stroke(); // Draw the line
+        
+        // Understanding the coordinate system:
+        // - (0, 0) is at the top-left corner
+        // - X increases as you move right
+        // - Y increases as you move down
+        // - Our canvas is 800 pixels wide and 400 pixels tall
+        
+        console.log('Canvas width:', canvas.width);
+        console.log('Canvas height:', canvas.height);
+        console.log('Context:', ctx);
+    </script>
+</body>
+</html>
+

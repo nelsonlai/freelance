@@ -1,0 +1,8 @@
+-- Problem: Duplicate Emails
+-- Difficulty: Easy
+-- Tags: Database
+
+SELECT email
+FROM Person
+GROUP BY email
+HAVING COUNT(*) > 1;

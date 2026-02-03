@@ -1,0 +1,13 @@
+// Problem: Optimal Division
+// Difficulty: Medium
+// Tags: array, string, dp, math
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(n) or O(n * m) for DP table
+
+impl Solution {
+    pub fn optimal_division(nums: Vec<i32>) -> String {
+        
+    }
+}

@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/nelsonlai/sources/freelance/Data Structure and Algorithm/output/word-search-puzzle'
+relocations:     []
+...

@@ -1,0 +1,81 @@
+<!--
+  Root Component Template
+  
+  This template demonstrates:
+  - Structural directives (*ngIf, *ngFor)
+  - Property binding ([property])
+  - Event binding ((event))
+  - Attribute directives (routerLink, routerLinkActive)
+  - Template expressions ({{ }})
+-->
+
+<div class="app-container">
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a routerLink="/home" class="brand-link">
+        {{ title }}
+      </a>
+    </div>
+
+    <ul class="navbar-nav">
+      <!-- Public Navigation -->
+      <li>
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+      </li>
+
+      <!-- Conditional Navigation - Only show if not authenticated -->
+      <li *ngIf="!(isAuthenticated$ | async)">
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+      </li>
+      <li *ngIf="!(isAuthenticated$ | async)">
+        <a routerLink="/register" routerLinkActive="active">Register</a>
+      </li>
+
+      <!-- Protected Navigation - Only show if authenticated -->
+      <li *ngIf="isAuthenticated$ | async">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li *ngIf="isAuthenticated$ | async">
+        <a routerLink="/users" routerLinkActive="active">Users</a>
+      </li>
+      <li *ngIf="isAuthenticated$ | async">
+        <a routerLink="/products" routerLinkActive="active">Products</a>
+      </li>
+      <li *ngIf="isAuthenticated$ | async">
+        <a routerLink="/storage-demo" routerLinkActive="active">Storage Demo</a>
+      </li>
+      <li *ngIf="isAuthenticated$ | async">
+        <a routerLink="/forms-demo" routerLinkActive="active">Forms Demo</a>
+      </li>
+      <li *ngIf="isAuthenticated$ | async">
+        <a routerLink="/rxjs-demo" routerLinkActive="active">RxJS Demo</a>
+      </li>
+
+      <!-- Admin Navigation - Only show for admin users -->
+      <li *ngIf="(currentUser$ | async)?.role === 'admin'">
+        <a routerLink="/admin" routerLinkActive="active">Admin</a>
+      </li>
+
+      <!-- User Info and Logout -->
+      <li *ngIf="isAuthenticated$ | async" class="user-info">
+        <span class="user-name">
+          {{ (currentUser$ | async)?.firstName }} {{ (currentUser$ | async)?.lastName }}
+        </span>
+        <button class="btn btn-secondary" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Router Outlet - This is where routed components are displayed -->
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Angular Comprehensive Demo. Demonstrating Angular best practices.</p>
+  </footer>
+</div>
+

@@ -1,0 +1,166 @@
+<!--
+  Register Component Template
+  
+  This template demonstrates:
+  - Reactive forms with [formGroup] and formControlName
+  - Form validation display
+  - Error handling
+  - Conditional rendering
+-->
+
+<div class="register-container">
+  <div class="register-card">
+    <h2>Register</h2>
+    <p class="subtitle">Create a new account</p>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Register Form -->
+    <!-- 
+      Reactive form:
+      - [formGroup] binds the form to the FormGroup in component
+      - (ngSubmit) handles form submission
+    -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      
+      <!-- First Name Input -->
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          [ngClass]="{
+            'invalid': hasError('firstName', 'required') || hasError('firstName', 'minlength'),
+            'valid': firstName?.valid && firstName?.touched
+          }"
+          placeholder="Enter your first name"
+        />
+        <!-- Validation Messages -->
+        <div *ngIf="hasError('firstName', 'required')" class="error-message">
+          First name is required
+        </div>
+        <div *ngIf="hasError('firstName', 'minlength')" class="error-message">
+          First name must be at least 2 characters
+        </div>
+      </div>
+
+      <!-- Last Name Input -->
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          [ngClass]="{
+            'invalid': hasError('lastName', 'required') || hasError('lastName', 'minlength'),
+            'valid': lastName?.valid && lastName?.touched
+          }"
+          placeholder="Enter your last name"
+        />
+        <!-- Validation Messages -->
+        <div *ngIf="hasError('lastName', 'required')" class="error-message">
+          Last name is required
+        </div>
+        <div *ngIf="hasError('lastName', 'minlength')" class="error-message">
+          Last name must be at least 2 characters
+        </div>
+      </div>
+
+      <!-- Email Input -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          [ngClass]="{
+            'invalid': hasError('email', 'required') || hasError('email', 'email'),
+            'valid': email?.valid && email?.touched
+          }"
+          placeholder="Enter your email"
+        />
+        <!-- Validation Messages -->
+        <div *ngIf="hasError('email', 'required')" class="error-message">
+          Email is required
+        </div>
+        <div *ngIf="hasError('email', 'email')" class="error-message">
+          Please enter a valid email
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          [ngClass]="{
+            'invalid': hasError('password', 'required') || hasError('password', 'minlength'),
+            'valid': password?.valid && password?.touched
+          }"
+          placeholder="Enter your password"
+        />
+        <!-- Validation Messages -->
+        <div *ngIf="hasError('password', 'required')" class="error-message">
+          Password is required
+        </div>
+        <div *ngIf="hasError('password', 'minlength')" class="error-message">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <!-- Confirm Password Input -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          [ngClass]="{
+            'invalid': hasError('confirmPassword', 'required') || registerForm.hasError('passwordMismatch'),
+            'valid': confirmPassword?.valid && confirmPassword?.touched && !registerForm.hasError('passwordMismatch')
+          }"
+          placeholder="Confirm your password"
+        />
+        <!-- Validation Messages -->
+        <div *ngIf="hasError('confirmPassword', 'required')" class="error-message">
+          Please confirm your password
+        </div>
+        <div *ngIf="registerForm.hasError('passwordMismatch') && confirmPassword?.touched" class="error-message">
+          Passwords do not match
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="registerForm.invalid || isLoading"
+        >
+          <span *ngIf="!isLoading">Register</span>
+          <span *ngIf="isLoading">Registering...</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+          [disabled]="isLoading"
+        >
+          Reset
+        </button>
+      </div>
+
+      <!-- Login Link -->
+      <div class="form-footer">
+        <p>Already have an account? <a routerLink="/login">Login here</a></p>
+      </div>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,85 @@
+# Python Dependencies for CrazyFly Quadrotor Control System
+# ========================================================
+#
+# This file contains all the required Python packages for the quadrotor
+# control system implementation, including control algorithms, communication
+# libraries, and visualization tools.
+
+# Core Scientific Computing Libraries
+numpy>=1.21.0                    # Numerical computing and array operations
+scipy>=1.7.0                      # Scientific computing and signal processing
+matplotlib>=3.5.0                 # Plotting and visualization
+pandas>=1.3.0                     # Data manipulation and analysis
+
+# Control System Libraries
+control>=0.9.0                    # Control system design and analysis
+filterpy>=1.4.5                   # Kalman filtering and state estimation
+scikit-learn>=1.0.0              # Machine learning utilities for adaptive control
+
+# Communication and Hardware Interface
+pyserial>=3.5                     # Serial communication for hardware interfaces
+pymavlink>=2.4.0                  # MAVLink protocol for drone communication
+pynput>=1.7.0                     # Input device monitoring (keyboard, mouse)
+
+# Real-time and Performance
+psutil>=5.8.0                     # System and process utilities
+pygame>=2.0.0                     # Real-time graphics and input handling
+pyqt5>=5.15.0                     # GUI framework for control interfaces
+
+# Data Logging and Analysis
+h5py>=3.3.0                       # HDF5 file format for data storage
+tables>=3.6.0                     # Hierarchical data storage
+pyyaml>=5.4.0                     # YAML configuration files
+
+# Network Communication
+socket-io>=5.0.0                  # WebSocket communication
+requests>=2.25.0                   # HTTP requests for API communication
+websockets>=9.0.0                 # WebSocket client/server
+
+# Development and Testing
+pytest>=6.2.0                     # Testing framework
+pytest-cov>=2.12.0               # Coverage testing
+black>=21.0.0                     # Code formatting
+flake8>=3.9.0                     # Code linting
+mypy>=0.910                       # Type checking
+
+# Documentation
+sphinx>=4.0.0                     # Documentation generation
+sphinx-rtd-theme>=0.5.0          # Read the Docs theme
+
+# Optional: Advanced Features
+# These packages are optional and may not be available on all platforms
+# or may require additional system dependencies
+
+# OpenCV for computer vision (optional)
+# opencv-python>=4.5.0
+
+# ROS (Robot Operating System) integration (optional)
+# rospy>=1.15.0
+
+# Gazebo simulation integration (optional)
+# gazebo-msgs>=11.0.0
+
+# Machine Learning for Adaptive Control (optional)
+# torch>=1.9.0                     # PyTorch for deep learning
+# tensorflow>=2.6.0                # TensorFlow for machine learning
+
+# 3D Visualization (optional)
+# vtk>=9.0.0                       # 3D visualization toolkit
+# mayavi>=4.7.0                    # 3D scientific data visualization
+
+# Note: Some packages may require additional system dependencies
+# For Ubuntu/Debian systems, you may need:
+# sudo apt-get install python3-dev python3-pip
+# sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
+# sudo apt-get install libhdf5-dev libhdf5-serial-dev
+# sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5
+# sudo apt-get install libgl1-mesa-glx libglib2.0-0
+
+# For macOS systems, you may need:
+# brew install hdf5
+# brew install qt5
+# brew install openblas
+
+# For Windows systems, most packages should install automatically
+# through pip, but some may require Visual Studio Build Tools.

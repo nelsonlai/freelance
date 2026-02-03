@@ -1,0 +1,16 @@
+# Write your MySQL query statement below
+SELECT 
+    ROUND(
+        AVG(percentage) * 100, 
+        2
+    ) AS average_daily_percent
+FROM (
+    SELECT
+        a.action_date,
+        COUNT(DISTINCT r.post_id) / COUNT(DISTINCT a.post_id) AS percentage
+    FROM Actions a
+    LEFT JOIN Removals r ON a.post_id = r.post_id
+    WHERE a.action = 'report' 
+        AND a.extra = 'spam'
+    GROUP BY a.action_date
+) daily_percentages;

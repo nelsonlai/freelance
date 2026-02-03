@@ -1,0 +1,16 @@
+/*
+ * Problem: Find All Possible Recipes from Given Supplies
+ * Difficulty: Medium
+ * Tags: array, string, graph, hash, sort
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) for hash map
+ */
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+char** findAllRecipes(char** recipes, int recipesSize, char*** ingredients, int ingredientsSize, int* ingredientsColSize, char** supplies, int suppliesSize, int* returnSize) {
+    
+}

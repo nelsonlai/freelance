@@ -1,0 +1,34 @@
+# Write your MySQL query statement below
+WITH FirstOrder AS (
+    SELECT 
+        seller_id,
+        MIN(order_date) AS first_order_date
+    FROM Orders
+    GROUP BY seller_id
+),
+FirstOrderItem AS (
+    SELECT 
+        o.seller_id,
+        o.order_id,
+        o.order_date,
+        i.item_brand
+    FROM Orders o
+    JOIN Items i ON o.item_id = i.item_id
+    JOIN FirstOrder fo ON o.seller_id = fo.seller_id 
+        AND o.order_date = fo.first_order_date
+)
+SELECT 
+    u.user_id AS seller_id,
+    CASE 
+        WHEN foi.item_brand = u.favorite_brand THEN 'yes'
+        ELSE 'no'
+    END AS 2nd_item_fav_brand
+FROM Users u
+LEFT JOIN (
+    SELECT 
+        seller_id,
+        item_brand,
+        ROW_NUMBER() OVER (PARTITION BY seller_id ORDER BY order_date, order_id) AS rn
+    FROM FirstOrderItem
+) foi ON u.user_id = foi.seller_id AND foi.rn = 2
+ORDER BY u.user_id;

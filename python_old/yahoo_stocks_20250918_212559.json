@@ -1,0 +1,32 @@
+[
+  {
+    "symbol": "AAPL",
+    "url": "https://finance.yahoo.com/quote/AAPL",
+    "timestamp": "2025-09-18T21:25:54.768945",
+    "price": "6,696.50",
+    "change": "+3.00",
+    "change_percent": "+1.33%",
+    "volume": "",
+    "market_cap": ""
+  },
+  {
+    "symbol": "GOOGL",
+    "url": "https://finance.yahoo.com/quote/GOOGL",
+    "timestamp": "2025-09-18T21:25:57.610012",
+    "price": "6,615.28",
+    "change": "+30.99",
+    "change_percent": "-0.17%",
+    "volume": "",
+    "market_cap": ""
+  },
+  {
+    "symbol": "MSFT",
+    "url": "https://finance.yahoo.com/quote/MSFT",
+    "timestamp": "2025-09-18T21:25:59.575878",
+    "price": "6,696.25",
+    "change": "+2.75",
+    "change_percent": "+3.49%",
+    "volume": "",
+    "market_cap": ""
+  }
+]

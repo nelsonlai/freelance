@@ -1,0 +1,388 @@
+1. Overview
+
+Build a small, production-ready questionnaire system that collects answers to a few questions and stores them in a database.
+
+Frontend: Next.js (TypeScript) for the questionnaire UI.
+
+Backend: Express (TypeScript) exposing 2–3 endpoints.
+
+Database Layer: Prisma ORM connected to a relational DB (AWS RDS - MySQL).
+
+Goal: Recreate the core flow of the previously shared reference site (basic question form → submit → confirmation), with minimal scope.
+
+Note: Since the exact reference site details are not embedded here, assumptions are explicitly listed (see §3). Replace placeholders during implementation.
+
+2. Objectives & Success Criteria
+
+Objectives
+
+Render a short questionnaire (3–8 questions).
+
+Submit responses to backend; persist to DB via Prisma.
+
+Provide basic read/aggregate endpoint(s) to verify saved data.
+
+Success Criteria
+
+Submitting valid answers returns 201 Created and a response ID.
+
+Data is persisted and retrievable by ID.
+
+Aggregate/statistics endpoint returns counts without error.
+
+Local dev runbook works end-to-end in under 5 minutes.
+
+3. Assumptions & Out-of-Scope
+
+Assumptions
+
+The questionnaire is public and anonymous (no login).
+
+Questions are static and defined client-side (no CMS needed).
+
+We only need English UI for this assignment (can add i18n later).
+
+Responses can be stored as a JSON blob plus metadata.
+
+Out-of-Scope
+
+Authentication/authorization.
+
+Complex analytics dashboard; only simple aggregate counts.
+
+File uploads or rich media answers.
+
+Email/SMS notifications.
+
+Advanced admin UI (beyond a simple success page).
+
+4. Users & Personas
+
+Respondent: Any visitor filling the form.
+
+Reviewer (Instructor/TA): Calls GET endpoints to spot-check data and verify implementation.
+
+5. System Architecture
+
+Next.js App (port 3000)
+
+Renders questionnaire (/), thank-you (/thanks).
+
+Submits answers to Express API.
+
+Express API (port 4000)
+
+POST /api/v1/responses — create a response.
+
+GET /api/v1/responses/:id — fetch one response.
+
+GET /api/v1/metrics — simple aggregates.
+
+Database
+
+MySQL (local Docker or managed).
+
+Accessed via Prisma Client.
+
+CORS
+
+Allow origin http://localhost:3000 (Next.js) in dev.
+
+6. Functional Requirements
+FR-1 Questionnaire Rendering
+
+FR-1.1: Show 3–8 questions (mix of single choice, multi choice, short text).
+
+FR-1.2: Client-side validation for required fields.
+
+FR-1.3: Submit button disabled while posting.
+
+FR-2 Submit Responses
+
+FR-2.1: Send JSON payload to POST /api/v1/responses.
+
+FR-2.2: On success, redirect to /thanks?rid={id}.
+
+FR-2.3: Handle validation errors with inline messages.
+
+FR-3 Retrieve Single Response (for verification)
+
+FR-3.1: GET /api/v1/responses/:id returns the stored document (no PII).
+
+FR-4 Aggregated Metrics
+
+FR-4.1: GET /api/v1/metrics returns simple counts per question option and total submissions.
+
+FR-4.2: Supports optional query window, e.g., ?from=2025-08-01&to=2025-08-31 (ISO dates).
+
+7. Non-Functional Requirements
+
+Performance: POST under 500 ms locally (excluding DB cold start).
+
+Reliability: No data loss for valid requests; Prisma transactions where applicable.
+
+Security: Input validation, basic rate limiting (e.g., 60 req/min IP).
+
+Privacy: No PII by default; store IP hashed (optional).
+
+Maintainability: TypeScript, ESLint, Prettier, minimal folder structure.
+
+Portability: Docker Compose optional but recommended for DB.
+
+Observability: Console logs + request IDs; lightweight error logs.
+
+8. Data Model (Prisma)
+
+Minimal model storing answers as JSON; add normalized Question/Answer tables only if required.
+
+// schema.prisma
+datasource db {
+  provider = "MySQL"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Response {
+  id         String   @id @default(cuid())
+  answers    Json
+  userAgent  String?  
+  ipHash     String?  // optional SHA256 of IP
+  createdAt  DateTime @default(now())
+}
+
+
+Notes
+
+answers JSON shape: { "q1": "A", "q2": ["X","Y"], "q3": "free text" }.
+
+Add indexes later if metrics need optimization.
+
+9. API Specification
+9.1 POST /api/v1/responses
+
+Purpose: Create a response record.
+
+Request (JSON):
+
+{
+  "answers": {
+    "q1": "A",
+    "q2": ["X", "Y"],
+    "q3": "Some short text"
+  }
+}
+
+
+Validation:
+
+answers required, object with allowed keys q1..qN.
+
+Length limits: text ≤ 500 chars; arrays ≤ 10 items.
+
+Response:
+
+201 Created
+
+{ "id": "ckxyz...", "createdAt": "2025-08-23T10:00:00Z" }
+
+
+Errors: 400 invalid payload, 422 validation, 500 server.
+
+9.2 GET /api/v1/responses/:id
+
+Purpose: Fetch a single response (for verification).
+
+Response:
+
+200 OK
+
+{
+  "id": "ckxyz...",
+  "answers": { "q1": "A", "q2": ["X"], "q3": "..." },
+  "createdAt": "2025-08-23T10:00:00Z"
+}
+
+
+Errors: 404 not found.
+
+9.3 GET /api/v1/metrics?from&to
+
+Purpose: Return aggregate counts.
+
+Query: from and to ISO dates (optional).
+
+Response:
+
+200 OK
+
+{
+  "totalSubmissions": 123,
+  "counts": {
+    "q1": { "A": 40, "B": 60, "C": 23 },
+    "q2": { "X": 70, "Y": 53, "Z": 12 }
+  }
+}
+
+10. Validation Rules
+
+q1 (single choice): Required; allowed values: A|B|C.
+
+q2 (multi select): Optional; values subset of X|Y|Z; max 3 selections.
+
+q3 (short text): Optional; max 500 chars; strip HTML.
+
+(Replace with the real questions/options from the reference site when available.)
+
+11. Security & Compliance
+
+Sanitize and validate all inputs (server-side).
+
+Rate limiting per IP.
+
+CORS allowlist (localhost:3000 in dev; exact origin in prod).
+
+Store no PII; if IP captured, hash (SHA-256 + per-env salt).
+
+Environment secrets via .env (never commit).
+
+12. Error Handling & Logging
+
+Standard JSON error envelope:
+
+{ "error": { "code": "VALIDATION_ERROR", "message": "q1 is required" } }
+
+
+Log requestId, path, status, duration.
+
+Do not log raw IP or full user agents when unnecessary.
+
+13. Frontend Requirements (Next.js)
+
+Tech: Next.js (App Router), TypeScript, minimal styling (e.g., Tailwind optional).
+
+Pages:
+
+/ — questionnaire form.
+
+/thanks — submission confirmation; show last 6 chars of id.
+
+UX:
+
+Disabled submit during network call.
+
+Handle and display validation errors.
+
+Basic a11y: label/aria for inputs.
+
+14. Backend Requirements (Express)
+
+Tech: Express + TypeScript.
+
+Middleware:
+
+JSON body parser (limit 100kb).
+
+CORS (strict origin).
+
+Rate limiter.
+
+Basic requestId (e.g., x-request-id).
+
+Prisma: prisma migrate dev for schema; prisma generate for client.
+
+15. Environments & Config
+
+Environment Variables
+
+DATABASE_URL=AWS RDS (MySQL)
+
+PORT=4000
+
+CORS_ORIGIN=http://localhost:3000
+
+IP_SALT=some-random-salt (if hashing IP)
+
+Local Dev
+
+DB via Docker (recommended).
+
+Next.js dev server: npm run dev (port 3000).
+
+Express dev server: npm run dev (port 4000).
+
+1.  Testing & QA
+
+Unit Tests (backend):
+
+Validation for each question.
+
+Repository function inserts JSON and returns ID.
+
+Integration Tests:
+
+POST /responses happy path → 201 + DB row created.
+
+Invalid payload → 422.
+
+GET /responses/:id returns stored doc.
+
+GET /metrics returns counts after seeding 3+ submissions.
+
+Manual E2E:
+
+Start DB, API, Frontend.
+
+Fill form → redirected to /thanks.
+
+Fetch the id via API and verify.
+
+Call /metrics and confirm counts increment.
+
+17. Delivery Milestones
+
+Day 1: Repo scaffolds (Next.js, Express TS), Prisma schema, DB up.
+
+Day 2: Implement POST + validation + success page.
+
+Day 3: Implement GET by id, metrics, rate limit, basic tests.
+
+Day 4: Polish, README runbook, acceptance check.
+
+18. Acceptance Criteria (Checklist)
+
+ POST /api/v1/responses stores valid answers JSON; returns 201 with id.
+
+ GET /api/v1/responses/:id returns the same answers.
+
+ GET /api/v1/metrics returns totals and per-option counts.
+
+ Prisma migrations run clean on a fresh DB.
+
+ Next.js UI can submit and handle errors.
+
+ Rate limiting active; CORS restricted.
+
+ README includes local setup steps and .env.example.
+
+19. Implementation Notes (Optional)
+
+Question Definitions: Keep a single TS file in the Next.js app exporting the question schema to drive rendering and client-side validation.
+
+Answer Shape Contract: Mirror the same keys in backend validation to avoid drift.
+
+Hashing IP: If recorded, hash on server: sha256(IP + IP_SALT); store only the hash.
+
+20. Future Enhancements (Non-blocking)
+
+Admin page (protected) to view submissions.
+
+CSV export.
+
+i18n (English/繁體/简体).
+
+Server-side rendering of results chart.
+
+Normalized schema for complex analytics.

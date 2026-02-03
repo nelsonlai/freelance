@@ -1,0 +1,18 @@
+# Write your MySQL query statement below
+WITH RankedActivities AS (
+    SELECT 
+        username,
+        activity,
+        startDate,
+        endDate,
+        ROW_NUMBER() OVER (PARTITION BY username ORDER BY startDate DESC) AS rn,
+        COUNT(*) OVER (PARTITION BY username) AS total_count
+    FROM UserActivity
+)
+SELECT 
+    username,
+    activity,
+    startDate,
+    endDate
+FROM RankedActivities
+WHERE rn = 2 OR (total_count = 1 AND rn = 1);

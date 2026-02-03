@@ -1,0 +1,13 @@
+-- Problem: Project Employees III
+-- Difficulty: Medium
+-- Tags: Database
+
+SELECT p.project_id, e.employee_id
+FROM Project p
+INNER JOIN Employee e ON p.employee_id = e.employee_id
+WHERE (p.project_id, e.experience_years) IN (
+    SELECT p2.project_id, MAX(e2.experience_years)
+    FROM Project p2
+    INNER JOIN Employee e2 ON p2.employee_id = e2.employee_id
+    GROUP BY p2.project_id
+);

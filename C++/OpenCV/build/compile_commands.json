@@ -1,0 +1,188 @@
+[
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/01_basic_image_load.dir/01_basic_image_load.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/01_basic_image_load.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/01_basic_image_load.cpp",
+  "output": "CMakeFiles/01_basic_image_load.dir/01_basic_image_load.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/02_camera_capture.dir/02_camera_capture.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/02_camera_capture.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/02_camera_capture.cpp",
+  "output": "CMakeFiles/02_camera_capture.dir/02_camera_capture.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/03_color_spaces.dir/03_color_spaces.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/03_color_spaces.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/03_color_spaces.cpp",
+  "output": "CMakeFiles/03_color_spaces.dir/03_color_spaces.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/04_basic_drawing.dir/04_basic_drawing.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/04_basic_drawing.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/04_basic_drawing.cpp",
+  "output": "CMakeFiles/04_basic_drawing.dir/04_basic_drawing.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/05_image_resize.dir/05_image_resize.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/05_image_resize.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/05_image_resize.cpp",
+  "output": "CMakeFiles/05_image_resize.dir/05_image_resize.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/06_basic_filters.dir/06_basic_filters.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/06_basic_filters.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/06_basic_filters.cpp",
+  "output": "CMakeFiles/06_basic_filters.dir/06_basic_filters.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/07_mouse_interaction.dir/07_mouse_interaction.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/07_mouse_interaction.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/07_mouse_interaction.cpp",
+  "output": "CMakeFiles/07_mouse_interaction.dir/07_mouse_interaction.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/08_image_operations.dir/08_image_operations.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/08_image_operations.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/08_image_operations.cpp",
+  "output": "CMakeFiles/08_image_operations.dir/08_image_operations.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/09_contour_detection.dir/09_contour_detection.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/09_contour_detection.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/09_contour_detection.cpp",
+  "output": "CMakeFiles/09_contour_detection.dir/09_contour_detection.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/10_histogram_analysis.dir/10_histogram_analysis.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/10_histogram_analysis.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/10_histogram_analysis.cpp",
+  "output": "CMakeFiles/10_histogram_analysis.dir/10_histogram_analysis.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/11_morphological_operations.dir/11_morphological_operations.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/11_morphological_operations.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/11_morphological_operations.cpp",
+  "output": "CMakeFiles/11_morphological_operations.dir/11_morphological_operations.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/12_feature_detection.dir/12_feature_detection.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/12_feature_detection.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/12_feature_detection.cpp",
+  "output": "CMakeFiles/12_feature_detection.dir/12_feature_detection.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/13_template_matching.dir/13_template_matching.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/13_template_matching.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/13_template_matching.cpp",
+  "output": "CMakeFiles/13_template_matching.dir/13_template_matching.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/14_video_processing.dir/14_video_processing.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/14_video_processing.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/14_video_processing.cpp",
+  "output": "CMakeFiles/14_video_processing.dir/14_video_processing.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/15_geometric_transforms.dir/15_geometric_transforms.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/15_geometric_transforms.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/15_geometric_transforms.cpp",
+  "output": "CMakeFiles/15_geometric_transforms.dir/15_geometric_transforms.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/16_object_tracking.dir/16_object_tracking.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/16_object_tracking.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/16_object_tracking.cpp",
+  "output": "CMakeFiles/16_object_tracking.dir/16_object_tracking.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/17_face_detection.dir/17_face_detection.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/17_face_detection.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/17_face_detection.cpp",
+  "output": "CMakeFiles/17_face_detection.dir/17_face_detection.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/18_optical_flow.dir/18_optical_flow.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/18_optical_flow.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/18_optical_flow.cpp",
+  "output": "CMakeFiles/18_optical_flow.dir/18_optical_flow.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/19_image_segmentation.dir/19_image_segmentation.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/19_image_segmentation.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/19_image_segmentation.cpp",
+  "output": "CMakeFiles/19_image_segmentation.dir/19_image_segmentation.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/20_advanced_filters.dir/20_advanced_filters.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/20_advanced_filters.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/20_advanced_filters.cpp",
+  "output": "CMakeFiles/20_advanced_filters.dir/20_advanced_filters.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/21_advanced_image_stitching.dir/21_advanced_image_stitching.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/21_advanced_image_stitching.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/21_advanced_image_stitching.cpp",
+  "output": "CMakeFiles/21_advanced_image_stitching.dir/21_advanced_image_stitching.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/22_realtime_color_tracking.dir/22_realtime_color_tracking.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/22_realtime_color_tracking.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/22_realtime_color_tracking.cpp",
+  "output": "CMakeFiles/22_realtime_color_tracking.dir/22_realtime_color_tracking.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/23_advanced_edge_detection.dir/23_advanced_edge_detection.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/23_advanced_edge_detection.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/23_advanced_edge_detection.cpp",
+  "output": "CMakeFiles/23_advanced_edge_detection.dir/23_advanced_edge_detection.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/24_3d_object_detection.dir/24_3d_object_detection.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/24_3d_object_detection.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/24_3d_object_detection.cpp",
+  "output": "CMakeFiles/24_3d_object_detection.dir/24_3d_object_detection.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/25_advanced_image_blending.dir/25_advanced_image_blending.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/25_advanced_image_blending.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/25_advanced_image_blending.cpp",
+  "output": "CMakeFiles/25_advanced_image_blending.dir/25_advanced_image_blending.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/26_machine_learning_kmeans.dir/26_machine_learning_kmeans.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/26_machine_learning_kmeans.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/26_machine_learning_kmeans.cpp",
+  "output": "CMakeFiles/26_machine_learning_kmeans.dir/26_machine_learning_kmeans.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/27_advanced_camera_calibration.dir/27_advanced_camera_calibration.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/27_advanced_camera_calibration.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/27_advanced_camera_calibration.cpp",
+  "output": "CMakeFiles/27_advanced_camera_calibration.dir/27_advanced_camera_calibration.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/28_realtime_ar_overlay.dir/28_realtime_ar_overlay.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/28_realtime_ar_overlay.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/28_realtime_ar_overlay.cpp",
+  "output": "CMakeFiles/28_realtime_ar_overlay.dir/28_realtime_ar_overlay.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/29_advanced_video_stabilization.dir/29_advanced_video_stabilization.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/29_advanced_video_stabilization.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/29_advanced_video_stabilization.cpp",
+  "output": "CMakeFiles/29_advanced_video_stabilization.dir/29_advanced_video_stabilization.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/30_deep_learning_dnn.dir/30_deep_learning_dnn.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/30_deep_learning_dnn.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/30_deep_learning_dnn.cpp",
+  "output": "CMakeFiles/30_deep_learning_dnn.dir/30_deep_learning_dnn.cpp.o"
+},
+{
+  "directory": "/Users/nelsonlai/sources/freelance/C++/OpenCV/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/Cellar/opencv/4.12.0_11/include/opencv4 -g -std=gnu++17 -arch x86_64 -o CMakeFiles/opencv001.dir/opencv001.cpp.o -c /Users/nelsonlai/sources/freelance/C++/OpenCV/opencv001.cpp",
+  "file": "/Users/nelsonlai/sources/freelance/C++/OpenCV/opencv001.cpp",
+  "output": "CMakeFiles/opencv001.dir/opencv001.cpp.o"
+}
+]

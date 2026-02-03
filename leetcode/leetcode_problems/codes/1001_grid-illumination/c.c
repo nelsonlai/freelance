@@ -1,0 +1,26 @@
+/*
+    * Problem: Problem
+    * Difficulty: Medium
+    * Tags: general
+    * 
+    * Approach: Optimized algorithm based on problem constraints
+    * Time Complexity: O(n) to O(n^2) depending on approach
+    * Space Complexity: O(1) to O(n) depending on approach
+    */
+
+/*
+ * Problem: Grid Illumination
+ * Difficulty: Hard
+ * Tags: array, hash
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) for hash map
+ */
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* gridIllumination(int n, int** lamps, int lampsSize, int* lampsColSize, int** queries, int queriesSize, int* queriesColSize, int* returnSize) {
+    
+}

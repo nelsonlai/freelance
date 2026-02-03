@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 - Drawing Shapes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>02 - Drawing Shapes</h1>
+    
+    <div class="explanation">
+        <h2>Drawing Basic Shapes</h2>
+        <p>Canvas provides methods to draw rectangles, circles, lines, and polygons. Let's explore each one.</p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set background
+        ctx.fillStyle = '#f8f8f8';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // ============================================
+        // 1. RECTANGLES
+        // ============================================
+        
+        // fillRect(x, y, width, height) - draws a filled rectangle
+        ctx.fillStyle = '#FF6B6B';
+        ctx.fillRect(50, 50, 150, 100);
+        
+        // strokeRect(x, y, width, height) - draws an outline rectangle
+        ctx.strokeStyle = '#4ECDC4';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(250, 50, 150, 100);
+        
+        // clearRect(x, y, width, height) - clears a rectangular area
+        ctx.fillStyle = '#95E1D3';
+        ctx.fillRect(450, 50, 150, 100);
+        ctx.clearRect(475, 75, 100, 50); // Creates a "hole"
+        
+        // ============================================
+        // 2. CIRCLES AND ARCS
+        // ============================================
+        
+        // Full circle
+        ctx.fillStyle = '#F38181';
+        ctx.beginPath();
+        ctx.arc(150, 250, 50, 0, Math.PI * 2); // x, y, radius, startAngle, endAngle
+        ctx.fill();
+        
+        // Half circle (semicircle)
+        ctx.fillStyle = '#AA96DA';
+        ctx.beginPath();
+        ctx.arc(350, 250, 50, 0, Math.PI); // Only half the circle
+        ctx.fill();
+        
+        // Quarter circle
+        ctx.fillStyle = '#FCBAD3';
+        ctx.beginPath();
+        ctx.arc(550, 250, 50, 0, Math.PI / 2); // Quarter circle
+        ctx.fill();
+        
+        // Outlined circle
+        ctx.strokeStyle = '#FFD93D';
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.arc(700, 250, 50, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // ============================================
+        // 3. LINES
+        // ============================================
+        
+        // Simple line
+        ctx.strokeStyle = '#6C5CE7';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(50, 350); // Start point
+        ctx.lineTo(200, 400); // End point
+        ctx.stroke();
+        
+        // Multiple connected lines (polyline)
+        ctx.strokeStyle = '#A29BFE';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(250, 350);
+        ctx.lineTo(300, 380);
+        ctx.lineTo(350, 360);
+        ctx.lineTo(400, 400);
+        ctx.stroke();
+        
+        // ============================================
+        // 4. TRIANGLES AND POLYGONS
+        // ============================================
+        
+        // Triangle
+        ctx.fillStyle = '#55EFC4';
+        ctx.beginPath();
+        ctx.moveTo(500, 400); // Top point
+        ctx.lineTo(450, 450); // Bottom left
+        ctx.lineTo(550, 450); // Bottom right
+        ctx.closePath(); // Connects back to start
+        ctx.fill();
+        
+        // Pentagon (5-sided shape)
+        ctx.fillStyle = '#74B9FF';
+        ctx.beginPath();
+        const centerX = 650;
+        const centerY = 425;
+        const radius = 40;
+        const sides = 5;
+        
+        for (let i = 0; i <= sides; i++) {
+            const angle = (i * 2 * Math.PI / sides) - Math.PI / 2; // Start from top
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+        ctx.closePath();
+        ctx.fill();
+        
+        // ============================================
+        // 5. CURVED LINES
+        // ============================================
+        
+        // Quadratic curve (one control point)
+        ctx.strokeStyle = '#FD79A8';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(50, 500);
+        ctx.quadraticCurveTo(200, 450, 350, 500); // controlX, controlY, endX, endY
+        ctx.stroke();
+        
+        // Bezier curve (two control points)
+        ctx.strokeStyle = '#E17055';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(400, 500);
+        ctx.bezierCurveTo(500, 450, 600, 550, 700, 500); // control1X, control1Y, control2X, control2Y, endX, endY
+        ctx.stroke();
+        
+        // ============================================
+        // LABELS
+        // ============================================
+        ctx.fillStyle = '#2D3436';
+        ctx.font = '14px Arial';
+        ctx.fillText('Rectangles', 50, 40);
+        ctx.fillText('Circles & Arcs', 50, 200);
+        ctx.fillText('Lines', 50, 340);
+        ctx.fillText('Triangles & Polygons', 450, 340);
+        ctx.fillText('Curved Lines', 50, 490);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+// Prisma schema for questionnaire system as specified in SRS
+// This defines the database structure for storing questionnaire responses
+// Using MySQL provider as specified in the SRS requirements
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Main model for storing questionnaire responses
+// As per SRS: stores answers as JSON blob plus metadata
+model Response {
+  id         String   @id @default(cuid())
+  answers    Json     // Stores question answers as JSON object
+  userAgent  String?  // Optional user agent string for analytics
+  ipHash     String?  // Optional SHA256 hash of IP address for privacy
+  createdAt  DateTime @default(now())
+
+  // Index for performance on common queries
+  @@index([createdAt])
+  @@index([ipHash])
+}

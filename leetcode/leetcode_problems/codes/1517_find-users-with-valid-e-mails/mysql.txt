@@ -1,0 +1,7 @@
+-- Problem: Find Users With Valid E-Mails
+-- Difficulty: Easy
+-- Tags: Database
+
+SELECT *
+FROM Users
+WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9._-]*@leetcode\\.com$';

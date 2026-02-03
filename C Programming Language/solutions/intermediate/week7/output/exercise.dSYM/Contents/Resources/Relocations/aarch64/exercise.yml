@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/nelsonlai/sources/freelance/The C Programming Language/solutions/intermediate/week7/output/exercise'
+relocations:     []
+...

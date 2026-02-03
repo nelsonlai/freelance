@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get User Info</title>
+</head>
+<body>
+    <h1>User Information</h1>
+    <button onclick="getUserInfo()">Get Info</button>
+    <div id="output"></div>
+
+    <script>
+        async function getUserInfo() {
+            try {
+                const response = await fetch('http://localhost:5000/api/userinfo');
+                const data = await response.json();
+                document.getElementById('output').innerHTML = `
+                    <p><strong>Name:</strong> ${data.name}</p>
+                    <p><strong>Age:</strong> ${data.age}</p>
+                    <p><strong>Email:</strong> ${data.email}</p>
+                `;
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+                document.getElementById('output').innerText = "Failed to load user info.";
+            }
+        }
+    </script>
+</body>
+</html>
+
+<!---
+await fetch('http://localhost:5000/api/userinfo', {
+    method: 'GET'
+});
+
+await fetch('http://localhost:5000/api/userinfo', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        name: 'Nelson',
+        password: 'mySecurePwd)9&645**N'
+    }),
+});
+
+await fetch('http://localhost:5000/api/userinfo/123', {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        name: 'Nelson Lai',
+        email: 'nelson.lai@example.com'
+    }),
+});
+
+--->
+'''

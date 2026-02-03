@@ -1,0 +1,677 @@
+getwd()
+chwd
+setwd('/Users/nelsonlai/sources/freelance/R')
+getwd
+getwd()
+source("/Users/nelsonlai/sources/freelance/R/beginner/04-data-input-output.R")
+source("/Users/nelsonlai/sources/freelance/R/beginner/04-data-input-output.R")
+getwd()
+source("/Users/nelsonlai/sources/freelance/R/beginner/04-data-input-output.R")
+getwd()
+source("/Users/nelsonlai/sources/freelance/R/beginner/04-data-input-output.R")
+source("/Users/nelsonlai/sources/freelance/R/beginner/04-data-input-output.R")
+source("/Users/nelsonlai/sources/freelance/R/beginner/04-data-input-output.R")
+# Simple function#
+add_numbers <- function(a, b) {#
+  result <- a + b#
+  return(result)#
+}#
+#
+# Use the function#
+sum_result <- add_numbers(5, 3)#
+print(sum_result)
+# Function with default value#
+greet <- function(name, greeting = "Hello") {#
+  return(paste(greeting, name))#
+}#
+#
+greet("Alice")#
+greet("Bob", "Hi")
+# Function with multiple statements#
+calculate_stats <- function(numbers) {#
+  total <- sum(numbers)#
+  count <- length(numbers)#
+  mean_val <- total / count#
+  return(list(#
+    sum = total,#
+    count = count,#
+    mean = mean_val#
+  ))#
+}#
+#
+result <- calculate_stats(c(1, 2, 3, 4, 5))#
+print(result)
+mtcars
+source("/Users/nelsonlai/sources/freelance/R/intermediate/01-data-manipulation.R")
+data("mtcars")
+mtcars %>%#
+  filter(mpg > 20)
+mtcars %>%#
+  filter(mpg > 20, cyl == 4)
+mtcars %>%#
+  filter(mpg > 30 | hp < 100)
+exercise_result <- mtcars %>%#
+  filter(cyl == 4 | cyl == 6) %>%#
+  select(mpg, cyl, hp, wt) %>%#
+  mutate(hp_per_weight = hp / wt) %>%#
+  filter(hp_per_weight > 50) %>%#
+  arrange(desc(hp_per_weight))#
+#
+head(exercise_result)
+exercise_result <- mtcars %>%#
+  filter(cyl == 4 | cyl == 6) %>%#
+  select(mpg, cyl, hp, wt) %>%#
+  mutate(hp_per_weight = hp / wt) %>%#
+  filter(hp_per_weight > 50) %>%#
+  arrange(desc(hp_per_weight))
+exercise_result <- mtcars %>%#
+  filter(cyl == 4 | cyl == 6) %>%#
+  select(mpg, cyl, hp, wt) %>%#
+  mutate(hp_per_weight = hp / wt) %>%#
+  filter(hp_per_weight > 50) %>%#
+  arrange(desc(hp_per_weight))
+detach("package:dplyr", unload = TRUE)#
+library(dplyr)
+exercise_result <- mtcars %>%#
+  filter(cyl == 4 | cyl == 6) %>%#
+  select(mpg, cyl, hp, wt) %>%#
+  mutate(hp_per_weight = hp / wt) %>%#
+  filter(hp_per_weight > 50) %>%#
+  arrange(desc(hp_per_weight))
+head(exercise_result)
+? mutate
+help('mutate')
+1:10
+c(1, 2, 3, 4, 5)
+vector <- c(1, 2, 3, 4, 5)
+vector
+length(1:10)
+class(1:10)
+str(1:10)
+v <- c(1, 2, 3, 4, 5)
+v
+v * 2
+v[1]
+v[2]]
+v[2]
+m <- matrix(1:9, nrow = 3, ncol = 3)
+m
+m[1, ]
+m[2, ]
+m[, 2]
+rbind(m, c(10, 11, 12))
+cbind(m, c(10, 20, 30))
+lst <- list(name = "Alice", age = 30, scores = c(90, 85, 88))
+lst
+lst$name
+lst[["age"]]
+lst[['name']]
+lst$age
+lst$score
+lst[["scores"]][2]
+df <- data.frame(#
+	id = 1:3,#
+	name = c("A", "B", "C"),#
+	score = c(88, 92, 75)#
+)
+df$name
+df$socre
+df$id
+df
+df[df$score > 80, ]
+df$passed <- df$score >= 80
+df
+str(df)
+summary(df)
+seq(1, 10, by = 2)
+vec <- c(10, 20, 30, 40, 50)
+vec[1:3]
+vec[c(1, 3, 5)]
+vec[-1]
+grades <- factor(c("A", "B", "A", "C", "B"))
+grades
+levels(grades)
+x <- 10#
+#
+if (x > 5) {#
+  print("x is greater than 5")#
+}
+if (x > 15) {#
+  print("x is greater than 15")#
+} else {#
+  print("x is not greater than 15")#
+}
+score <- 85
+if (score >= 90) {#
+  grade <- "A"#
+} else if (score >= 80) {#
+  grade <- "B"#
+} else if (score >= 70) {#
+  grade <- "C"#
+} else {#
+  grade <- "F"#
+}#
+#
+print(grade)
+for (i in 1:5) {#
+  print(i)#
+}
+numbers <- c(10, 20, 30, 40, 50)#
+for (num in numbers) {#
+  print(num)#
+}
+sum_result <- 0#
+for (i in 1:10) {#
+  sum_result <- sum_result + i#
+}#
+print(sum_result)
+counter <- 1#
+while (counter <= 5) {#
+  print(counter)#
+  counter <- counter + 1#
+}
+count <- 10#
+while (count >= 0) {#
+  print(count)#
+  count <- count - 1#
+}
+add_numbers <- function(a, b) {#
+  result <- a + b#
+  return(result)#
+}#
+#
+# Use the function#
+sum_result <- add_numbers(5, 3)#
+print(sum_result)
+greet <- function(name, greeting = "Hello") {#
+  return(paste(greeting, name))#
+}#
+#
+greet("Alice")#
+greet("Bob", "Hi")
+calculate_stats <- function(numbers) {#
+  total <- sum(numbers)#
+  count <- length(numbers)#
+  mean_val <- total / count#
+  return(list(#
+    sum = total,#
+    count = count,#
+    mean = mean_val#
+  ))#
+}#
+#
+result <- calculate_stats(c(1, 2, 3, 4, 5))#
+print(result)
+mat <- matrix(1:12, nrow = 3, ncol = 4)#
+mat
+apply(mat, 1, sum)
+apply(mat, 2, sum)
+my_list <- list(a = 1:5, b = 6:10, c = 11:15)
+my_list
+lapply(my_list, mean)
+sapply(my_list, mean)
+check_even_odd <- function(number) {#
+  if (number %% 2 == 0) {#
+    return("Even")#
+  } else {#
+    return("Odd")#
+  }#
+}#
+#
+check_even_odd(10)#
+check_even_odd(7)
+factorial_calc <- function(n) {#
+  if (n == 0 || n == 1) {#
+    return(1)#
+  }#
+  result <- 1#
+  for (i in 2:n) {#
+    result <- result * i#
+  }#
+  return(result)#
+}#
+#
+factorial_calc(5)
+find_max <- function(vec) {#
+  max_val <- vec[1]#
+  for (num in vec) {#
+    if (num > max_val) {#
+      max_val <- num#
+    }#
+  }#
+  return(max_val)#
+}#
+#
+find_max(c(3, 7, 1, 9, 4, 6))
+data <- read.csv("/Users/nelsonlai/sources/freelance/R/datasets/data.csv")
+data
+data <- readr::read_csv("/Users/nelsonlai/sources/freelance/R/datasets/data.csv")
+library(readr)#
+write.csv(data, "/Users/nelsonlai/sources/freelance/R/datasets/all_output.csv", row.names = FALSE)
+data <- read.csv("/Users/nelsonlai/sources/freelance/R/datasets/data.csv", #
+                 col.names = c("name", "age", "score", "status"))
+data
+data <- read.csv("/Users/nelsonlai/sources/freelance/R/datasets/data.csv", skip = 1)
+data
+data <- readr::read_csv("/Users/nelsonlai/sources/freelance/R/datasets/data.csv", #
+                 col_select = c(name, age, score))
+data
+data <- read.csv("/Users/nelsonlai/sources/freelance/R/datasets/data.csv", #
+                 na.strings = c("NA", "", "-"))
+data
+library(openxlsx)
+data <- openxlsx::read.xlsx("/Users/nelsonlai/sources/freelance/R/datasets/data.xlsx", sheet = 1)
+data
+data <- openxlsx::read.xlsx("/Users/nelsonlai/sources/freelance/R/datasets/data.xlsx", sheet = "Sheet2")
+data
+data1 <- data.frame(x = 1:5, y = letters[1:5])#
+data2 <- data.frame(a = 10:14, b = c("red", "blue", "green", "yellow", "orange"))#
+openxlsx::write.xlsx(list(#
+  sheet1 = data1,#
+  sheet2 = data2#
+), "/Users/nelsonlai/sources/freelance/R/datasets/output.xlsx")
+mtcars
+data(mtcars)
+data
+mtcars
+head(mtcars)
+dim(mtcars)
+str(mtcars)
+summary(mtcars)
+sample_data <- data.frame(#
+  name = c("Alice", "Bob", "Charlie"),#
+  age = c(25, 30, 35),#
+  score = c(85, 90, 78)#
+)#
+write.csv(sample_data, "/Users/nelsonlai/sources/freelance/R/datasets/output_sample_data.csv", row.names = FALSE)
+write.xlsx(sample_data, "sample_data.xlsx")
+data <- readRDS("/Users/nelsonlai/sources/freelance/R/datasets/my_data.rds")
+data
+sales <- read.csv("/Users/nelsonlai/sources/freelance/R/datasets/sales.csv")
+sales
+summary(sales)
+sales_summary <- data.frame(#
+  product = unique(sales$product),#
+  total_sales = aggregate(sales ~ product, #
+                          data = sales, #
+                          FUN = sum)$sales#
+)
+getwd
+getwd()
+data("mtcars")
+mtcars %>%#
+  filter(mpg > 20)
+mtcars %>%#
+  filter(mpg > 20, cyl == 4)
+mtcars %>%#
+  filter(mpg > 30 | hp < 100)
+data("mtcars")
+mtcars %>%#
+  filter(mpg > 20)
+mtcars %>%#
+  filter(mpg > 20, cyl == 4)
+mtcars %>%#
+  filter(mpg > 30 | hp < 100)
+mtcars %>%#
+  select(mpg, hp, wt)
+mtcars %>%#
+  select(mpg:wt)
+mtcars %>%#
+  select(-mpg, -hp)
+mtcars %>%#
+  select(starts_with("m"))
+mtcars %>%#
+  mutate(#
+    hp_per_cyl = hp / cyl,#
+    weight_kg = wt * 453.592#
+  ) %>%#
+  head()
+mtcars %>%#
+  mutate(#
+    fuel_category = ifelse(mpg > 20, "Efficient", "Less Efficient")#
+  ) %>%#
+  select(mpg, fuel_category)
+mtcars %>%#
+  arrange(mpg) %>%#
+  head()
+mtcars %>%#
+  arrange(desc(mpg)) %>%#
+  head()
+mtcars %>%#
+  arrange(desc(mpg), desc(hp)) %>%#
+  head()
+mtcars %>%#
+  summarize(#
+    mean_mpg = mean(mpg),#
+    median_mpg = median(mpg),#
+    max_hp = max(hp),#
+    count = n()#
+  )
+mtcars
+mtcars %>%#
+  mutate(#
+    hp_per_cyl = hp / cyl,#
+    weight_kg = wt * 453.592#
+  ) %>%
+head ()
+new_mtcars
+new_mtcars <- mtcars %>%#
++   mutate(#
++     hp_per_cyl = hp / cyl,#
++     weight_kg = wt * 453.592#
++   ) %>%
+new_mtcars <- mtcars %>%#
++   mutate(#
++     hp_per_cyl = hp / cyl,#
++     weight_kg = wt * 453.592#
++   ) %>%
+mtcars %>%#
++   mutate(#
++     hp_per_cyl = hp / cyl,#
++     weight_kg = wt * 453.592#
++   ) %>%
+new_mtcars <- mtcars %>%#
+  mutate(#
+    hp_per_cyl = hp / cyl,#
+    weight_kg = wt * 453.592#
+  ) %>%#
+  select (*)
+new_mtcars <- mtcars %>%#
+  mutate(#
+    hp_per_cyl = hp / cyl,#
+    weight_kg = wt * 453.592#
+  ) %>%#
+  select (*)
+new_mtcars <- mtcars %>%#
+  mutate(#
+    hp_per_cyl = hp / cyl,#
+    weight_kg = wt * 453.592#
+  ) %>%#
+  select ("*")
+new_mtcars <- mtcars %>%#
+  mutate(#
+    hp_per_cyl = hp / cyl,#
+    weight_kg = wt * 453.592#
+  ) %>%#
+  select(everything())
+new_mtcars
+mtcars %>%#
+  mutate(#
+    fuel_category = ifelse(mpg > 20, "Efficient", "Less Efficient")#
+  ) %>%#
+  select(mpg, fuel_category)
+mtcars %>%#
+  group_by(cyl) %>%#
+  summarize(#
+    mean_mpg = mean(mpg),#
+    count = n()#
+  )
+arrange(filter(mtcars, mpg > 20), desc(hp))
+mtcars %>%#
+  filter(mpg > 20) %>%#
+  arrange(desc(hp))
+mtcars %>%#
+  filter(mpg > 20) %>%#
+  select(mpg, hp, wt) %>%#
+  mutate(hp_per_weight = hp / wt) %>%#
+  arrange(desc(hp_per_weight)) %>%#
+  head()
+result <- mtcars %>%#
+  filter(cyl == 4 | cyl == 6) %>%#
+  select(mpg, hp, cyl) %>%#
+  mutate(#
+    efficient = mpg > 22,#
+    powerful = hp > 100#
+  ) %>%#
+  arrange(desc(mpg))#
+#
+head(result)
+result
+mtcars %>%#
+  distinct(cyl)
+mtcars %>%#
+  rename(horsepower = hp) %>%#
+  head()
+mtcars %>%#
+  slice(1:5)
+mtcars %>%#
+  slice_max(mpg, n = 5)
+mtcars %>%#
+  slice_min(mpg, n = 5)
+library(tidyr)#
+library(dplyr)
+wide_data <- data.frame(#
+  name = c("Alice", "Bob", "Charlie"),#
+  jan = c(100, 120, 90),#
+  feb = c(110, 130, 95),#
+  mar = c(105, 125, 92)#
+)
+print("Wide Format:")#
+print(wide_data)
+long_data <- wide_data %>%#
+  pivot_longer(#
+    cols = jan:mar,           # columns to convert#
+    names_to = "month",        # new column name for variable names#
+    values_to = "sales"        # new column name for values#
+  )#
+print("\nLong Format:")#
+print(long_data)
+long_data2 <- wide_data %>%#
+  pivot_longer(#
+    cols = c(jan, feb, mar),#
+    names_to = "month",#
+    values_to = "sales",#
+    names_prefix = "",        # Remove any prefix#
+    values_drop_na = FALSE    # Keep NA values#
+  )
+long_data2
+wide_again <- long_data %>%#
+  pivot_wider(#
+    names_from = month,      # column to create column names from#
+    values_from = sales      # column containing values#
+  )#
+print("\nBack to Wide Format:")#
+print(wide_again)
+combined_data <- data.frame(#
+  id = 1:3,#
+  name_age = c("Alice_25", "Bob_30", "Charlie_35")#
+)
+combined_data
+separated_data <- combined_data %>%#
+  separate(#
+    name_age,#
+    into = c("name", "age"),#
+    sep = "_"#
+  )
+separated_data
+separated_data <- separated_data %>%#
+  mutate(age = as.numeric(age))
+separated_data
+united_data <- separated_data %>%#
+  unite(#
+    "name_age",#
+    name, age,#
+    sep = "_"#
+  )
+united_data
+sales_wide <- data.frame(#
+  store = c("Store A", "Store B", "Store C"),#
+  product = c("Apple", "Apple", "Apple"),#
+  q1_2020 = c(100, 150, 120),#
+  q2_2020 = c(110, 160, 130),#
+  q3_2020 = c(105, 155, 125),#
+  q4_2020 = c(115, 165, 135),#
+  q1_2021 = c(120, 170, 140),#
+  q2_2021 = c(125, 175, 145)#
+)
+sales_wide
+sales_long <- sales_wide %>%#
+  pivot_longer(#
+    cols = starts_with("q"),#
+    names_to = "quarter_year",#
+    values_to = "sales"#
+  )
+sales_long
+sales_long <- sales_long %>%#
+  separate(#
+    quarter_year,#
+    into = c("quarter", "year"),#
+    sep = "_"#
+  )
+sales_long
+missing_data <- data.frame(#
+  name = c("Alice", "Bob", "Charlie"),#
+  test1 = c(85, NA, 92),#
+  test2 = c(78, 88, NA),#
+  test3 = c(90, 85, 87)#
+)
+missing_data
+missing_long <- missing_data %>%#
+  pivot_longer(#
+    cols = test1:test3,#
+    names_to = "test",#
+    values_to = "score"#
+  )
+missing_long
+missing_long_clean <- missing_long %>%#
+  drop_na()
+missing_long_clean
+grades_wide <- data.frame(#
+  student = c("Alice", "Bob", "Charlie"),#
+  math = c(85, 90, 78),#
+  english = c(88, 82, 92),#
+  science = c(90, 85, 87)#
+)
+grades_wide
+grades_long <- grades_wide %>%#
+  pivot_longer(#
+    cols = c(math, english, science),#
+    names_to = "subject",#
+    values_to = "grade"#
+  )
+grades_long
+grades_long %>%#
+  group_by(subject) %>%#
+  summarize(avg_grade = mean(grade))
+grades_long %>%#
+  group_by(student) %>%#
+  summarize(avg_grade = mean(grade))
+library(ggplot2)
+data("mtcars")
+ggplot(mtcars, aes(x = wt, y = mpg)) +#
+  geom_point()
+ggplot(mtcars, aes(x = wt, y = mpg)) +#
+  geom_point()
+ggplot(mtcars, aes(x = wt, y = mpg, color = cyl)) +#
+  geom_point()
+# Change point size#
+ggplot(mtcars, aes(x = wt, y = mpg, size = hp)) +#
+  geom_point()
+time_series <- data.frame(#
+  year = 2010:2019,#
+  sales = c(100, 120, 150, 140, 160, 180, 170, 200, 220, 240)#
+)
+ggplot(time_series, aes(x = year, y = sales)) +#
+  geom_line()
+time_series
+ggplot(time_series, aes(x = year, y = sales)) +#
++   geom_line()
+ggplot(time_series, aes(x = year, y = sales)) +#
+  geom_line()
+ggplot(time_series, aes(x = year, y = sales)) +#
+  geom_line() +#
+  geom_point()
+ggplot(mtcars, aes(x = cyl)) +#
+  geom_bar()
+cyl_counts <- data.frame(#
+  cyl = c(4, 6, 8),#
+  count = c(11, 7, 14)#
+)
+cyl_counts
+ggplot(cyl_counts, aes(x = cyl, y = count)) +#
+  geom_col() +#
+  coord_flip()
+ggplot(mtcars, aes(x = mpg)) +#
+  geom_histogram()
+dev.new()
+ggplot(mtcars, aes(x = mpg)) +#
+  geom_histogram()
+ggplot(mtcars, aes(x = mpg)) +#
+  geom_histogram(bins = 20)
+ggplot(mtcars, aes(x = mpg)) +#
+  geom_histogram(binwidth = 2)
+ggplot(mtcars, aes(x = mpg)) +#
+  geom_histogram(bins = 20)
+ggplot(mtcars, aes(x = mpg, fill = as.factor(cyl))) +#
+  geom_histogram(bins = 20, alpha = 0.7)
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg)) +#
+  geom_boxplot()
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) +#
+  geom_boxplot()
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg)) +#
+  geom_violin()
+ggplot(mtcars, aes(x = mpg)) +#
+  geom_density()
+ggplot(mtcars, aes(x = mpg, color = as.factor(cyl))) +#
+  geom_density()
+ggplot(mtcars, aes(x = wt, y = mpg)) +#
+  geom_point() +#
+  labs(#
+    title = "Fuel Efficiency vs Weight",#
+    subtitle = "Cars from 1974",#
+    x = "Weight (1000 lbs)",#
+    y = "Miles per Gallon",#
+    caption = "Source: mtcars dataset"#
+  ) +#
+  theme_minimal()
+ggplot(mtcars, aes(x = wt, y = mpg)) +#
+  geom_point() +#
+  geom_smooth(method = "lm", se = TRUE) +#
+  labs(#
+    title = "MPG vs Weight with Trend Line",#
+    x = "Weight",#
+    y = "MPG"#
+  )
+ggplot(mtcars, aes(x = wt, y = mpg)) +#
+  geom_point() +#
+  facet_wrap(~ cyl)
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) +#
+  geom_point()
+p
+p + theme_minimal()
+p + theme_classic()
+p + theme_dark()
+p +#
+  theme(#
+    plot.title = element_text(size = 16, face = "bold"),#
+    axis.title = element_text(size = 12),#
+    panel.background = element_rect(fill = "white"),#
+    panel.grid.major = element_line(color = "gray80")#
+  )
+p +#
+  theme(#
+    plot.title = element_text(size = 16, face = "bold"),#
+    axis.title = element_text(size = 12),#
+    panel.background = element_rect(fill = "white"),#
+    panel.grid.major = element_line(color = "gray80")#
+  )
+ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +#
+  geom_point() +#
+  scale_color_brewer(palette = "Set1")
+ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +#
+  geom_point() +#
+  scale_color_gradient(low = "blue", high = "red")
+ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +#
+  geom_point(aes(size = hp), alpha = 0.6) +#
+  geom_smooth(method = "lm", se = FALSE) +#
+  facet_wrap(~ cyl) +#
+  labs(#
+    title = "Fuel Efficiency Analysis",#
+    subtitle = "By Number of Cylinders",#
+    x = "Weight (1000 lbs)",#
+    y = "Miles per Gallon",#
+    color = "Cylinders",#
+    size = "Horsepower"#
+  ) +#
+  theme_minimal() +#
+  theme(legend.position = "bottom")

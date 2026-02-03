@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Analytics Dashboard</title>
+
+  <!-- Tailwind (dev OK) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+<div class="max-w-7xl mx-auto p-6 space-y-8">
+
+  <!-- ================= KPI ================= -->
+  <div class="grid grid-cols-4 gap-6">
+    <div class="bg-white rounded-xl p-6 shadow">
+      <div class="text-sm text-gray-500">Total forms</div>
+      <div id="kpi-forms" class="text-3xl font-bold">–</div>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow">
+      <div class="text-sm text-gray-500">Avg cat age</div>
+      <div id="kpi-cat-age" class="text-3xl font-bold">–</div>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow">
+      <div class="text-sm text-gray-500">Avg owning years</div>
+      <div id="kpi-owning" class="text-3xl font-bold">–</div>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow">
+      <div class="text-sm text-gray-500">Avg life fulfillment</div>
+      <div id="kpi-life" class="text-3xl font-bold">–</div>
+    </div>
+  </div>
+
+  <!-- ================= ROW 1 ================= -->
+  <div class="grid grid-cols-2 gap-6">
+    <div class="bg-white rounded-xl p-6 shadow">
+      <h2 class="font-semibold mb-4">Cat breed distribution</h2>
+      <canvas id="catBreedChart"></canvas>
+    </div>
+
+    <div class="bg-white rounded-xl p-6 shadow">
+      <h2 class="font-semibold mb-4">Cat age distribution</h2>
+      <canvas id="catAgeChart"></canvas>
+    </div>
+  </div>
+
+  <!-- ================= ROW 2 ================= -->
+  <div class="grid grid-cols-2 gap-6">
+    <div class="bg-white rounded-xl p-6 shadow">
+      <h2 class="font-semibold mb-4">Health risks (Yes / No)</h2>
+      <canvas id="healthChart"></canvas>
+    </div>
+
+    <div class="bg-white rounded-xl p-6 shadow">
+      <h2 class="font-semibold mb-4">Life fulfillment score</h2>
+      <canvas id="lifeChart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= JS ================= -->
+<script>
+/* ---------- helpers ---------- */
+async function fetchJSON(url) {
+  const res = await fetch(url, { credentials: "same-origin" });
+  if (!res.ok) throw new Error(url + " failed");
+  return res.json();
+}
+
+function renderGroupChart(canvasId, rows, type = "pie") {
+  const labels = rows.map(r => r.label);
+  const data = rows.map(r => r.value);
+
+  new Chart(document.getElementById(canvasId), {
+    type,
+    data: {
+      labels,
+      datasets: [{
+        data,
+        backgroundColor: [
+          "#60a5fa", "#f87171", "#34d399",
+          "#fbbf24", "#a78bfa", "#fb7185"
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "bottom" }
+      }
+    }
+  });
+}
+
+function renderHistogram(canvasId, hist) {
+  new Chart(document.getElementById(canvasId), {
+    type: "bar",
+    data: {
+      labels: hist.labels,
+      datasets: [{
+        label: "Count",
+        data: hist.counts,
+        backgroundColor: "#60a5fa"
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+/* ---------- load KPIs ---------- */
+fetchJSON("/api/admin/stats/kpis").then(kpi => {
+  document.getElementById("kpi-forms").textContent = kpi.total_forms;
+  document.getElementById("kpi-cat-age").textContent = kpi.avg_cat_age ?? "–";
+  document.getElementById("kpi-owning").textContent = kpi.avg_owning_years ?? "–";
+  document.getElementById("kpi-life").textContent = kpi.avg_life_fulfillment ?? "–";
+});
+
+/* ---------- charts ---------- */
+fetchJSON("/api/admin/stats/cat-breed")
+  .then(rows => renderGroupChart("catBreedChart", rows, "pie"));
+
+fetchJSON("/api/admin/stats/hist/cat-age")
+  .then(hist => renderHistogram("catAgeChart", hist));
+
+fetchJSON("/api/admin/stats/yesno/health")
+  .then(data => renderGroupChart("healthChart", data.chronic_disease, "bar"));
+
+fetchJSON("/api/admin/stats/hist/life-fulfillment")
+  .then(hist => renderHistogram("lifeChart", hist));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Write your MySQL query statement below
+SELECT 
+    p.product_id,
+    p.product_name,
+    CAST(YEAR(s.period_start) AS CHAR) AS report_year,
+    SUM(s.average_daily_sales * 
+        (DATEDIFF(
+            LEAST(s.period_end, DATE(CONCAT(YEAR(s.period_start), '-12-31'))),
+            GREATEST(s.period_start, DATE(CONCAT(YEAR(s.period_start), '-01-01')))
+        ) + 1)
+    ) AS total_amount
+FROM Product p
+JOIN Sales s ON p.product_id = s.product_id
+WHERE YEAR(s.period_start) = YEAR(s.period_end) OR 
+      (YEAR(s.period_start) < YEAR(s.period_end))
+GROUP BY p.product_id, p.product_name, YEAR(s.period_start)
+ORDER BY p.product_id, report_year;

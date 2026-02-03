@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>600</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>image/bg_step2.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>218</x>
+     <y>56</y>
+     <width>586</width>
+     <height>92</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+        color: white;                /* 文字顏色 */
+        font-size: 24pt;             /* 字體大小 */
+        font-family: &quot;Arial&quot;;
+    }
+  </string>
+   </property>
+   <property name="text">
+    <string>Choose the charging interface is
+compatible with the vehicle</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <property name="indent">
+    <number>-1</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_ccs1">
+   <property name="geometry">
+    <rect>
+     <x>305</x>
+     <y>162</y>
+     <width>171</width>
+     <height>290</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    
+    border-image: url(&quot;image/btn_ccs1_def.png&quot;) 0 0 0 0 stretch stretch;
+
+}
+
+QPushButton:pressed {
+        border-image: url(&quot;image/btn_ccs1_act.png&quot;) 0 0 0 0 stretch stretch;
+    }</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>171</width>
+     <height>307</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_ccs2">
+   <property name="geometry">
+    <rect>
+     <x>548</x>
+     <y>162</y>
+     <width>171</width>
+     <height>290</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    
+    border-image: url(&quot;image/btn_ccs2_def.png&quot;) 0 0 0 0 stretch stretch;
+
+}
+
+QPushButton:pressed {
+        border-image: url(&quot;image/btn_ccs2_act.png&quot;) 0 0 0 0 stretch stretch;
+    }</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>171</width>
+     <height>307</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_previous">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>485</y>
+     <width>196</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_gr_196x70_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: #E9E9E9;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_gr_196x70_act.png&quot;) 0 0 0 0 stretch stretch;
+color: #FFFF00;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string>Previous</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>196</width>
+     <height>70</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_exit">
+   <property name="geometry">
+    <rect>
+     <x>558</x>
+     <y>485</y>
+     <width>196</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+        border-image: url(&quot;image/btn_196x70_def.png&quot;) 0 0 0 0 stretch stretch;
+        color: #FFFFFF;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }
+    QPushButton:pressed {
+        border-image: url(&quot;image/btn_196x70_act.png&quot;) 0 0 0 0 stretch stretch;
+color: #FFFF00;                /* 文字顏色 */
+        font-size: 20pt;             /* 字體大小 */
+    }</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>196</width>
+     <height>70</height>
+    </size>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

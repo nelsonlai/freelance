@@ -1,0 +1,14 @@
+"""
+Problem: Check for Contradictions in Equations
+Difficulty: Hard
+Tags: array, string, graph, search
+
+Approach: Use two pointers or sliding window technique
+Time Complexity: O(n) or O(n log n)
+Space Complexity: O(1) to O(n) depending on approach
+"""
+
+class Solution:
+    def checkContradictions(self, equations: List[List[str]], values: List[float]) -> bool:
+        # TODO: Implement optimized solution
+        pass

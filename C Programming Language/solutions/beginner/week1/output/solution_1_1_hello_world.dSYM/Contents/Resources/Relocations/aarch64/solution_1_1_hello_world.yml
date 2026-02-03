@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/nelsonlai/sources/freelance/C Programming Language/solutions/beginner/week1/output/solution_1_1_hello_world'
+relocations:     []
+...

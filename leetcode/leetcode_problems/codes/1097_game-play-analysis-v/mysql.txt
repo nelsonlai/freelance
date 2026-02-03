@@ -1,0 +1,17 @@
+-- Problem: Game Play Analysis V
+-- Difficulty: Hard
+-- Tags: Database
+
+SELECT 
+    install_dt,
+    COUNT(DISTINCT player_id) AS installs,
+    ROUND(COUNT(DISTINCT a.player_id) / COUNT(DISTINCT installs.player_id), 2) AS Day1_retention
+FROM (
+    SELECT player_id, MIN(event_date) AS install_dt
+    FROM Activity
+    GROUP BY player_id
+) installs
+LEFT JOIN Activity a 
+    ON installs.player_id = a.player_id 
+    AND a.event_date = DATE_ADD(installs.install_dt, INTERVAL 1 DAY)
+GROUP BY install_dt;

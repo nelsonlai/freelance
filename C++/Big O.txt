@@ -1,0 +1,84 @@
+🧠 What is Big O Notation?
+Big O notation gives us the upper bound of an algorithm's running time or memory usage in terms of input size n. It focuses on the worst-case scenario.
+
+Common Time Complexities:
+Big O	Name	Example
+O(1)	Constant time	Accessing an element in a list
+O(log n)	Logarithmic time	Binary search
+O(n)	Linear time	Loop through a list
+O(n log n)	Linearithmic	Merge sort
+O(n²)	Quadratic	Nested loops
+O(2ⁿ)	Exponential	Recursive Fibonacci
+O(n!)	Factorial	Brute-force permutations
+
+🐍 Python Examples of Big O
+🔸 O(1): Constant Time
+def get_first_element(arr):
+    return arr[0]  # No matter the size of arr, this takes 1 step
+
+🔸 O(n): Linear Time
+def print_all_elements(arr):
+    for x in arr:
+        print(x)
+
+🔸 O(n²): Quadratic Time
+def print_all_pairs(arr):
+    for i in arr:
+        for j in arr:
+            print(i, j)
+
+🔸 O(log n): Logarithmic Time – Binary Search
+def binary_search(arr, target):
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
+
+🔸 O(n log n): Merge Sort
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    return result + left[i:] + right[j:]
+
+🔸 O(2ⁿ): Exponential Time – Naive Fibonacci
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+    
+📈 Visual Understanding with Time
+Input size n	O(1)	O(log n)	O(n)	O(n log n)	O(n²)	O(2ⁿ)
+10	✅	✅	✅	✅	✅	✅
+100	✅	✅	✅	✅	❗	🚫
+1000	✅	✅	✅	❗	🚫	🚫
+
+✅ Key Takeaways
+Big O ignores constants: O(2n) is still O(n)
+
+Focuses on growth rate, not exact time
+
+Helps compare algorithm efficiency
+
+You want to avoid O(n²) or worse for large datasets
+

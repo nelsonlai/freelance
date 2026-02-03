@@ -1,0 +1,349 @@
+0) Outcomes (2 min)
+
+By the end, students will be able to:
+
+Model data in schema.prisma, run migrations, and generate Prisma Client. 
+Prisma
++1
+
+Perform type-safe CRUD, relations, filtering, pagination, and transactions. 
+Prisma
+
+Inspect/edit data with Prisma Studio. 
+Prisma
+
+Understand connection pooling & modern deployment notes (Prisma Accelerate; Data Proxy sunset). 
+Prisma
++1
+
+1) Agenda (90 min)
+
+Warm-up & context (5)
+
+Project setup & schema (15)
+
+Migrations & Prisma Client (10)
+
+CRUD & relations (live coding) (25)
+
+Queries: filter, select/include, pagination (10)
+
+Transactions: array vs interactive (10)
+
+Prisma Studio tour (5)
+
+Deploy & performance notes (5)
+
+Wrap-up & exercises (5)
+
+2) Prereqs & starter repo (tell students) (1 min)
+
+Node 18+ and npm or pnpm/yarn.
+
+Any editor (VS Code).
+
+Database: we’ll use SQLite now; switch to Postgres/MySQL later with the same code.
+
+3) Warm-up: What is Prisma? (5 min)
+
+A type-safe database client generated from your schema; great DX; works with Postgres, MySQL, SQLite, SQL Server, etc. 
+Prisma
+
+The Prisma schema configures your datasource, generator, and models; it’s usually schema.prisma. 
+Prisma
+
+4) Live setup & first migration (15 min)
+
+Terminal
+
+mkdir prisma-101 && cd prisma-101
+npm init -y
+npm install @prisma/client
+npm install -D prisma
+npx prisma init --datasource-provider sqlite
+
+Install sqlite3 on your Windows
+
+Option A — Using Winget (Windows 10/11)
+Open PowerShell (Run as Administrator recommended).
+Find the exact package ID:
+winget search sqlite
+Install (use the ID shown by the search, e.g. SQLite.SQLite or SQLite.sqlite):
+winget install --id SQLite.SQLite -e
+
+Verify:
+sqlite3 --version
+
+Create local sqlite database
+
+sqlite3 C:\temp\test.db
+-- now inside the SQLite shell:
+CREATE TABLE people(id INTEGER PRIMARY KEY, name TEXT);
+INSERT INTO people(name) VALUES ('Alice'), ('Bob');
+SELECT * FROM people;
+.quit
+
+This creates .env (with DATABASE_URL="file:./dev.db") and prisma/schema.prisma.
+
+Open prisma/schema.prisma and replace with:
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // change to "postgresql" or "mysql" later
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+Run an initial migration (also generates Prisma Client):
+
+npx prisma migrate dev --name init
+
+
+Prisma Client is generated from your models; it mirrors your schema’s types and names. (You can decouple DB table/column names using @map/@@map if needed.) 
+Prisma
+
+5) Seed / CRUD scaffolding (10 min)
+
+Create index.js (CommonJS for simplicity):
+
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+async function main() {
+  // CREATE user with nested posts
+  const alice = await prisma.user.create({
+    data: {
+      email: 'alice@example.com',
+      name: 'Alice',
+      posts: {
+        create: [
+          { title: 'Hello Prisma', content: 'First post!' },
+          { title: 'Draft tips', published: false }
+        ]
+      }
+    },
+    include: { posts: true } // quick check
+  });
+  console.log('Created:', alice);
+
+  // READ: all published posts, newest first
+  const published = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 10
+  });
+  console.log('Published:', published);
+
+  // UPDATE: publish a draft
+  const updated = await prisma.post.update({
+    where: { id: published[0]?.id ?? 1 },
+    data: { title: 'Updated title' },
+    select: { id: true, title: true }
+  });
+  console.log('Updated:', updated);
+
+  // DELETE: remove a post by unique id
+  // await prisma.post.delete({ where: { id: 2 } });
+}
+
+main()
+  .catch((e) => { console.error(e); process.exit(1); })
+  .finally(async () => { await prisma.$disconnect(); });
+
+
+Run:
+
+node index.js
+
+6) Relations, select/include, and pagination (10 min)
+
+Select vs Include (keep results lean):
+
+// Only essential fields (select)
+const users = await prisma.user.findMany({
+  select: { id: true, email: true, _count: { select: { posts: true } } }
+});
+
+// Eager-load related records (include)
+const userWithPosts = await prisma.user.findUnique({
+  where: { email: 'alice@example.com' },
+  include: { posts: { where: { published: true }, orderBy: { createdAt: 'desc' } } }
+});
+
+
+Cursor pagination (recommended for feeds):
+
+const page1 = await prisma.post.findMany({ take: 5, orderBy: { id: 'asc' } });
+const nextCursor = page1.at(-1)?.id;
+
+const page2 = await prisma.post.findMany({
+  take: 5,
+  skip: 1,
+  cursor: { id: nextCursor },
+  orderBy: { id: 'asc' }
+});
+
+
+Connect / disconnect existing relations:
+
+await prisma.post.update({
+  where: { id: 1 },
+  data: { author: { connect: { email: 'alice@example.com' } } }
+});
+
+7) Transactions (10 min)
+
+Sequential transactions (single round-trip):
+
+await prisma.$transaction([
+  prisma.user.create({ data: { email: 'bob@example.com' } }),
+  prisma.post.create({ data: { title: 'Bob post', author: { connect: { email: 'bob@example.com' } } } })
+]);
+
+
+Interactive transaction (logic between operations):
+
+await prisma.$transaction(async (tx) => {
+  const a = await tx.user.create({ data: { email: 'carol@example.com' } });
+  const postCount = await tx.post.count({ where: { authorId: a.id } });
+  if (postCount > 10) throw new Error('Too many posts');
+  await tx.post.create({ data: { title: 'Carol intro', authorId: a.id } });
+});
+
+
+Use interactive transactions when later statements depend on earlier results; keep them short-lived. 
+DEV Community
+
+8) Prisma Studio (5 min)
+
+Launch a UI to browse/edit data:
+
+npx prisma studio
+
+
+Show Users, Posts, inline edits, and relation pickers.
+
+Studio is available locally and via integrations; you can also run it from VS Code. 
+Prisma
+
+9) Deployment & performance notes (5 min)
+
+Connection pooling & caching: For serverless or high-concurrency setups, use Prisma Accelerate to add global caching and managed pooling with minimal code changes. 
+Prisma
+
+Data Proxy is sunset (Dec 2023). If you see old tutorials referencing it, use Accelerate or a pooler like PgBouncer instead. 
+Prisma
+
+Next.js: Prisma is a common pairing with Next.js (App Router); see Vercel’s guide (Postgres + Prisma + deployment). 
+Vercel
+
+10) Stretch topics (mention, demo if time permits)
+
+Upsert:
+
+await prisma.user.upsert({
+  where: { email: 'dan@example.com' },
+  update: { name: 'Dan' },
+  create: { email: 'dan@example.com', name: 'Dan' }
+});
+
+
+Raw SQL (parameterised):
+
+const rows = await prisma.$queryRaw`SELECT count(*) AS c FROM Post WHERE published = ${true}`;
+
+
+Soft deletes (add deletedAt), unique composite indexes, computed fields with Client Extensions (e.g., virtual fields). 
+Prisma
+
+11) Exercise set (take-home or in-class)
+
+Add Comments model (n:1 to Post; n:1 to User). Create a script to seed 20 comments, then show paginated comments for a post.
+
+Draft workflow: Only allow published=true if content is non-empty (enforce via interactive transaction).
+
+Search: Implement case-insensitive title search (contains, mode: 'insensitive') with select to return only id, title.
+
+Stats: Use _count to show per-user post counts; order users by that count (desc).
+
+Next.js integration (optional): Add a simple API route /api/posts that returns findMany({ take: 20 }); deploy following the guide. 
+Vercel
+
+12) Cheat-sheet (hand out)
+
+CLI:
+
+npx prisma init → bootstraps project.
+
+npx prisma migrate dev --name <msg> → creates & applies migration, generates client.
+
+npx prisma db pull → introspect existing DB into schema.
+
+npx prisma generate → re-generate client after schema changes.
+
+npx prisma studio → data UI. 
+Prisma
++1
+
+CRUD essentials: findUnique, findMany, create, update, delete, upsert.
+
+Relations: include for eager loading; connect/disconnect/create in nested writes.
+
+Pagination: take, skip, cursor.
+
+Transactions: $transaction([...]) vs $transaction(async (tx) => {...}). 
+Prisma
+
+13) Optional: Postgres/MySQL switch (quick note)
+
+Change datasource db { provider = "postgresql" | "mysql" } and set DATABASE_URL accordingly, run npx prisma migrate dev.
+
+For serverless Postgres (e.g., Neon/Supabase), pair with connection pooling (or Prisma Accelerate). 
+Prisma
+Neon
+
+If you want, I can package this into a printable PDF/slide deck or a starter repo structure with scripts (seed, dev, etc.).
+
+You said:
+Use this teaching material to code a very detailed with comments program.
+ChatGPT said:
+Thought for 32s
+
+Done! I built you a complete, heavily-commented Prisma + Express teaching project (User–Post–Comment models, CRUD, pagination, interactive transactions, Studio, and a seed script).
+
+Download the ready-to-run project: prisma-lesson.zip
+
+Unzip, then:
+
+cd prisma-lesson
+npm install
+npx prisma generate
+npm run prisma:migrate
+npm run seed
+npm run dev
+# open http://localhost:3000
+# try: GET /users  |  GET /posts  |  GET /comments | GET /stats/post-count?published=true
+# Prisma Studio: npm run prisma:studio

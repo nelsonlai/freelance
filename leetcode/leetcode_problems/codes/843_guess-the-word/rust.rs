@@ -1,0 +1,22 @@
+// Problem: Guess the Word
+// Difficulty: Hard
+// Tags: array, string, math
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(1) to O(n) depending on approach
+
+/**
+ * // This is the Master's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * struct Master;
+ * impl Master {
+ *     fn guess(word:String)->int;
+ * };
+ */
+
+impl Solution {
+    pub fn find_secret_word(words: Vec<String>, master: &Master) {
+        
+    }
+}

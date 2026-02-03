@@ -1,0 +1,37 @@
+** implement Counting Sort and Shell Sort
+
+OOP - Exercises.
+1. Friend Class Access
+Task:
+Create a BankAccount class with balance as a protected member.
+Make a class Auditor a friend of BankAccount and allow it to print account details.
+
+Concepts: Friend Class, Protected Access
+
+2. Abstract Class and Pure Virtual Function
+Task:
+Define an abstract class Appliance with a pure virtual method powerUsage().
+Create derived classes Fan and AirConditioner that implement powerUsage().
+
+Concepts: Abstract Class, Pure Virtual Functions
+
+3. Multiple Inheritance with Interface-like Classes
+Task:
+Create two classes Walkable and Swimmable, each with a virtual method.
+Create class Frog that inherits from both and implements both actions.
+
+Concepts: Multiple Inheritance, Interface Simulation
+
+4. Dynamic Polymorphism with Base Pointer Array
+Task:
+Use a vector of Shape* and store Rectangle, Circle, and Triangle objects.
+Loop through and call area() using dynamic dispatch.
+
+Concepts: Virtual Function, Base Pointer, Vector, Polymorphism
+
+5. Smart Pointers for Resource Management
+Task:
+Create a class Image with dynamic memory and load some "fake" pixel data.
+Use std::unique_ptr<Image> to manage it inside main() without delete.
+
+Concepts: Smart Pointers (unique_ptr), RAII

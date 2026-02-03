@@ -1,0 +1,41 @@
+"""
+Problem: Find Largest Value in Each Tree Row
+Difficulty: Medium
+Tags: array, tree, search
+
+Approach: Use two pointers or sliding window technique
+Time Complexity: O(n) or O(n log n)
+Space Complexity: O(h) for recursion stack where h is height
+"""
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
+
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        
+        result = []
+        queue = deque([root])
+        
+        while queue:
+            level_size = len(queue)
+            max_val = float('-inf')
+            
+            for _ in range(level_size):
+                node = queue.popleft()
+                max_val = max(max_val, node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            
+            result.append(max_val)
+        
+        return result

@@ -1,0 +1,11 @@
+// Problem: Range Sum of Sorted Subarray Sums
+// Difficulty: Medium
+// Tags: array, sort, search
+// 
+// Approach: Use two pointers or sliding window technique
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(1) to O(n) depending on approach
+
+func rangeSum(nums []int, n int, left int, right int) int {
+    
+}

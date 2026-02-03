@@ -1,0 +1,13 @@
+-- Problem: The Most Recent Three Orders
+-- Difficulty: Medium
+-- Tags: Database
+
+SELECT c.name AS customer_name, o.customer_id, o.order_id, o.order_date
+FROM Orders o
+INNER JOIN Customers c ON o.customer_id = c.customer_id
+WHERE (
+    SELECT COUNT(*)
+    FROM Orders o2
+    WHERE o2.customer_id = o.customer_id AND o2.order_date >= o.order_date
+) <= 3
+ORDER BY c.name, o.customer_id, o.order_date DESC;

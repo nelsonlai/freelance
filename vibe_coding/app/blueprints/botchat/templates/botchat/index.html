@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Bot Chat – Vibe Coding{% endblock %}
+{% block content %}
+<h1>Bot Chat</h1>
+<div class="chat-container">
+  <div class="chat-messages" id="chatMessages">
+    {% for msg in messages %}
+    <div class="chat-msg {{ msg.role }}">
+      <div>{{ msg.content }}</div>
+      <div class="time">{{ msg.created_at.strftime('%H:%M') }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  <form class="chat-form" id="chatForm">
+    <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off">
+    <button type="submit" class="btn">Send</button>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(function() {
+  const form = document.getElementById('chatForm');
+  const input = document.getElementById('messageInput');
+  const messagesEl = document.getElementById('chatMessages');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const content = input.value.trim();
+    if (!content) return;
+
+    input.disabled = true;
+    const userDiv = document.createElement('div');
+    userDiv.className = 'chat-msg user';
+    userDiv.innerHTML = '<div>' + escapeHtml(content) + '</div><div class="time">Just now</div>';
+    messagesEl.appendChild(userDiv);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    input.value = '';
+
+    try {
+      const res = await fetch('{{ url_for("botchat.send") }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ message: content })
+      });
+      const data = await res.json();
+      if (data.bot_message) {
+        const botDiv = document.createElement('div');
+        botDiv.className = 'chat-msg bot';
+        botDiv.innerHTML = '<div>' + escapeHtml(data.bot_message.content) + '</div><div class="time">Just now</div>';
+        messagesEl.appendChild(botDiv);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+    } catch (err) {
+      const errDiv = document.createElement('div');
+      errDiv.className = 'chat-msg bot';
+      errDiv.innerHTML = '<div>Sorry, something went wrong.</div>';
+      messagesEl.appendChild(errDiv);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+    input.disabled = false;
+    input.focus();
+  });
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+})();
+</script>
+{% endblock %}

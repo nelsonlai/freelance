@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestJS Todos API Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 16px;
+            font-size: 1.3em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn-get {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-get:hover {
+            background: #218838;
+        }
+
+        .btn-post {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-post:hover {
+            background: #0056b3;
+        }
+
+        .btn-put {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-put:hover {
+            background: #e0a800;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .response-container {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .response-header h3 {
+            margin: 0;
+            color: #667eea;
+        }
+
+        .response-status {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+
+        .todos-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .todo-item {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.3s;
+        }
+
+        .todo-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateX(4px);
+        }
+
+        .todo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 8px;
+        }
+
+        .todo-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .todo-id {
+            font-size: 0.85em;
+            color: #666;
+            font-family: monospace;
+        }
+
+        .todo-description {
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .todo-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 NestJS Todos API Demo</h1>
+            <p>Interactive demonstration of GET, POST, PUT, and DELETE operations</p>
+        </header>
+
+        <!-- GET Section -->
+        <div class="card">
+            <h2>📋 GET - Retrieve Todos</h2>
+            <div class="button-group">
+                <button class="btn btn-get" onclick="getAllTodos()">GET All Todos</button>
+                <button class="btn btn-get" onclick="showGetByIdForm()">GET Todo by ID</button>
+            </div>
+            <div id="get-by-id-form" style="display: none;">
+                <div class="form-group">
+                    <label for="get-todo-id">Todo ID:</label>
+                    <input type="text" id="get-todo-id" placeholder="Enter todo ID (e.g., 1)">
+                    <button class="btn btn-get" style="margin-top: 8px;" onclick="getTodoById()">Get Todo</button>
+                </div>
+            </div>
+            <div id="todos-list" class="todos-list"></div>
+        </div>
+
+        <!-- POST Section -->
+        <div class="card">
+            <h2>➕ POST - Create New Todo</h2>
+            <form id="create-todo-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="todo-title">Title *</label>
+                        <input type="text" id="todo-title" name="title" required placeholder="Enter todo title">
+                    </div>
+                    <div class="form-group">
+                        <label for="todo-completed">Status</label>
+                        <select id="todo-completed" name="completed" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 6px;">
+                            <option value="false">Pending</option>
+                            <option value="true">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="todo-description">Description</label>
+                    <textarea id="todo-description" name="description" rows="3" placeholder="Enter todo description (optional)"></textarea>
+                </div>
+                <button type="submit" class="btn btn-post">Create Todo (POST)</button>
+            </form>
+        </div>
+
+        <!-- PUT Section -->
+        <div class="card">
+            <h2>✏️ PUT - Update Todo</h2>
+            <form id="update-todo-form">
+                <div class="form-group">
+                    <label for="update-todo-id">Todo ID *</label>
+                    <input type="text" id="update-todo-id" name="id" required placeholder="Enter todo ID to update">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="update-todo-title">Title</label>
+                        <input type="text" id="update-todo-title" name="title" placeholder="New title">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-todo-completed">Status</label>
+                        <select id="update-todo-completed" name="completed" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 6px;">
+                            <option value="">No change</option>
+                            <option value="false">Pending</option>
+                            <option value="true">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="update-todo-description">Description</label>
+                    <textarea id="update-todo-description" name="description" rows="3" placeholder="New description"></textarea>
+                </div>
+                <button type="submit" class="btn btn-put">Update Todo (PUT)</button>
+            </form>
+        </div>
+
+        <!-- DELETE Section -->
+        <div class="card">
+            <h2>🗑️ DELETE - Delete Todo</h2>
+            <div class="form-group">
+                <label for="delete-todo-id">Todo ID *</label>
+                <input type="text" id="delete-todo-id" placeholder="Enter todo ID to delete">
+                <button class="btn btn-delete" style="margin-top: 8px;" onclick="deleteTodo()">Delete Todo (DELETE)</button>
+            </div>
+        </div>
+
+        <!-- Response Display -->
+        <div class="card">
+            <div class="response-header">
+                <h3>📡 API Response</h3>
+                <span id="response-status" class="response-status" style="display: none;"></span>
+            </div>
+            <div class="response-container">
+                <pre id="response-content">No requests made yet. Click a button above to make an API call.</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = '/todos';
+
+        // GET - Retrieve all todos
+        async function getAllTodos() {
+            try {
+                showLoading('todos-list');
+                displayResponse('GET', `${API_BASE_URL}`, null, 'Loading...');
+
+                const response = await fetch(API_BASE_URL);
+                const data = await response.json();
+
+                displayResponse('GET', `${API_BASE_URL}`, data, response.status);
+
+                if (data.success && data.data) {
+                    displayTodosList(data.data);
+                } else {
+                    document.getElementById('todos-list').innerHTML = '<p class="loading">No todos found</p>';
+                }
+            } catch (error) {
+                displayResponse('GET', `${API_BASE_URL}`, { error: error.message }, 'Error');
+                document.getElementById('todos-list').innerHTML = `<p class="loading" style="color: #dc3545;">Error: ${error.message}</p>`;
+            }
+        }
+
+        // GET - Retrieve todo by ID
+        function showGetByIdForm() {
+            const form = document.getElementById('get-by-id-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        async function getTodoById() {
+            const id = document.getElementById('get-todo-id').value.trim();
+            if (!id) {
+                alert('Please enter a todo ID');
+                return;
+            }
+
+            try {
+                showLoading('todos-list');
+                displayResponse('GET', `${API_BASE_URL}/${id}`, null, 'Loading...');
+
+                const response = await fetch(`${API_BASE_URL}/${id}`);  /todos/1
+                const data = await response.json();
+
+                displayResponse('GET', `${API_BASE_URL}/${id}`, data, response.status);
+
+                if (data.success && data.data) {
+                    displayTodosList([data.data]);
+                } else {
+                    document.getElementById('todos-list').innerHTML = '<p class="loading">Todo not found</p>';
+                }
+            } catch (error) {
+                displayResponse('GET', `${API_BASE_URL}/${id}`, { error: error.message }, 'Error');
+                document.getElementById('todos-list').innerHTML = `<p class="loading" style="color: #dc3545;">Error: ${error.message}</p>`;
+            }
+        }
+
+        // POST - Create new todo
+        document.getElementById('create-todo-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const todoData = {
+                title: formData.get('title'),
+                description: formData.get('description') || undefined,
+                completed: formData.get('completed') === 'true',
+            };
+
+            try {
+                displayResponse('POST', API_BASE_URL, todoData, 'Sending...');
+
+                const response = await fetch(API_BASE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(todoData),
+                });
+
+                const data = await response.json();
+                displayResponse('POST', API_BASE_URL, data, response.status);
+
+                if (data.success) {
+                    e.target.reset();
+                    getAllTodos(); // Refresh the list
+                }
+            } catch (error) {
+                displayResponse('POST', API_BASE_URL, { error: error.message }, 'Error');
+            }
+        });
+
+        // PUT - Update todo
+        document.getElementById('update-todo-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const id = formData.get('id');
+            const updateData = {};
+
+            if (formData.get('title')) updateData.title = formData.get('title');
+            if (formData.get('description')) updateData.description = formData.get('description');
+            if (formData.get('completed') !== '') updateData.completed = formData.get('completed') === 'true';
+
+            if (Object.keys(updateData).length === 0) {
+                alert('Please provide at least one field to update');
+                return;
+            }
+
+            try {
+                displayResponse('PUT', `${API_BASE_URL}/${id}`, updateData, 'Sending...');
+
+                const response = await fetch(`${API_BASE_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updateData),
+                });
+
+                const data = await response.json();
+                displayResponse('PUT', `${API_BASE_URL}/${id}`, data, response.status);
+
+                if (data.success) {
+                    e.target.reset();
+                    getAllTodos(); // Refresh the list
+                }
+            } catch (error) {
+                displayResponse('PUT', `${API_BASE_URL}/${id}`, { error: error.message }, 'Error');
+            }
+        });
+
+        // DELETE - Delete todo
+        async function deleteTodo() {
+            const id = document.getElementById('delete-todo-id').value.trim();
+            if (!id) {
+                alert('Please enter a todo ID');
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to delete todo with ID ${id}?`)) {
+                return;
+            }
+
+            try {
+                displayResponse('DELETE', `${API_BASE_URL}/${id}`, null, 'Deleting...');
+
+                const response = await fetch(`${API_BASE_URL}/${id}`, {
+                    method: 'DELETE',
+                });
+
+                let data;
+                try {
+                    data = await response.json();
+                } catch (e) {
+                    data = { message: 'Todo deleted successfully' };
+                }
+
+                displayResponse('DELETE', `${API_BASE_URL}/${id}`, data, response.status);
+
+                if (response.ok || response.status === 204) {
+                    document.getElementById('delete-todo-id').value = '';
+                    getAllTodos(); // Refresh the list
+                }
+            } catch (error) {
+                displayResponse('DELETE', `${API_BASE_URL}/${id}`, { error: error.message }, 'Error');
+            }
+        }
+
+        // Display todos list
+        function displayTodosList(todos) {
+            const container = document.getElementById('todos-list');
+            if (!todos || todos.length === 0) {
+                container.innerHTML = '<p class="loading">No todos found</p>';
+                return;
+            }
+
+            container.innerHTML = todos.map(todo => `
+                <div class="todo-item">
+                    <div class="todo-header">
+                        <div>
+                            <div class="todo-title">${escapeHtml(todo.title)}</div>
+                            <div class="todo-id">ID: ${todo.id}</div>
+                        </div>
+                        <span class="badge ${todo.completed ? 'badge-completed' : 'badge-pending'}">
+                            ${todo.completed ? 'Completed' : 'Pending'}
+                        </span>
+                    </div>
+                    ${todo.description ? `<div class="todo-description">${escapeHtml(todo.description)}</div>` : ''}
+                    <div class="todo-meta">
+                        <span>Created: ${new Date(todo.createdAt).toLocaleString()}</span>
+                        <span>Updated: ${new Date(todo.updatedAt).toLocaleString()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Display API response
+        function displayResponse(method, url, data, status) {
+            const responseContent = document.getElementById('response-content');
+            const responseStatus = document.getElementById('response-status');
+
+            const response = {
+                method,
+                url,
+                status: status || 'N/A',
+                timestamp: new Date().toISOString(),
+                data: data || null,
+            };
+
+            responseContent.textContent = JSON.stringify(response, null, 2);
+
+            if (status) {
+                responseStatus.style.display = 'inline-block';
+                responseStatus.textContent = `${status} ${method}`;
+                responseStatus.className = 'response-status ' + 
+                    (status >= 200 && status < 300 ? 'status-success' : 'status-error');
+            } else {
+                responseStatus.style.display = 'none';
+            }
+
+            // Scroll to response
+            responseContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Show loading state
+        function showLoading(containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '<p class="loading">Loading...</p>';
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load todos on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            getAllTodos();
+        });
+    </script>
+</body>
+</html>
+

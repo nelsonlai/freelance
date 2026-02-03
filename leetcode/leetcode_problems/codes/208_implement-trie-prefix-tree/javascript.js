@@ -1,0 +1,46 @@
+/**
+ * Problem: Implement Trie (Prefix Tree)
+ * Difficulty: Medium
+ * Tags: string, tree, hash, search
+ * 
+ * Approach: String manipulation with hash map or two pointers
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(h) for recursion stack where h is height
+ */
+
+
+var Trie = function() {
+    
+};
+
+/** 
+ * @param {string} word
+ * @return {void}
+ */
+Trie.prototype.insert = function(word) {
+    
+};
+
+/** 
+ * @param {string} word
+ * @return {boolean}
+ */
+Trie.prototype.search = function(word) {
+    
+};
+
+/** 
+ * @param {string} prefix
+ * @return {boolean}
+ */
+Trie.prototype.startsWith = function(prefix) {
+    
+};
+
+/** 
+ * Your Trie object will be instantiated and called as such:
+ * var obj = new Trie()
+ * obj.insert(word)
+ * var param_2 = obj.search(word)
+ * var param_3 = obj.startsWith(prefix)
+ */

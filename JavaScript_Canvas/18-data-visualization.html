@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18 - Data Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .canvas-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #e8f4f8;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .explanation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>18 - Data Visualization</h1>
+    
+    <div class="explanation">
+        <h2>Creating Charts and Data Visualizations</h2>
+        <p>Canvas is perfect for creating custom data visualizations. Learn to create bar charts, line charts, pie charts, and interactive visualizations.</p>
+    </div>
+
+    <div class="controls">
+        <button id="barChartBtn">Bar Chart</button>
+        <button id="lineChartBtn">Line Chart</button>
+        <button id="pieChartBtn">Pie Chart</button>
+        <button id="scatterBtn">Scatter Plot</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="myCanvas" width="900" height="600"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let chartType = 'bar';
+        
+        // Sample data
+        const data = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            values: [65, 59, 80, 81, 56, 55],
+            colors: ['#FF6B6B', '#4ECDC4', '#95E1D3', '#F38181', '#6C5CE7', '#FFD93D']
+        };
+        
+        // ============================================
+        // 1. BAR CHART
+        // ============================================
+        
+        function drawBarChart() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const padding = 60;
+            const chartWidth = canvas.width - padding * 2;
+            const chartHeight = canvas.height - padding * 2;
+            const barWidth = chartWidth / data.values.length * 0.6;
+            const barSpacing = chartWidth / data.values.length;
+            const maxValue = Math.max(...data.values);
+            
+            // Draw axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            // Draw bars
+            data.values.forEach((value, index) => {
+                const barHeight = (value / maxValue) * chartHeight;
+                const x = padding + index * barSpacing + barSpacing * 0.2;
+                const y = canvas.height - padding - barHeight;
+                
+                // Draw bar
+                ctx.fillStyle = data.colors[index];
+                ctx.fillRect(x, y, barWidth, barHeight);
+                
+                // Draw value label
+                ctx.fillStyle = '#333';
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(value, x + barWidth / 2, y - 5);
+                
+                // Draw category label
+                ctx.fillText(data.labels[index], x + barWidth / 2, canvas.height - padding + 20);
+            });
+            
+            // Draw title
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Bar Chart', canvas.width / 2, 30);
+        }
+        
+        // ============================================
+        // 2. LINE CHART
+        // ============================================
+        
+        function drawLineChart() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const padding = 60;
+            const chartWidth = canvas.width - padding * 2;
+            const chartHeight = canvas.height - padding * 2;
+            const maxValue = Math.max(...data.values);
+            const pointSpacing = chartWidth / (data.values.length - 1);
+            
+            // Draw axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            // Draw grid lines
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (chartHeight / 5) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+                
+                // Y-axis labels
+                ctx.fillStyle = '#666';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'right';
+                ctx.fillText(Math.round(maxValue - (maxValue / 5) * i), padding - 10, y + 4);
+            }
+            
+            // Draw line
+            ctx.strokeStyle = '#4ECDC4';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            data.values.forEach((value, index) => {
+                const x = padding + index * pointSpacing;
+                const y = canvas.height - padding - (value / maxValue) * chartHeight;
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.stroke();
+            
+            // Draw points
+            data.values.forEach((value, index) => {
+                const x = padding + index * pointSpacing;
+                const y = canvas.height - padding - (value / maxValue) * chartHeight;
+                
+                ctx.fillStyle = data.colors[index];
+                ctx.beginPath();
+                ctx.arc(x, y, 6, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw label
+                ctx.fillStyle = '#333';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(data.labels[index], x, canvas.height - padding + 20);
+            });
+            
+            // Draw title
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Line Chart', canvas.width / 2, 30);
+        }
+        
+        // ============================================
+        // 3. PIE CHART
+        // ============================================
+        
+        function drawPieChart() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = Math.min(canvas.width, canvas.height) / 3;
+            const total = data.values.reduce((sum, val) => sum + val, 0);
+            
+            let currentAngle = -Math.PI / 2; // Start from top
+            
+            data.values.forEach((value, index) => {
+                const sliceAngle = (value / total) * Math.PI * 2;
+                
+                // Draw slice
+                ctx.fillStyle = data.colors[index];
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Draw outline
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Draw label
+                const labelAngle = currentAngle + sliceAngle / 2;
+                const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
+                const labelY = centerY + Math.sin(labelAngle) * (radius * 0.7);
+                
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(data.labels[index], labelX, labelY);
+                
+                // Draw percentage
+                const percent = ((value / total) * 100).toFixed(1);
+                ctx.font = '12px Arial';
+                ctx.fillText(percent + '%', labelX, labelY + 15);
+                
+                currentAngle += sliceAngle;
+            });
+            
+            // Draw title
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Pie Chart', canvas.width / 2, 30);
+        }
+        
+        // ============================================
+        // 4. SCATTER PLOT
+        // ============================================
+        
+        function drawScatterPlot() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8f8f8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const padding = 60;
+            const chartWidth = canvas.width - padding * 2;
+            const chartHeight = canvas.height - padding * 2;
+            const maxX = data.values.length;
+            const maxY = Math.max(...data.values);
+            
+            // Draw axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            // Draw points
+            data.values.forEach((value, index) => {
+                const x = padding + (index + 1) / maxX * chartWidth;
+                const y = canvas.height - padding - (value / maxY) * chartHeight;
+                
+                ctx.fillStyle = data.colors[index];
+                ctx.beginPath();
+                ctx.arc(x, y, 8, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw value
+                ctx.fillStyle = '#333';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(`(${index + 1}, ${value})`, x, y - 15);
+            });
+            
+            // Draw title
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Scatter Plot', canvas.width / 2, 30);
+        }
+        
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        
+        document.getElementById('barChartBtn').addEventListener('click', () => {
+            chartType = 'bar';
+            drawBarChart();
+        });
+        
+        document.getElementById('lineChartBtn').addEventListener('click', () => {
+            chartType = 'line';
+            drawLineChart();
+        });
+        
+        document.getElementById('pieChartBtn').addEventListener('click', () => {
+            chartType = 'pie';
+            drawPieChart();
+        });
+        
+        document.getElementById('scatterBtn').addEventListener('click', () => {
+            chartType = 'scatter';
+            drawScatterPlot();
+        });
+        
+        // Initial draw
+        drawBarChart();
+    </script>
+</body>
+</html>
+

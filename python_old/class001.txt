@@ -1,0 +1,251 @@
+0) Setup & What is Python? (0–5 min)
+
+Programming: Telling a computer step‑by‑step how to do a task.
+Python: A popular, beginner‑friendly language used for web apps, data, AI, games, and automation.
+Two ways to run Python:
+REPL (interactive shell): try one line at a time.
+Script (.py file): save and run a whole program.
+Open a REPL (choose one):
+macOS/Linux: open Terminal, type python3 (or python) and press Enter.
+Windows: open Command Prompt / PowerShell, type python.
+You should see something like: >>> (the prompt).
+
+1) First Contact (5–10 min)
+Demo (you type; they copy):
+print("Hello, world!")
+Output: Hello, world!
+
+Explain functions: print is a function that shows text on screen.
+Explain strings: text inside quotes. Try single quotes ' ' or double quotes " ".
+
+Quick practice (1 min):
+Print your name.
+
+Print 2 + 3 (without quotes). What happens?
+
+print(2 + 3)   # 5, because these are numbers (no quotes)
+print("2 + 3") # shows the text 2 + 3 (with quotes)
+print('2 + 3')
+
+2) Values, Types, Expressions, Variables (10–18 min)
+Concepts:
+Values: data like 42, 3.14, 'hi', "hi".
+Types: int (whole numbers), float (decimals), str (text).
+Expressions: combinations like 2 * 5 + 1.
+Variables: named boxes that store values.
+Demo:
+# numbers
+3 + 4            # 7
+10 / 3           # 3.3333333333 (float division)
+10 // 3          # 3 (integer division)
+10 % 3           # 1 (remainder)
+2 ** 5           # 32 (power)
+
+# strings
+"Py" + "thon"    # 'Python' (concatenate)
+"ha" * 3         # 'hahaha' (repeat)
+
+# variables
+age = 15
+pi = 3.14159
+first_name = "Lydia"
+
+print(age)
+print(pi)
+print(first_name)
+
+Notes on names:
+
+Use snake_case: my_score, not myScore (both work; this is style).
+
+Names can have letters, digits, underscores; cannot start with a digit.
+
+Quick practice (2 min):
+Make variables: name, height_cm, favourite_food.
+Print a sentence with them using f‑strings:
+
+name = "Evan"
+height_cm = 165
+favourite_food = "sushi"
+print(f"Hi, I'm {name}. I'm {height_cm} cm tall and I like {favourite_food}.")
+
+3) Input & Type Conversion (18–25 min)
+Problem: input() returns text (str). Convert to number if needed.
+
+Demo:
+user = input("What's your name? ")
+print(f"Nice to meet you, {user}")
+# Add two numbers from input
+a = input("First number: ")
+b = input("Second number: ")
+# Convert strings to numbers
+a = int(a)
+a = float(a)
+b = float(b)
+print("Sum:", a + b)
+
+Common mistake: forgetting to convert, e.g. "2" + "3" → '23' (string join), not 5.
+Try it now (2 min):
+Ask for a person’s birth year, compute approximate age: current_year - birth_year.
+current_year = 2025
+birth_year = int(input("Birth year: "))
+age = current_year - birth_year
+print(f"You are about {age} years old.")
+
+4) Mini‑Project — Tip Splitter (25–38 min)
+Goal: Write a program that helps friends split a restaurant bill with a tip.
+
+Spec:
+Ask: bill total, tip percent, number of people.
+Compute: total with tip; per person amount (rounded to 2 decimals).
+Plan (whiteboard):
+Read inputs (float, int).
+Compute tip amount → bill * tip_percent / 100.
+Compute total → bill + tip_amount.
+Compute per_person → total / people.
+Print a friendly message.
+
+Code (build it step‑by‑step):
+
+print("Welcome to Tip Splitter!")
+
+bill = float(input("Bill total ($): "))
+tip_percent = float(input("Tip percent (%): "))
+people = int(input("How many people? "))
+
+# calculations
+tip_amount = bill * tip_percent / 100
+total = bill + tip_amount
+per_person = total / people
+
+# round to 2 decimals for money display
+print("\n--- Receipt ---")
+print(f"Bill: ${bill}")
+print(f"Tip ({tip_percent}%): ${round(tip_amount, 2)}")
+print(f"Total: ${round(total, 2)}")
+print(f"Each person pays: ${round(per_person, 2)}")
+
+Stretch ideas (if time):
+
+Validate people > 0 (guard against divide‑by‑zero).
+
+Format with :.2f in f‑strings: f"${per_person:.2f}".
+
+5) Quick Checks & Bug‑Fixing (38–45 min)
+
+Predict the output:
+
+x = 2
+x = x + 3
+print(x)
+
+name = "Ada"
+print("Hello, " + name)
+print(f"Hello, {name}")
+
+Find and fix the bug:
+
+age = input("Age: ")
+print(age + 1)   # Why is this wrong? Fix it.
+
+Answer: Convert to int: age = int(input("Age: ")).
+
+bill = float(input("Bill: "))
+people = int(input("People: "))
+print("Per person:", bill / people) # What happens if people == 0?
+
+Answer: Add a check before dividing.
+
+6) Wrap‑Up (45–50 min)
+
+Exit Ticket (collect answers or discuss):
+
+What’s the difference between "5" and 5 in Python?
+
+What does input() return and why do we sometimes use int() or float() with it?
+
+In your own words, what is a variable?
+
+Key takeaways:
+
+Python programs are built from values, types, variables, and functions.
+
+print() shows output; input() reads text.
+
+Convert types for math (int, float).
+
+Homework (10–20 minutes total)
+
+Greeter+1: Ask for a name and age. Print: Hello <name>! Next year you will be <age+1>.  (Remember to convert.)
+
+Celsius↔Fahrenheit:
+
+Ask for Celsius, print Fahrenheit using F = C * 9/5 + 32.
+
+Bonus: also convert Fahrenheit back to Celsius.
+
+Seconds to h:m:s: Ask for a total number of seconds (e.g., 7384). Compute hours, minutes, seconds using // and %.
+
+Stretch (optional): Re‑format your outputs with f‑strings and rounded decimals where appropriate.
+
+Instructor Notes & Troubleshooting
+
+Common errors
+
+SyntaxError: EOL while scanning string literal → mismatched quotes.
+
+NameError: name 'x' is not defined → variable used before assignment or typo.
+
+TypeError: can only concatenate str (not "int") to str → mixing types; convert with str() or int().
+
+REPL tips
+
+Use Up/Down arrows to recall commands.
+
+Ctrl+C cancels a stuck input; exit() or Ctrl+D (macOS/Linux) / Ctrl+Z then Enter (Windows) to leave Python.
+
+Style
+
+Use spaces around operators: a + b.
+
+Comment with # to explain a step.
+
+Optional: Run from a File (if time permits)
+
+Open a text editor, make a new file tip_splitter.py.
+
+Paste the mini‑project code, save.
+
+Run in terminal: python3 tip_splitter.py (macOS/Linux) or python tip_splitter.py (Windows).
+
+Answer Key Snippets (for instructor)
+
+Exit Ticket sample answers
+
+"5" is a string (text), 5 is an integer (number).
+
+input() returns a string; we convert when doing math.
+
+A variable is a named box that stores a value for later use.
+
+Bug fixes
+
+age = int(input("Age: "))
+print(age + 1)
+
+bill = float(input("Bill: "))
+people = int(input("People: "))
+if people > 0:
+    print("Per person:", bill / people)
+else:
+    print("People must be greater than 0.")
+
+Micro‑Assessment (Optional if time remains)
+
+Ask: What does // do? (Integer division.)
+
+Ask: What is the type of input()? (String.)
+
+Ask: Show a formatted money value using an f‑string with 2 decimals.
+
+Example: print(f"${total:.2f}")

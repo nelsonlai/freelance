@@ -1,0 +1,15 @@
+/*
+ * Problem: Lexicographically Smallest String After Applying Operations
+ * Difficulty: Medium
+ * Tags: string, graph, search
+ * 
+ * Approach: String manipulation with hash map or two pointers
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+public class Solution {
+    public string FindLexSmallestString(string s, int a, int b) {
+        
+    }
+}

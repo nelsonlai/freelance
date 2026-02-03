@@ -1,0 +1,203 @@
+---
+title: "Introduction to R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction to R
+
+Welcome to R programming! This lesson will help you get started with R.
+
+## What is R?
+
+R is a programming language and environment for statistical computing and graphics. It's:
+- **Free and open-source**
+- **Powerful** for data analysis and visualization
+- **Widely used** in academia and industry
+- **Extensible** with thousands of packages
+
+## Why Learn R?
+
+- Data manipulation and analysis
+- Statistical modeling
+- Data visualization
+- Reproducible research
+- Open science
+
+## The RStudio Interface
+
+When you open RStudio, you'll see four panes:
+
+1. **Source** (top left): Where you write and edit code
+2. **Console** (bottom left): Where R executes commands
+3. **Environment** (top right): Shows your objects and data
+4. **Files/Plots/Help** (bottom right): Outputs and documentation
+
+## Basic Operations
+
+R works like a calculator:
+
+```{r basic-calc}
+2 + 3
+10 - 4
+5 * 6
+20 / 4
+```
+
+## Variables and Assignment
+
+Store values using the assignment operator `<-` or `=`:
+
+```{r variables}
+x <- 10
+y <- 5
+z <- x + y
+print(z)
+```
+
+## Getting Help
+
+R has extensive help documentation:
+
+```{r help, eval=FALSE}
+# Get help on any function
+?print
+help(print)
+
+# Search for functions
+??regression
+```
+
+## Data Types
+
+R has several data types:
+
+- **Numeric**: `5`, `3.14`
+- **Character**: `"Hello"`, `"R"`
+- **Logical**: `TRUE`, `FALSE`
+- **Factor**: Categorical data
+- And more...
+
+## Useful Functions
+
+```{r functions}
+# Create a sequence
+1:10
+
+# Create a vector
+c(1, 2, 3, 4, 5)
+
+# Get the length
+length(1:10)
+
+# Get information about an object
+class(1:10)
+str(1:10)
+```
+
+## Working with Data
+
+R can work with various data structures. Below are short, runnable examples that demonstrate how to create and use each of the main types: vectors, matrices, lists, and data frames.
+
+### Vectors
+
+Vectors are 1-dimensional atomic vectors (numeric, character, logical, etc.).
+
+```{r vectors}
+# numeric vector
+v <- c(1, 2, 3, 4, 5)
+v
+
+# basic operations
+v * 2
+v[1]        # first element
+length(v)   # length
+
+# named vector
+nv <- c(a = 10, b = 20, c = 30)
+nv["b"]    # access by name
+```
+
+### Matrices
+
+Matrices are 2-dimensional and hold elements of the same atomic type.
+
+```{r matrices}
+# create a 3x3 matrix
+m <- matrix(1:9, nrow = 3, ncol = 3)
+m
+
+# index: row 1, all cols; all rows, col 2
+m[1, ]
+m[, 2]
+
+# bind rows/columns
+rbind(m, c(10, 11, 12))
+cbind(m, c(10, 20, 30))
+```
+
+### Lists
+
+Lists can contain heterogeneous elements and other objects (vectors, data.frames, functions).
+
+```{r lists}
+lst <- list(name = "Alice", age = 30, scores = c(90, 85, 88))
+lst
+
+# access by $ or [[ ]]
+lst$name
+lst[["age"]]
+lst[["scores"]][2]  # second score
+```
+
+### Data frames
+
+Data frames store tabular data where each column can be a different type. They're the primary data structure for most data analysis.
+
+```{r dataframes}
+df <- data.frame(
+	id = 1:3,
+	name = c("A", "B", "C"),
+	score = c(88, 92, 75)
+)
+df
+
+# column access
+df$name
+
+# subset rows (score > 80)
+df[df$score > 80, ]
+
+# add a new column
+df$passed <- df$score >= 80
+str(df)
+summary(df)
+```
+
+These examples are small and intended to be run interactively in the console or knitted as part of this document. Play with the code: change values, try different indexing, and combine structures (for example, a list that contains a data frame).
+
+## Practice Exercise
+
+Try these in your R console:
+
+1. Calculate your age in days
+2. Create a variable with your name
+3. Use the `seq()` function to create numbers from 1 to 20
+
+## Next Steps
+
+In the next lesson, we'll learn about different data types and structures in R.
+
+## Summary
+
+In this lesson, you learned:
+- What R is and why it's useful
+- The RStudio interface
+- Basic mathematical operations
+- How to create variables
+- How to get help
+- Basic data types and functions
+

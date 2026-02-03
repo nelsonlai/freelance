@@ -1,0 +1,16 @@
+/*
+ * Problem: Palindrome Permutation II
+ * Difficulty: Medium
+ * Tags: string, hash
+ * 
+ * Approach: String manipulation with hash map or two pointers
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(n) for hash map
+ */
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+char** generatePalindromes(char* s, int* returnSize) {
+    
+}

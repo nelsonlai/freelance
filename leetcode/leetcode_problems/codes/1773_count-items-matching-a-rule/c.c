@@ -1,0 +1,13 @@
+/*
+ * Problem: Count Items Matching a Rule
+ * Difficulty: Easy
+ * Tags: array, string
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+int countMatches(char*** items, int itemsSize, int* itemsColSize, char* ruleKey, char* ruleValue) {
+    
+}

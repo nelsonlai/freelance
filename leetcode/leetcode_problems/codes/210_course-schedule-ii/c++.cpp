@@ -1,0 +1,49 @@
+/*
+ * Problem: Course Schedule II
+ * Difficulty: Medium
+ * Tags: array, graph, sort, search
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> graph(numCourses);
+        vector<int> indegree(numCourses, 0);
+        
+        for (auto& prereq : prerequisites) {
+            graph[prereq[1]].push_back(prereq[0]);
+            indegree[prereq[0]]++;
+        }
+        
+        queue<int> q;
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        vector<int> result;
+        while (!q.empty()) {
+            int course = q.front();
+            q.pop();
+            result.push_back(course);
+            for (int nextCourse : graph[course]) {
+                indegree[nextCourse]--;
+                if (indegree[nextCourse] == 0) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+        
+        return result.size() == numCourses ? result : vector<int>();
+    }
+};

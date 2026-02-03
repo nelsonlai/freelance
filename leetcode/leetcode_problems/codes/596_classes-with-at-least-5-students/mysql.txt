@@ -1,0 +1,8 @@
+-- Problem: Classes with at Least 5 Students
+-- Difficulty: Easy
+-- Tags: Database
+
+SELECT class
+FROM courses
+GROUP BY class
+HAVING COUNT(DISTINCT student) >= 5;

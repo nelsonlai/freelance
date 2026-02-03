@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}New post – Vibe Coding{% endblock %}
+{% block content %}
+<h1>New post</h1>
+<form method="post" action="{{ url_for('blog.create') }}" class="form">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" required autofocus>
+  </div>
+  <div class="form-group">
+    <label for="body">Body</label>
+    <textarea id="body" name="body" required></textarea>
+  </div>
+  <button type="submit" class="btn">Create post</button>
+  <a href="{{ url_for('blog.index') }}" class="btn btn-secondary" style="margin-left: 0.5rem;">Cancel</a>
+</form>
+{% endblock %}

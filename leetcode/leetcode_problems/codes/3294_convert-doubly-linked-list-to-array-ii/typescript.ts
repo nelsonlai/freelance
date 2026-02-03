@@ -1,0 +1,29 @@
+/**
+ * Problem: Convert Doubly Linked List to Array II
+ * Difficulty: Medium
+ * Tags: array, linked_list
+ * 
+ * Approach: Use two pointers or sliding window technique
+ * Time Complexity: O(n) or O(n log n)
+ * Space Complexity: O(1) to O(n) depending on approach
+ */
+
+/**
+ * Definition for _Node.
+ * class _Node {
+ *     val: number
+ *     prev: _Node | null
+ *     next: _Node | null
+ *     
+ *     constructor(val?: number, prev? : _Node, next? : _Node) {
+ *         this.val = (val===undefined ? 0 : val);
+ *         this.prev = (prev===undefined ? null : prev);
+ *         this.next = (next===undefined ? null : next);
+ *     }
+ * }
+ */
+
+
+function toArray(node: _Node | null): number[] {
+
+};

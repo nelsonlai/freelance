@@ -1,0 +1,68 @@
+{% extends "admin/_layout.html" %}
+{% set title = "Users" %}
+{% set subtitle = "Accounts & roles" %}
+
+{% block content %}
+  <div class="bg-white border rounded-2xl p-5">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-lg font-semibold">Users</div>
+        <div class="text-sm text-slate-600">Super admin can create admin accounts and change roles.</div>
+      </div>
+      {% if admin_role == "super_admin" %}
+        <details class="text-sm">
+          <summary class="cursor-pointer px-3 py-2 rounded-xl bg-slate-900 text-white">+ Create admin</summary>
+          <form method="post" class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-2">
+            <input name="email" type="email" placeholder="email" class="px-3 py-2 rounded-xl border" required>
+            <input name="password" type="password" placeholder="password" class="px-3 py-2 rounded-xl border" required>
+            <select name="role" class="px-3 py-2 rounded-xl border">
+              <option value="admin">admin</option>
+              <option value="super_admin">super_admin</option>
+            </select>
+            <button class="px-3 py-2 rounded-xl bg-slate-900 text-white">Create</button>
+          </form>
+        </details>
+      {% endif %}
+    </div>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-slate-500 border-b">
+            <th class="py-2 pr-4">ID</th>
+            <th class="py-2 pr-4">Email</th>
+            <th class="py-2 pr-4">Role</th>
+            <th class="py-2 pr-4">Created (unix)</th>
+            <th class="py-2 pr-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+          <tr class="border-b last:border-b-0">
+            <td class="py-3 pr-4">{{ u.id }}</td>
+            <td class="py-3 pr-4">{{ u.email }}</td>
+            <td class="py-3 pr-4">
+              <span class="px-2 py-1 rounded-lg border">{{ u.role }}</span>
+            </td>
+            <td class="py-3 pr-4">{{ u.created_at }}</td>
+            <td class="py-3 pr-4">
+              {% if admin_role == "super_admin" %}
+                <form method="post" action="/admin/users/{{ u.id }}/role" class="flex items-center gap-2">
+                  <select name="role" class="px-2 py-1 rounded-xl border">
+                    <option value="user" {% if u.role == "user" %}selected{% endif %}>user</option>
+                    <option value="admin" {% if u.role == "admin" %}selected{% endif %}>admin</option>
+                    <option value="super_admin" {% if u.role == "super_admin" %}selected{% endif %}>super_admin</option>
+                  </select>
+                  <button class="px-3 py-1 rounded-xl bg-slate-900 text-white">Set</button>
+                </form>
+              {% else %}
+                <span class="text-slate-400">—</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

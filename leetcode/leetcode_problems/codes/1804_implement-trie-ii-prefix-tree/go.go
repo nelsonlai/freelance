@@ -1,0 +1,46 @@
+// Problem: Implement Trie II (Prefix Tree)
+// Difficulty: Medium
+// Tags: string, tree, hash
+// 
+// Approach: String manipulation with hash map or two pointers
+// Time Complexity: O(n) or O(n log n)
+// Space Complexity: O(h) for recursion stack where h is height
+
+type Trie struct {
+    
+}
+
+
+func Constructor() Trie {
+    
+}
+
+
+func (this *Trie) Insert(word string)  {
+    
+}
+
+
+func (this *Trie) CountWordsEqualTo(word string) int {
+    
+}
+
+
+func (this *Trie) CountWordsStartingWith(prefix string) int {
+    
+}
+
+
+func (this *Trie) Erase(word string)  {
+    
+}
+
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Insert(word);
+ * param_2 := obj.CountWordsEqualTo(word);
+ * param_3 := obj.CountWordsStartingWith(prefix);
+ * obj.Erase(word);
+ */
