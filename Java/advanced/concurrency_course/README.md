@@ -1,6 +1,6 @@
 # Java Concurrency for Exchange Systems — Course Index
 
-A 6-module, ~12–14 week course on threads, JVM memory model, locks, concurrency utilities, async/reactive patterns, and exchange-style system design.
+A 7-module, ~14–16 week course on threads, JVM memory model, locks, concurrency utilities, async/reactive patterns, exchange-style system design, and concurrent big data with Spark.
 
 ## Structure
 
@@ -12,6 +12,7 @@ A 6-module, ~12–14 week course on threads, JVM memory model, locks, concurrenc
 | 4 | Asynchronous Programming & Reactive Thinking | 2 weeks | [module04/](module04/) |
 | 5 | Concurrency Models Used in Exchanges | 2 weeks | [module05/](module05/) |
 | 6 | Real-World Exchange System Design | 2–3 weeks | [module06/](module06/) |
+| 7 | Using Spark to Concurrently Process Big Data | 2 weeks | [module07/](module07/) |
 
 ## How to Use
 
@@ -30,7 +31,7 @@ A 6-module, ~12–14 week course on threads, JVM memory model, locks, concurrenc
   java -cp out concurrency.module01.VolatileFix
   ```
 
-  Repeat for other modules: replace `module01` with `module02` … `module06`. Module 6’s `JMH_OrderBookBenchmark` requires the JMH library; use `SimpleOrderBookBenchmark` for a plain-Java benchmark.
+  Repeat for other modules: replace `module01` with `module02` … `module06`. Module 6’s `JMH_OrderBookBenchmark` requires the JMH library; use `SimpleOrderBookBenchmark` for a plain-Java benchmark. **Module 7** (Spark big data) uses Maven: run from `module07/` with `mvn compile exec:java -Dexec.mainClass="concurrency.module07.SparkRDDDemo"` (or other main classes); see [module07/README.md](module07/README.md).
 
 - **Hands-on:** Each module README lists exercises and the table of classes with their purpose.
 
