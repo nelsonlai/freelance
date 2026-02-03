@@ -1,0 +1,1295 @@
+2026-01-24 21:36:28,806 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:36:28,806 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:36:28,806 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:36:29,136 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:36:29,136 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:36:29,136 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:48:16,364 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:48:16,365 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:48:16,365 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:48:16,697 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:48:16,697 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:48:16,697 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:49:48,234 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:49:48,235 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:49:48,235 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:49:59,986 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:49:59,986 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:49:59,986 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:50:01,523 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:50:01,523 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:50:01,523 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:50:30,166 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:50:30,166 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:50:30,166 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:50:30,497 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 21:50:30,497 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 21:50:30,497 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 21:51:13,028 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 21:51:13,029 INFO app.routes.match: Prompt built successfully, length: 1434
+2026-01-24 21:51:13,029 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 21:51:18,166 INFO app.routes.match: Poe analyze result: {'summary_md': '皆为公猫不适合繁育，建议寻找健康母波斯，完善疫苗与血统', 'image_prompt': 'A realistic portrait of a healthy male Persian cat with a luxurious long coat, calm expression, and bright eyes, sitting elegantly indoors. Soft natural lighting, neutral background, emphasizing breed standards, grooming quality, and overall vitality. High detail, professional pet photography style.'}
+2026-01-24 21:51:18,167 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 21:51:18,167 INFO app.routes.match: Generating image with prompt: A realistic portrait of a healthy male Persian cat...
+2026-01-24 21:51:22,993 INFO app: FLUX image saved: ./uploads/kitten_d38d24e798b8414ea4fc33c76e89b09c.png
+2026-01-24 21:51:22,996 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_d38d24e798b8414ea4fc33c76e89b09c.png'}
+2026-01-24 21:57:27,820 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 21:57:27,825 INFO app.routes.match: Prompt built successfully, length: 1434
+2026-01-24 21:57:27,825 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 21:57:33,687 INFO app.routes.match: Poe analyze result: {'summary_md': '**不匹配**：Momo Kiki为公猫，候选全为公猫，无法繁殖；建议寻找健康母波斯猫。', 'image_prompt': 'A realistic, elegant portrait of a healthy male Persian cat with long fluffy fur, calm expression, veterinary consultation theme, soft lighting, neutral background, subtle icons suggesting health check and breeding evaluation.'}
+2026-01-24 21:57:33,688 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 21:57:33,688 INFO app.routes.match: Generating image with prompt: A realistic, elegant portrait of a healthy male Pe...
+2026-01-24 21:57:38,162 INFO app: FLUX image saved: ./uploads/kitten_626f13ae4bef487980cba6027c845f08.png
+2026-01-24 21:57:38,165 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_626f13ae4bef487980cba6027c845f08.png'}
+2026-01-24 22:01:24,286 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 22:01:24,288 INFO app.routes.match: Prompt built successfully, length: 1433
+2026-01-24 22:01:24,288 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 22:01:29,476 INFO app.routes.match: Poe analyze result: {'summary_md': 'Momo Kiki为健康5岁公猫；候选均为公猫不可配繁，建议选择健康母波斯猫。', 'image_prompt': 'A regal Persian male cat portrait, long luxurious coat, flat face, bright eyes, calm elegant pose, soft studio lighting, pastel background, high detail fur texture, realistic style, shallow depth of field, symmetrical composition.'}
+2026-01-24 22:01:29,476 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 22:01:29,477 INFO app.routes.match: Generating image with prompt: A regal Persian male cat portrait, long luxurious ...
+2026-01-24 22:01:33,771 INFO app: FLUX image saved: ./uploads/kitten_d88bdcaf2782403d88b33ceb78988bf9.png
+2026-01-24 22:01:33,773 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_d88bdcaf2782403d88b33ceb78988bf9.png'}
+2026-01-24 22:07:59,988 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 22:07:59,988 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 22:07:59,988 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 22:08:26,865 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 22:08:26,865 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 22:08:26,865 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 22:08:39,626 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 22:08:39,648 INFO app.routes.match: Prompt built successfully, length: 1433
+2026-01-24 22:08:39,649 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 22:08:46,146 INFO app.routes.match: Poe analyze result: {'summary_md': 'Momo Kiki健康，但候选全为公猫，无法繁育；应选择健康母波斯猫。', 'image_prompt': 'A realistic, high-quality portrait of a healthy adult Persian male cat with a luxurious long coat, round face, flat nose, and expressive eyes. Soft natural lighting, neutral background, calm elegant pose, detailed fur texture, professional pet photography style.'}
+2026-01-24 22:08:46,147 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 22:08:46,147 INFO app.routes.match: Generating image with prompt: A realistic, high-quality portrait of a healthy ad...
+2026-01-24 22:08:50,912 INFO app: FLUX image saved: ./uploads/kitten_373c8a67ff40444bbb3240592a8a3111.png
+2026-01-24 22:08:50,915 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_373c8a67ff40444bbb3240592a8a3111.png'}
+2026-01-24 22:08:51,087 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 22:08:51,088 INFO app.routes.match: Prompt built successfully, length: 1433
+2026-01-24 22:08:51,088 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 22:08:56,880 INFO app.routes.match: Poe analyze result: {'summary_md': '候选全为公猫，无法繁育。需健康母波斯，基因检测齐全。', 'image_prompt': 'A high-quality, realistic portrait of a healthy male Persian cat with long fluffy fur, calm expression, and bright eyes, sitting in a clean breeding studio. Soft natural lighting, neutral background, professional feline breeding consultation atmosphere.'}
+2026-01-24 22:08:56,880 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 22:08:56,880 INFO app.routes.match: Generating image with prompt: A high-quality, realistic portrait of a healthy ma...
+2026-01-24 22:09:01,353 INFO app: FLUX image saved: ./uploads/kitten_07ee9ea4bafe42f09c7ee6683a58faba.png
+2026-01-24 22:09:01,357 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_07ee9ea4bafe42f09c7ee6683a58faba.png'}
+2026-01-24 22:09:03,806 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:09:03,820 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:09:03,821 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:09:11,101 INFO app.routes.match: Offspring Poe result: {'summary_md': '⚠️两只均为公猫，**无法自然繁育**。若假设为异性波斯配对，幼猫多为扁脸、长毛、圆眼，性情温顺。建议做PKD、心超与眼检，重视呼吸与泪痕护理。', 'image_prompt': 'A realistic cute Persian kitten with a round flat face, short nose, large copper eyes, and a plush long coat. Fur is cream with subtle silver shading, dense and silky. Compact cobby body, short legs, fluffy tail. Calm sweet expression, indoor soft lighting, high detail, natural colors.'}
+2026-01-24 22:09:11,102 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:09:11,102 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round flat face, short nose, large copper...
+2026-01-24 22:09:15,504 INFO app: FLUX image saved: ./uploads/kitten_2f00279dfa844cf8a2d9d8a7fd7a04e8.png
+2026-01-24 22:09:15,509 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_2f00279dfa844cf8a2d9d8a7fd7a04e8.png'}
+2026-01-24 22:12:13,154 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 22:12:13,154 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 22:12:13,154 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 22:12:13,499 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-24 22:12:13,500 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-24 22:12:13,500 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-24 22:12:52,512 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 22:12:52,512 INFO app.routes.match: Prompt built successfully, length: 1433
+2026-01-24 22:12:52,512 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 22:13:02,381 INFO app.routes.match: Poe analyze result: {'summary_md': '**Momo Kiki**健康雄性波斯猫，当前匹配均为雄性，不适合繁育，建议寻找健康雌性波斯猫。', 'image_prompt': 'A realistic studio portrait of a healthy adult Persian male cat with a long fluffy coat, round face, bright expressive eyes, and a calm gentle expression. Soft diffused lighting, neutral background, high detail, photorealistic style.'}
+2026-01-24 22:13:02,382 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 22:13:02,382 INFO app.routes.match: Generating image with prompt: A realistic studio portrait of a healthy adult Per...
+2026-01-24 22:13:09,738 INFO app: FLUX image saved: ./uploads/kitten_84e66b19dd4b40d5a97caa363dc5fa62.png
+2026-01-24 22:13:09,740 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_84e66b19dd4b40d5a97caa363dc5fa62.png'}
+2026-01-24 22:13:11,251 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:13:11,252 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:13:11,252 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:13:16,082 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 22:13:16,085 INFO app.routes.match: Prompt built successfully, length: 1433
+2026-01-24 22:13:16,085 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 22:13:20,532 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只均为雄性，**无法自然繁殖**。若假设同系波斯配对，后代多为扁脸、长密被、圆眼。关注PKD、呼吸与泪痕；需定期梳毛与呼吸护理。', 'image_prompt': 'A realistic cute Persian kitten with a round flat face, large copper eyes, and a short nose. Long, dense, silky fur in a soft cream and white bicolor pattern, fluffy tail, compact cobby body, small rounded ears, sweet calm expression, indoor lighting, high detail, natural proportions.'}
+2026-01-24 22:13:20,532 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:13:20,532 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round flat face, large copper eyes, and a...
+2026-01-24 22:13:22,510 INFO app.routes.match: Poe analyze result: {'summary_md': '**Momo Kiki**为健康5岁波斯公猫；候选均为公猫，无法配种，需寻找健康波斯母猫。', 'image_prompt': 'A realistic, soft-lit studio portrait of a healthy male Persian cat with a long fluffy coat, calm expression, neutral background, high detail, natural colors.'}
+2026-01-24 22:13:22,510 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 22:13:22,510 INFO app.routes.match: Generating image with prompt: A realistic, soft-lit studio portrait of a healthy...
+2026-01-24 22:13:25,305 INFO app: FLUX image saved: ./uploads/kitten_9187ec405c5a4ee6bc9a75ac642f44d6.png
+2026-01-24 22:13:25,308 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_9187ec405c5a4ee6bc9a75ac642f44d6.png'}
+2026-01-24 22:13:26,469 INFO app: FLUX image saved: ./uploads/kitten_05a0b687095847d5bbd969c96014a128.png
+2026-01-24 22:13:26,471 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_05a0b687095847d5bbd969c96014a128.png'}
+2026-01-24 22:13:26,588 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 22:13:26,588 INFO app.routes.match: Prompt built successfully, length: 1433
+2026-01-24 22:13:26,588 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 22:13:27,151 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:13:27,151 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:13:27,151 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:13:32,078 INFO app.routes.match: Poe analyze result: {'summary_md': 'Momo Kiki为公猫，候选均为公猫，无法繁育。建议选择健康、完成PKD检测的母波斯猫。', 'image_prompt': 'A realistic, high-quality portrait of a healthy male Persian cat with long fluffy fur, calm expression, and bright eyes, sitting elegantly in a clean indoor breeding environment, soft natural lighting, shallow depth of field, professional pet photography style.'}
+2026-01-24 22:13:32,078 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 22:13:32,078 INFO app.routes.match: Generating image with prompt: A realistic, high-quality portrait of a healthy ma...
+2026-01-24 22:13:35,150 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只均为波斯猫，外观将为典型扁脸、长被毛、圆眼。**注意：双方均为公猫，实际无法繁育**；假设可配，对后代应关注泪痕、呼吸道与PKD筛查，定期梳毛与眼鼻护理。性格温顺黏人。', 'image_prompt': 'A realistic cute Persian kitten with a round face, short nose, and large copper eyes. Long, dense, silky fur in a soft cream and white bicolor pattern, fluffy tail, compact cobby body, small ears set low. Calm, sweet expression, sitting indoors in gentle daylight, highly detailed fur texture, natural colors.'}
+2026-01-24 22:13:35,150 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:13:35,150 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round face, short nose, and large copper ...
+2026-01-24 22:13:36,449 INFO app: FLUX image saved: ./uploads/kitten_c84d175afa31407495dfdb87bcd49e23.png
+2026-01-24 22:13:36,450 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_c84d175afa31407495dfdb87bcd49e23.png'}
+2026-01-24 22:13:36,580 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:13:36,581 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:13:36,581 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:13:39,719 INFO app: FLUX image saved: ./uploads/kitten_e6ea37684ef54112b5b90d5ffd4a3550.png
+2026-01-24 22:13:39,723 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_e6ea37684ef54112b5b90d5ffd4a3550.png'}
+2026-01-24 22:13:46,345 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只均为波斯猫，外观将是扁脸、圆眼、长密被毛、短粗体型。遗传关注多囊肾、呼吸道与泪痕；定期筛查。性格温顺黏人。*注意：目前两只同为公猫，需选择健康母猫配对*', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, large expressive copper eyes, and a small pink nose. Long, dense, silky fur in soft cream with subtle white shading, fluffy tail, short sturdy legs, and a compact body. Calm, gentle expression, sitting indoors in soft natural light, highly detailed, photorealistic.'}
+2026-01-24 22:13:46,346 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:13:46,346 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, large expressive copper...
+2026-01-24 22:13:50,573 INFO app: FLUX image saved: ./uploads/kitten_3be15410b98e436bbc6b8fbeadc39735.png
+2026-01-24 22:13:50,578 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_3be15410b98e436bbc6b8fbeadc39735.png'}
+2026-01-24 22:13:55,501 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:13:55,501 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:13:55,501 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:03,217 INFO app.routes.match: Offspring Poe result: {'summary_md': '⚠️需雌猫参与。假设以同血统雌猫配对：幼猫可能体型偏大、半长浓密被毛，圆脸略方口；性格温顺黏人且友善。关注波斯PKD、短鼻护理及缅因HCM筛查，完善疫苗。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and Maine Coon mix: medium-large kitten with fluffy semi-long fur, soft silver tabby with white chest, large round green eyes, slightly rounded face with a gentle muzzle, tufted ears, bushy tail, sturdy body, sweet calm expression, natural lighting, high detail.'}
+2026-01-24 22:14:03,254 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:03,254 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and Maine Coon mix: medium-larg...
+2026-01-24 22:14:07,609 INFO app: FLUX image saved: ./uploads/kitten_6d200fcf2c9e433ebcee9af522e8c620.png
+2026-01-24 22:14:07,613 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_6d200fcf2c9e433ebcee9af522e8c620.png'}
+2026-01-24 22:14:14,423 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:14:14,427 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:14:14,427 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:16,074 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:14:16,074 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:14:16,074 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:17,000 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:14:17,001 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:14:17,001 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:18,014 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:14:18,015 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:18,015 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:18,456 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:14:18,457 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:18,457 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:18,753 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:14:18,754 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:14:18,754 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:20,809 INFO app.routes.match: Offspring Poe result: {'summary_md': '**需异性配对**方可繁育。假设波短为母：幼猫多为中长毛、圆脸大眼、体型结实；健康总体良好，注意多囊肾与呼吸道筛查；性格温顺亲人，适度活跃，重视梳毛与体检。', 'image_prompt': 'A realistic, cute kitten resulting from a Persian and British Shorthair mix: medium-long plush fur, silver shaded or blue coat with soft gradients, large round copper or green eyes, round face with a slightly shortened nose, chubby cheeks, sturdy compact body, short thick legs, fluffy tail, calm sweet expression, soft studio lighting, high-detail photorealistic style.'}
+2026-01-24 22:14:20,809 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:20,809 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a Persian and British Shorthair mix: med...
+2026-01-24 22:14:22,390 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只公猫无法自然繁殖。若假设波斯×缅因配对，幼猫可能长毛、体型中大、圆脸配大耳，性格温和亲人。注意多囊肾与心肌病筛查，重视梳毛与口鼻护理。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and Maine Coon mix: long fluffy coat, medium‑large sturdy body, semi‑round face with a gentle muzzle, large tufted ears, big expressive eyes in amber or green. Fur color silver tabby with white chest and paws, thick ruff around the neck, bushy tail. Soft, calm, affectionate look, natural lighting, high detail, realistic style.'}
+2026-01-24 22:14:22,390 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:22,390 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and Maine Coon mix: long fluffy...
+2026-01-24 22:14:25,715 INFO app: FLUX image saved: ./uploads/kitten_47881c4711ec4e2bbae94e59d89ca584.png
+2026-01-24 22:14:25,721 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_47881c4711ec4e2bbae94e59d89ca584.png'}
+2026-01-24 22:14:25,807 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:14:25,807 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:14:25,807 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:26,559 INFO app: FLUX image saved: ./uploads/kitten_4078fa5383fa4e2e9d943496d78713d8.png
+2026-01-24 22:14:26,562 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_4078fa5383fa4e2e9d943496d78713d8.png'}
+2026-01-24 22:14:26,645 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:14:26,645 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:14:26,645 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:27,491 INFO app.routes.match: Offspring Poe result: {'summary_md': '**波斯后代**：浓密长毛、扁脸、圆眼，体型中等偏结实。健康：留意多囊肾、泪痕与呼吸道；另一方疫苗缺失需补齐。性情温顺黏人。注意：需异性配对方可繁育。', 'image_prompt': 'A realistic cute Persian kitten with a round face and short nose, large copper eyes, and a plush long coat. Fur is creamy white with soft silver shading, very fluffy and dense. Compact, cobby body with short legs and a thick tail. Calm, sweet expression, sitting indoors under soft natural light, highly detailed fur texture, photorealistic style.'}
+2026-01-24 22:14:27,492 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:27,492 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round face and short nose, large copper e...
+2026-01-24 22:14:27,524 INFO app.routes.match: Offspring Poe result: {'summary_md': '若理论配对，幼猫或呈中长毛、圆脸、铜或蓝绿眼，体型结实。遗传注意呼吸道、心脏与多囊肾筛查；需定期梳毛与控重。性情温和亲人。', 'image_prompt': 'A realistic, cute kitten resulting from a Persian and British Shorthair mix: medium-long plush fur, round face with a soft short nose, big copper or blue-green eyes, small rounded ears, and a sturdy compact body. Fur color cream or blue with subtle tabby shading, dense coat with a silky sheen. Calm, gentle expression, chubby cheeks, thick tail, photographed in soft natural light, high realism.'}
+2026-01-24 22:14:27,524 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:27,525 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a Persian and British Shorthair mix: med...
+2026-01-24 22:14:28,078 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设异品种配对，幼猫或呈大型半长毛、脸型较扁但不极端，眼大。注意PKD与HCM筛查，定期心肾检。性格温和亲人，需梳毛与体重管理。', 'image_prompt': 'A realistic, cute kitten resulting from a Persian and Maine Coon mix: large but fluffy body, semi-long thick fur, silver tabby with white chest, big round amber eyes, slightly rounded face with a gentle nose (not flat), tufted ears, long bushy tail, soft plush coat, calm and friendly expression, studio lighting, high detail, photorealistic.'}
+2026-01-24 22:14:28,078 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:28,078 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a Persian and Maine Coon mix: large but ...
+2026-01-24 22:14:28,876 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只均为雄性，实际无法繁殖；若假设雌性波斯配对，幼猫多为纯种波斯，扁脸、长密被毛、圆眼。注意多囊肾、呼吸与泪痕筛查，定期疫苗与梳毛。性格温顺黏人。', 'image_prompt': 'A realistic, cute Persian kitten with a round head and short flat nose, large copper eyes, small ears set low, and a compact cobby body. Long, dense, silky fur in a soft cream and white bicolor pattern, fluffy tail, and thick ruff around the neck. Calm, sweet expression, sitting indoors in soft natural light, high detail, lifelike texture.'}
+2026-01-24 22:14:28,877 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:28,877 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round head and short flat nose, large co...
+2026-01-24 22:14:31,841 INFO app.routes.match: Offspring Poe result: {'summary_md': '**注意：两只均为公猫，实际无法繁殖。** 假设为波斯×缅因混血：长或半长毛、体型中大、圆脸配大耳；性格温和亲人。关注多囊肾、肥厚型心肌病，重视心肾筛查与梳毛护理。', 'image_prompt': 'A realistic cute Persian–Maine Coon mix kitten: fluffy semi-long fur, cream and silver tabby pattern, large expressive green eyes, slightly rounded face with a gentle nose, tufted ears, bushy tail, sturdy medium-large body, soft plush coat, calm curious expression, natural lighting, high detail, photorealistic.'}
+2026-01-24 22:14:31,841 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:31,841 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian–Maine Coon mix kitten: fluffy semi-long fur, cream and ...
+2026-01-24 22:14:31,842 INFO app: FLUX image saved: ./uploads/kitten_1a60e1f91dd44f94b94d4230b4915a5f.png
+2026-01-24 22:14:31,844 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_1a60e1f91dd44f94b94d4230b4915a5f.png'}
+2026-01-24 22:14:31,872 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:14:31,872 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:31,872 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:32,167 INFO app: FLUX image saved: ./uploads/kitten_1b44152b367949378005f75817195a1c.png
+2026-01-24 22:14:32,171 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_1b44152b367949378005f75817195a1c.png'}
+2026-01-24 22:14:32,207 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:14:32,208 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:32,208 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:32,363 INFO app: FLUX image saved: ./uploads/kitten_724d4b4ba467415c9f6b3595823d9713.png
+2026-01-24 22:14:32,365 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_724d4b4ba467415c9f6b3595823d9713.png'}
+2026-01-24 22:14:32,393 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:14:32,393 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:14:32,393 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:32,700 INFO app: FLUX image saved: ./uploads/kitten_53f639efb74c4164b103364052b2347c.png
+2026-01-24 22:14:32,702 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_53f639efb74c4164b103364052b2347c.png'}
+2026-01-24 22:14:32,726 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:14:32,726 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:32,726 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:35,594 INFO app.routes.match: Offspring Poe result: {'summary_md': '**两只公猫无法繁殖**。假设波斯×波斯：扁脸、长毛、圆眼。健康留意PKD、呼吸/泪痕；需基因筛查、疫苗齐全。性格温顺黏人。', 'image_prompt': 'A realistic, cute Persian kitten with a round, flat face, short nose, and large copper eyes. Long, dense fluffy coat in cream and white with subtle shading, small rounded ears set low, compact cobby body, short legs, and a thick tail. Soft lighting, high-detail fur texture, calm gentle expression, indoor portrait style.'}
+2026-01-24 22:14:35,594 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:35,594 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round, flat face, short nose, and large ...
+2026-01-24 22:14:35,965 INFO app: FLUX image saved: ./uploads/kitten_c6600283301e41e9ba8106b648067290.png
+2026-01-24 22:14:35,967 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_c6600283301e41e9ba8106b648067290.png'}
+2026-01-24 22:14:36,005 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:14:36,005 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:36,005 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:39,042 INFO app: FLUX image saved: ./uploads/kitten_bce3b5217c654851ab13e9ac4ebeeab4.png
+2026-01-24 22:14:39,045 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_bce3b5217c654851ab13e9ac4ebeeab4.png'}
+2026-01-24 22:14:39,070 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:14:39,070 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:14:39,070 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:40,406 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设可配对，幼猫可能为长毛中大型，脸型介于扁平与楔形，骨量佳。需关注PKD与HCM筛查，定期心肾检查。性格温顺亲人、聪明好动，需梳毛与营养管理。', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: medium-to-large body, fluffy long fur with a silver tabby pattern, thick ruff around the neck, bushy tail, slightly rounded face with a gentle nose, large tufted ears, bright green eyes, sturdy legs, soft plush coat, calm and friendly expression, natural lighting, high detail, photorealistic.'}
+2026-01-24 22:14:40,406 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:40,406 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: medium-to-large body,...
+2026-01-24 22:14:40,973 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设存在母猫参与：幼猫似波斯×英短，圆脸短鼻、厚被毛或中短毛，体型结实。健康多良好，但留意呼吸、泪痕与心肾筛查；建议定期体检、梳毛与控重。', 'image_prompt': 'A realistic cute kitten from a Persian and British Shorthair mix: round face, short nose, large copper eyes, plush medium-length dense fur. Soft blue-gray or cream coat with subtle tabby shading, chubby cheeks, compact sturdy body, short thick legs, small rounded ears, calm sweet expression, studio lighting, high detail, natural colors.'}
+2026-01-24 22:14:40,973 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:40,973 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and British Shorthair mix: round face, sh...
+2026-01-24 22:14:41,794 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只波斯猫同为雄性，无法自然繁育。*假设一雌一雄*：幼猫多为纯波斯，长毛扁脸、圆眼；关注PKD/呼吸与泪痕，需定期梳毛与眼鼻护理。', 'image_prompt': 'A realistic, cute Persian kitten with a compact cobby body, fluffy long coat, and a flat brachycephalic face. Soft cream or white fur with subtle shading, large round copper or blue eyes, small ears set low, and a short plush tail. Sweet, calm expression, silky dense fur, chubby paws, and a gentle, doll-like appearance typical of purebred Persian kittens.'}
+2026-01-24 22:14:41,795 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:41,795 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a compact cobby body, fluffy long coat, an...
+2026-01-24 22:14:42,404 INFO app.routes.match: Offspring Poe result: {'summary_md': '⚠️两只公猫无法繁殖。假设为波斯×缅因：幼猫体型中大型，半长毛、浓尾，圆眼。需筛查PKD与HCM，注意呼吸与心脏。性格温和亲人、聪明活跃，重视梳毛与体检。', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: medium-large kitten with semi-long plush fur, a thick fluffy tail, slightly rounded face, large expressive round eyes in green or amber, small tufted ears, strong but elegant body, soft tabby or cream coat with subtle shading, gentle sweet expression, natural lighting, highly detailed fur texture.'}
+2026-01-24 22:14:42,404 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:42,404 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: medium-large kitten w...
+2026-01-24 22:14:45,359 INFO app: FLUX image saved: ./uploads/kitten_3425ddf3c1be48e7ad1aa642022152f7.png
+2026-01-24 22:14:45,361 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_3425ddf3c1be48e7ad1aa642022152f7.png'}
+2026-01-24 22:14:45,404 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:14:45,404 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:14:45,404 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:45,731 INFO app.routes.match: Offspring Poe result: {'summary_md': '若假设遗传配对成立，后代为纯种波斯：扁脸、长密被毛、圆眼。性格温顺安静。需关注多囊肾、呼吸与泪痕，定期梳毛与体检。', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, large expressive copper eyes, and a short nose. The kitten has a compact cobby body, small rounded ears, and very long, dense fluffy fur. Fur color is creamy white with light silver shading, silky texture. Calm, gentle expression, sitting indoors in soft natural light.'}
+2026-01-24 22:14:45,731 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:45,731 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, large expressive copper...
+2026-01-24 22:14:46,195 INFO app.routes.match: Offspring Poe result: {'summary_md': '**注意**：两只公猫无法繁殖；若性别更正，后代多为纯种波斯。外观：扁脸、长毛、圆眼。健康：关注多囊肾、呼吸与泪痕；建议PKD筛查与疫苗完善。性格：温顺黏人、安静。', 'image_prompt': 'A realistic cute Persian kitten with a flat brachycephalic face, large round copper eyes, long fluffy coat, compact cobby body, short legs, and small ears. Soft pastel cream-and-white fur with gentle shading, silky texture, plush tail, calm sweet expression, studio lighting, high detail, natural colors.'}
+2026-01-24 22:14:46,196 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:46,196 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a flat brachycephalic face, large round cop...
+2026-01-24 22:14:46,222 INFO app: FLUX image saved: ./uploads/kitten_ea1e5a56bda44c88a5b82a53c9478813.png
+2026-01-24 22:14:46,224 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_ea1e5a56bda44c88a5b82a53c9478813.png'}
+2026-01-24 22:14:46,262 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:14:46,263 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:14:46,263 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:49,774 INFO app: FLUX image saved: ./uploads/kitten_3744453cc65746ad90e6655c68483d2a.png
+2026-01-24 22:14:49,776 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_3744453cc65746ad90e6655c68483d2a.png'}
+2026-01-24 22:14:49,825 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:14:49,826 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:49,826 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:50,169 INFO app: FLUX image saved: ./uploads/kitten_5072f78f1ed74a6bb36f358044f3a91b.png
+2026-01-24 22:14:50,170 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_5072f78f1ed74a6bb36f358044f3a91b.png'}
+2026-01-24 22:14:50,190 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:14:50,191 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:50,191 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:50,269 INFO app: FLUX image saved: ./uploads/kitten_0de12a0197de44d39b8b3ede14a6f291.png
+2026-01-24 22:14:50,271 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_0de12a0197de44d39b8b3ede14a6f291.png'}
+2026-01-24 22:14:50,302 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:14:50,303 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:14:50,303 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:51,383 INFO app: FLUX image saved: ./uploads/kitten_86072fc909864bc7b202af5cb7784c7d.png
+2026-01-24 22:14:51,385 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_86072fc909864bc7b202af5cb7784c7d.png'}
+2026-01-24 22:14:51,433 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:14:51,433 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:14:51,433 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:54,910 INFO app.routes.match: Offspring Poe result: {'summary_md': '理论配对（需一雌一雄）。幼猫或呈中长毛、结实体型，脸型介于扁与楔。关注PKD与HCM筛查，注意呼吸与心检；性格温顺亲人，需定期梳毛与高蛋白饮食。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and Maine Coon mix, with medium-long fluffy fur, silver tabby pattern, large expressive green eyes, slightly rounded face (not flat), strong but compact body, tufted ears, bushy tail, soft plush coat texture, gentle alert expression, natural lighting, high detail, photorealistic style.'}
+2026-01-24 22:14:54,910 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:54,910 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and Maine Coon mix, with medium...
+2026-01-24 22:14:55,587 INFO app.routes.match: Offspring Poe result: {'summary_md': '**波斯×波斯**幼猫多为扁脸、长密被毛、圆眼短躯。性情温和黏人。需关注呼吸、泪痕与肾脏遗传筛查，规律梳毛与眼鼻护理。', 'image_prompt': 'A realistic cute Persian kitten with a round face, short nose, large copper eyes, and a compact body. Long, fluffy silver-shaded fur with soft cream highlights, thick ruff around the neck, short legs, and a plush tail. Calm, gentle expression, sitting indoors in soft light.'}
+2026-01-24 22:14:55,587 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:55,587 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round face, short nose, large copper eyes...
+2026-01-24 22:14:57,319 INFO app.routes.match: Offspring Poe result: {'summary_md': '⚠️两只**公猫**无法自然繁殖；假设为波斯×波斯：幼猫多为扁脸、长被毛、圆眼。健康关注PKD、呼吸与泪痕，需定期体检与梳毛。性格温顺亲人。', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, short nose, large copper eyes, and a compact cobby body. Very long, fluffy coat in soft cream or white with subtle shading, thick ruff around the neck, small rounded ears set low, and a plush tail. Calm, sweet expression, sitting indoors in soft natural light, ultra-detailed fur texture, high realism.'}
+2026-01-24 22:14:57,319 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:57,319 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, short nose, large coppe...
+2026-01-24 22:14:58,179 INFO app.routes.match: Offspring Poe result: {'summary_md': '波斯×缅因混血，半长被毛、中大型体型，圆脸略扁鼻。性格温和亲人、聪明好奇。关注HCM与PKD筛查、呼吸与被毛护理，按时疫苗。', 'image_prompt': 'A realistic, cute Persian–Maine Coon mix kitten with a fluffy semi-long coat, silver tabby pattern with white chest, large expressive green eyes, slightly rounded face with a gentle nose, tufted ears, bushy tail, sturdy medium-large body, soft lighting, high detail, natural proportions.'}
+2026-01-24 22:14:58,179 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:58,180 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian–Maine Coon mix kitten with a fluffy semi-long coat, si...
+2026-01-24 22:14:58,534 INFO app.routes.match: Offspring Poe result: {'summary_md': '理论配对（需异性）。幼猫可能**圆脸短鼻**、厚被毛、体型结实，性格温和黏人。健康关注多囊肾、心肌病与呼吸道；建议心超筛查、定期梳毛与控重。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and British Shorthair mix: round face, slightly short nose, plush dense fur, chubby compact body, small rounded ears. Fur in soft blue-gray with subtle tabby shading, large copper eyes, calm gentle expression. Indoor lighting, high-detail fur texture, natural proportions.'}
+2026-01-24 22:14:58,534 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:14:58,534 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and British Shorthair mix: roun...
+2026-01-24 22:14:59,446 INFO app: FLUX image saved: ./uploads/kitten_b3da3d95f5cc482d94fb420a19f41e20.png
+2026-01-24 22:14:59,447 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_b3da3d95f5cc482d94fb420a19f41e20.png'}
+2026-01-24 22:14:59,479 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:14:59,479 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:14:59,479 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:14:59,577 INFO app: FLUX image saved: ./uploads/kitten_aad5693f1601454d8efd4823620d5995.png
+2026-01-24 22:14:59,578 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_aad5693f1601454d8efd4823620d5995.png'}
+2026-01-24 22:14:59,596 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:14:59,597 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:14:59,597 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:00,830 INFO app.routes.match: Offspring Poe result: {'summary_md': '**注意**：两只均为公猫，无法繁殖。假设性别可行：幼猫多为中大型，半长至长毛，扁圆脸略拉长，耳大。遗传呼吸道与心脏筛查，定期梳毛。性格温顺黏人。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and Maine Coon mix: medium-large kitten with a fluffy semi-long to long coat, silver tabby with white accents, large tufted ears, slightly rounded face with a gentle nose, big almond-shaped green eyes, sturdy body, long bushy tail, soft luxurious fur, calm and sweet expression, natural lighting, high-detail fur texture.'}
+2026-01-24 22:15:00,830 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:00,830 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and Maine Coon mix: medium-larg...
+2026-01-24 22:15:00,927 INFO app: FLUX image saved: ./uploads/kitten_0528cd5891fe453d8849e4d5b33d6101.png
+2026-01-24 22:15:00,928 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_0528cd5891fe453d8849e4d5b33d6101.png'}
+2026-01-24 22:15:00,964 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:15:00,964 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:00,964 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:01,188 INFO app: FLUX image saved: ./uploads/kitten_2473d44ac937491db69e40c88bfe12cf.png
+2026-01-24 22:15:01,189 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_2473d44ac937491db69e40c88bfe12cf.png'}
+2026-01-24 22:15:01,223 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:15:01,223 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:15:01,223 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:02,440 INFO app: FLUX image saved: ./uploads/kitten_41d7f2c3311644a888340a5a4c3cb22a.png
+2026-01-24 22:15:02,442 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_41d7f2c3311644a888340a5a4c3cb22a.png'}
+2026-01-24 22:15:02,469 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:15:02,470 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:15:02,470 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:05,044 INFO app: FLUX image saved: ./uploads/kitten_f1ec7eb459134d2b9938e8ed31ed3e5f.png
+2026-01-24 22:15:05,046 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_f1ec7eb459134d2b9938e8ed31ed3e5f.png'}
+2026-01-24 22:15:05,132 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:15:05,132 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:15:05,132 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:08,096 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只**波斯猫**后代多为长毛扁脸、圆眼、矮壮体型，性格温顺亲人。需关注**多囊肾、呼吸道、泪痕**；建议做PKD基因筛查、定期梳毛与眼鼻护理。（繁育需异性配对）', 'image_prompt': 'A realistic cute Persian kitten with a round face, short flat nose, large copper eyes, and a plush long coat. Soft cream-and-white fur with subtle shading, small rounded ears, compact cobby body, fluffy tail, gentle expression, and a calm, sweet demeanor. Studio lighting, high detail, natural textures.'}
+2026-01-24 22:15:08,097 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:08,097 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round face, short flat nose, large copper...
+2026-01-24 22:15:09,140 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设异性配对，幼猫多为中大型，半扁不极端脸，长密被毛。留意PKD与HCM筛检；需勤梳毛与心肾检查。性格温和亲人。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and a Maine Coon mix: medium-large body, sturdy frame, semi-flat but not extreme face, large expressive eyes in amber or green, long fluffy coat with silver tabby or cream-and-white pattern, tufted ears, bushy tail, soft luxurious fur, gentle curious expression, natural lighting, high detail.'}
+2026-01-24 22:15:09,140 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:09,140 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and a Maine Coon mix: medium-la...
+2026-01-24 22:15:09,386 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只波斯猫将呈现扁脸、长毛、圆眼特征。**注意：同为公猫无法繁育**；若假设与波斯母猫配对，后代多温顺亲人。健康留意PKD、泪痕与呼吸道，建议遗传筛查与完善疫苗。', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, large copper eyes, small nose, and long fluffy fur. Cream and white bicolor coat with a soft plume tail, compact cobby body, short legs, plush coat texture, gentle expression, indoor soft lighting, high detail, natural colors.'}
+2026-01-24 22:15:09,387 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:09,387 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, large copper eyes, smal...
+2026-01-24 22:15:09,507 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设可繁育，幼猫多为中等体型，短至中长被毛，圆脸大眼。关注呼吸与多囊肾筛查，定期梳毛与体重管理。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and British Shorthair mix: medium-sized body, round face with a gentle flat nose, large copper or green eyes, plush dense coat of medium length, silver shaded or blue-gray fur, thick tail, sturdy legs, calm expression, soft lighting, highly detailed fur texture.'}
+2026-01-24 22:15:09,507 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:09,507 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and British Shorthair mix: medi...
+2026-01-24 22:15:11,845 INFO app: FLUX image saved: ./uploads/kitten_b0378671be3240bdbae9b8b12eac7054.png
+2026-01-24 22:15:11,850 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_b0378671be3240bdbae9b8b12eac7054.png'}
+2026-01-24 22:15:11,931 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:15:11,931 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:11,931 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:12,355 INFO app.routes.match: Offspring Poe result: {'summary_md': '**假设性分析**：两只公猫无法自然繁育。若假设后代，外观介于波斯与缅因：半长毛、颈鬃、圆脸略长口鼻。性格温顺亲人。留意PKD、HCM、泪痕与呼吸道，重视梳毛与心脏筛查。', 'image_prompt': 'A realistic, cute hybrid kitten from a Persian and a Maine Coon. Medium-large body, semi-long fluffy fur with a soft silver tabby pattern, thick ruff around the neck, round face with a slightly longer nose, large tufted ears, and big expressive amber-green eyes. Plush tail, sturdy paws, gentle expression, sitting in soft natural light, high detail, photorealistic.'}
+2026-01-24 22:15:12,355 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:12,355 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute hybrid kitten from a Persian and a Maine Coon. Medium-large bo...
+2026-01-24 22:15:13,747 INFO app: FLUX image saved: ./uploads/kitten_0da3b8500ae44c9ba7947ba6d0016a4b.png
+2026-01-24 22:15:13,749 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_0da3b8500ae44c9ba7947ba6d0016a4b.png'}
+2026-01-24 22:15:13,782 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:15:13,783 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:13,783 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:13,883 INFO app: FLUX image saved: ./uploads/kitten_c64ecc3613af4c7d82e9714692d93ca2.png
+2026-01-24 22:15:13,884 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_c64ecc3613af4c7d82e9714692d93ca2.png'}
+2026-01-24 22:15:13,918 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:15:13,918 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:15:13,918 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:14,649 INFO app: FLUX image saved: ./uploads/kitten_5e28e4dbe3904f9483a3ea6827a20421.png
+2026-01-24 22:15:14,651 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_5e28e4dbe3904f9483a3ea6827a20421.png'}
+2026-01-24 22:15:14,683 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:15:14,683 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:15:14,683 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:16,177 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设存在雌猫参与，幼猫或呈圆脸短鼻、浓密短至中长毛，体型结实。注意多囊肾、呼吸道与心肌病筛查；定期梳毛与控重。*当前两只均为公猫，需雌猫才能繁育*', 'image_prompt': 'A realistic, cute kitten from a Persian and British Shorthair mix: round face with a gentle short nose, large copper or green eyes, plush dense fur of medium length, silver shaded or blue coat, chubby cheeks, sturdy compact body, short thick tail, soft lighting, high-detail fur texture, natural pose.'}
+2026-01-24 22:15:16,177 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:16,177 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten from a Persian and British Shorthair mix: round face wi...
+2026-01-24 22:15:16,214 INFO app: FLUX image saved: ./uploads/kitten_724cb705f3054e65ac5356f4cd4862b6.png
+2026-01-24 22:15:16,217 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_724cb705f3054e65ac5356f4cd4862b6.png'}
+2026-01-24 22:15:16,240 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:15:16,241 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:15:16,241 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:19,939 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设异品种配对，幼猫可能呈中长毛、骨架较大、圆脸略长鼻，眼大。需筛查PKD与HCM，注意呼吸与关节。性格温和黏人、聪明好奇，需勤梳毛与均衡营养。', 'image_prompt': 'A realistic, cute kitten from a Persian and Maine Coon mix: medium-to-long fluffy coat, silver tabby with soft cream highlights, large round expressive eyes in green-gold, slightly rounded face with a gently extended nose, tufted ears, sturdy yet elegant body, bushy tail, plush fur texture, calm curious expression, studio lighting, high detail, natural proportions.'}
+2026-01-24 22:15:19,940 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:19,940 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten from a Persian and Maine Coon mix: medium-to-long fluff...
+2026-01-24 22:15:20,285 INFO app: FLUX image saved: ./uploads/kitten_1eed7b7cf92d40c39b7ed22e38f60a4e.png
+2026-01-24 22:15:20,287 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_1eed7b7cf92d40c39b7ed22e38f60a4e.png'}
+2026-01-24 22:15:20,370 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:15:20,370 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:20,370 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:20,694 INFO app.routes.match: Offspring Poe result: {'summary_md': '⚠️两只均为公猫，**无法自然繁殖**。若假设母猫为波斯：幼猫扁脸、长毛、圆眼；性格温顺黏人。关注PKD、呼吸道与眼部护理，完善疫苗与基因筛查。', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, small nose, large copper eyes, and long fluffy coat. Fur is creamy white with soft silver shading, dense and silky. Stocky cobby body, short legs, thick tail, small rounded ears with tufts. Calm, sweet expression, soft indoor lighting, high-detail fur texture.'}
+2026-01-24 22:15:20,695 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:20,695 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, small nose, large coppe...
+2026-01-24 22:15:22,309 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设为异性繁育：幼猫将呈**典型波斯**外观，扁脸、圆眼、长而浓密被毛。健康关注**PKD、呼吸道、泪痕与牙齿**；建议做PKD筛查并规范疫苗。性格多**温顺黏人、安静**，需日常梳毛与面部护理。', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, large copper eyes, and a short nose. Thick, long, fluffy coat in soft cream with subtle tabby shading. Compact, cobby body, short legs, small rounded ears. Calm, sweet expression, sitting on a cozy blanket under soft natural light.'}
+2026-01-24 22:15:22,310 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:22,310 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, large copper eyes, and ...
+2026-01-24 22:15:23,146 INFO app: FLUX image saved: ./uploads/kitten_38b3b2c54a6e4672a4b2555603d0a0cc.png
+2026-01-24 22:15:23,148 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_38b3b2c54a6e4672a4b2555603d0a0cc.png'}
+2026-01-24 22:15:23,232 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:15:23,232 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:23,232 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:24,275 INFO app.routes.match: Offspring Poe result: {'summary_md': '**假设异性配对**：波斯×缅因混血幼猫，半长至长毛、浓密颈毛，体型中大，圆脸带高耳。健康关注心肌病、肾病与呼吸道；建议做遗传筛查、控体重与勤梳毛。性格温和亲人、好奇不吵。', 'image_prompt': 'A realistic, cute Persian–Maine Coon mix kitten with fluffy semi-long fur, a thick ruff around the neck, and a medium-large sturdy body. Round face with a gentle profile, slightly tall tufted ears, and large expressive eyes in green or amber. Soft cream and brown tabby pattern, plush tail, calm sweet expression, natural lighting, high detail.'}
+2026-01-24 22:15:24,275 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:24,276 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian–Maine Coon mix kitten with fluffy semi-long fur, a thi...
+2026-01-24 22:15:24,431 INFO app: FLUX image saved: ./uploads/kitten_164674dbfbd44fd4858fcc0b606a73bc.png
+2026-01-24 22:15:24,433 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_164674dbfbd44fd4858fcc0b606a73bc.png'}
+2026-01-24 22:15:24,492 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:15:24,492 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:15:24,492 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:25,659 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设遗传组合，小猫多为中短毛、圆脸大眼，体型结实。注意扁脸呼吸与PKD、HCM筛查，定期疫苗。性格温和亲人、适合室内饲养。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and British Shorthair mix, with a round face, large copper eyes, short-to-medium plush fur, silver shaded or blue coat, small nose, chubby cheeks, sturdy compact body, short legs, fluffy tail, soft lighting, natural pose, high detail, photorealistic.'}
+2026-01-24 22:15:25,659 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:25,659 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and British Shorthair mix, with...
+2026-01-24 22:15:26,424 INFO app: FLUX image saved: ./uploads/kitten_4b74e41b58ac4b6eae02799256819e60.png
+2026-01-24 22:15:26,425 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_4b74e41b58ac4b6eae02799256819e60.png'}
+2026-01-24 22:15:26,471 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:15:26,471 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:15:26,471 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:27,271 INFO app.routes.match: Offspring Poe result: {'summary_md': '波斯×缅因混血外观多为中长毛、圆脸配大耳、体型结实，眼色多样。性格温和亲人又活泼。注意多囊肾/心肌病筛查与梳毛。繁育需一雌一雄。', 'image_prompt': 'A realistic, cute Persian–Maine Coon mix kitten with a fluffy medium-long coat, silver tabby with white accents, large expressive green eyes, a slightly rounded face, tufted ears, and a sturdy yet elegant body. Soft plush fur, bushy tail, gentle curious expression, natural lighting, high detail, photorealistic style.'}
+2026-01-24 22:15:27,272 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:27,272 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian–Maine Coon mix kitten with a fluffy medium-long coat, ...
+2026-01-24 22:15:28,616 INFO app: FLUX image saved: ./uploads/kitten_5b0462b8d99d4e98a7d665c1e5442fce.png
+2026-01-24 22:15:28,618 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_5b0462b8d99d4e98a7d665c1e5442fce.png'}
+2026-01-24 22:15:28,663 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:15:28,663 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:15:28,663 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:29,194 INFO app: FLUX image saved: ./uploads/kitten_0c7b23bb22524a159f12ab7ae054b9ae.png
+2026-01-24 22:15:29,196 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_0c7b23bb22524a159f12ab7ae054b9ae.png'}
+2026-01-24 22:15:29,233 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:15:29,233 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:29,233 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:29,247 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只均为公猫，无法自然繁殖。若假设同系波斯配对，幼猫多为扁脸、长被毛、圆眼；注意多囊肾、呼吸与泪腺问题，建议基因筛查与完善疫苗。', 'image_prompt': 'A realistic, cute Persian kitten with a flat, doll-like face, large round copper eyes, a short nose, and a compact cobby body. Long, fluffy coat in soft cream and white bicolor, plush texture, small rounded ears, thick tail. Calm expression, indoors, soft natural light, high-detail fur.'}
+2026-01-24 22:15:29,247 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:29,247 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a flat, doll-like face, large round copper...
+2026-01-24 22:15:31,906 INFO app: FLUX image saved: ./uploads/kitten_c97e5032961f47148460287fe4ad7cb4.png
+2026-01-24 22:15:31,909 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_c97e5032961f47148460287fe4ad7cb4.png'}
+2026-01-24 22:15:31,961 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:15:31,961 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:31,961 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:32,828 INFO app: FLUX image saved: ./uploads/kitten_42f007bb235746aca154fd2deabdc6cb.png
+2026-01-24 22:15:32,831 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_42f007bb235746aca154fd2deabdc6cb.png'}
+2026-01-24 22:15:32,869 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:15:32,869 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:15:32,870 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:34,514 INFO app.routes.match: Offspring Poe result: {'summary_md': '⚠️两只皆为公猫，实际无法繁殖；以下为**假想**。幼猫或具半长毛、较大骨量、圆脸中等鼻、浓密尾。注意遗传：PKD、HCM筛检。性格温顺亲人，需梳毛与心肾检查。', 'image_prompt': 'A realistic, cute kitten resulting from a Persian and Maine Coon mix: medium-to-large body, semi-long fluffy coat with a silver tabby pattern, round face with a slightly shortened nose (not flat), large tufted ears, big expressive green eyes, thick plume-like tail, sturdy paws, soft plush fur, gentle and curious expression, natural lighting, high detail, photorealistic.'}
+2026-01-24 22:15:34,514 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:34,514 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a Persian and Maine Coon mix: medium-to-...
+2026-01-24 22:15:34,707 INFO app.routes.match: Offspring Poe result: {'summary_md': '**外观**：纯种波斯，扁脸短鼻、长密毛，常见白/奶油/银渐层，铜或蓝眼。**健康**：需一公一母；若配对成立，关注PKD、泪痕与呼吸道，建议疫苗齐全与基因筛查。**性格**：温顺黏人、安静。', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, short nose, large copper eyes, and a compact cobby body. Long, fluffy coat in silver shaded or creamy white, soft plume tail, small rounded ears, and thick ruff around the neck. Calm, sweet expression, indoor lighting, high detail fur texture.'}
+2026-01-24 22:15:34,708 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:34,708 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, short nose, large coppe...
+2026-01-24 22:15:36,451 INFO app.routes.match: Offspring Poe result: {'summary_md': '**外观**：中等体型，短至中长毛，圆脸，铜或蓝绿眼。**性格**：温和黏人、安静。**健康**：注意呼吸道、心肌病与肥胖；配种需母猫，完善疫苗与梳毛。', 'image_prompt': 'A realistic cute kitten from a Persian and British Shorthair mix: medium-sized body, plush short-to-medium coat, round face with full cheeks, small rounded ears, big copper or blue-green eyes, dense fur in silver shaded or blue-gray, sturdy legs, calm gentle expression, soft lighting, high detail, natural fur texture.'}
+2026-01-24 22:15:36,451 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:36,451 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and British Shorthair mix: medium-sized b...
+2026-01-24 22:15:37,815 INFO app: FLUX image saved: ./uploads/kitten_84a0c19288ec475986c906bd54a4994b.png
+2026-01-24 22:15:37,818 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_84a0c19288ec475986c906bd54a4994b.png'}
+2026-01-24 22:15:37,882 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:15:37,882 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:15:37,882 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:39,216 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设可繁育，幼猫或为波斯×缅因混血：半长毛、圆脸配大耳、骨量佳。留意多囊肾与肥厚型心肌病筛查，补齐疫苗，重视梳毛与心肾体检。', 'image_prompt': 'A realistic cute Persian–Maine Coon mix kitten with a fluffy semi-long coat, silver tabby pattern, large round green eyes, a slightly rounded face with a gentle muzzle, tufted ears, and a sturdy but elegant body. Soft plush fur, bushy tail, calm sweet expression, natural lighting, highly detailed, photorealistic style.'}
+2026-01-24 22:15:39,216 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:39,216 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian–Maine Coon mix kitten with a fluffy semi-long coat, sil...
+2026-01-24 22:15:40,993 INFO app: FLUX image saved: ./uploads/kitten_cb79d88a6f584a2e99dfd4ad868ad44a.png
+2026-01-24 22:15:40,995 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_cb79d88a6f584a2e99dfd4ad868ad44a.png'}
+2026-01-24 22:15:41,015 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只波斯猫体型圆润、扁脸长毛，后代将呈典型波斯外观、性格温顺黏人。需注意多囊肾、呼吸与眼泪问题；建议完整疫苗与定期筛查。（但两只均为公猫，现实中无法繁育）', 'image_prompt': 'A realistic, cute Persian kitten with a round face and short flat nose, large expressive copper eyes, small rounded ears, and a compact cobby body. Long, fluffy silky fur in soft cream and white bicolor, thick ruff around the neck, plush tail, gentle calm expression, sitting indoors in soft natural light.'}
+2026-01-24 22:15:41,016 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:41,016 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round face and short flat nose, large ex...
+2026-01-24 22:15:41,027 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:15:41,027 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:15:41,027 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:41,232 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只波斯猫外观将高度一致：扁脸、短鼻、浓密长毛、圆眼。需注意多囊肾与呼吸道。性格温顺黏人，日常梳毛与眼鼻护理。另：繁育需一雌一雄。', 'image_prompt': 'A realistic, cute Persian kitten with a round face, short snub nose, large copper eyes, and a compact cobby body. Long, dense, silky fur in a soft cream and white bicolor pattern, fluffy tail, small rounded ears, and a calm, sweet expression. Studio lighting, high detail, natural proportions.'}
+2026-01-24 22:15:41,233 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:41,233 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round face, short snub nose, large coppe...
+2026-01-24 22:15:42,964 INFO app: FLUX image saved: ./uploads/kitten_60134ddbc0e048f9a756d7315e297901.png
+2026-01-24 22:15:42,966 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_60134ddbc0e048f9a756d7315e297901.png'}
+2026-01-24 22:15:43,006 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:15:43,006 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:43,006 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:46,495 INFO app: FLUX image saved: ./uploads/kitten_5fb36077a7464e3b96c77d3c37a07f5b.png
+2026-01-24 22:15:46,497 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_5fb36077a7464e3b96c77d3c37a07f5b.png'}
+2026-01-24 22:15:46,620 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:15:46,621 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:46,621 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:46,867 INFO app: FLUX image saved: ./uploads/kitten_3155282261f041f3b6048416fc36ed99.png
+2026-01-24 22:15:46,868 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_3155282261f041f3b6048416fc36ed99.png'}
+2026-01-24 22:15:46,911 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:15:46,912 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:15:46,912 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:47,342 INFO app: FLUX image saved: ./uploads/kitten_d68bebc1c56c40feb1bccd3e4589c290.png
+2026-01-24 22:15:47,344 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_d68bebc1c56c40feb1bccd3e4589c290.png'}
+2026-01-24 22:15:47,391 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:15:47,391 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:15:47,391 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:47,839 INFO app.routes.match: Offspring Poe result: {'summary_md': '波斯×缅因混血幼猫外观可能半长毛、蓬松颈围、圆脸配大耳，体型中大型。性格温和亲人且聪明。健康关注多囊肾、心肌病，定期筛检。两只皆公，需辅助繁育。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and Maine Coon mix: medium-to-large kitten with semi-long fluffy fur, thick neck ruff, slightly rounded face, large tufted ears, and big expressive eyes. Soft silver tabby with white accents, bushy tail, sturdy body, gentle sweet expression, natural lighting, high detail, photorealistic.'}
+2026-01-24 22:15:47,839 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:47,839 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and Maine Coon mix: medium-to-l...
+2026-01-24 22:15:49,477 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设异性繁育，波斯×英短幼猫多为中长毛、圆脸大眼。体质稳健但留意呼吸道与多囊肾筛查，定期梳毛。性格温顺黏人、安静。', 'image_prompt': 'A realistic, cute kitten from a Persian and British Shorthair mix: medium-long plush coat, silver shaded or blue-gray fur, round face, large copper or green eyes, small nose, sturdy compact body, thick tail. Soft dense fur with slight fluff around the neck, calm sweet expression, sitting indoors with gentle light, highly detailed, natural proportions.'}
+2026-01-24 22:15:49,478 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:49,478 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten from a Persian and British Shorthair mix: medium-long p...
+2026-01-24 22:15:52,037 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只均为公猫，无法自然繁殖；假设性别相容，幼猫或为长毛、体型中大型、圆脸略拉长。留意PKD与HCM筛查，定期心肾检查；性格温和亲人、好奇但不喧闹，需勤梳毛与均衡营养。', 'image_prompt': 'A realistic, cute Persian–Maine Coon mix kitten with long, fluffy fur, a medium-large sturdy body, slightly rounded face with a gentle muzzle, tufted ears, and a plumed tail. Fur is silver tabby with soft shading, big round amber eyes, thick ruff around the neck, strong paws, and a calm, sweet expression, sitting in natural light.'}
+2026-01-24 22:15:52,038 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:52,038 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian–Maine Coon mix kitten with long, fluffy fur, a medium-...
+2026-01-24 22:15:52,086 INFO app: FLUX image saved: ./uploads/kitten_848a755aa58b477d87c2d79365f0a3d8.png
+2026-01-24 22:15:52,088 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_848a755aa58b477d87c2d79365f0a3d8.png'}
+2026-01-24 22:15:52,220 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:15:52,221 INFO app.routes.match: Offspring prompt built, length: 1289
+2026-01-24 22:15:52,222 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:53,624 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只波斯猫后代外形多为扁脸、长被毛、圆眼。需注意：同为公猫，需借助辅助繁殖。健康关注PKD、呼吸道、泪痕，建议完善疫苗与定检。', 'image_prompt': 'A realistic cute Persian kitten with a round flat face, large copper eyes, and a short nose. Long, fluffy coat in cream and light silver shading, dense and silky. Compact cobby body, short legs, small rounded ears, and a plush tail. Gentle expression, soft lighting, studio-style portrait, high detail, natural colors.'}
+2026-01-24 22:15:53,624 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:53,624 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round flat face, large copper eyes, and a...
+2026-01-24 22:15:54,155 INFO app: FLUX image saved: ./uploads/kitten_f5a2bd3310634c87b231de0a1140e826.png
+2026-01-24 22:15:54,157 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_f5a2bd3310634c87b231de0a1140e826.png'}
+2026-01-24 22:15:54,195 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:15:54,197 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:54,197 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:56,159 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只波斯猫配对将产纯种波斯幼猫，扁脸圆眼、长而浓密被毛、体型结实。注意PKD、多泪道与呼吸道问题，建议基因筛查、定期体检与梳毛。性情温顺黏人，需室内饲养。但两只均为公猫，需更换母猫才能繁育。', 'image_prompt': 'A realistic, cute Persian kitten with a round face, short flat nose, large copper eyes, and small ears. Long, dense, silky fur in a soft cream or white color with subtle shading. Stocky body, short legs, fluffy tail. Gentle, sweet expression, indoor lighting, high-detail fur texture, natural proportions.'}
+2026-01-24 22:15:56,160 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:56,160 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round face, short flat nose, large coppe...
+2026-01-24 22:15:56,817 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只公猫无法自然繁殖，以下为假设性分析：幼猫或具波斯圆脸与缅因体型，长半长毛。关注多囊肾、肥厚型心肌病筛查，重视梳毛与心肾体检。', 'image_prompt': 'A realistic, cute kitten resulting from a Persian and Maine Coon mix: medium-large kitten with a fluffy semi-long coat, soft silver tabby with white chest, round Persian-like face, slightly longer Maine Coon muzzle, large tufted ears, big expressive amber-green eyes, sturdy but elegant body, bushy tail, calm and gentle expression, high-detail realistic lighting.'}
+2026-01-24 22:15:56,817 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:15:56,817 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a Persian and Maine Coon mix: medium-lar...
+2026-01-24 22:15:56,933 INFO app: FLUX image saved: ./uploads/kitten_a68e10a20c1b46f782972b94d6395a27.png
+2026-01-24 22:15:56,935 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_a68e10a20c1b46f782972b94d6395a27.png'}
+2026-01-24 22:15:56,991 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:15:56,992 INFO app.routes.match: Offspring prompt built, length: 1268
+2026-01-24 22:15:56,992 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:15:59,329 INFO app: FLUX image saved: ./uploads/kitten_761fdd6e58f848b29f4cde906ddaf952.png
+2026-01-24 22:15:59,332 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_761fdd6e58f848b29f4cde906ddaf952.png'}
+2026-01-24 22:15:59,358 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:15:59,358 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:15:59,358 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:01,313 INFO app: FLUX image saved: ./uploads/kitten_bb7564b415394cbaa4d847f4883b294c.png
+2026-01-24 22:16:01,315 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_bb7564b415394cbaa4d847f4883b294c.png'}
+2026-01-24 22:16:01,364 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:16:01,365 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:16:01,365 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:01,939 INFO app.routes.match: Offspring Poe result: {'summary_md': '**需一雌一雄配对；以下为假设分析。**幼猫多为中大型长毛，脸型较圆但不极端，或有耳簇。性格温顺亲人、聪明。关注PKD、HCM筛查，勤梳毛、控体重。', 'image_prompt': 'A realistic, cute long-haired kitten from a Persian and Maine Coon mix: medium-large body, plush silky fur with a soft silver tabby pattern, slightly rounded face with a gentle muzzle (not flat), large expressive amber-green eyes, tufted ears, bushy tail, sturdy paws. Calm, elegant posture in natural light, high-detail fur texture, photorealistic style.'}
+2026-01-24 22:16:01,939 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:01,940 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute long-haired kitten from a Persian and Maine Coon mix: medium-l...
+2026-01-24 22:16:02,535 INFO app: FLUX image saved: ./uploads/kitten_ea851245379e430f8e90071622b2e890.png
+2026-01-24 22:16:02,537 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_ea851245379e430f8e90071622b2e890.png'}
+2026-01-24 22:16:02,572 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:16:02,573 INFO app.routes.match: Offspring prompt built, length: 1291
+2026-01-24 22:16:02,573 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:02,635 INFO app.routes.match: Offspring Poe result: {'summary_md': '**注意**：两只均为公猫，无法自然繁殖；以下为假设性分析。幼猫多为典型波斯：扁脸、短鼻、圆眼、长密被毛。关注PKD、呼吸与泪腺护理；性情温顺黏人，需定期梳毛与眼鼻清洁。', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, short nose, large round copper eyes, and a compact cobby body. Long, dense, silky fur in soft cream with subtle golden shading, fluffy tail, small ears set low, calm gentle expression, indoor lighting, high detail, natural colors.'}
+2026-01-24 22:16:02,636 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:02,636 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, short nose, large round...
+2026-01-24 22:16:02,693 INFO app.routes.match: Offspring Poe result: {'summary_md': '波斯×英短后代多为圆脸短鼻、被毛浓密偏中短；性格温和亲人。注意多囊肾与呼吸道筛查、控制体重；需雌猫参与配种，定期梳毛与体检。', 'image_prompt': 'A realistic, cute kitten from a Persian and British Shorthair mix: round face, short nose, large copper eyes, plush dense coat. Medium-short fur, blue or cream shaded color with subtle tabby pattern. Cobby, sturdy body, short legs, thick tail. Calm, sweet expression, soft lighting, high-detail photorealistic style.'}
+2026-01-24 22:16:02,693 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:02,693 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten from a Persian and British Shorthair mix: round face, s...
+2026-01-24 22:16:06,009 INFO app: FLUX image saved: ./uploads/kitten_5337d8401a864b268504e531bdce1710.png
+2026-01-24 22:16:06,012 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_5337d8401a864b268504e531bdce1710.png'}
+2026-01-24 22:16:06,261 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:16:06,261 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:06,261 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:06,291 INFO app: FLUX image saved: ./uploads/kitten_ffce96fbaab947f0be5488443f2299bf.png
+2026-01-24 22:16:06,291 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_ffce96fbaab947f0be5488443f2299bf.png'}
+2026-01-24 22:16:06,333 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:16:06,333 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:06,333 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:06,656 INFO app: FLUX image saved: ./uploads/kitten_ff9a7c4a937a4d279541318b2f955fa5.png
+2026-01-24 22:16:06,658 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_ff9a7c4a937a4d279541318b2f955fa5.png'}
+2026-01-24 22:16:06,685 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:16:06,685 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:16:06,685 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:08,248 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只波斯猫均为公猫，现实中无法繁育。若假设基因组合，幼猫多为典型波斯：扁脸、圆眼、长密被毛。注意多囊肾、呼吸道与眼鼻护理，定期体检。', 'image_prompt': 'A realistic cute Persian kitten with a round flat face, large copper eyes, small nose, and fluffy long coat. Soft cream and white fur with subtle shading, compact cobby body, short legs, thick tail, calm expression, indoor lighting, highly detailed, natural colors, photorealistic style.'}
+2026-01-24 22:16:08,248 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:08,248 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round flat face, large copper eyes, small...
+2026-01-24 22:16:09,256 INFO app.routes.match: Offspring Poe result: {'summary_md': '**生物学提示**：两只均为公猫，实际无法繁殖。若假设配对，其幼猫或为中大型、半长毛，脸型介于扁与楔形；健康关注心肌病、多囊肾，重在筛检与护理。', 'image_prompt': 'A realistic cute kitten resulting from a Persian and Maine Coon mix: medium-large fluffy body, semi-long silky fur, silver tabby with white chest, slightly rounded face (not flat), large tufted ears, big almond-shaped green eyes, long plumed tail, sturdy legs, gentle and friendly expression, soft natural lighting.'}
+2026-01-24 22:16:09,256 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:09,256 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a Persian and Maine Coon mix: medium-larg...
+2026-01-24 22:16:13,107 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫多为中长毛、半扁脸，大耳蓬尾，体型中大。性格温顺亲人又活跃。健康留意PKD与HCM，建议基因筛查、定期心超与疫苗护理。', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: medium‑large kitten with fluffy semi‑long fur, silver tabby with white chest, slightly rounded face (not flat), large tufted ears, big round green eyes, sturdy body, long bushy tail, soft plush coat, gentle expression, sitting indoors in natural light.'}
+2026-01-24 22:16:13,107 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:13,107 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: medium‑large kitten w...
+2026-01-24 22:16:13,625 INFO app: FLUX image saved: ./uploads/kitten_cf4c0609621c45e98cb5291dab4441ab.png
+2026-01-24 22:16:13,627 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_cf4c0609621c45e98cb5291dab4441ab.png'}
+2026-01-24 22:16:13,681 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:16:13,681 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:16:13,682 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:15,085 INFO app: FLUX image saved: ./uploads/kitten_7664b7b5aaaa42b0bda61946a9869ec5.png
+2026-01-24 22:16:15,087 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_7664b7b5aaaa42b0bda61946a9869ec5.png'}
+2026-01-24 22:16:15,110 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:16:15,110 INFO app.routes.match: Offspring prompt built, length: 1291
+2026-01-24 22:16:15,110 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:15,360 INFO app.routes.match: Offspring Poe result: {'summary_md': '纯种波斯幼猫，多为扁脸、短鼻、圆眼、长而浓密被毛。性情温顺黏人。需关注多囊肾、呼吸与泪痕；母猫疫苗不明，建议配前补齐与孕期体检。', 'image_prompt': 'A realistic cute Persian kitten with a round flat face, short nose, large copper eyes, and a plush long coat. Soft cream or white fur with subtle shading, small rounded ears, compact cobby body, short legs, and a fluffy tail. Gentle expression, clean tear ducts, indoor lighting, high-detail fur texture.'}
+2026-01-24 22:16:15,360 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:15,360 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round flat face, short nose, large copper...
+2026-01-24 22:16:16,342 INFO app.routes.match: Offspring Poe result: {'summary_md': '**外观**圆脸大眼、短到中等鼻、浓密中长被毛；**性格**温顺亲人、安静好相处；**健康**注意PKD与HCM筛查、控重与眼鼻护理，按时疫苗。', 'image_prompt': 'A realistic cute kitten from a Persian and British Shorthair mix: round face with a soft doll-like muzzle, large round copper or blue eyes, plush dense medium-long fur, chubby body, short sturdy legs. Fur in silver shaded or blue-gray, subtle tabby pattern, fluffy tail, calm sweet expression, soft studio lighting, high detail, photorealistic.'}
+2026-01-24 22:16:16,343 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:16,343 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and British Shorthair mix: round face wit...
+2026-01-24 22:16:17,053 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只均为波斯猫，外貌多为扁脸、长密被毛、圆眼。需注意：目前同为公猫，无法繁育；以下为假设性分析。后代性格温顺粘人。健康关注多囊肾、呼吸与泪痕；建议基因筛查、完善疫苗、日常梳毛。', 'image_prompt': 'A realistic, cute Persian kitten with a flat, round face, large copper eyes, and a short nose. Long, fluffy silky fur in cream and light gray shading, dense coat, small rounded ears, compact cobby body, short legs, and a calm, gentle expression. Soft lighting, high detail, natural fur texture, indoor setting.'}
+2026-01-24 22:16:17,053 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:17,055 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a flat, round face, large copper eyes, and...
+2026-01-24 22:16:18,252 INFO app: FLUX image saved: ./uploads/kitten_1f2d924f79a741ce913eff03e11d118e.png
+2026-01-24 22:16:18,255 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_1f2d924f79a741ce913eff03e11d118e.png'}
+2026-01-24 22:16:18,393 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:16:18,393 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:18,393 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:20,545 INFO app: FLUX image saved: ./uploads/kitten_cac18f4fdcde43bc90808b5480556079.png
+2026-01-24 22:16:20,548 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_cac18f4fdcde43bc90808b5480556079.png'}
+2026-01-24 22:16:20,597 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:16:20,598 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:20,598 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:20,900 INFO app: FLUX image saved: ./uploads/kitten_ca91d6e4da874a1bb96ce2cb1bcfd6cb.png
+2026-01-24 22:16:20,904 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_ca91d6e4da874a1bb96ce2cb1bcfd6cb.png'}
+2026-01-24 22:16:20,940 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:16:20,941 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:16:20,941 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:21,142 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只公猫无法自然繁殖；若假设获得波斯×缅因混血，幼猫多为中大型、长毛、圆脸与大耳并存，眼色多样。注意心肌病、肾病与呼吸道，需定期体检与梳毛。', 'image_prompt': 'A realistic, cute Persian–Maine Coon mix kitten with a medium-large fluffy body, clearly long silky fur, a slightly rounded Persian-like face, larger tufted ears from the Maine Coon, bright amber-green eyes, and a gentle expression. The coat is a soft cream and silver tabby pattern, with a bushy tail and sturdy paws. The kitten looks calm, affectionate, and playful, sitting indoors in natural light.'}
+2026-01-24 22:16:21,142 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:21,142 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian–Maine Coon mix kitten with a medium-large fluffy body,...
+2026-01-24 22:16:21,365 INFO app: FLUX image saved: ./uploads/kitten_2b1583927f274967a245e5e15ed46b77.png
+2026-01-24 22:16:21,368 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_2b1583927f274967a245e5e15ed46b77.png'}
+2026-01-24 22:16:21,394 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:16:21,394 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:16:21,394 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:24,061 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫多为中长毛、圆脸但鼻不极扁，体型结实；性格温和亲人。关注多囊肾、呼吸与肥胖风险，建议基因筛查、控重与定期梳毛。', 'image_prompt': 'A realistic, cute kitten from a Persian and British Shorthair mix: medium-long plush fur, round face with a short but not flat nose, large copper-green eyes, small rounded ears, chubby cheeks, and a stocky body. Soft silver tabby or cream coat, thick tail, calm sweet expression, studio lighting, high detail, natural colors.'}
+2026-01-24 22:16:24,062 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:24,062 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten from a Persian and British Shorthair mix: medium-long p...
+2026-01-24 22:16:25,181 INFO app.routes.match: Offspring Poe result: {'summary_md': '可能为波斯×缅因混血，长/半长毛、骨量中等、圆脸略拉长，眼大。总体健康，但关注多囊肾与心肌病筛查，建议完善母猫疫苗。性格温和亲人、聪明好奇。', 'image_prompt': 'A realistic cute Persian–Maine Coon mix kitten with fluffy semi-long fur, silver tabby pattern, soft ruff, slightly rounded yet elongated face, large expressive green-gold eyes, tufted ears, big paws, and a long bushy tail. Medium build, plush coat texture, gentle curious expression, natural lighting, high detail, photorealistic.'}
+2026-01-24 22:16:25,181 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:25,182 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian–Maine Coon mix kitten with fluffy semi-long fur, silver...
+2026-01-24 22:16:25,661 INFO app: FLUX image saved: ./uploads/kitten_035183729c7f42ab9b83705d3e0a9cae.png
+2026-01-24 22:16:25,664 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_035183729c7f42ab9b83705d3e0a9cae.png'}
+2026-01-24 22:16:25,700 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:16:25,700 INFO app.routes.match: Offspring prompt built, length: 1291
+2026-01-24 22:16:25,701 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:28,267 INFO app: FLUX image saved: ./uploads/kitten_80c203c4e8394a8a806cefadc17eb0fe.png
+2026-01-24 22:16:28,269 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_80c203c4e8394a8a806cefadc17eb0fe.png'}
+2026-01-24 22:16:28,290 INFO app.routes.match: Offspring Poe result: {'summary_md': '**理论配对**（需一公一母）。幼猫或呈长毛、半扁圆脸+大耳、骨量中等偏大。健康留意PKD、HCM，定期心超与肾检；性格温顺亲人、略爱玩，需勤梳毛。', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: long fluffy coat with a soft silver tabby pattern, large expressive green eyes, slightly rounded face with a gentle nose, tufted ears, bushy tail, medium-to-large sturdy body, plush fur texture, sweet calm expression, studio lighting, high detail, photorealistic.'}
+2026-01-24 22:16:28,292 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:28,292 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: long fluffy coat with...
+2026-01-24 22:16:28,297 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:16:28,297 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:28,297 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:28,567 INFO app.routes.match: Offspring Poe result: {'summary_md': '**幼猫**大概率为纯种波斯，长毛、扁脸、大圆眼。性情温和黏人。**健康**留意短鼻呼吸、泪痕与PKD遗传筛查；母猫补齐疫苗。**护理**需每日梳毛、控体重。', 'image_prompt': 'A realistic cute Persian kitten with a round flat face, large copper eyes, and a short snub nose. Long, fluffy silver-shaded fur with subtle darker tips, thick ruff, small rounded ears, and a cobby body. Soft plush coat, calm expression, sitting pose, studio lighting, high detail, natural colors.'}
+2026-01-24 22:16:28,567 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:28,567 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round flat face, large copper eyes, and a...
+2026-01-24 22:16:29,478 INFO app: FLUX image saved: ./uploads/kitten_9eeba71b484944dba1ed5a274269c258.png
+2026-01-24 22:16:29,480 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_9eeba71b484944dba1ed5a274269c258.png'}
+2026-01-24 22:16:29,505 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:16:29,505 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:29,505 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:32,037 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只波斯猫外形将偏扁脸、长密毛、圆眼。注意PKD、呼吸与泪痕护理。⚠️两只均为公猫，无法繁育，需选健康母猫并完善疫苗。', 'image_prompt': 'A realistic cute Persian kitten with a round face, flat nose, large copper eyes, and a short muzzle. Long, dense, silky fur in soft cream and white shading, fluffy tail, compact cobby body, small rounded ears, sweet calm expression, sitting indoors in gentle natural light.'}
+2026-01-24 22:16:32,038 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:32,038 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round face, flat nose, large copper eyes,...
+2026-01-24 22:16:32,613 INFO app.routes.match: Offspring Poe result: {'summary_md': '**外观**半长毛、圆脸厚骨，可能金/蓝色，铜或绿眼。**性格**温和亲人、安静。**健康**关注泪痕、呼吸与心肌；定期梳毛、体检。', 'image_prompt': 'A realistic, cute kitten from a Persian and British Shorthair mix: a round face with a short, soft muzzle, large round copper-green eyes, plush semi-long dense fur in blue or golden shaded color, compact cobby body, thick tail, small rounded ears, calm and sweet expression, studio lighting, high detail.'}
+2026-01-24 22:16:32,613 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:32,613 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten from a Persian and British Shorthair mix: a round face ...
+2026-01-24 22:16:33,034 INFO app: FLUX image saved: ./uploads/kitten_f4b1c0d915934efc81057a6abda3f55e.png
+2026-01-24 22:16:33,036 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_f4b1c0d915934efc81057a6abda3f55e.png'}
+2026-01-24 22:16:33,065 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:16:33,065 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:16:33,065 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:33,183 INFO app: FLUX image saved: ./uploads/kitten_25dff636a07b42e4aad573911ae7d770.png
+2026-01-24 22:16:33,185 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_25dff636a07b42e4aad573911ae7d770.png'}
+2026-01-24 22:16:33,203 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:16:33,203 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:16:33,203 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:34,853 INFO app.routes.match: Offspring Poe result: {'summary_md': '可能为中大型半长毛，圆脸但不极端扁平，耳有毛簇、眼大明亮。性格温顺亲人、聪慧黏人。关注**HCM/PKD**筛查，按时补齐疫苗与体检。', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: medium-large fluffy body, semi-long silky fur, soft silver tabby with cream accents, round but not flat face, large expressive green eyes, tufted ears, bushy tail, sturdy legs. Gentle, cuddly posture, soft lighting, high detail, photorealistic.'}
+2026-01-24 22:16:34,853 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:34,853 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: medium-large fluffy b...
+2026-01-24 22:16:35,482 INFO app: FLUX image saved: ./uploads/kitten_acf283724957439e8312de83fa70566f.png
+2026-01-24 22:16:35,484 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_acf283724957439e8312de83fa70566f.png'}
+2026-01-24 22:16:35,507 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:16:35,508 INFO app.routes.match: Offspring prompt built, length: 1291
+2026-01-24 22:16:35,508 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:35,577 INFO app: FLUX image saved: ./uploads/kitten_f83530a790fe4cbb9d9480c9574fd78a.png
+2026-01-24 22:16:35,578 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_f83530a790fe4cbb9d9480c9574fd78a.png'}
+2026-01-24 22:16:35,597 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:16:35,597 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:35,597 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:38,016 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫将为纯种波斯，扁脸圆眼、短鼻、厚长毛。性情温顺黏人。关注多囊肾、泪痕与呼吸道问题，建议基因筛查、定期梳毛与完善疫苗。', 'image_prompt': 'A realistic, cute Persian kitten with a round head, flat nose, large expressive copper eyes, and a short muzzle. Luxurious long fluffy coat in soft cream with subtle shading, compact cobby body, small rounded ears, and a calm gentle expression. Soft studio lighting, high detail fur texture, natural proportions.'}
+2026-01-24 22:16:38,016 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:38,016 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round head, flat nose, large expressive ...
+2026-01-24 22:16:39,140 INFO app: FLUX image saved: ./uploads/kitten_1126d2a5df004c8694259d99055053ff.png
+2026-01-24 22:16:39,143 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_1126d2a5df004c8694259d99055053ff.png'}
+2026-01-24 22:16:39,169 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:16:39,170 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:39,170 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:39,753 INFO app.routes.match: Offspring Poe result: {'summary_md': '**假设性配对**：波斯×缅因。幼猫或半长毛、体型偏大、圆脸加高耳，眼大。留意**HCM/PKD**筛查与呼吸护理；性格温顺亲人、聪明好奇，需勤梳毛。', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: semi-long fluffy coat, silver tabby with white chest, large round amber eyes, slightly flat but balanced face, tall tufted ears, big paws, sturdy medium-large body, soft plume tail, gentle expression, natural lighting, high detail.'}
+2026-01-24 22:16:39,753 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:39,753 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: semi-long fluffy coat...
+2026-01-24 22:16:41,076 INFO app.routes.match: Offspring Poe result: {'summary_md': '可能为**波斯×缅因混血**：中大型体型，半长至长毛、圆脸配大耳。总体健康但需关注**心肌病、肾病、呼吸道**筛查；母猫疫苗不明，建议补齐。性格多半温顺亲人、聪明好奇，适合家庭饲养。', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: medium-large kitten with semi-long fluffy coat, soft silver tabby with white chest, big round green eyes, slightly rounded face with gentle nose, large tufted ears, sturdy body, long bushy tail, calm sweet expression, natural lighting, high detail, photorealistic.'}
+2026-01-24 22:16:41,076 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:41,077 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: medium-large kitten w...
+2026-01-24 22:16:42,425 INFO app: FLUX image saved: ./uploads/kitten_54002f93a2814c35898a5d7a73e2d74a.png
+2026-01-24 22:16:42,428 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_54002f93a2814c35898a5d7a73e2d74a.png'}
+2026-01-24 22:16:42,438 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只公猫无法自然繁殖；假设其中一只为母，后代多为纯种波斯：扁脸、长密毛、圆眼。健康关注PKD、呼吸与泪痕；建议基因筛查、完善疫苗与日常梳理。', 'image_prompt': 'A realistic, cute Persian kitten with a flat brachycephalic face, large round copper eyes, small nose, and short muzzle. Long, dense, silky fur in a soft cream and white bicolor pattern, fluffy tail, compact cobby body, small rounded ears, sweet calm expression, studio lighting, high detail, natural proportions.'}
+2026-01-24 22:16:42,438 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:42,438 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a flat brachycephalic face, large round co...
+2026-01-24 22:16:42,457 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:16:42,457 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:16:42,458 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:43,232 INFO app: FLUX image saved: ./uploads/kitten_0d355ca882504456b6570ac1f059c307.png
+2026-01-24 22:16:43,233 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_0d355ca882504456b6570ac1f059c307.png'}
+2026-01-24 22:16:43,257 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:16:43,257 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:16:43,257 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:44,078 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫外形介于波斯与英短：圆脸中短鼻、浓密中长毛、体态结实。性格温和亲人、安静。注意泪痕、呼吸道与心脏筛查，定期梳毛与体检。', 'image_prompt': 'A realistic, cute kitten resulting from a Persian and British Shorthair mix: round face with a gently shortened nose, large copper or amber eyes, plush medium-length dense fur, solid blue or cream coat with subtle shading, compact and sturdy body, short thick legs, small rounded ears, calm sweet expression, studio lighting, high detail, natural colors.'}
+2026-01-24 22:16:44,079 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:44,079 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a Persian and British Shorthair mix: rou...
+2026-01-24 22:16:44,654 INFO app: FLUX image saved: ./uploads/kitten_9ad898bce2984739afffd6662fc0c28c.png
+2026-01-24 22:16:44,656 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_9ad898bce2984739afffd6662fc0c28c.png'}
+2026-01-24 22:16:44,683 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:16:44,683 INFO app.routes.match: Offspring prompt built, length: 1291
+2026-01-24 22:16:44,683 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:46,035 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫多为纯种波斯，扁脸短鼻、圆眼、长而浓密被毛。性情温顺亲人。注意遗传多囊肾、泪痕与呼吸道问题，建议做PKD筛查、控制体重、定期梳毛与眼鼻清洁。', 'image_prompt': 'A realistic, cute Persian kitten with a flat face and short nose, large round copper eyes, small ears, and a cobby body. Long, dense, silky fur in a soft cream-and-white bicolor pattern, fluffy tail, short sturdy legs. Gentle, calm expression, sitting indoors on a soft blanket, natural lighting, high detail, lifelike texture.'}
+2026-01-24 22:16:46,035 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:46,035 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a flat face and short nose, large round co...
+2026-01-24 22:16:47,244 INFO app: FLUX image saved: ./uploads/kitten_a7a6a3c4864f4610aae192efa122b2a1.png
+2026-01-24 22:16:47,248 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_a7a6a3c4864f4610aae192efa122b2a1.png'}
+2026-01-24 22:16:47,277 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:16:47,277 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:47,277 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:47,594 INFO app: FLUX image saved: ./uploads/kitten_caef70dc0993409b8e1ec792ffc1c330.png
+2026-01-24 22:16:47,596 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_caef70dc0993409b8e1ec792ffc1c330.png'}
+2026-01-24 22:16:47,619 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:16:47,619 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:16:47,619 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:16:48,161 INFO app.routes.match: Offspring Poe result: {'summary_md': '**两只均为公猫，无法自然繁殖。**假设一方为母：后代为典型波斯猫，扁脸、长毛、圆眼。关注多囊肾、泪痕与呼吸道，定期体检与梳毛护理。', 'image_prompt': 'A realistic, cute Persian kitten with a round face and short nose, large copper eyes, and a plush long coat. Fur is creamy white with light silver shading, dense and silky. Compact cobby body, short legs, fluffy tail, calm expression, soft indoor lighting, highly detailed fur texture.'}
+2026-01-24 22:16:48,161 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:48,161 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round face and short nose, large copper ...
+2026-01-24 22:16:50,015 INFO app: FLUX image saved: ./uploads/kitten_766aa720aafd4df9b4a977a39710bef9.png
+2026-01-24 22:16:50,017 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_766aa720aafd4df9b4a977a39710bef9.png'}
+2026-01-24 22:16:50,576 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 22:16:50,577 INFO app.routes.match: Prompt built successfully, length: 1439
+2026-01-24 22:16:50,577 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 22:16:52,075 INFO app.routes.match: Offspring Poe result: {'summary_md': '**波斯×缅因**若为异性配对，幼猫多半**长毛**、**中大型**、圆脸带耳簇、**大眼**。关注**PKD/HCM**筛查并补齐疫苗；性格**温和亲人且活跃**。*当前两只皆雄，无法繁育，需雌猫。*', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: fluffy long fur, silver tabby with soft cream highlights, big round emerald eyes, slightly flat yet balanced face, medium-large sturdy body, bushy tail, small lynx-like ear tufts, gentle expression, soft lighting, high detail, natural pose.'}
+2026-01-24 22:16:52,075 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:52,075 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: fluffy long fur, silv...
+2026-01-24 22:16:52,951 INFO app: FLUX image saved: ./uploads/kitten_bf0ccb54d314484caf40077b06831c8d.png
+2026-01-24 22:16:52,953 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_bf0ccb54d314484caf40077b06831c8d.png'}
+2026-01-24 22:16:53,400 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫多为波斯×英短混血，圆脸短鼻、中长绒毛，体型结实。性格温和黏人。注意泪痕、呼吸道与肥胖风险，定期梳毛与补齐疫苗。', 'image_prompt': 'A realistic cute kitten from a Persian and British Shorthair mix, with a round face, slightly short nose, large copper or green eyes, plush medium-length fur, chubby body, and short sturdy legs. Soft blue-gray or cream coat with subtle tabby shading, small rounded ears, fluffy tail, calm and sweet expression, studio lighting, high detail.'}
+2026-01-24 22:16:53,400 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:53,400 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and British Shorthair mix, with a round f...
+2026-01-24 22:16:54,627 INFO app.routes.match: Offspring Poe result: {'summary_md': '波斯×缅因幼猫多为中大型，半长毛、蓬松尾，圆脸带耳尖毛，绿或金眼。健康总体良好，留意心肌肥厚、泪痕与关节；定期心超与梳毛。性格温顺黏人又活泼聪明，适合家庭陪伴。', 'image_prompt': 'A realistic cute kitten born from a Persian and a Maine Coon mix: medium-large kitten with fluffy semi-long fur, soft silver tabby with white accents, bushy tail, round face with a slightly longer muzzle, large tufted ears, bright green-gold eyes, sturdy yet elegant body, gentle expression, natural lighting, highly detailed fur texture.'}
+2026-01-24 22:16:54,628 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:54,628 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten born from a Persian and a Maine Coon mix: medium-large k...
+2026-01-24 22:16:55,984 INFO app: FLUX image saved: ./uploads/kitten_f3f2119b3915491880f6d14dc802e1b9.png
+2026-01-24 22:16:55,985 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_f3f2119b3915491880f6d14dc802e1b9.png'}
+2026-01-24 22:16:57,161 INFO app.routes.match: Poe analyze result: {'summary_md': '**首选Grace**：同品种雌性健康，配对佳；其余不适合繁育。', 'image_prompt': 'A realistic, high-quality portrait of two healthy Persian cats, one male and one female, calm and affectionate, sitting side by side in a clean indoor setting. Emphasize flat faces, long silky coats, bright eyes, and gentle temperament. Soft natural lighting, neutral background, professional pet photography style.'}
+2026-01-24 22:16:57,161 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 22:16:57,161 INFO app.routes.match: Generating image with prompt: A realistic, high-quality portrait of two healthy ...
+2026-01-24 22:16:57,369 INFO app: FLUX image saved: ./uploads/kitten_c8de460e3bc64aa1ac379916b6f9f935.png
+2026-01-24 22:16:57,372 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_c8de460e3bc64aa1ac379916b6f9f935.png'}
+2026-01-24 22:16:57,465 INFO app.routes.match: Offspring Poe result: {'summary_md': '**波斯幼猫**：扁脸短鼻、圆眼、长密被毛。性格温顺亲人。健康留意PKD、呼吸与泪痕；建议基因筛查、定期梳毛与清洁。', 'image_prompt': 'A realistic, cute Persian kitten with a round flat face, short nose, large expressive round eyes, and a compact cobby body. Long, dense, silky fur in soft cream and white with subtle shading, fluffy tail, small rounded ears set low, and a calm gentle expression. Indoor lighting, high detail, natural proportions.'}
+2026-01-24 22:16:57,466 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:16:57,466 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round flat face, short nose, large expre...
+2026-01-24 22:16:58,997 INFO app: FLUX image saved: ./uploads/kitten_7eab9a86e60e4578ac7ed7ad4efd67b6.png
+2026-01-24 22:16:58,999 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_7eab9a86e60e4578ac7ed7ad4efd67b6.png'}
+2026-01-24 22:17:01,383 INFO app: FLUX image saved: ./uploads/kitten_6fb385f390d8411bb5d208c58167d265.png
+2026-01-24 22:17:01,385 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_6fb385f390d8411bb5d208c58167d265.png'}
+2026-01-24 22:17:01,546 INFO app: FLUX image saved: ./uploads/kitten_00728f5d218741c5b0fd897297ca328c.png
+2026-01-24 22:17:01,550 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_00728f5d218741c5b0fd897297ca328c.png'}
+2026-01-24 22:17:01,626 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-24 22:17:01,626 INFO app.routes.match: Prompt built successfully, length: 1439
+2026-01-24 22:17:01,626 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-24 22:17:02,241 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:17:02,241 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:17:02,241 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:17:07,836 INFO app.routes.match: Poe analyze result: {'summary_md': '首选Grace：同为波斯母猫，年龄匹配，繁育风险低；需补齐疫苗并做遗传筛查。', 'image_prompt': 'A realistic, soft-lit portrait of two Persian cats: a healthy adult male Persian with a flat face and long coat sitting calmly beside a female Persian of similar age. Professional breeding consultation setting, clean background, gentle eye contact, luxurious fur texture, high detail, natural colors, studio photography style.'}
+2026-01-24 22:17:07,837 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-24 22:17:07,838 INFO app.routes.match: Generating image with prompt: A realistic, soft-lit portrait of two Persian cats...
+2026-01-24 22:17:08,118 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只**波斯猫**配对，幼猫多为扁脸、长毛、圆眼。健康总体良好，但需关注**多囊肾(PKD)**、呼吸与泪痕；建议父母做基因筛查并完善疫苗。性格温顺亲人，适合室内饲养。日常需勤梳毛与眼鼻护理。', 'image_prompt': 'A realistic, cute Persian kitten with a round face and short nose, long fluffy coat in soft cream with subtle shading, large round copper eyes, small ears set low, compact cobby body, thick plume tail, gentle expression, sitting indoors in soft natural light, ultra-detailed fur texture, photorealistic style.'}
+2026-01-24 22:17:08,118 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:17:08,119 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian kitten with a round face and short nose, long fluffy c...
+2026-01-24 22:17:12,141 INFO app: FLUX image saved: ./uploads/kitten_00f5f0e4ee5d4c2fa4ddbe4e29a21987.png
+2026-01-24 22:17:12,143 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_00f5f0e4ee5d4c2fa4ddbe4e29a21987.png'}
+2026-01-24 22:17:12,301 INFO app: FLUX image saved: ./uploads/kitten_905e233b88cf4b9eb2e6dbfdb9855fbb.png
+2026-01-24 22:17:12,302 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_905e233b88cf4b9eb2e6dbfdb9855fbb.png'}
+2026-01-24 22:17:12,369 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-24 22:17:12,369 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:17:12,369 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:17:19,957 INFO app.routes.match: Offspring Poe result: {'summary_md': '纯种波斯幼猫，扁脸圆眼、长而蓬松被毛，体型结实。性情温顺亲人、安静。注意遗传多囊肾与呼吸道护理，定期筛查与梳毛。', 'image_prompt': 'A realistic cute Persian kitten with a round flat face, large copper eyes, and a small pink nose. Long, fluffy dense coat in creamy white with light gray shading, thick ruff around the neck, short sturdy legs, compact cobby body. Calm sweet expression, soft lighting, high detail, photorealistic, studio background.'}
+2026-01-24 22:17:19,958 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:17:19,958 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round flat face, large copper eyes, and a...
+2026-01-24 22:17:23,978 INFO app: FLUX image saved: ./uploads/kitten_c68271b27586474d990000fb0ce9565b.png
+2026-01-24 22:17:23,980 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_c68271b27586474d990000fb0ce9565b.png'}
+2026-01-24 22:19:35,388 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-24 22:19:35,390 INFO app.routes.match: Offspring prompt built, length: 1272
+2026-01-24 22:19:35,390 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:19:36,091 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:19:36,091 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:19:36,091 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:19:36,623 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:19:36,623 INFO app.routes.match: Offspring prompt built, length: 1291
+2026-01-24 22:19:36,623 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:19:41,690 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫多为圆脸大眼、被毛丰厚的中长毛，鼻部较不扁。性格温和亲人。注意**PKD筛查**、泪痕护理与体重管理，补齐疫苗。', 'image_prompt': 'A realistic cute kitten from a Persian and British Shorthair mix: round face with a gentle nose, large copper eyes, plush medium-long fur, silver shaded tabby pattern, sturdy compact body, fluffy tail, soft expression, sitting calmly in natural light.'}
+2026-01-24 22:19:41,691 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:19:41,691 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and British Shorthair mix: round face wit...
+2026-01-24 22:19:42,746 INFO app.routes.match: Offspring Poe result: {'summary_md': '⚠️两只均为公猫，无法自然繁殖。若假设波斯×缅因：中长毛、蓬松尾、圆脸略修长，绿/金眼。注意PKD、HCM筛查，性格温顺亲人。', 'image_prompt': 'A realistic, cute Persian–Maine Coon mix kitten with a fluffy medium-long coat, soft silver tabby pattern, large plume-like tail, slightly rounded face with a gentle muzzle, big almond-shaped green eyes, tufted ears, sturdy but elegant body, calm and sweet expression, natural lighting, high detail, photorealistic.'}
+2026-01-24 22:19:42,746 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:19:42,746 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Persian–Maine Coon mix kitten with a fluffy medium-long coat, ...
+2026-01-24 22:19:42,872 INFO app.routes.match: Offspring Poe result: {'summary_md': '两只均为公猫，**无法自然繁育**。若假设为健康母波斯：幼猫多为长毛扁脸、圆眼；性情温顺安静。需关注遗传多囊肾、呼吸道与眼部护理，完善疫苗。', 'image_prompt': 'A realistic cute Persian kitten with a round flat face, short nose, large round copper eyes, and small ears. Long fluffy coat in soft cream with light silver shading, plush body, short legs, and a calm gentle expression, studio lighting, high detail, natural colors.'}
+2026-01-24 22:19:42,872 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:19:42,872 INFO app.routes.match: Generating offspring image with prompt: A realistic cute Persian kitten with a round flat face, short nose, large round ...
+2026-01-24 22:19:46,625 INFO app: FLUX image saved: ./uploads/kitten_ae7bb419497f4ae1ac23c827e9a3480f.png
+2026-01-24 22:19:46,630 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_ae7bb419497f4ae1ac23c827e9a3480f.png'}
+2026-01-24 22:19:47,223 INFO app: FLUX image saved: ./uploads/kitten_67cb5759cbfc42b18025a628f664f073.png
+2026-01-24 22:19:47,238 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_67cb5759cbfc42b18025a628f664f073.png'}
+2026-01-24 22:19:47,319 INFO app: FLUX image saved: ./uploads/kitten_cfcf3ef011e64b0fa5161aef1e567779.png
+2026-01-24 22:19:47,322 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_cfcf3ef011e64b0fa5161aef1e567779.png'}
+2026-01-24 22:20:42,217 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-24 22:20:42,217 INFO app.routes.match: Offspring prompt built, length: 1271
+2026-01-24 22:20:42,217 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:20:44,307 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-24 22:20:44,308 INFO app.routes.match: Offspring prompt built, length: 1291
+2026-01-24 22:20:44,308 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:20:46,831 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + 何
+2026-01-24 22:20:46,831 INFO app.routes.match: Offspring prompt built, length: 1270
+2026-01-24 22:20:46,831 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-24 22:20:49,057 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设性配对：波斯×缅因。幼猫或中大型、半长毛、圆脸但鼻不极端。关注**HCM**与**PKD**筛查，定期心超与肾检。性格温和亲人、聪明好奇，需梳毛与控体重。（现实中需异性繁育）', 'image_prompt': 'A realistic cute kitten from a Persian and Maine Coon mix: medium-to-large kitten with semi-long fluffy fur, silver tabby with white chest, large tufted ears, round face with a moderate nose, big expressive green eyes, sturdy body, bushy tail, soft plush coat, gentle and curious pose, natural lighting, high detail.'}
+2026-01-24 22:20:49,057 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:20:49,057 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a Persian and Maine Coon mix: medium-to-large kitte...
+2026-01-24 22:20:52,316 INFO app.routes.match: Offspring Poe result: {'summary_md': '**外观**：中等圆脸、短至中长毛、体型结实；**性格**：温和黏人且稳重；**健康**：留意PKD/HCM与呼吸泪痕，建议早筛与常规免疫。', 'image_prompt': 'A realistic, cute kitten born from a Persian and a British Shorthair: round face with a moderately short nose, plush medium-length fur, solid blue or cream coat with subtle shading, large round copper or green eyes, compact and sturdy body, short legs, soft fluffy tail, calm and gentle expression, studio lighting, high detail.'}
+2026-01-24 22:20:52,316 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:20:52,316 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten born from a Persian and a British Shorthair: round face...
+2026-01-24 22:20:53,892 INFO app: FLUX image saved: ./uploads/kitten_f1df5af21e104cfaa07f8d84ecbf8c4c.png
+2026-01-24 22:20:53,895 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_f1df5af21e104cfaa07f8d84ecbf8c4c.png'}
+2026-01-24 22:20:56,036 INFO app: FLUX image saved: ./uploads/kitten_d26b544118ad46f287afc7dfe3c6e9a4.png
+2026-01-24 22:20:56,038 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_d26b544118ad46f287afc7dfe3c6e9a4.png'}
+2026-01-24 22:20:57,226 INFO app.routes.match: Offspring Poe result: {'summary_md': '波斯×缅因混血幼猫多为中大型、半长毛，脸型较圆但不极端，尾长。性格温和亲人、聪明。留意多囊肾与心肌病筛查，定期体检，补齐疫苗、控体重与梳毛。', 'image_prompt': 'A realistic, cute kitten resulting from a Persian and Maine Coon mix: medium-to-large kitten with semi-long fluffy fur, soft silver tabby with white chest, large expressive green eyes, slightly rounded face (not flat), small ear tufts, long bushy tail, sturdy but elegant body, gentle and curious expression, natural lighting, high-detail fur texture.'}
+2026-01-24 22:20:57,226 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-24 22:20:57,226 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a Persian and Maine Coon mix: medium-to-...
+2026-01-24 22:21:00,660 INFO app: FLUX image saved: ./uploads/kitten_79e77f1f8490455688da581584514f95.png
+2026-01-24 22:21:00,663 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_79e77f1f8490455688da581584514f95.png'}
+2026-01-31 10:18:41,450 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:18:41,451 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:18:41,451 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:18:47,286 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:18:47,287 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:18:47,287 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:21:44,065 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-31 10:21:44,066 INFO app.routes.match: Prompt built successfully, length: 1488
+2026-01-31 10:21:44,066 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-31 10:21:48,781 INFO app.routes.match: Poe analyze result: {'summary_md': '**建议谨慎配对**：仅有1岁公英短但有轻微健康问题，暂不推荐繁育。', 'image_prompt': 'A calm, high-quality portrait of a British Shorthair female cat with plush blue-gray fur, round face, copper eyes, sitting in a clean indoor setting, soft natural light, realistic style, emphasis on health and temperament.'}
+2026-01-31 10:21:48,782 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-31 10:21:48,782 INFO app.routes.match: Generating image with prompt: A calm, high-quality portrait of a British Shortha...
+2026-01-31 10:21:48,942 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:21:48,950 INFO app.routes.match: Image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:21:48,952 WARNING app: Image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:21:49,776 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + ringle
+2026-01-31 10:21:49,777 INFO app.routes.match: Offspring prompt built, length: 1313
+2026-01-31 10:21:49,777 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:21:58,881 INFO app.routes.match: Offspring Poe result: {'summary_md': '英短×英短幼猫多为圆脸厚骨量、短密被毛，蓝或金色眼。遗传性疾病风险低但需筛查HCM/PKD。性格温和亲人，适合室内饲养，重视疫苗与体重管理。', 'image_prompt': 'A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and a compact cobby body. Dense plush short fur in classic blue-gray with subtle shading, large round copper or golden eyes, small rounded ears set wide apart, and a thick tail. Soft studio lighting, natural proportions, high detail, calm and gentle expression.'}
+2026-01-31 10:21:58,882 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:21:58,882 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and...
+2026-01-31 10:21:59,158 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:21:59,161 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:21:59,162 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:22:39,403 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + Kity
+2026-01-31 10:22:39,404 INFO app.routes.match: Offspring prompt built, length: 1324
+2026-01-31 10:22:39,404 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:22:44,772 INFO app.routes.match: Offspring Poe result: {'summary_md': '**注意：两只均为母猫，需公猫才能繁育。**假设同为英短配对，幼猫圆脸厚被、结实体型；健康总体良好，留意心肌病与肥胖；性格温和亲人，重视疫苗与体检。', 'image_prompt': 'A realistic cute British Shorthair kitten with a round face, chubby cheeks, dense plush coat, and compact cobby body. Fur in classic blue-gray or golden shaded pattern, short and velvety. Large round copper or amber eyes, small rounded ears, thick tail. Calm, sweet expression, sitting indoors in soft natural light.'}
+2026-01-31 10:22:44,772 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:22:44,772 INFO app.routes.match: Generating offspring image with prompt: A realistic cute British Shorthair kitten with a round face, chubby cheeks, dens...
+2026-01-31 10:22:44,859 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:22:44,862 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:22:44,862 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:22:48,066 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:22:48,066 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:22:48,066 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:22:56,567 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫多为英短典型圆脸厚骨量、短密被毛与铜色眼。健康总体良好，但建议筛查HCM/PKD并完善疫苗；注意体重管理。性格温顺亲人、安静。', 'image_prompt': 'A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and a cobby body. Plush, dense short fur in blue or silver tabby, large round copper eyes, small ears set wide apart. Calm, gentle expression, thick tail, sturdy paws. Soft indoor lighting, high-detail fur texture, natural proportions, photorealistic style.'}
+2026-01-31 10:22:56,568 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:22:56,568 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and...
+2026-01-31 10:22:56,781 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:22:56,784 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:22:56,784 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:26:31,440 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-31 10:26:31,441 INFO app.routes.match: Offspring prompt built, length: 1293
+2026-01-31 10:26:31,441 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:26:39,396 INFO app.routes.match: Offspring Poe result: {'summary_md': '英短×缅因混血幼猫，多为中大型骨量、圆脸带耳簇，半长毛。性格温顺亲人、活跃。注意心肌肥厚与髋关节筛查，按时疫苗与梳毛。', 'image_prompt': 'A realistic cute mixed-breed kitten from a British Shorthair and a Maine Coon, medium-to-large body, sturdy bone structure, round face with gentle cheeks, small lynx-like ear tufts, fluffy semi-long silver tabby fur, soft dense undercoat, big round green eyes, bushy tail, calm sweet expression, natural lighting, highly detailed fur texture, photorealistic style.'}
+2026-01-31 10:26:39,397 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:26:39,397 INFO app.routes.match: Generating offspring image with prompt: A realistic cute mixed-breed kitten from a British Shorthair and a Maine Coon, m...
+2026-01-31 10:26:39,624 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:26:39,630 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:26:39,630 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:26:46,730 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + grace
+2026-01-31 10:26:46,730 INFO app.routes.match: Offspring prompt built, length: 1292
+2026-01-31 10:26:46,730 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:26:54,274 INFO app.routes.match: Offspring Poe result: {'summary_md': '假设性配对：幼猫可能短至中长绒毛、圆脸略扁、铜/绿眼。关注**PKD、HCM**与呼吸护理，定期筛查并补齐疫苗。性格温顺黏人。', 'image_prompt': 'A realistic cute kitten from a British Shorthair and Persian mix: plush short-to-medium fur, round head with a slightly flat nose, large copper-green eyes, compact cobby body, thick tail. Coat in blue-gray or cream tabby, dense and soft. Calm, sweet expression, sitting indoors in soft natural light, high-detail, lifelike texture.'}
+2026-01-31 10:26:54,278 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:26:54,278 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten from a British Shorthair and Persian mix: plush short-to...
+2026-01-31 10:26:54,394 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:26:54,396 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:26:54,396 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:29:10,571 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:29:10,572 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:29:10,572 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:29:12,354 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:29:12,355 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:29:12,355 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:29:14,142 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:29:14,142 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:29:14,142 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:29:33,962 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:29:33,962 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:29:33,962 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:29:34,532 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:29:34,533 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:29:34,533 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:29:48,671 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-31 10:29:48,671 INFO app.routes.match: Prompt built successfully, length: 1296
+2026-01-31 10:29:48,671 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-31 10:29:55,600 INFO app.routes.match: Poe analyze result: {'summary_md': '最佳配对为同品种英短公猫testing，评分最高，但1岁偏小且有小健康问题，需体检后再配。', 'image_prompt': 'A realistic, high-quality portrait of two British Shorthair cats, one adult female and one young male, sitting calmly side by side in a clean indoor setting, soft natural light, round faces, dense plush coats, healthy appearance, professional breeder photography style.'}
+2026-01-31 10:29:55,601 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-31 10:29:55,601 INFO app.routes.match: Generating image with prompt: A realistic, high-quality portrait of two British ...
+2026-01-31 10:29:55,759 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:29:55,768 INFO app.routes.match: Image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:29:55,768 WARNING app: Image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:29:56,531 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:29:56,531 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:29:56,531 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:30:04,893 INFO app.routes.match: Offspring Poe result: {'summary_md': '英短幼猫多圆脸厚被毛、结实体型；性格温和亲人。留意遗传心脏/关节筛查，补齐疫苗，均衡营养。', 'image_prompt': 'A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and a compact, sturdy body. Dense plush short coat in soft blue-gray or silver tabby, subtle shading. Large round copper or amber eyes, small rounded ears, short nose. Calm, gentle expression, sitting upright, soft studio lighting, high detail fur texture.'}
+2026-01-31 10:30:04,893 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:30:04,893 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and...
+2026-01-31 10:30:05,030 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:30:05,034 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:30:05,035 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:30:11,006 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-31 10:30:11,006 INFO app.routes.match: Offspring prompt built, length: 1293
+2026-01-31 10:30:11,006 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:30:18,663 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫可能中大型，短至中长被，圆脸配大耳，绿或金眼。整体健康，但建议做HCM/PKD筛查并补齐疫苗；日常需高蛋白与梳毛。', 'image_prompt': 'A realistic, cute kitten from a British Shorthair and Maine Coon mix: medium-to-large body, sturdy legs, round face with slightly tufted large ears, plush short-to-medium length fur, silver tabby or blue-gray coat, bright green or golden eyes, thick fluffy tail, gentle expression, well-proportioned build, soft lighting, highly detailed fur texture.'}
+2026-01-31 10:30:18,663 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:30:18,663 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten from a British Shorthair and Maine Coon mix: medium-to-...
+2026-01-31 10:30:18,800 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:30:18,805 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:30:18,805 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:30:36,185 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:30:36,185 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:30:36,186 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:30:37,074 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-31 10:30:37,075 INFO app.routes.match: Offspring prompt built, length: 1294
+2026-01-31 10:30:37,075 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:30:44,248 INFO app.routes.match: Offspring Poe result: {'summary_md': '英短×英短幼猫多为圆脸短鼻、厚实骨量、短密被毛，眼睛大而圆。需做遗传病筛查（HCM、PKD），补齐疫苗，日常控重与心脏随访。', 'image_prompt': 'A realistic cute British Shorthair kitten with a round face, chubby cheeks, short nose, and dense plush coat. Solid blue or blue-gray fur with a soft sheen, large round copper eyes, compact cobby body, short thick legs, and a calm sweet expression. Indoor lighting, high detail, natural proportions.'}
+2026-01-31 10:30:44,250 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:30:44,251 INFO app.routes.match: Generating offspring image with prompt: A realistic cute British Shorthair kitten with a round face, chubby cheeks, shor...
+2026-01-31 10:30:44,440 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:30:44,447 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:30:44,447 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:30:46,885 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫可能呈异短型外观：圆脸、铜色大眼、短至中等绒毛。性格温顺亲人。注意筛查多囊肾、呼吸道与泪腺问题，补全疫苗，控制体重与泪痕护理。', 'image_prompt': 'A realistic cute kitten resulting from a British Shorthair and Persian mix, resembling an Exotic Shorthair. Round face, chubby cheeks, short nose, large copper eyes. Plush short-to-medium dense fur, silver shaded or cream tabby pattern. Compact, cobby body, thick tail. Soft lighting, natural pose, high-detail fur texture, calm and sweet expression.'}
+2026-01-31 10:30:46,885 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:30:46,886 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a British Shorthair and Persian mix, rese...
+2026-01-31 10:30:47,125 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:30:47,130 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:30:47,130 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:34:07,598 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:34:07,599 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:34:07,599 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:34:08,076 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:34:08,077 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:34:08,077 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:34:14,489 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-31 10:34:14,492 INFO app.routes.match: Prompt built successfully, length: 1296
+2026-01-31 10:34:14,492 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-31 10:34:17,946 INFO app.routes.match: Poe analyze result: {'summary_md': '**建议优先同品种健康公猫**；当前匹配中“testing”得分最高但需评估健康与疫苗。', 'image_prompt': 'A realistic, soft-lit portrait of a healthy British Shorthair female cat and a compatible British Shorthair male cat in a calm indoor setting, plush blue-gray coats, round faces, copper eyes, clean breeding environment, professional pet photography style.'}
+2026-01-31 10:34:17,947 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-31 10:34:17,947 INFO app.routes.match: Generating image with prompt: A realistic, soft-lit portrait of a healthy Britis...
+2026-01-31 10:34:18,064 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:34:18,066 INFO app.routes.match: Image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:34:18,066 WARNING app: Image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:34:18,751 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:34:18,751 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:34:18,751 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:34:24,532 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-31 10:34:24,532 INFO app.routes.match: Prompt built successfully, length: 1296
+2026-01-31 10:34:24,532 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-31 10:34:28,578 INFO app.routes.match: Poe analyze result: {'summary_md': '同品种优先。建议体检合格后再考虑1岁英短公猫，跨品种不推荐繁育。', 'image_prompt': 'A professional feline breeding consultation scene with two British Shorthair cats, one female and one male, healthy appearance, calm indoor setting, veterinary chart in background, soft lighting, realistic style, focus on breed characteristics and wellbeing.'}
+2026-01-31 10:34:28,579 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-31 10:34:28,579 INFO app.routes.match: Generating image with prompt: A professional feline breeding consultation scene ...
+2026-01-31 10:34:28,747 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:34:28,749 INFO app.routes.match: Image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:34:28,749 WARNING app: Image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:34:29,494 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:34:29,495 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:34:29,495 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:34:34,652 INFO app.routes.match: Offspring Poe result: {'summary_md': '**英短幼猫**多为圆脸厚骨、短密被毛。性格温顺亲人。健康总体良好，但建议做**HCM/PKD**筛查，完善疫苗，注意体重与心脏护理。', 'image_prompt': 'A realistic cute British Shorthair kitten with a round face, chubby cheeks, dense plush short fur in soft blue-gray or cream, large round copper eyes, small rounded ears, sturdy compact body, thick tail, calm sweet expression, studio lighting, high detail, natural colors.'}
+2026-01-31 10:34:34,653 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:34:34,653 INFO app.routes.match: Generating offspring image with prompt: A realistic cute British Shorthair kitten with a round face, chubby cheeks, dens...
+2026-01-31 10:34:34,813 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:34:34,818 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:34:34,818 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:34:39,604 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-31 10:34:39,604 INFO app.routes.match: Offspring prompt built, length: 1293
+2026-01-31 10:34:39,604 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:35:55,476 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + Momo Kiki
+2026-01-31 10:35:55,477 INFO app.routes.match: Offspring prompt built, length: 1294
+2026-01-31 10:35:55,477 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:35:57,526 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-31 10:35:57,526 INFO app.routes.match: Offspring prompt built, length: 1294
+2026-01-31 10:35:57,526 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:36:02,991 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫多为**英短×波斯(异短)**外形：圆脸、短鼻、被毛浓密中长。性格温顺亲人。注意多囊肾、泪痕与心肌病筛查，日常梳毛与控重。', 'image_prompt': 'A realistic, cute Exotic Shorthair kitten from a British Shorthair and Persian cross. Round face, short nose, large copper eyes, plush dense short-to-medium fur. Soft blue or cream coat with subtle tabby pattern, compact cobby body, thick tail. Calm, gentle expression, sitting indoors with soft natural light, high-detail fur texture.'}
+2026-01-31 10:36:02,991 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:36:02,991 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute Exotic Shorthair kitten from a British Shorthair and Persian c...
+2026-01-31 10:36:03,213 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:36:03,218 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:36:03,219 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:36:05,585 INFO app.routes.match: Offspring Poe result: {'summary_md': '英短×波斯幼猫多为**中长毛、圆脸短鼻**，骨量厚、眼大。注意**多囊肾/呼吸道**筛查，定期梳毛、控泪痕，均衡营养。', 'image_prompt': 'A realistic, cute kitten resulting from a British Shorthair and Persian mix: medium-long plush fur in blue-silver shaded color, round face with a moderately short nose, large round copper eyes, small rounded ears, cobby body with thick legs, fluffy tail. Soft lighting, natural pose, highly detailed fur texture, healthy and expressive.'}
+2026-01-31 10:36:05,586 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:36:05,586 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a British Shorthair and Persian mix: med...
+2026-01-31 10:36:05,740 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:36:05,744 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:36:05,745 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:36:27,574 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫多为英短典型：圆脸厚骨量、短密被毛、铜或蓝绿眼。整体健康概率高，但建议做心超与遗传病筛查并完善疫苗。性格温顺亲人、稳定安静，日常控制体重与定期体检。', 'image_prompt': 'A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and a compact, muscular body. Short, dense plush fur in classic blue-gray or silver tabby, with clear copper or blue-green eyes. Small rounded ears, thick tail, sturdy paws. Soft lighting, natural pose, calm and sweet expression, high-detail fur texture.'}
+2026-01-31 10:36:27,575 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:36:27,576 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and...
+2026-01-31 10:36:27,759 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:36:27,761 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:36:27,761 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:36:47,700 INFO app.routes.match: Offspring Poe result: {'summary_md': '**外观**：中大型、圆脸厚被毛，耳稍大，可能银虎斑绿/金眼。**健康**：关注HCM，定期心超；一般健壮。**护理**：高蛋白、控重，周梳毛。', 'image_prompt': 'A realistic cute kitten resulting from a British Shorthair and Maine Coon mix. Medium-to-large fluffy body, round face with slightly large tufted ears, dense plush coat. Silver tabby pattern with soft shading, bright green or golden eyes. Strong paws, bushy tail, gentle alert expression. Natural lighting, high-detail fur texture, cozy indoor setting.'}
+2026-01-31 10:36:47,702 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:36:47,702 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a British Shorthair and Maine Coon mix. M...
+2026-01-31 10:36:47,795 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 71, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:36:47,798 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:36:47,798 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:38:57,281 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:38:57,282 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:38:57,282 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:39:00,263 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:39:00,264 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:39:00,264 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:40:02,933 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:40:02,934 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:40:02,934 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:40:03,423 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:40:03,423 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:40:03,423 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:40:12,717 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-31 10:40:12,717 INFO app.routes.match: Prompt built successfully, length: 1296
+2026-01-31 10:40:12,717 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-31 10:40:18,456 INFO app.routes.match: Poe analyze result: {'summary_md': '**推荐配对**：同品种英短、健康成熟公猫；避免跨种与健康问题个体。', 'image_prompt': 'A high-quality studio portrait of two British Shorthair cats suitable for ethical breeding: a healthy 3-year-old female and a mature, healthy male. Round faces, dense plush coats, copper eyes, calm temperament. Neutral background, soft lighting, realistic style, focus on breed standards and health.'}
+2026-01-31 10:40:18,456 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-31 10:40:18,456 INFO app.routes.match: Generating image with prompt: A high-quality studio portrait of two British Shor...
+2026-01-31 10:40:18,608 WARNING app: OpenRouter response 404: {"error":{"message":"No endpoints found that support the requested output modalities: image, text","code":404}}
+2026-01-31 10:40:18,608 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 78, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:40:18,616 INFO app.routes.match: Image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:40:18,617 WARNING app: Image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:40:19,372 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:40:19,372 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:40:19,372 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:40:24,407 INFO app.routes.match: Offspring Poe result: {'summary_md': '**英短后代**多为圆脸厚实、短密被毛。性格温顺亲人。注意父猫轻微健康与未免疫史，建议孕前体检与疫苗补全，关注遗传心脏与口腔护理。', 'image_prompt': 'A realistic cute British Shorthair kitten with a round face, chubby cheeks, dense plush short fur, classic blue-gray coat, subtle silver tipping, large copper-gold eyes, small rounded ears, stocky cobby body, short legs, calm sweet expression, soft studio lighting, high detail.'}
+2026-01-31 10:40:24,407 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:40:24,407 INFO app.routes.match: Generating offspring image with prompt: A realistic cute British Shorthair kitten with a round face, chubby cheeks, dens...
+2026-01-31 10:40:24,493 WARNING app: OpenRouter response 404: {"error":{"message":"No endpoints found that support the requested output modalities: image, text","code":404}}
+2026-01-31 10:40:24,493 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 78, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:40:24,495 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:40:24,495 WARNING app: Offspring image generation failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:44:26,988 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:44:26,988 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:44:26,988 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:45:02,422 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:45:02,423 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:45:02,423 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:45:26,370 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:45:26,371 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:45:26,371 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:45:26,927 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:45:26,927 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:45:26,927 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:45:35,527 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-31 10:45:35,527 INFO app.routes.match: Prompt built successfully, length: 1296
+2026-01-31 10:45:35,527 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-31 10:45:40,640 INFO app.routes.match: Poe analyze result: {'summary_md': '建议同品种健康公猫配对，避开异种与健康问题个体。', 'image_prompt': 'A realistic, high-quality portrait of two British Shorthair cats suitable for breeding: a healthy adult female with a plush blue-gray coat and round face beside a healthy adult male British Shorthair. Calm indoor setting, soft natural lighting, focus on breed traits, clean and professional veterinary-style photography.'}
+2026-01-31 10:45:40,640 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-31 10:45:40,641 INFO app.routes.match: Generating image with prompt: A realistic, high-quality portrait of two British ...
+2026-01-31 10:45:40,792 WARNING app: OpenRouter response 400: {"error":{"message":"openrouter/google/gemini-2.5-flash-image is not a valid model ID","code":400},"user_id":"user_37vZKw3QoXBQpzL23M3QKxMckEB"}
+2026-01-31 10:45:40,793 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 79, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:45:40,802 INFO app.routes.match: Image generation result: {'success': False, 'error': '400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:45:40,802 WARNING app: Image generation failed: 400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:45:41,584 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:45:41,584 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:45:41,585 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:45:48,960 INFO app.routes.match: Offspring Poe result: {'summary_md': '英短×英短幼猫多为圆脸厚毛、骨量好，毛色取决父母。健康总体稳定，但公猫有轻微问题，建议孕前体检与全疫苗。性格温顺亲人，适合室养。', 'image_prompt': 'A realistic, cute British Shorthair kitten with a plush dense short coat, round chubby face, small ears, and large copper eyes. Cobby body type with thick legs and a short tail. Fur color soft blue-gray or cream tabby with subtle markings. Calm, gentle expression, sitting indoors in soft natural light, highly detailed, lifelike fur texture.'}
+2026-01-31 10:45:48,961 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:45:48,962 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute British Shorthair kitten with a plush dense short coat, round ...
+2026-01-31 10:45:49,074 WARNING app: OpenRouter response 400: {"error":{"message":"openrouter/google/gemini-2.5-flash-image is not a valid model ID","code":400},"user_id":"user_37vZKw3QoXBQpzL23M3QKxMckEB"}
+2026-01-31 10:45:49,074 ERROR app: OpenRouter FLUX image generation failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 79, in generate_kitten_image
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:45:49,077 INFO app.routes.match: Offspring image generation result: {'success': False, 'error': '400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions'}
+2026-01-31 10:45:49,077 WARNING app: Offspring image generation failed: 400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions
+2026-01-31 10:46:23,323 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:46:23,324 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:46:23,324 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:46:27,315 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:46:27,316 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:46:27,316 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:46:27,843 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-01-31 10:46:27,843 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-01-31 10:46:27,843 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-01-31 10:46:30,659 INFO app.routes.match: Building prompt for Poe analysis...
+2026-01-31 10:46:30,659 INFO app.routes.match: Prompt built successfully, length: 1296
+2026-01-31 10:46:30,660 INFO app.routes.match: Calling analyze_with_poe...
+2026-01-31 10:46:37,146 INFO app.routes.match: Poe analyze result: {'summary_md': '**最佳配对**为同品种英短公猫testing，需先解决健康与疫苗问题。', 'image_prompt': 'A photorealistic scene of two British Shorthair cats, one adult female and one young male, sitting calmly indoors. Plush blue-gray coats, round faces, copper eyes. Soft natural light, clean breeder-style environment, peaceful and healthy mood, high detail, realistic fur texture.'}
+2026-01-31 10:46:37,147 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-01-31 10:46:37,148 INFO app.routes.match: Generating image with prompt: A photorealistic scene of two British Shorthair ca...
+2026-01-31 10:46:43,123 INFO app: FLUX image saved: ./uploads/kitten_1d84a79b89a54b30b723c44a97bb9b79.png
+2026-01-31 10:46:43,124 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_1d84a79b89a54b30b723c44a97bb9b79.png'}
+2026-01-31 10:46:44,146 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:46:44,149 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:46:44,149 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:46:52,409 INFO app.routes.match: Offspring Poe result: {'summary_md': '**幼猫**多为英短圆脸厚被毛、结实体型，眼色偏铜/蓝。健康总体良好，但关注HCM/PKD筛查、疫苗补齐。性格温顺亲人，需控重与定期体检。', 'image_prompt': 'A realistic, cute British Shorthair kitten with a round face, plush dense coat, and cobby body. Short legs, small ears, and a thick tail. Fur in classic blue or cream tabby, even pattern, soft texture. Large round copper or blue eyes, calm expression, studio lighting, high detail, natural pose.'}
+2026-01-31 10:46:52,410 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:46:52,410 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute British Shorthair kitten with a round face, plush dense coat, ...
+2026-01-31 10:46:57,096 INFO app: FLUX image saved: ./uploads/kitten_abaf77fd26794a399778b015080a04d6.png
+2026-01-31 10:46:57,098 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_abaf77fd26794a399778b015080a04d6.png'}
+2026-01-31 10:47:35,637 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-31 10:47:35,638 INFO app.routes.match: Offspring prompt built, length: 1293
+2026-01-31 10:47:35,638 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:47:44,332 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫可能体型中等偏大，圆脸厚毛兼具缅因耳簇与英短骨量。性格温和亲人、聪明好奇。注意筛查HCM、髋关节及定期疫苗。', 'image_prompt': 'A realistic cute kitten born from a British Shorthair and a Maine Coon mix, medium-large kitten with a round face, sturdy body, plush semi-long fur, subtle ear tufts, fluffy tail, silver tabby coat with soft shading, large expressive amber-green eyes, gentle and curious expression, soft natural lighting, highly detailed fur texture, photorealistic style'}
+2026-01-31 10:47:44,333 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:47:44,333 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten born from a British Shorthair and a Maine Coon mix, medi...
+2026-01-31 10:47:50,097 INFO app: FLUX image saved: ./uploads/kitten_b4fbda7df1604a3ba273380a8eb5db1e.png
+2026-01-31 10:47:50,099 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_b4fbda7df1604a3ba273380a8eb5db1e.png'}
+2026-01-31 10:48:15,833 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + Momo Kiki
+2026-01-31 10:48:15,833 INFO app.routes.match: Offspring prompt built, length: 1294
+2026-01-31 10:48:15,834 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:48:24,607 INFO app.routes.match: Offspring Poe result: {'summary_md': '**幼猫**多为英短×波斯混血，圆脸厚骨、被毛中长；性格温和亲人。留意扁脸相关呼吸/泪腺问题及PKD筛查，重视梳毛与定期体检。', 'image_prompt': 'A realistic cute kitten resulting from a British Shorthair and Persian mix: round face with slightly short nose, large copper or blue eyes, plush medium-long fur, chubby body, short sturdy legs. Fur color soft silver or cream tabby, thick ruff, small rounded ears, sweet calm expression, indoor natural light, high detail.'}
+2026-01-31 10:48:24,608 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:48:24,608 INFO app.routes.match: Generating offspring image with prompt: A realistic cute kitten resulting from a British Shorthair and Persian mix: roun...
+2026-01-31 10:48:31,936 INFO app: FLUX image saved: ./uploads/kitten_48ed0999da044d6ab36215aa6f7be16a.png
+2026-01-31 10:48:31,937 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_48ed0999da044d6ab36215aa6f7be16a.png'}
+2026-01-31 10:48:36,167 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-31 10:48:36,167 INFO app.routes.match: Offspring prompt built, length: 1294
+2026-01-31 10:48:36,167 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:48:44,079 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫可能呈英短×波斯混合，圆脸短鼻、浓密中长毛、铜或蓝绿眼。性格温顺黏人。注意呼吸、泪痕与多囊肾筛查，保持梳毛与定期体检。', 'image_prompt': 'A realistic, cute kitten born from a British Shorthair and Persian mix. The kitten has a round face, slightly shortened muzzle, large copper-blue eyes, and small rounded ears. Fur is dense, plush, and medium-long, with a soft blue-cream or silver shaded coat. Body is compact and sturdy with short legs and a fluffy tail. Gentle expression, calm posture, studio lighting, high detail, photorealistic style.'}
+2026-01-31 10:48:44,080 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:48:44,080 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten born from a British Shorthair and Persian mix. The kitt...
+2026-01-31 10:48:52,917 INFO app: FLUX image saved: ./uploads/kitten_125f918c8c4842f987f433031e7b3e54.png
+2026-01-31 10:48:52,919 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_125f918c8c4842f987f433031e7b3e54.png'}
+2026-01-31 10:49:01,689 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + testing
+2026-01-31 10:49:01,690 INFO app.routes.match: Offspring prompt built, length: 1317
+2026-01-31 10:49:01,690 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:49:10,508 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫大概率为**英短**体型，圆脸厚骨量，短密被毛。健康总体良好，但建议筛查遗传心肌病与关节问题，补齐疫苗。性格温和黏人、适合家庭饲养。', 'image_prompt': 'A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and a cobby, muscular body. Plush short dense fur in classic blue or soft lilac, subtle tabby shading. Large round copper or amber eyes, small rounded ears, thick tail. Calm, gentle expression, soft studio lighting, high detail, natural colors.'}
+2026-01-31 10:49:10,509 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:49:10,509 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute British Shorthair kitten with a round face, chubby cheeks, and...
+2026-01-31 10:49:15,968 INFO app: FLUX image saved: ./uploads/kitten_801a3d15ab8e44158138c6a18fd8c1d8.png
+2026-01-31 10:49:15,969 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_801a3d15ab8e44158138c6a18fd8c1d8.png'}
+2026-01-31 10:49:44,877 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + cat1
+2026-01-31 10:49:44,878 INFO app.routes.match: Offspring prompt built, length: 1293
+2026-01-31 10:49:44,878 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:49:53,602 INFO app.routes.match: Offspring Poe result: {'summary_md': '幼猫可能中大型，圆脸配大耳尖、半长毛，体色多样、眼睛大。总体健康但留意缅因HCM与英短PKD风险，建议心超与基因筛查，定期梳毛与控制体重。', 'image_prompt': 'A realistic, cute kitten born from a British Shorthair and a Maine Coon. Medium-large body, plush semi-long fur with a silver tabby pattern, round face with gentle cheeks, slightly tufted ears, big expressive green eyes, sturdy legs, fluffy tail, soft lighting, natural indoor setting, highly detailed fur texture.'}
+2026-01-31 10:49:53,603 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:49:53,604 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten born from a British Shorthair and a Maine Coon. Medium-...
+2026-01-31 10:50:00,483 INFO app: FLUX image saved: ./uploads/kitten_b186dc9d5ea64a5c96026c2c7ff2cec1.png
+2026-01-31 10:50:00,484 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_b186dc9d5ea64a5c96026c2c7ff2cec1.png'}
+2026-01-31 10:50:27,004 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + Momo Kiki
+2026-01-31 10:50:27,004 INFO app.routes.match: Offspring prompt built, length: 1294
+2026-01-31 10:50:27,005 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:50:34,490 INFO app.routes.match: Offspring Poe result: {'summary_md': '英短×波斯幼猫多为中等体型，圆脸短鼻，毛量丰厚半长毛。性格温顺亲人。需筛查PKD/HCM，注意呼吸与泪痕，定期梳毛与控制体重。', 'image_prompt': 'A realistic, cute kitten resulting from a British Shorthair and Persian mix: medium-sized body, round face with a slightly short nose, large round copper or blue eyes, plush semi-long fur, dense and soft. Coat in silver shaded or blue-gray with subtle tabby pattern. Short sturdy legs, thick tail, calm and sweet expression, studio lighting, high detail.'}
+2026-01-31 10:50:34,491 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:50:34,491 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a British Shorthair and Persian mix: med...
+2026-01-31 10:50:42,991 INFO app: FLUX image saved: ./uploads/kitten_27403c79df4841aab5498b9115e020f5.png
+2026-01-31 10:50:42,992 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_27403c79df4841aab5498b9115e020f5.png'}
+2026-01-31 10:50:49,054 INFO app.routes.match: Building offspring prompt for cats: Momo Kiki + momo
+2026-01-31 10:50:49,054 INFO app.routes.match: Offspring prompt built, length: 1294
+2026-01-31 10:50:49,055 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-01-31 10:50:57,187 INFO app.routes.match: Offspring Poe result: {'summary_md': '**外观**圆脸短鼻、浓密半长毛；**性格**温和亲人；**健康**关注泪痕、呼吸与PKD；**护理**定期梳毛、体检与完整疫苗。', 'image_prompt': 'A realistic, cute kitten resulting from a British Shorthair and Persian mix: round face with a slightly shortened nose, big copper or green eyes, plush semi-long dense fur, chubby cheeks, sturdy compact body, short legs. Fur color silver shaded or blue with soft tabby pattern. Calm, sweet expression, fluffy tail, indoor lighting, high detail, photorealistic.'}
+2026-01-31 10:50:57,188 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-01-31 10:50:57,189 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a British Shorthair and Persian mix: rou...
+2026-01-31 10:51:03,603 INFO app: FLUX image saved: ./uploads/kitten_81f4b3a0590448598960f7976c11dc2d.png
+2026-01-31 10:51:03,605 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_81f4b3a0590448598960f7976c11dc2d.png'}

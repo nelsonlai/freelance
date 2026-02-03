@@ -1,0 +1,113 @@
+2025-10-24 20:07:13,925 - INFO - Automation session started
+2025-10-24 20:07:13,972 - INFO - Created: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:13,980 - INFO - Created: daily_sales_2025-10-23.xlsx
+2025-10-24 20:07:13,987 - INFO - Created: daily_sales_2025-10-22.xlsx
+2025-10-24 20:07:13,997 - INFO - Created: daily_sales_2025-10-21.xlsx
+2025-10-24 20:07:14,090 - INFO - Created: daily_sales_2025-10-20.xlsx
+2025-10-24 20:07:14,101 - INFO - Created: daily_sales_2025-10-19.xlsx
+2025-10-24 20:07:14,128 - INFO - Created: daily_sales_2025-10-18.xlsx
+2025-10-24 20:07:14,128 - INFO - Starting batch processing in /Users/nelsonlai/sources/freelance/Python/Excel/session_10_automation/sample_files
+2025-10-24 20:07:14,128 - INFO - Found 7 files
+2025-10-24 20:07:14,129 - INFO - Processing: daily_sales_2025-10-18.xlsx
+2025-10-24 20:07:14,434 - INFO -   Success: 20 rows, $43,527 in sales
+2025-10-24 20:07:14,434 - INFO - Processing: daily_sales_2025-10-19.xlsx
+2025-10-24 20:07:14,443 - INFO -   Success: 20 rows, $59,077 in sales
+2025-10-24 20:07:14,443 - INFO - Processing: daily_sales_2025-10-20.xlsx
+2025-10-24 20:07:14,451 - INFO -   Success: 20 rows, $53,438 in sales
+2025-10-24 20:07:14,451 - INFO - Processing: daily_sales_2025-10-21.xlsx
+2025-10-24 20:07:14,459 - INFO -   Success: 20 rows, $45,870 in sales
+2025-10-24 20:07:14,459 - INFO - Processing: daily_sales_2025-10-22.xlsx
+2025-10-24 20:07:14,467 - INFO -   Success: 20 rows, $43,441 in sales
+2025-10-24 20:07:14,468 - INFO - Processing: daily_sales_2025-10-23.xlsx
+2025-10-24 20:07:14,476 - INFO -   Success: 20 rows, $54,585 in sales
+2025-10-24 20:07:14,476 - INFO - Processing: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:14,483 - INFO -   Success: 20 rows, $37,959 in sales
+2025-10-24 20:07:14,489 - INFO - Generating daily report for 2025-10-24
+2025-10-24 20:07:14,490 - INFO - Using latest file: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:14,507 - INFO - Metrics calculated: $37,959 in sales
+2025-10-24 20:07:14,530 - INFO - Report saved: daily_report_2025-10-24.xlsx
+2025-10-24 20:07:14,530 - INFO - Starting weekly consolidation
+2025-10-24 20:07:14,530 - INFO - Found 7 daily files
+2025-10-24 20:07:14,538 - INFO -   Read: daily_sales_2025-10-18.xlsx
+2025-10-24 20:07:14,546 - INFO -   Read: daily_sales_2025-10-19.xlsx
+2025-10-24 20:07:14,554 - INFO -   Read: daily_sales_2025-10-20.xlsx
+2025-10-24 20:07:14,562 - INFO -   Read: daily_sales_2025-10-21.xlsx
+2025-10-24 20:07:14,574 - INFO -   Read: daily_sales_2025-10-22.xlsx
+2025-10-24 20:07:14,583 - INFO -   Read: daily_sales_2025-10-23.xlsx
+2025-10-24 20:07:14,592 - INFO -   Read: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:14,594 - INFO - Combined: 140 total rows
+2025-10-24 20:07:14,631 - INFO - Weekly report saved: weekly_report_W43_2025.xlsx
+2025-10-24 20:07:14,631 - INFO - Starting safe file processor
+2025-10-24 20:07:14,631 - INFO - Found 7 files
+2025-10-24 20:07:14,631 - INFO - Processing: daily_sales_2025-10-21.xlsx
+2025-10-24 20:07:14,639 - INFO -   ✓ Success: 20 rows
+2025-10-24 20:07:14,639 - INFO - Processing: daily_sales_2025-10-20.xlsx
+2025-10-24 20:07:14,648 - INFO -   ✓ Success: 20 rows
+2025-10-24 20:07:14,648 - INFO - Processing: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:14,656 - INFO -   ✓ Success: 20 rows
+2025-10-24 20:07:14,656 - INFO - Processing: daily_sales_2025-10-23.xlsx
+2025-10-24 20:07:14,664 - INFO -   ✓ Success: 20 rows
+2025-10-24 20:07:14,664 - INFO - Processing: daily_sales_2025-10-19.xlsx
+2025-10-24 20:07:14,672 - INFO -   ✓ Success: 20 rows
+2025-10-24 20:07:14,673 - INFO - Processing: daily_sales_2025-10-18.xlsx
+2025-10-24 20:07:14,680 - INFO -   ✓ Success: 20 rows
+2025-10-24 20:07:14,680 - INFO - Processing: daily_sales_2025-10-22.xlsx
+2025-10-24 20:07:14,690 - INFO -   ✓ Success: 20 rows
+2025-10-24 20:07:14,698 - INFO - Processing complete: 7 successful, 0 failed
+2025-10-24 20:07:14,698 - INFO - Results saved: /Users/nelsonlai/sources/freelance/Python/Excel/session_10_automation/generated_reports/processing_results.xlsx
+2025-10-24 20:07:14,698 - INFO - Cleaning up files older than 30 days
+2025-10-24 20:07:14,698 - INFO - No old files to remove
+2025-10-24 20:07:14,698 - INFO - Framework initialized
+2025-10-24 20:07:14,698 - INFO - Starting workflow for pattern: daily_sales_*.xlsx
+2025-10-24 20:07:14,699 - INFO - Found 7 files
+2025-10-24 20:07:14,699 - INFO - Processing: daily_sales_2025-10-21.xlsx
+2025-10-24 20:07:14,708 - INFO - Processing: daily_sales_2025-10-20.xlsx
+2025-10-24 20:07:14,717 - INFO - Processing: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:14,725 - INFO - Processing: daily_sales_2025-10-23.xlsx
+2025-10-24 20:07:14,734 - INFO - Processing: daily_sales_2025-10-19.xlsx
+2025-10-24 20:07:14,742 - INFO - Processing: daily_sales_2025-10-18.xlsx
+2025-10-24 20:07:14,749 - INFO - Processing: daily_sales_2025-10-22.xlsx
+2025-10-24 20:07:14,781 - INFO - Results saved: combined_results_20251024.xlsx
+2025-10-24 20:07:14,781 - INFO - Checking for new files
+2025-10-24 20:07:14,781 - INFO - Found 7 new files
+2025-10-24 20:07:14,781 - INFO - ============================================================
+2025-10-24 20:07:14,781 - INFO - Starting comprehensive automation workflow
+2025-10-24 20:07:14,781 - INFO - ============================================================
+2025-10-24 20:07:14,781 - INFO - Step: Check for new files
+2025-10-24 20:07:14,781 - INFO - Checking for new files
+2025-10-24 20:07:14,782 - INFO - Found 7 new files
+2025-10-24 20:07:14,782 - INFO - Step: Process batch files
+2025-10-24 20:07:14,782 - INFO - Starting batch processing in /Users/nelsonlai/sources/freelance/Python/Excel/session_10_automation/sample_files
+2025-10-24 20:07:14,782 - INFO - Found 7 files
+2025-10-24 20:07:14,782 - INFO - Processing: daily_sales_2025-10-18.xlsx
+2025-10-24 20:07:14,789 - INFO -   Success: 20 rows, $43,527 in sales
+2025-10-24 20:07:14,789 - INFO - Processing: daily_sales_2025-10-19.xlsx
+2025-10-24 20:07:14,797 - INFO -   Success: 20 rows, $59,077 in sales
+2025-10-24 20:07:14,797 - INFO - Processing: daily_sales_2025-10-20.xlsx
+2025-10-24 20:07:14,805 - INFO -   Success: 20 rows, $53,438 in sales
+2025-10-24 20:07:14,805 - INFO - Processing: daily_sales_2025-10-21.xlsx
+2025-10-24 20:07:14,813 - INFO -   Success: 20 rows, $45,870 in sales
+2025-10-24 20:07:14,813 - INFO - Processing: daily_sales_2025-10-22.xlsx
+2025-10-24 20:07:14,821 - INFO -   Success: 20 rows, $43,441 in sales
+2025-10-24 20:07:14,821 - INFO - Processing: daily_sales_2025-10-23.xlsx
+2025-10-24 20:07:14,829 - INFO -   Success: 20 rows, $54,585 in sales
+2025-10-24 20:07:14,829 - INFO - Processing: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:14,836 - INFO -   Success: 20 rows, $37,959 in sales
+2025-10-24 20:07:14,837 - INFO - Step: Generate daily report
+2025-10-24 20:07:14,837 - INFO - Generating daily report for 2025-10-24
+2025-10-24 20:07:14,838 - INFO - Using latest file: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:14,846 - INFO - Metrics calculated: $37,959 in sales
+2025-10-24 20:07:14,859 - INFO - Report saved: daily_report_2025-10-24.xlsx
+2025-10-24 20:07:14,859 - INFO - Step: Weekly consolidation
+2025-10-24 20:07:14,859 - INFO - Starting weekly consolidation
+2025-10-24 20:07:14,860 - INFO - Found 7 daily files
+2025-10-24 20:07:14,868 - INFO -   Read: daily_sales_2025-10-18.xlsx
+2025-10-24 20:07:14,876 - INFO -   Read: daily_sales_2025-10-19.xlsx
+2025-10-24 20:07:14,883 - INFO -   Read: daily_sales_2025-10-20.xlsx
+2025-10-24 20:07:14,890 - INFO -   Read: daily_sales_2025-10-21.xlsx
+2025-10-24 20:07:14,900 - INFO -   Read: daily_sales_2025-10-22.xlsx
+2025-10-24 20:07:14,907 - INFO -   Read: daily_sales_2025-10-23.xlsx
+2025-10-24 20:07:14,914 - INFO -   Read: daily_sales_2025-10-24.xlsx
+2025-10-24 20:07:14,915 - INFO - Combined: 140 total rows
+2025-10-24 20:07:14,943 - INFO - Weekly report saved: weekly_report_W43_2025.xlsx
+2025-10-24 20:07:14,943 - INFO - Workflow complete

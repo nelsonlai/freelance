@@ -1,0 +1,245 @@
+2025-11-28 21:41:42,426 - INFO - Automation session started
+2025-11-28 21:41:42,484 - INFO - Created: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:42,489 - INFO - Created: daily_sales_2025-11-27.xlsx
+2025-11-28 21:41:42,495 - INFO - Created: daily_sales_2025-11-26.xlsx
+2025-11-28 21:41:42,501 - INFO - Created: daily_sales_2025-11-25.xlsx
+2025-11-28 21:41:42,508 - INFO - Created: daily_sales_2025-11-24.xlsx
+2025-11-28 21:41:42,517 - INFO - Created: daily_sales_2025-11-23.xlsx
+2025-11-28 21:41:42,525 - INFO - Created: daily_sales_2025-11-22.xlsx
+2025-11-28 21:41:42,526 - INFO - Starting batch processing in /Users/nelsonlai/sources/freelance/Python/Excel/session_10_automation/sample_files
+2025-11-28 21:41:42,526 - INFO - Found 21 files
+2025-11-28 21:41:42,526 - INFO - Processing: daily_sales_2025-10-18.xlsx
+2025-11-28 21:41:42,756 - INFO -   Success: 20 rows, $43,527 in sales
+2025-11-28 21:41:42,756 - INFO - Processing: daily_sales_2025-10-19.xlsx
+2025-11-28 21:41:42,767 - INFO -   Success: 20 rows, $59,077 in sales
+2025-11-28 21:41:42,767 - INFO - Processing: daily_sales_2025-10-20.xlsx
+2025-11-28 21:41:42,776 - INFO -   Success: 20 rows, $53,438 in sales
+2025-11-28 21:41:42,777 - INFO - Processing: daily_sales_2025-10-21.xlsx
+2025-11-28 21:41:42,785 - INFO -   Success: 20 rows, $45,870 in sales
+2025-11-28 21:41:42,785 - INFO - Processing: daily_sales_2025-10-22.xlsx
+2025-11-28 21:41:42,791 - INFO -   Success: 20 rows, $43,441 in sales
+2025-11-28 21:41:42,791 - INFO - Processing: daily_sales_2025-10-23.xlsx
+2025-11-28 21:41:42,798 - INFO -   Success: 20 rows, $54,585 in sales
+2025-11-28 21:41:42,798 - INFO - Processing: daily_sales_2025-10-24.xlsx
+2025-11-28 21:41:42,804 - INFO -   Success: 20 rows, $37,959 in sales
+2025-11-28 21:41:42,804 - INFO - Processing: daily_sales_2025-11-08.xlsx
+2025-11-28 21:41:42,811 - INFO -   Success: 20 rows, $48,891 in sales
+2025-11-28 21:41:42,811 - INFO - Processing: daily_sales_2025-11-09.xlsx
+2025-11-28 21:41:42,819 - INFO -   Success: 20 rows, $60,605 in sales
+2025-11-28 21:41:42,819 - INFO - Processing: daily_sales_2025-11-10.xlsx
+2025-11-28 21:41:42,827 - INFO -   Success: 20 rows, $46,644 in sales
+2025-11-28 21:41:42,827 - INFO - Processing: daily_sales_2025-11-11.xlsx
+2025-11-28 21:41:42,837 - INFO -   Success: 20 rows, $49,950 in sales
+2025-11-28 21:41:42,838 - INFO - Processing: daily_sales_2025-11-12.xlsx
+2025-11-28 21:41:42,849 - INFO -   Success: 20 rows, $59,958 in sales
+2025-11-28 21:41:42,849 - INFO - Processing: daily_sales_2025-11-13.xlsx
+2025-11-28 21:41:42,858 - INFO -   Success: 20 rows, $56,526 in sales
+2025-11-28 21:41:42,858 - INFO - Processing: daily_sales_2025-11-14.xlsx
+2025-11-28 21:41:42,868 - INFO -   Success: 20 rows, $45,000 in sales
+2025-11-28 21:41:42,868 - INFO - Processing: daily_sales_2025-11-22.xlsx
+2025-11-28 21:41:42,876 - INFO -   Success: 20 rows, $55,953 in sales
+2025-11-28 21:41:42,876 - INFO - Processing: daily_sales_2025-11-23.xlsx
+2025-11-28 21:41:42,888 - INFO -   Success: 20 rows, $44,685 in sales
+2025-11-28 21:41:42,888 - INFO - Processing: daily_sales_2025-11-24.xlsx
+2025-11-28 21:41:42,894 - INFO -   Success: 20 rows, $51,882 in sales
+2025-11-28 21:41:42,894 - INFO - Processing: daily_sales_2025-11-25.xlsx
+2025-11-28 21:41:42,900 - INFO -   Success: 20 rows, $56,630 in sales
+2025-11-28 21:41:42,900 - INFO - Processing: daily_sales_2025-11-26.xlsx
+2025-11-28 21:41:42,907 - INFO -   Success: 20 rows, $44,269 in sales
+2025-11-28 21:41:42,907 - INFO - Processing: daily_sales_2025-11-27.xlsx
+2025-11-28 21:41:42,912 - INFO -   Success: 20 rows, $50,995 in sales
+2025-11-28 21:41:42,913 - INFO - Processing: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:42,923 - INFO -   Success: 20 rows, $43,090 in sales
+2025-11-28 21:41:42,936 - INFO - Generating daily report for 2025-11-28
+2025-11-28 21:41:42,937 - INFO - Using latest file: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:42,967 - INFO - Metrics calculated: $43,090 in sales
+2025-11-28 21:41:42,989 - INFO - Report saved: daily_report_2025-11-28.xlsx
+2025-11-28 21:41:42,989 - INFO - Starting weekly consolidation
+2025-11-28 21:41:42,989 - INFO - Found 21 daily files
+2025-11-28 21:41:42,996 - INFO -   Read: daily_sales_2025-10-18.xlsx
+2025-11-28 21:41:43,003 - INFO -   Read: daily_sales_2025-10-19.xlsx
+2025-11-28 21:41:43,013 - INFO -   Read: daily_sales_2025-10-20.xlsx
+2025-11-28 21:41:43,023 - INFO -   Read: daily_sales_2025-10-21.xlsx
+2025-11-28 21:41:43,033 - INFO -   Read: daily_sales_2025-10-22.xlsx
+2025-11-28 21:41:43,047 - INFO -   Read: daily_sales_2025-10-23.xlsx
+2025-11-28 21:41:43,054 - INFO -   Read: daily_sales_2025-10-24.xlsx
+2025-11-28 21:41:43,067 - INFO -   Read: daily_sales_2025-11-08.xlsx
+2025-11-28 21:41:43,100 - INFO -   Read: daily_sales_2025-11-09.xlsx
+2025-11-28 21:41:43,108 - INFO -   Read: daily_sales_2025-11-10.xlsx
+2025-11-28 21:41:43,116 - INFO -   Read: daily_sales_2025-11-11.xlsx
+2025-11-28 21:41:43,124 - INFO -   Read: daily_sales_2025-11-12.xlsx
+2025-11-28 21:41:43,134 - INFO -   Read: daily_sales_2025-11-13.xlsx
+2025-11-28 21:41:43,142 - INFO -   Read: daily_sales_2025-11-14.xlsx
+2025-11-28 21:41:43,152 - INFO -   Read: daily_sales_2025-11-22.xlsx
+2025-11-28 21:41:43,163 - INFO -   Read: daily_sales_2025-11-23.xlsx
+2025-11-28 21:41:43,172 - INFO -   Read: daily_sales_2025-11-24.xlsx
+2025-11-28 21:41:43,181 - INFO -   Read: daily_sales_2025-11-25.xlsx
+2025-11-28 21:41:43,187 - INFO -   Read: daily_sales_2025-11-26.xlsx
+2025-11-28 21:41:43,196 - INFO -   Read: daily_sales_2025-11-27.xlsx
+2025-11-28 21:41:43,204 - INFO -   Read: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:43,207 - INFO - Combined: 420 total rows
+2025-11-28 21:41:43,264 - INFO - Weekly report saved: weekly_report_W48_2025.xlsx
+2025-11-28 21:41:43,265 - INFO - Starting safe file processor
+2025-11-28 21:41:43,265 - INFO - Found 21 files
+2025-11-28 21:41:43,265 - INFO - Processing: daily_sales_2025-10-21.xlsx
+2025-11-28 21:41:43,274 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,275 - INFO - Processing: daily_sales_2025-10-20.xlsx
+2025-11-28 21:41:43,285 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,285 - INFO - Processing: daily_sales_2025-11-10.xlsx
+2025-11-28 21:41:43,292 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,292 - INFO - Processing: daily_sales_2025-11-26.xlsx
+2025-11-28 21:41:43,298 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,298 - INFO - Processing: daily_sales_2025-11-27.xlsx
+2025-11-28 21:41:43,303 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,303 - INFO - Processing: daily_sales_2025-11-11.xlsx
+2025-11-28 21:41:43,309 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,309 - INFO - Processing: daily_sales_2025-11-12.xlsx
+2025-11-28 21:41:43,315 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,315 - INFO - Processing: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:43,319 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,319 - INFO - Processing: daily_sales_2025-11-08.xlsx
+2025-11-28 21:41:43,330 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,330 - INFO - Processing: daily_sales_2025-11-24.xlsx
+2025-11-28 21:41:43,339 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,339 - INFO - Processing: daily_sales_2025-11-25.xlsx
+2025-11-28 21:41:43,348 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,348 - INFO - Processing: daily_sales_2025-11-09.xlsx
+2025-11-28 21:41:43,356 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,356 - INFO - Processing: daily_sales_2025-10-24.xlsx
+2025-11-28 21:41:43,365 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,365 - INFO - Processing: daily_sales_2025-11-13.xlsx
+2025-11-28 21:41:43,373 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,374 - INFO - Processing: daily_sales_2025-10-23.xlsx
+2025-11-28 21:41:43,382 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,382 - INFO - Processing: daily_sales_2025-11-22.xlsx
+2025-11-28 21:41:43,388 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,388 - INFO - Processing: daily_sales_2025-10-19.xlsx
+2025-11-28 21:41:43,395 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,395 - INFO - Processing: daily_sales_2025-11-14.xlsx
+2025-11-28 21:41:43,401 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,402 - INFO - Processing: daily_sales_2025-10-18.xlsx
+2025-11-28 21:41:43,408 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,408 - INFO - Processing: daily_sales_2025-11-23.xlsx
+2025-11-28 21:41:43,414 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,414 - INFO - Processing: daily_sales_2025-10-22.xlsx
+2025-11-28 21:41:43,419 - INFO -   ✓ Success: 20 rows
+2025-11-28 21:41:43,428 - INFO - Processing complete: 21 successful, 0 failed
+2025-11-28 21:41:43,428 - INFO - Results saved: /Users/nelsonlai/sources/freelance/Python/Excel/session_10_automation/generated_reports/processing_results.xlsx
+2025-11-28 21:41:43,428 - INFO - Cleaning up files older than 30 days
+2025-11-28 21:41:43,429 - INFO - Removing old file: daily_sales_2025-10-21.xlsx
+2025-11-28 21:41:43,429 - INFO - Removing old file: daily_sales_2025-10-20.xlsx
+2025-11-28 21:41:43,429 - INFO - Removing old file: daily_sales_2025-10-24.xlsx
+2025-11-28 21:41:43,430 - INFO - Removing old file: daily_sales_2025-10-23.xlsx
+2025-11-28 21:41:43,430 - INFO - Removing old file: daily_sales_2025-10-19.xlsx
+2025-11-28 21:41:43,430 - INFO - Removing old file: daily_sales_2025-10-18.xlsx
+2025-11-28 21:41:43,430 - INFO - Removing old file: daily_sales_2025-10-22.xlsx
+2025-11-28 21:41:43,431 - INFO - Framework initialized
+2025-11-28 21:41:43,431 - INFO - Starting workflow for pattern: daily_sales_*.xlsx
+2025-11-28 21:41:43,431 - INFO - Found 21 files
+2025-11-28 21:41:43,431 - INFO - Processing: daily_sales_2025-10-21.xlsx
+2025-11-28 21:41:43,442 - INFO - Processing: daily_sales_2025-10-20.xlsx
+2025-11-28 21:41:43,450 - INFO - Processing: daily_sales_2025-11-10.xlsx
+2025-11-28 21:41:43,460 - INFO - Processing: daily_sales_2025-11-26.xlsx
+2025-11-28 21:41:43,468 - INFO - Processing: daily_sales_2025-11-27.xlsx
+2025-11-28 21:41:43,479 - INFO - Processing: daily_sales_2025-11-11.xlsx
+2025-11-28 21:41:43,487 - INFO - Processing: daily_sales_2025-11-12.xlsx
+2025-11-28 21:41:43,497 - INFO - Processing: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:43,504 - INFO - Processing: daily_sales_2025-11-08.xlsx
+2025-11-28 21:41:43,509 - INFO - Processing: daily_sales_2025-11-24.xlsx
+2025-11-28 21:41:43,515 - INFO - Processing: daily_sales_2025-11-25.xlsx
+2025-11-28 21:41:43,520 - INFO - Processing: daily_sales_2025-11-09.xlsx
+2025-11-28 21:41:43,529 - INFO - Processing: daily_sales_2025-10-24.xlsx
+2025-11-28 21:41:43,537 - INFO - Processing: daily_sales_2025-11-13.xlsx
+2025-11-28 21:41:43,549 - INFO - Processing: daily_sales_2025-10-23.xlsx
+2025-11-28 21:41:43,557 - INFO - Processing: daily_sales_2025-11-22.xlsx
+2025-11-28 21:41:43,567 - INFO - Processing: daily_sales_2025-10-19.xlsx
+2025-11-28 21:41:43,581 - INFO - Processing: daily_sales_2025-11-14.xlsx
+2025-11-28 21:41:43,589 - INFO - Processing: daily_sales_2025-10-18.xlsx
+2025-11-28 21:41:43,598 - INFO - Processing: daily_sales_2025-11-23.xlsx
+2025-11-28 21:41:43,604 - INFO - Processing: daily_sales_2025-10-22.xlsx
+2025-11-28 21:41:43,666 - INFO - Results saved: combined_results_20251128.xlsx
+2025-11-28 21:41:43,667 - INFO - Checking for new files
+2025-11-28 21:41:43,667 - INFO - Found 21 new files
+2025-11-28 21:41:43,668 - INFO - ============================================================
+2025-11-28 21:41:43,668 - INFO - Starting comprehensive automation workflow
+2025-11-28 21:41:43,668 - INFO - ============================================================
+2025-11-28 21:41:43,668 - INFO - Step: Check for new files
+2025-11-28 21:41:43,668 - INFO - Checking for new files
+2025-11-28 21:41:43,668 - INFO - Found 21 new files
+2025-11-28 21:41:43,668 - INFO - Step: Process batch files
+2025-11-28 21:41:43,668 - INFO - Starting batch processing in /Users/nelsonlai/sources/freelance/Python/Excel/session_10_automation/sample_files
+2025-11-28 21:41:43,669 - INFO - Found 21 files
+2025-11-28 21:41:43,669 - INFO - Processing: daily_sales_2025-10-18.xlsx
+2025-11-28 21:41:43,689 - INFO -   Success: 20 rows, $43,527 in sales
+2025-11-28 21:41:43,689 - INFO - Processing: daily_sales_2025-10-19.xlsx
+2025-11-28 21:41:43,695 - INFO -   Success: 20 rows, $59,077 in sales
+2025-11-28 21:41:43,695 - INFO - Processing: daily_sales_2025-10-20.xlsx
+2025-11-28 21:41:43,708 - INFO -   Success: 20 rows, $53,438 in sales
+2025-11-28 21:41:43,708 - INFO - Processing: daily_sales_2025-10-21.xlsx
+2025-11-28 21:41:43,713 - INFO -   Success: 20 rows, $45,870 in sales
+2025-11-28 21:41:43,714 - INFO - Processing: daily_sales_2025-10-22.xlsx
+2025-11-28 21:41:43,718 - INFO -   Success: 20 rows, $43,441 in sales
+2025-11-28 21:41:43,718 - INFO - Processing: daily_sales_2025-10-23.xlsx
+2025-11-28 21:41:43,724 - INFO -   Success: 20 rows, $54,585 in sales
+2025-11-28 21:41:43,724 - INFO - Processing: daily_sales_2025-10-24.xlsx
+2025-11-28 21:41:43,731 - INFO -   Success: 20 rows, $37,959 in sales
+2025-11-28 21:41:43,731 - INFO - Processing: daily_sales_2025-11-08.xlsx
+2025-11-28 21:41:43,741 - INFO -   Success: 20 rows, $48,891 in sales
+2025-11-28 21:41:43,741 - INFO - Processing: daily_sales_2025-11-09.xlsx
+2025-11-28 21:41:43,751 - INFO -   Success: 20 rows, $60,605 in sales
+2025-11-28 21:41:43,751 - INFO - Processing: daily_sales_2025-11-10.xlsx
+2025-11-28 21:41:43,759 - INFO -   Success: 20 rows, $46,644 in sales
+2025-11-28 21:41:43,760 - INFO - Processing: daily_sales_2025-11-11.xlsx
+2025-11-28 21:41:43,798 - INFO -   Success: 20 rows, $49,950 in sales
+2025-11-28 21:41:43,804 - INFO - Processing: daily_sales_2025-11-12.xlsx
+2025-11-28 21:41:43,817 - INFO -   Success: 20 rows, $59,958 in sales
+2025-11-28 21:41:43,817 - INFO - Processing: daily_sales_2025-11-13.xlsx
+2025-11-28 21:41:43,827 - INFO -   Success: 20 rows, $56,526 in sales
+2025-11-28 21:41:43,827 - INFO - Processing: daily_sales_2025-11-14.xlsx
+2025-11-28 21:41:43,835 - INFO -   Success: 20 rows, $45,000 in sales
+2025-11-28 21:41:43,835 - INFO - Processing: daily_sales_2025-11-22.xlsx
+2025-11-28 21:41:43,847 - INFO -   Success: 20 rows, $55,953 in sales
+2025-11-28 21:41:43,848 - INFO - Processing: daily_sales_2025-11-23.xlsx
+2025-11-28 21:41:43,855 - INFO -   Success: 20 rows, $44,685 in sales
+2025-11-28 21:41:43,855 - INFO - Processing: daily_sales_2025-11-24.xlsx
+2025-11-28 21:41:43,864 - INFO -   Success: 20 rows, $51,882 in sales
+2025-11-28 21:41:43,864 - INFO - Processing: daily_sales_2025-11-25.xlsx
+2025-11-28 21:41:43,872 - INFO -   Success: 20 rows, $56,630 in sales
+2025-11-28 21:41:43,872 - INFO - Processing: daily_sales_2025-11-26.xlsx
+2025-11-28 21:41:43,880 - INFO -   Success: 20 rows, $44,269 in sales
+2025-11-28 21:41:43,880 - INFO - Processing: daily_sales_2025-11-27.xlsx
+2025-11-28 21:41:43,889 - INFO -   Success: 20 rows, $50,995 in sales
+2025-11-28 21:41:43,889 - INFO - Processing: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:43,895 - INFO -   Success: 20 rows, $43,090 in sales
+2025-11-28 21:41:43,897 - INFO - Step: Generate daily report
+2025-11-28 21:41:43,897 - INFO - Generating daily report for 2025-11-28
+2025-11-28 21:41:43,897 - INFO - Using latest file: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:43,906 - INFO - Metrics calculated: $43,090 in sales
+2025-11-28 21:41:43,920 - INFO - Report saved: daily_report_2025-11-28.xlsx
+2025-11-28 21:41:43,920 - INFO - Step: Weekly consolidation
+2025-11-28 21:41:43,920 - INFO - Starting weekly consolidation
+2025-11-28 21:41:43,920 - INFO - Found 21 daily files
+2025-11-28 21:41:43,927 - INFO -   Read: daily_sales_2025-10-18.xlsx
+2025-11-28 21:41:43,934 - INFO -   Read: daily_sales_2025-10-19.xlsx
+2025-11-28 21:41:43,949 - INFO -   Read: daily_sales_2025-10-20.xlsx
+2025-11-28 21:41:43,955 - INFO -   Read: daily_sales_2025-10-21.xlsx
+2025-11-28 21:41:43,963 - INFO -   Read: daily_sales_2025-10-22.xlsx
+2025-11-28 21:41:43,975 - INFO -   Read: daily_sales_2025-10-23.xlsx
+2025-11-28 21:41:43,981 - INFO -   Read: daily_sales_2025-10-24.xlsx
+2025-11-28 21:41:43,986 - INFO -   Read: daily_sales_2025-11-08.xlsx
+2025-11-28 21:41:43,992 - INFO -   Read: daily_sales_2025-11-09.xlsx
+2025-11-28 21:41:43,998 - INFO -   Read: daily_sales_2025-11-10.xlsx
+2025-11-28 21:41:44,006 - INFO -   Read: daily_sales_2025-11-11.xlsx
+2025-11-28 21:41:44,012 - INFO -   Read: daily_sales_2025-11-12.xlsx
+2025-11-28 21:41:44,019 - INFO -   Read: daily_sales_2025-11-13.xlsx
+2025-11-28 21:41:44,024 - INFO -   Read: daily_sales_2025-11-14.xlsx
+2025-11-28 21:41:44,032 - INFO -   Read: daily_sales_2025-11-22.xlsx
+2025-11-28 21:41:44,043 - INFO -   Read: daily_sales_2025-11-23.xlsx
+2025-11-28 21:41:44,052 - INFO -   Read: daily_sales_2025-11-24.xlsx
+2025-11-28 21:41:44,059 - INFO -   Read: daily_sales_2025-11-25.xlsx
+2025-11-28 21:41:44,066 - INFO -   Read: daily_sales_2025-11-26.xlsx
+2025-11-28 21:41:44,077 - INFO -   Read: daily_sales_2025-11-27.xlsx
+2025-11-28 21:41:44,086 - INFO -   Read: daily_sales_2025-11-28.xlsx
+2025-11-28 21:41:44,088 - INFO - Combined: 420 total rows
+2025-11-28 21:41:44,134 - INFO - Weekly report saved: weekly_report_W48_2025.xlsx
+2025-11-28 21:41:44,134 - INFO - Workflow complete
