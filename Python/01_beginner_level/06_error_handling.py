@@ -383,7 +383,8 @@ class ValidationError(Exception):
 def validate_email(email):
     """Validate email format."""
     import re
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[\.[a-zA-Z]{2,}]+$' # Regular expression
+                # conie12313@gmail.com.hk
     if not re.match(pattern, email):
         raise ValidationError("Invalid email format", "email")
     return True
@@ -392,7 +393,7 @@ def validate_phone(phone):
     """Validate phone number format."""
     import re
     # Remove all non-digit characters
-    digits_only = re.sub(r'\D', '', phone)
+    digits_only = re.sub(r'\D', '', phone) # +1 (234) 567-8901
     if len(digits_only) != 10:
         raise ValidationError("Phone number must have exactly 10 digits", "phone")
     return True

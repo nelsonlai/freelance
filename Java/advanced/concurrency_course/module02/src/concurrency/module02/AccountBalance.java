@@ -5,18 +5,27 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * High-concurrency account balance: three implementations —
- * synchronized, ReentrantLock, and lock-free (AtomicLong).
- * Simple benchmark: many threads credit/debit repeatedly.
+ * Compares three ways to implement a high-concurrency account balance:
+ * <ul>
+ *   <li><b>Synchronized:</b> Every method synchronized on the instance; simple but no tryLock/timeout.</li>
+ *   <li><b>ReentrantLock:</b> Explicit lock/unlock in try/finally; same semantics, allows tryLock and fairness.</li>
+ *   <li><b>Lock-free (AtomicLong):</b> No locks; credit/debit via addAndGet. Often faster under contention.</li>
+ * </ul>
+ * Each thread does many credit(1) and debit(1) pairs; net balance should remain 0. We measure total time.
  */
 public class AccountBalance {
 
+    /** Common interface for an account supporting credit, debit, and balance read. */
     interface Account {
         void credit(long amount);
         void debit(long amount);
         long getBalance();
     }
 
+    /**
+     * Account guarded by synchronized methods. Each method acquires the monitor on this;
+     * only one thread can execute any of these at a time.
+     */
     static class SynchronizedAccount implements Account {
         private long balance = 0;
         @Override
@@ -27,6 +36,10 @@ public class AccountBalance {
         public synchronized long getBalance()       { return balance; }
     }
 
+    /**
+     * Account guarded by ReentrantLock. Same mutual exclusion as synchronized, but we
+     * must unlock in finally to avoid leaving the lock held on exception or early return.
+     */
     static class ReentrantLockAccount implements Account {
         private long balance = 0;
         private final Lock lock = new ReentrantLock();
@@ -47,6 +60,10 @@ public class AccountBalance {
         }
     }
 
+    /**
+     * Lock-free account using AtomicLong. addAndGet is a single atomic read-modify-write;
+     * no blocking, so under high contention this often outperforms lock-based approaches.
+     */
     static class LockFreeAccount implements Account {
         private final AtomicLong balance = new AtomicLong(0);
         @Override
@@ -57,6 +74,10 @@ public class AccountBalance {
         public long getBalance()        { return balance.get(); }
     }
 
+    /**
+     * Runs a simple benchmark: {@code threads} threads each performing {@code opsPerThread}
+     * credit(1) and debit(1) pairs. Prints final balance (should be 0), elapsed ms, and total ops.
+     */
     static void runBenchmark(Account acc, int threads, int opsPerThread) throws InterruptedException {
         Thread[] ts = new Thread[threads];
         long start = System.nanoTime();

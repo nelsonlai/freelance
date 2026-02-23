@@ -5,11 +5,20 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 /**
- * Idempotent processor: process each key (e.g. client order ID) at most once.
- * Duplicate keys are skipped. Suitable for at-least-once delivery with idempotent handling.
+ * Idempotent processor: ensures each key (e.g. client order ID or idempotency key)
+ * is processed at most once. Duplicate keys are skipped without running the handler.
+ * Suitable when messages or requests can be delivered at least once and you need
+ * to avoid double execution (e.g. double credit).
+ *
+ * <p>Uses {@link ConcurrentHashMap#newKeySet()} for thread-safe add/contains.
+ * For very high throughput or bounded memory, consider a cache with TTL or a
+ * bloom filter plus periodic cleanup.
+ *
+ * @param <K> type of the idempotency key
  */
 public class IdempotentProcessor<K> {
 
+    /** Set of keys already processed. add() is atomic; first add wins. */
     private final Set<K> processed = ConcurrentHashMap.newKeySet();
     private final Consumer<K> handler;
 
@@ -17,7 +26,13 @@ public class IdempotentProcessor<K> {
         this.handler = handler;
     }
 
-    /** Process only if key was not seen before. Returns true if processed, false if duplicate. */
+    /**
+     * If the key has not been seen before, adds it, runs the handler, and returns true.
+     * If the key was already processed, returns false without running the handler.
+     *
+     * @param key the idempotency key (e.g. order id)
+     * @return true if the handler was run, false if duplicate
+     */
     public boolean processOnce(K key) {
         if (processed.add(key)) {
             handler.accept(key);
@@ -26,6 +41,7 @@ public class IdempotentProcessor<K> {
         return false;
     }
 
+    /** Returns true if this key has already been processed. */
     public boolean alreadyProcessed(K key) {
         return processed.contains(key);
     }

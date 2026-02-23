@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表單驗證示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        input.error {
+            border-color: #FF6B6B;
+        }
+        input.success {
+            border-color: #4ECDC4;
+        }
+        .error-message {
+            color: #FF6B6B;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .error-message.show {
+            display: block;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .success-message {
+            background: #E8F8F5;
+            border-left: 4px solid #4ECDC4;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ 表單驗證示範</h1>
+        
+        <form id="registration-form" onsubmit="return validateForm(event)">
+            <div class="form-group">
+                <label for="username">使用者名稱</label>
+                <input type="text" 
+                       id="username" 
+                       name="username" 
+                       placeholder="4-20個字元"
+                       onblur="validateUsername()">
+                <div class="error-message" id="username-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">電子郵件</label>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       placeholder="example@email.com"
+                       onblur="validateEmail()">
+                <div class="error-message" id="email-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">密碼</label>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       placeholder="至少8個字元"
+                       onblur="validatePassword()">
+                <div class="error-message" id="password-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password">確認密碼</label>
+                <input type="password" 
+                       id="confirm-password" 
+                       name="confirm_password" 
+                       placeholder="再次輸入密碼"
+                       onblur="validateConfirmPassword()">
+                <div class="error-message" id="confirm-password-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">年齡</label>
+                <input type="number" 
+                       id="age" 
+                       name="age" 
+                       placeholder="必須年滿18歲"
+                       min="18"
+                       onblur="validateAge()">
+                <div class="error-message" id="age-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">手機號碼</label>
+                <input type="tel" 
+                       id="phone" 
+                       name="phone" 
+                       placeholder="0912345678"
+                       onblur="validatePhone()">
+                <div class="error-message" id="phone-error"></div>
+            </div>
+            
+            <button type="submit">送出註冊</button>
+        </form>
+        
+        <div class="success-message" id="success-message">
+            <h3 style="color: #4ECDC4; margin-bottom: 10px;">🎉 註冊成功！</h3>
+            <p>所有欄位驗證通過，表單已送出。</p>
+        </div>
+    </div>
+    
+    <script>
+        // 驗證使用者名稱
+        function validateUsername() {
+            let username = document.getElementById('username');
+            let error = document.getElementById('username-error');
+            let value = username.value.trim();
+            
+            if (value === '') {
+                showError(username, error, '使用者名稱不能空白');
+                return false;
+            }
+            
+            if (value.length < 4 || value.length > 20) {
+                showError(username, error, '使用者名稱必須是 4-20 個字元');
+                return false;
+            }
+            
+            if (!/^[A-Za-z0-9_]+$/.test(value)) {
+                showError(username, error, '只能包含英文、數字和底線');
+                return false;
+            }
+            
+            showSuccess(username, error);
+            return true;
+        }
+        
+        // 驗證 Email
+        function validateEmail() {
+            let email = document.getElementById('email');
+            let error = document.getElementById('email-error');
+            let value = email.value.trim();
+            
+            if (value === '') {
+                showError(email, error, 'Email 不能空白');
+                return false;
+            }
+            
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                showError(email, error, 'Email 格式不正確');
+                return false;
+            }
+            
+            showSuccess(email, error);
+            return true;
+        }
+        
+        // 驗證密碼
+        function validatePassword() {
+            let password = document.getElementById('password');
+            let error = document.getElementById('password-error');
+            let value = password.value;
+            
+            if (value === '') {
+                showError(password, error, '密碼不能空白');
+                return false;
+            }
+            
+            if (value.length < 8) {
+                showError(password, error, '密碼至少需要 8 個字元');
+                return false;
+            }
+            
+            if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)) {
+                showError(password, error, '密碼必須包含大小寫字母和數字');
+                return false;
+            }
+            
+            showSuccess(password, error);
+            return true;
+        }
+        
+        // 驗證確認密碼
+        function validateConfirmPassword() {
+            let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('confirm-password');
+            let error = document.getElementById('confirm-password-error');
+            let value = confirmPassword.value;
+            
+            if (value === '') {
+                showError(confirmPassword, error, '請確認密碼');
+                return false;
+            }
+            
+            if (value !== password) {
+                showError(confirmPassword, error, '兩次密碼輸入不一致');
+                return false;
+            }
+            
+            showSuccess(confirmPassword, error);
+            return true;
+        }
+        
+        // 驗證年齡
+        function validateAge() {
+            let age = document.getElementById('age');
+            let error = document.getElementById('age-error');
+            let value = parseInt(age.value);
+            
+            if (isNaN(value)) {
+                showError(age, error, '請輸入年齡');
+                return false;
+            }
+            
+            if (value < 18) {
+                showError(age, error, '必須年滿 18 歲');
+                return false;
+            }
+            
+            if (value > 120) {
+                showError(age, error, '年齡不合理');
+                return false;
+            }
+            
+            showSuccess(age, error);
+            return true;
+        }
+        
+        // 驗證手機號碼
+        function validatePhone() {
+            let phone = document.getElementById('phone');
+            let error = document.getElementById('phone-error');
+            let value = phone.value.trim();
+            
+            if (value === '') {
+                showError(phone, error, '手機號碼不能空白');
+                return false;
+            }
+            
+            if (!/^09\d{8}$/.test(value)) {
+                showError(phone, error, '手機號碼格式不正確（09開頭，共10碼）');
+                return false;
+            }
+            
+            showSuccess(phone, error);
+            return true;
+        }
+        
+        // 顯示錯誤
+        function showError(input, errorElement, message) {
+            input.classList.remove('success');
+            input.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+        
+        // 顯示成功
+        function showSuccess(input, errorElement) {
+            input.classList.remove('error');
+            input.classList.add('success');
+            errorElement.classList.remove('show');
+        }
+        
+        // 驗證整個表單
+        function validateForm(event) {
+            event.preventDefault();
+            
+            console.log('=== 開始驗證表單 ===');
+            
+            let isValid = true;
+            
+            isValid = validateUsername() && isValid;
+            isValid = validateEmail() && isValid;
+            isValid = validatePassword() && isValid;
+            isValid = validateConfirmPassword() && isValid;
+            isValid = validateAge() && isValid;
+            isValid = validatePhone() && isValid;
+            
+            if (isValid) {
+                console.log('✅ 表單驗證通過！');
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('registration-form').reset();
+                
+                setTimeout(() => {
+                    document.getElementById('success-message').style.display = 'none';
+                }, 3000);
+            } else {
+                console.log('❌ 表單驗證失敗');
+                alert('請檢查並修正表單中的錯誤');
+            }
+            
+            return false;
+        }
+    </script>
+</body>
+</html>

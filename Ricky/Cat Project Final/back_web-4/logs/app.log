@@ -1293,3 +1293,524 @@ requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://op
 2026-01-31 10:50:57,189 INFO app.routes.match: Generating offspring image with prompt: A realistic, cute kitten resulting from a British Shorthair and Persian mix: rou...
 2026-01-31 10:51:03,603 INFO app: FLUX image saved: ./uploads/kitten_81f4b3a0590448598960f7976c11dc2d.png
 2026-01-31 10:51:03,605 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_81f4b3a0590448598960f7976c11dc2d.png'}
+2026-02-10 08:00:22,067 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:00:22,068 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:00:22,068 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:00:22,694 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:00:22,695 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:00:22,695 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:02:46,156 INFO app.routes.match: Building prompt for Poe analysis...
+2026-02-10 08:02:46,161 INFO app.routes.match: Prompt built successfully, length: 1481
+2026-02-10 08:02:46,162 INFO app.routes.match: Calling analyze_with_poe...
+2026-02-10 08:02:46,713 ERROR app.routes.match: Poe analyze failed: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 150, in match_result
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:02:46,737 ERROR app: Poe analyze failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 150, in match_result
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:02:46,738 INFO app.routes.match: No image prompt provided, skipping image generation
+2026-02-10 08:02:47,506 INFO app.routes.match: Building offspring prompt for cats: Kiwawa + ringle
+2026-02-10 08:02:47,507 INFO app.routes.match: Offspring prompt built, length: 1308
+2026-02-10 08:02:47,507 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-02-10 08:02:47,627 ERROR app.routes.match: Offspring Poe analyze failed: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 322, in generate_offspring
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:02:47,629 ERROR app: Offspring Poe analyze failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 322, in generate_offspring
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:02:47,635 INFO app.routes.match: No image prompt for offspring, skipping image generation
+2026-02-10 08:04:49,280 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:04:49,281 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:04:49,281 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:04:50,182 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:04:50,183 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:04:50,183 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:05:00,305 INFO app.routes.match: Building prompt for Poe analysis...
+2026-02-10 08:05:00,306 INFO app.routes.match: Prompt built successfully, length: 1481
+2026-02-10 08:05:00,306 INFO app.routes.match: Calling analyze_with_poe...
+2026-02-10 08:05:00,698 ERROR app.routes.match: Poe analyze failed: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 150, in match_result
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:05:00,703 ERROR app: Poe analyze failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 150, in match_result
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:05:00,705 INFO app.routes.match: No image prompt provided, skipping image generation
+2026-02-10 08:05:02,910 INFO app.routes.match: Building offspring prompt for cats: Kiwawa + ringle
+2026-02-10 08:05:02,910 INFO app.routes.match: Offspring prompt built, length: 1308
+2026-02-10 08:05:02,910 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-02-10 08:05:03,003 ERROR app.routes.match: Offspring Poe analyze failed: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 322, in generate_offspring
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:05:03,005 ERROR app: Offspring Poe analyze failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 322, in generate_offspring
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:05:03,006 INFO app.routes.match: No image prompt for offspring, skipping image generation
+2026-02-10 08:05:55,324 INFO app.routes.match: Building prompt for Poe analysis...
+2026-02-10 08:05:55,326 INFO app.routes.match: Prompt built successfully, length: 1481
+2026-02-10 08:05:55,332 INFO app.routes.match: Calling analyze_with_poe...
+2026-02-10 08:05:55,453 ERROR app.routes.match: Poe analyze failed: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 150, in match_result
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:05:55,457 ERROR app: Poe analyze failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 150, in match_result
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:05:55,458 INFO app.routes.match: No image prompt provided, skipping image generation
+2026-02-10 08:05:56,163 INFO app.routes.match: Building offspring prompt for cats: Kiwawa + ringle
+2026-02-10 08:05:56,163 INFO app.routes.match: Offspring prompt built, length: 1308
+2026-02-10 08:05:56,163 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-02-10 08:05:56,264 ERROR app.routes.match: Offspring Poe analyze failed: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 322, in generate_offspring
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:05:56,267 ERROR app: Offspring Poe analyze failed
+Traceback (most recent call last):
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/routes/match.py", line 322, in generate_offspring
+    ai_result = analyze_with_poe(prompt)
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/app/services/poe_analyze.py", line 26, in analyze_with_poe
+    for partial in fp.get_bot_response_sync(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=[message],
+        ^^^^^^^^^^^^^^^^^^^
+        bot_name=TEXT_BOT_NAME,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        api_key=api_key
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 808, in _sync_generator
+    yield loop.run_until_complete(async_gen.__anext__())
+          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.11_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 783, in _async_generator
+    async for partial in get_bot_response(
+    ...<13 lines>...
+        yield partial
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 438, in stream_request
+    async for message in stream_request_base(
+    ...<12 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 640, in stream_request_base
+    async for message in ctx.perform_query_request(
+    ...<6 lines>...
+        yield message
+  File "/Users/nelsonlai/sources/freelance/Ricky/Cat Project Final/back_web-4/venv/lib/python3.13/site-packages/fastapi_poe/client.py", line 294, in perform_query_request
+    raise BotErrorNoRetry(event.data)
+fastapi_poe.client.BotErrorNoRetry: {"text": "Invalid API key.", "allow_retry": false, "error_type": "user_caused_error"}
+2026-02-10 08:05:56,270 INFO app.routes.match: No image prompt for offspring, skipping image generation
+2026-02-10 08:09:52,674 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:09:52,675 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:09:52,676 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:09:53,389 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:09:53,389 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:09:53,389 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:09:58,985 INFO app.routes.match: Building prompt for Poe analysis...
+2026-02-10 08:09:58,986 INFO app.routes.match: Prompt built successfully, length: 1481
+2026-02-10 08:09:58,986 INFO app.routes.match: Calling analyze_with_poe...
+2026-02-10 08:10:03,796 INFO app.routes.match: Poe analyze result: {'summary_md': 'Kiwawa为健康英短公，优选同品种4岁ringle，年龄与体况匹配，繁育风险低，避免跨品种配。', 'image_prompt': 'A high-quality realistic illustration of a male and female British Shorthair cat as an ideal breeding pair, round faces, dense plush blue-gray coats, copper eyes, calm temperament, sitting side by side in a clean indoor cattery, soft natural lighting, professional breeder style, ultra-detailed fur, realistic anatomy'}
+2026-02-10 08:10:03,796 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-02-10 08:10:03,796 INFO app.routes.match: Generating image with prompt: A high-quality realistic illustration of a male an...
+2026-02-10 08:10:10,477 INFO app: FLUX image saved: ./uploads/kitten_2e5a2ccf310440149d805b26aa4d1c8f.png
+2026-02-10 08:10:10,479 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_2e5a2ccf310440149d805b26aa4d1c8f.png'}
+2026-02-10 08:10:11,365 INFO app.routes.match: Building offspring prompt for cats: Kiwawa + ringle
+2026-02-10 08:10:11,365 INFO app.routes.match: Offspring prompt built, length: 1308
+2026-02-10 08:10:11,365 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-02-10 08:10:16,171 INFO app.routes.match: Offspring Poe result: {'summary_md': '可能为**英短幼猫**：圆脸、短鼻、结实体型、被毛浓密。遗传稳定，整体健康风险低，但需留意**HCM、PKD**筛查。性格多半温和、亲人、安静，适合室内饲养，建议常规疫苗与心脏、肾脏年度体检。', 'image_prompt': 'A realistic cute British Shorthair kitten with a round face, chubby cheeks, short nose, and a sturdy, cobby body. Dense plush short fur in classic blue-gray color, smooth and even. Large round copper eyes, small rounded ears set wide apart. Calm, gentle expression, sitting indoors with soft natural light.'}
+2026-02-10 08:10:16,172 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-02-10 08:10:16,172 INFO app.routes.match: Generating offspring image with prompt: A realistic cute British Shorthair kitten with a round face, chubby cheeks, shor...
+2026-02-10 08:10:21,510 INFO app: FLUX image saved: ./uploads/kitten_7dfab46ee68b4402b7a66001d4e76aa2.png
+2026-02-10 08:10:21,511 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_7dfab46ee68b4402b7a66001d4e76aa2.png'}
+2026-02-10 08:12:36,777 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:12:36,779 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:12:36,779 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:12:39,896 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:12:39,897 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:12:39,897 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:13:59,607 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:13:59,608 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:13:59,608 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:14:03,732 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:14:03,733 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:14:03,733 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:14:04,583 WARNING app: [DEBUG] POE_API_KEY loaded: YES
+2026-02-10 08:14:04,584 WARNING app: [DEBUG] POE_BASE_URL = https://api.explinks.com
+2026-02-10 08:14:04,584 WARNING app: [DEBUG] POE_ENDPOINT = /poe/v1/analyze
+2026-02-10 08:14:14,025 INFO app.routes.match: Building prompt for Poe analysis...
+2026-02-10 08:14:14,026 INFO app.routes.match: Prompt built successfully, length: 1553
+2026-02-10 08:14:14,027 INFO app.routes.match: Calling analyze_with_poe...
+2026-02-10 08:14:18,664 INFO app.routes.match: Poe analyze result: {'summary_md': '**Kiwawa**, a healthy 5-year-old British Shorthair male, is best matched with **ringle** (score 60) and **Momo Kiki** (score 55). Both share the same breed, suitable age, and good health, supporting stable temperament and predictable offspring. **Kity** is acceptable but young. Cross-breed matches (Persian, Maine Coon) are lower priority due to breed standard differences. Ensure females have complete vaccinations and genetic screening before breeding.', 'image_prompt': 'A calm, high-quality illustration of a male British Shorthair cat with a round face and dense blue-gray coat sitting beside a female British Shorthair. Both cats look healthy and relaxed in a clean, indoor breeding environment with soft lighting, emphasizing compatibility and calm temperament.'}
+2026-02-10 08:14:18,665 INFO app.routes.match: Successfully extracted review_md and image_prompt
+2026-02-10 08:14:18,665 INFO app.routes.match: Generating image with prompt: A calm, high-quality illustration of a male Britis...
+2026-02-10 08:14:27,466 INFO app: FLUX image saved: ./uploads/kitten_02fc26ac887c4aa3b40b94499b9c180a.png
+2026-02-10 08:14:27,467 INFO app.routes.match: Image generation result: {'success': True, 'image_url': '/uploads/kitten_02fc26ac887c4aa3b40b94499b9c180a.png'}
+2026-02-10 08:14:28,412 INFO app.routes.match: Building offspring prompt for cats: Kiwawa + ringle
+2026-02-10 08:14:28,412 INFO app.routes.match: Offspring prompt built, length: 1351
+2026-02-10 08:14:28,412 INFO app.routes.match: Calling analyze_with_poe for offspring...
+2026-02-10 08:14:37,838 INFO app.routes.match: Offspring Poe result: {'summary_md': 'The kitten from **Kiwawa** and **Ringle**, both British Shorthairs, would be a **purebred British Shorthair** with classic breed traits. Expect a **cobby, muscular body**, short sturdy legs, a **round head with full cheeks**, and a **dense, plush coat**. Coat color and pattern could vary (blue/gray, cream, black, or patterned) depending on hidden genetics, with **large round eyes** in copper, gold, or possibly green.\n\nHealth prospects are generally good since both parents are healthy. British Shorthairs can carry risks for **hypertrophic cardiomyopathy (HCM)** and **polycystic kidney disease (PKD)**, so heart ultrasounds and genetic screening are recommended for breeding cats. Maintaining a balanced diet is important, as the breed is prone to **weight gain**. Ensure the kitten receives a **complete vaccination schedule**, especially as the mother’s vaccination status is unknown.\n\nTemperament-wise, the kitten is likely to be **calm, affectionate but not clingy**, gentle with people, and well-suited to indoor living. Regular grooming, play for weight control, and routine veterinary checkups are advised.', 'image_prompt': 'A realistic, adorable British Shorthair kitten with a plush, dense short coat and a round, chubby face. The kitten has a compact, sturdy body, thick legs, and a soft teddy-bear appearance. Fur is a classic solid blue-gray with a subtle sheen, evenly colored and very dense. Large, round copper eyes give a calm, sweet expression. Small rounded ears set wide apart, a short broad nose, and full cheeks. The kitten is sitting upright on a soft neutral background, looking slightly curious and relaxed, with a gentle, calm posture and a healthy, well-fed look.'}
+2026-02-10 08:14:37,838 INFO app.routes.match: Extracted offspring review and image_prompt
+2026-02-10 08:14:37,838 INFO app.routes.match: Generating offspring image with prompt: A realistic, adorable British Shorthair kitten with a plush, dense short coat an...
+2026-02-10 08:14:50,188 INFO app: FLUX image saved: ./uploads/kitten_27f0decfebb8490f88aa3054d9716993.png
+2026-02-10 08:14:50,189 INFO app.routes.match: Offspring image generation result: {'success': True, 'image_url': '/uploads/kitten_27f0decfebb8490f88aa3054d9716993.png'}

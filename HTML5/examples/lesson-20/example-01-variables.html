@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>變數示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4ECDC4;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .output {
+            background-color: #E8F8F5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .output-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background-color: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 JavaScript 變數示範</h1>
+        
+        <!-- let 變數 -->
+        <div class="section">
+            <h2>1. let - 可變的變數</h2>
+            <div class="code-block">
+let name = '小明';<br>
+console.log(name);  // 小明<br>
+<br>
+name = '小華';      // 可以重新賦值<br>
+console.log(name);  // 小華
+            </div>
+            <button onclick="demoLet()">執行範例</button>
+            <div id="let-output" class="output" style="display: none;"></div>
+        </div>
+        
+        <!-- const 常數 -->
+        <div class="section">
+            <h2>2. const - 不可變的常數</h2>
+            <div class="code-block">
+const PI = 3.14159;<br>
+console.log(PI);    // 3.14159<br>
+<br>
+// PI = 3.14;       // ❌ 錯誤！不能改變常數
+            </div>
+            <button onclick="demoConst()">執行範例</button>
+            <div id="const-output" class="output" style="display: none;"></div>
+        </div>
+        
+        <!-- 變數命名 -->
+        <div class="section">
+            <h2>3. 變數命名規則</h2>
+            <div class="code-block">
+// ✅ 正確的命名<br>
+let userName = '小明';<br>
+let userAge = 25;<br>
+let isStudent = true;<br>
+let $price = 100;<br>
+let _private = 'secret';<br>
+<br>
+// ❌ 錯誤的命名<br>
+// let 2name = 'error';     // 不能以數字開頭<br>
+// let user-name = 'error'; // 不能用連字號<br>
+// let user name = 'error'; // 不能有空格
+            </div>
+            <button onclick="demoNaming()">執行範例</button>
+            <div id="naming-output" class="output" style="display: none;"></div>
+        </div>
+        
+        <!-- 變數作用域 -->
+        <div class="section">
+            <h2>4. 變數作用域</h2>
+            <div class="code-block">
+let globalVar = '全域變數';<br>
+<br>
+function testScope() {<br>
+&nbsp;&nbsp;let localVar = '區域變數';<br>
+&nbsp;&nbsp;console.log(globalVar);  // 可以存取<br>
+&nbsp;&nbsp;console.log(localVar);   // 可以存取<br>
+}<br>
+<br>
+// console.log(localVar);  // ❌ 錯誤！無法存取
+            </div>
+            <button onclick="demoScope()">執行範例</button>
+            <div id="scope-output" class="output" style="display: none;"></div>
+        </div>
+        
+        <!-- 實際應用 -->
+        <div class="section">
+            <h2>5. 實際應用：個人資料</h2>
+            <button onclick="createProfile()">建立個人資料</button>
+            <div id="profile-output" class="output" style="display: none;"></div>
+        </div>
+    </div>
+    
+    <script>
+        console.log('=== 變數示範開始 ===');
+        
+        // 1. let 示範
+        function demoLet() {
+            let output = document.getElementById('let-output');
+            output.style.display = 'block';
+            
+            let name = '小明';
+            let message = `初始值：name = "${name}"<br>`;
+            console.log('初始值：', name);
+            
+            name = '小華';
+            message += `改變後：name = "${name}"<br>`;
+            console.log('改變後：', name);
+            
+            output.innerHTML = '<div class="output-title">輸出結果：</div>' + message;
+        }
+        
+        // 2. const 示範
+        function demoConst() {
+            let output = document.getElementById('const-output');
+            output.style.display = 'block';
+            
+            const PI = 3.14159;
+            const SITE_NAME = 'My Website';
+            
+            let message = `
+                <div class="output-title">輸出結果：</div>
+                PI = ${PI}<br>
+                SITE_NAME = "${SITE_NAME}"<br>
+                <br>
+                <span style="color: #666;">💡 這些值不能被改變</span>
+            `;
+            
+            console.log('PI:', PI);
+            console.log('SITE_NAME:', SITE_NAME);
+            
+            output.innerHTML = message;
+        }
+        
+        // 3. 命名示範
+        function demoNaming() {
+            let output = document.getElementById('naming-output');
+            output.style.display = 'block';
+            
+            // 正確的命名
+            let userName = '小明';
+            let userAge = 25;
+            let isStudent = true;
+            let $price = 100;
+            let _private = 'secret';
+            
+            let message = `
+                <div class="output-title">輸出結果（正確的命名）：</div>
+                userName = "${userName}"<br>
+                userAge = ${userAge}<br>
+                isStudent = ${isStudent}<br>
+                $price = ${$price}<br>
+                _private = "${_private}"
+            `;
+            
+            console.log('userName:', userName);
+            console.log('userAge:', userAge);
+            
+            output.innerHTML = message;
+        }
+        
+        // 4. 作用域示範
+        function demoScope() {
+            let output = document.getElementById('scope-output');
+            output.style.display = 'block';
+            
+            let globalVar = '全域變數';
+            let message = `globalVar = "${globalVar}" (可以在任何地方存取)<br><br>`;
+            
+            function testScope() {
+                let localVar = '區域變數';
+                message += `在函式內：<br>`;
+                message += `- globalVar = "${globalVar}" ✅<br>`;
+                message += `- localVar = "${localVar}" ✅<br><br>`;
+                
+                console.log('函式內 - globalVar:', globalVar);
+                console.log('函式內 - localVar:', localVar);
+            }
+            
+            testScope();
+            message += `在函式外：<br>`;
+            message += `- globalVar = "${globalVar}" ✅<br>`;
+            message += `- localVar = 無法存取 ❌`;
+            
+            output.innerHTML = '<div class="output-title">輸出結果：</div>' + message;
+        }
+        
+        // 5. 實際應用
+        function createProfile() {
+            let output = document.getElementById('profile-output');
+            output.style.display = 'block';
+            
+            // 個人資料變數
+            const name = '張小明';
+            const age = 25;
+            const city = '台北';
+            const email = 'ming@example.com';
+            let score = 85;
+            const hobbies = ['閱讀', '旅行', '程式設計'];
+            
+            let message = `
+                <div class="output-title">個人資料卡：</div>
+                <div style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">📋 ${name}</h3>
+                    <p><strong>年齡：</strong>${age} 歲</p>
+                    <p><strong>城市：</strong>${city}</p>
+                    <p><strong>Email：</strong>${email}</p>
+                    <p><strong>分數：</strong>${score} 分</p>
+                    <p><strong>興趣：</strong>${hobbies.join('、')}</p>
+                </div>
+            `;
+            
+            console.log('個人資料：', {name, age, city, email, score, hobbies});
+            
+            output.innerHTML = message;
+        }
+        
+        console.log('=== 變數示範結束 ===');
+    </script>
+</body>
+</html>

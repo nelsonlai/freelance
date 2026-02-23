@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 操作示範</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .demo-section {
+            background: #f9f9f9;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4ECDC4;
+        }
+        .demo-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        #text-demo {
+            padding: 15px;
+            background: #E8F8F5;
+            border-radius: 5px;
+            margin: 10px 0;
+            min-height: 50px;
+        }
+        #style-demo {
+            padding: 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .color-box {
+            width: 100px;
+            height: 100px;
+            background: #4ECDC4;
+            border-radius: 10px;
+            margin: 10px;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        input {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 DOM 操作示範</h1>
+        
+        <!-- 1. 改變文字內容 -->
+        <div class="demo-section">
+            <h2>1. 改變文字內容</h2>
+            <div id="text-demo">
+                <p>這是原始文字</p>
+            </div>
+            <button onclick="changeText()">改變文字</button>
+            <button onclick="addHTML()">加入 HTML</button>
+            <button onclick="resetText()">重設</button>
+        </div>
+        
+        <!-- 2. 改變樣式 -->
+        <div class="demo-section">
+            <h2>2. 改變元素樣式</h2>
+            <div id="style-demo">
+                <p>點擊按鈕改變我的樣式！</p>
+            </div>
+            <button onclick="changeColor()">改變顏色</button>
+            <button onclick="changeSize()">改變大小</button>
+            <button onclick="changeBorder()">改變邊框</button>
+            <button onclick="resetStyle()">重設樣式</button>
+        </div>
+        
+        <!-- 3. 建立和刪除元素 -->
+        <div class="demo-section">
+            <h2>3. 建立和刪除元素</h2>
+            <button onclick="addBox()">新增色塊</button>
+            <button onclick="removeBox()">刪除色塊</button>
+            <button onclick="clearBoxes()">清除全部</button>
+            <div id="box-container"></div>
+        </div>
+        
+        <!-- 4. 表單操作 -->
+        <div class="demo-section">
+            <h2>4. 表單操作</h2>
+            <input type="text" id="nameInput" placeholder="輸入姓名">
+            <input type="number" id="ageInput" placeholder="輸入年齡">
+            <button onclick="getFormValues()">取得值</button>
+            <button onclick="setFormValues()">設定值</button>
+            <button onclick="clearForm()">清空表單</button>
+            <div id="form-output"></div>
+        </div>
+    </div>
+    
+    <script>
+        console.log('=== DOM 操作示範 ===');
+        
+        // 1. 改變文字
+        function changeText() {
+            let element = document.getElementById('text-demo');
+            element.textContent = '✨ 文字已被 JavaScript 改變！';
+            console.log('文字已改變');
+        }
+        
+        function addHTML() {
+            let element = document.getElementById('text-demo');
+            element.innerHTML = '<p style="color: #667eea; font-weight: bold;">🎉 這是用 innerHTML 加入的 HTML 內容！</p>';
+        }
+        
+        function resetText() {
+            let element = document.getElementById('text-demo');
+            element.innerHTML = '<p>這是原始文字</p>';
+        }
+        
+        // 2. 改變樣式
+        function changeColor() {
+            let element = document.getElementById('style-demo');
+            let colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#667eea'];
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            element.style.backgroundColor = randomColor;
+            element.style.color = 'white';
+            console.log('顏色已改變：', randomColor);
+        }
+        
+        function changeSize() {
+            let element = document.getElementById('style-demo');
+            element.style.fontSize = '24px';
+            element.style.padding = '40px';
+            console.log('大小已改變');
+        }
+        
+        function changeBorder() {
+            let element = document.getElementById('style-demo');
+            element.style.border = '5px dashed #667eea';
+            element.style.borderRadius = '20px';
+            console.log('邊框已改變');
+        }
+        
+        function resetStyle() {
+            let element = document.getElementById('style-demo');
+            element.style = '';
+            element.innerHTML = '<p>點擊按鈕改變我的樣式！</p>';
+        }
+        
+        // 3. 建立和刪除元素
+        let boxCount = 0;
+        
+        function addBox() {
+            let container = document.getElementById('box-container');
+            let box = document.createElement('div');
+            box.className = 'color-box';
+            box.id = 'box-' + boxCount;
+            
+            // 隨機顏色
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            box.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            
+            container.appendChild(box);
+            boxCount++;
+            console.log('新增色塊', boxCount);
+        }
+        
+        function removeBox() {
+            let container = document.getElementById('box-container');
+            if (container.lastChild) {
+                container.removeChild(container.lastChild);
+                console.log('刪除最後一個色塊');
+            } else {
+                alert('沒有色塊可刪除！');
+            }
+        }
+        
+        function clearBoxes() {
+            let container = document.getElementById('box-container');
+            container.innerHTML = '';
+            boxCount = 0;
+            console.log('已清除所有色塊');
+        }
+        
+        // 4. 表單操作
+        function getFormValues() {
+            let name = document.getElementById('nameInput').value;
+            let age = document.getElementById('ageInput').value;
+            
+            if (name === '' || age === '') {
+                alert('請填寫所有欄位！');
+                return;
+            }
+            
+            let output = `
+                <p style="color: #667eea; font-weight: bold;">📋 取得的值：</p>
+                <p>姓名：${name}</p>
+                <p>年齡：${age}</p>
+            `;
+            
+            document.getElementById('form-output').innerHTML = output;
+            console.log('姓名:', name, '年齡:', age);
+        }
+        
+        function setFormValues() {
+            document.getElementById('nameInput').value = '張小明';
+            document.getElementById('ageInput').value = '25';
+            console.log('表單值已設定');
+        }
+        
+        function clearForm() {
+            document.getElementById('nameInput').value = '';
+            document.getElementById('ageInput').value = '';
+            document.getElementById('form-output').innerHTML = '';
+            console.log('表單已清空');
+        }
+    </script>
+</body>
+</html>

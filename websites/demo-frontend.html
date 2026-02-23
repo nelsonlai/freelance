@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Frontend Demo: HTML5, CSS & JavaScript - Teaching Materials">
+    <title>Frontend Demo: HTML5, CSS & JavaScript</title>
+    <link rel="stylesheet" href="demo-frontend.css">
+</head>
+<body>
+    <!-- HTML5 Semantic Structure -->
+    <header class="page-header">
+        <h1>Frontend Demo: HTML5, CSS & JavaScript</h1>
+        <p>Teaching materials — Structure (HTML) + Style (CSS) + Behavior (JavaScript)</p>
+    </header>
+
+    <nav>
+        <a href="#semantic">Semantic</a>
+        <a href="#forms">Forms</a>
+        <a href="#multimedia">Multimedia</a>
+        <a href="#layout">Layout</a>
+        <a href="#dom">DOM & Events</a>
+        <a href="#fetch">Fetch API</a>
+    </nav>
+
+    <div class="main-wrapper">
+        <main>
+            <!-- Section: Semantic HTML -->
+            <article class="card" id="semantic">
+                <header>
+                    <h2>1. HTML5 Semantic Elements</h2>
+                </header>
+                <p>This page uses semantic elements: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>.</p>
+                <p>Semantic HTML improves <strong>accessibility</strong>, <strong>SEO</strong>, and <strong>maintainability</strong>.</p>
+            </article>
+
+            <!-- Section: Forms -->
+            <article class="card" id="forms">
+                <header>
+                    <h2>2. HTML5 Forms & Input Types</h2>
+                </header>
+                <form id="demoForm" class="form-grid">
+                    <div class="form-group">
+                        <label for="username">Text:</label>
+                        <input type="text" id="username" name="username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Number (1-120):</label>
+                        <input type="number" id="age" name="age" min="1" max="120" value="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Date:</label>
+                        <input type="date" id="birthdate" name="birthdate">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time:</label>
+                        <input type="time" id="time" name="time">
+                    </div>
+                    <div class="form-group">
+                        <label for="volume">Range (0-100):</label>
+                        <input type="range" id="volume" name="volume" min="0" max="100" value="50">
+                        <span id="volumeValue">50</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="favcolor">Color:</label>
+                        <input type="color" id="favcolor" name="favcolor" value="#3584e4">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Select:</label>
+                        <select id="country" name="country">
+                            <option value="">Choose...</option>
+                            <option value="us">United States</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="hk">Hong Kong</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="message">Textarea:</label>
+                        <textarea id="message" name="message" rows="3" placeholder="Your message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="agree" value="yes"> I agree
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender:</label>
+                        <div>
+                            <label><input type="radio" name="gender" value="male"> Male</label>
+                            <label><input type="radio" name="gender" value="female"> Female</label>
+                        </div>
+                    </div>
+                    <div class="form-group full-width btn-group">
+                        <button type="submit" class="btn">Submit (JS prevents default)</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+            </article>
+
+            <!-- Section: Multimedia -->
+            <article class="card" id="multimedia">
+                <header>
+                    <h2>3. Canvas & SVG</h2>
+                </header>
+                <div class="canvas-svg-row">
+                    <div>
+                        <p><strong>Canvas</strong> (JavaScript drawing):</p>
+                        <canvas id="myCanvas" width="300" height="150"></canvas>
+                    </div>
+                    <div>
+                        <p><strong>SVG</strong> (vector graphics):</p>
+                        <svg width="150" height="150" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="#e01b24"/>
+                            <rect x="20" y="60" width="60" height="15" fill="#3584e4"/>
+                            <circle cx="50" cy="35" r="8" fill="#f9f06b"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="demo-box" data-user-id="42" data-role="admin">
+                    <strong>Data attributes:</strong> This div has <code>data-user-id="42"</code> and <code>data-role="admin"</code>. JavaScript can read them via <code>element.dataset</code>.
+                </div>
+            </article>
+
+            <!-- Section: Layout -->
+            <article class="card" id="layout">
+                <header>
+                    <h2>4. CSS Flexbox & Grid</h2>
+                </header>
+                <p><strong>Flexbox</strong> (space-between):</p>
+                <div class="demo-flex demo-box">
+                    <span>Item 1</span>
+                    <span>Item 2</span>
+                    <span>Item 3</span>
+                </div>
+                <p><strong>CSS Grid</strong> (3 columns, responsive):</p>
+                <div class="demo-grid">
+                    <div class="grid-item">Column 1</div>
+                    <div class="grid-item">Column 2</div>
+                    <div class="grid-item">Column 3</div>
+                </div>
+            </article>
+
+            <!-- Section: DOM & Events -->
+            <article class="card" id="dom">
+                <header>
+                    <h2>5. DOM Manipulation & Events</h2>
+                </header>
+                <div class="btn-group">
+                    <button type="button" class="btn" id="clickBtn">Click Me</button>
+                    <button type="button" class="btn btn-secondary" id="toggleHighlight">Toggle Highlight</button>
+                </div>
+                <p id="clickCounter">Clicks: 0</p>
+            </article>
+
+            <!-- Section: Fetch API -->
+            <article class="card" id="fetch">
+                <header>
+                    <h2>6. Fetch API (Async JavaScript)</h2>
+                </header>
+                <p>Load sample data from JSONPlaceholder (requires internet):</p>
+                <div class="btn-group">
+                    <button type="button" class="btn" id="fetchUsers">Fetch Users</button>
+                    <button type="button" class="btn" id="fetchPost">Fetch Post #1</button>
+                </div>
+                <p style="margin-top: 1rem;"><strong>Output:</strong></p>
+                <pre id="output">Click a button above to load data...</pre>
+            </article>
+        </main>
+
+        <aside>
+            <div class="card">
+                <h3>Concepts Demo</h3>
+                <ul>
+                    <li>HTML5 semantics</li>
+                    <li>Forms & validation</li>
+                    <li>Canvas & SVG</li>
+                    <li>Flexbox & Grid</li>
+                    <li>DOM & events</li>
+                    <li>Fetch API</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Resize the window</h3>
+                <p>This layout is responsive. Try resizing to see Flexbox and Grid adapt.</p>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>© 2025 Frontend Teaching Demo — HTML5 + CSS + JavaScript</p>
+    </footer>
+
+    <script src="demo-frontend.js"></script>
+</body>
+</html>

@@ -1,11 +1,19 @@
 package concurrency.module06;
 
 /**
- * Simple throughput benchmark for OrderBook (no JMH dependency). Run and compare
- * add/cancel vs bestBid/bestAsk latency. For serious measurement use JMH.
+ * Simple throughput benchmark for {@link OrderBook} without JMH. Preloads the
+ * book with orders, then measures: (1) add + cancel pairs, (2) bestBid/bestAsk
+ * reads. Use for quick comparison; for rigorous measurement use
+ * {@link JMH_OrderBookBenchmark} with JMH.
  */
 public class SimpleOrderBookBenchmark {
 
+    /**
+     * Preloads the book with 500 bid and 500 ask levels, then runs two benchmarks:
+     * add+cancel pairs and bestBid/bestAsk. Prints elapsed ms and ops/s for add+cancel.
+     *
+     * @param args unused
+     */
     public static void main(String[] args) {
         OrderBook book = new OrderBook("BTC-USD");
         for (int i = 0; i < 500; i++) {

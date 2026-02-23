@@ -6,11 +6,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Benchmark: N simulated I/O calls in sequence (sync) vs in parallel (async with CompletableFuture).
- * Measures total time to show async wins when work is parallelizable.
+ * Simple benchmark: N simulated I/O operations (each sleeps ioMs) done either
+ * sequentially (sync) or in parallel (async with CompletableFuture).
+ *
+ * <p>Sync total time ≈ N * ioMs. Async total time ≈ ioMs (all run concurrently).
+ * Use this pattern when you have multiple independent I/O calls (e.g. HTTP, DB)
+ * that can be issued in parallel to reduce latency.
  */
 public class SyncVsAsyncLatency {
 
+    /**
+     * Simulates an I/O call by sleeping for the given number of milliseconds.
+     * In real code this would be a network or disk call.
+     */
     static void simulateIO(long ms) {
         try {
             Thread.sleep(ms);
@@ -19,18 +27,25 @@ public class SyncVsAsyncLatency {
         }
     }
 
+    /**
+     * Runs N simulated I/O calls first in sequence, then in parallel. Prints
+     * elapsed time for each; parallel should be roughly ioMs, sequence N*ioMs.
+     *
+     * @param args unused
+     * @throws Exception not thrown in this demo
+     */
     public static void main(String[] args) throws Exception {
         int n = 5;
         long ioMs = 100;
         ExecutorService exec = Executors.newFixedThreadPool(n);
 
-        // Sync: one after another
+        // Sync: one after another; total time = n * ioMs
         long syncStart = System.nanoTime();
         for (int i = 0; i < n; i++) simulateIO(ioMs);
         long syncTime = (System.nanoTime() - syncStart) / 1_000_000;
         System.out.println("Sync " + n + " x " + ioMs + " ms: " + syncTime + " ms");
 
-        // Async: all in parallel
+        // Async: start all N tasks; allOf().join() waits until every one completes
         long asyncStart = System.nanoTime();
         CompletableFuture<?>[] futures = new CompletableFuture[n];
         for (int i = 0; i < n; i++) {

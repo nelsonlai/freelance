@@ -78,10 +78,11 @@ A complete educational resource for learning socket programming from fundamental
 
 ### Module 10: Security and Best Practices
 - **10.1** [Socket Security Fundamentals](./10-security/01-security-fundamentals.md)
-- **10.2** [TLS/SSL Encryption](./10-security/02-tls-ssl.md)
-- **10.3** [Authentication and Authorization](./10-security/03-auth.md)
-- **10.4** [Common Vulnerabilities](./10-security/04-vulnerabilities.md)
-- **10.5** [Best Practices and Patterns](./10-security/05-best-practices.md)
+- **10.2** [How HTTPS Talks (Client–Server)](./10-security/02-https-how-it-works.md)
+- **10.3** [TLS/SSL Encryption](./10-security/02-tls-ssl.md)
+- **10.4** [Authentication and Authorization](./10-security/03-auth.md)
+- **10.5** [Common Vulnerabilities](./10-security/04-vulnerabilities.md)
+- **10.6** [Best Practices and Patterns](./10-security/05-best-practices.md)
 
 ### Module 11: Performance and Optimization
 - **11.1** [Performance Measurement](./11-performance/01-measurement.md)

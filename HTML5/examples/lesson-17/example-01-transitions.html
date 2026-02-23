@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Transition 效果示範</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        /* 範例 1：背景色變化 */
+        .btn-1 {
+            padding: 15px 30px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-1:hover {
+            background-color: #5568d3;
+        }
+        
+        /* 範例 2：大小變化 */
+        .box-1 {
+            width: 100px;
+            height: 100px;
+            background-color: #4ECDC4;
+            margin: 20px auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .box-1:hover {
+            transform: scale(1.2);
+        }
+        
+        /* 範例 3：陰影變化 */
+        .box-2 {
+            width: 100px;
+            height: 100px;
+            background-color: #FFE66D;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .box-2:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* 範例 4：位移 */
+        .box-3 {
+            width: 100px;
+            height: 100px;
+            background-color: #FF6B6B;
+            margin: 20px auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .box-3:hover {
+            transform: translateY(-10px);
+        }
+        
+        /* 範例 5：旋轉 */
+        .box-4 {
+            width: 100px;
+            height: 100px;
+            background-color: #95E1D3;
+            margin: 20px auto;
+            border-radius: 10px;
+            transition: transform 0.5s ease;
+        }
+        
+        .box-4:hover {
+            transform: rotate(45deg);
+        }
+        
+        /* 範例 6：組合效果 */
+        .box-5 {
+            width: 100px;
+            height: 100px;
+            background-color: #667eea;
+            margin: 20px auto;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .box-5:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Transition 效果示範</h1>
+        <p style="text-align: center;">移動滑鼠到元素上查看效果</p>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>背景色變化</h3>
+                <button class="btn-1">Hover me</button>
+            </div>
+            
+            <div class="card">
+                <h3>縮放</h3>
+                <div class="box-1"></div>
+            </div>
+            
+            <div class="card">
+                <h3>陰影</h3>
+                <div class="box-2"></div>
+            </div>
+            
+            <div class="card">
+                <h3>位移</h3>
+                <div class="box-3"></div>
+            </div>
+            
+            <div class="card">
+                <h3>旋轉</h3>
+                <div class="box-4"></div>
+            </div>
+            
+            <div class="card">
+                <h3>組合效果</h3>
+                <div class="box-5"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 互動範例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .demo-section {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+        
+        .demo-section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        #greeting {
+            padding: 15px;
+            background-color: #E8F8F5;
+            border-left: 4px solid #4ECDC4;
+            border-radius: 5px;
+            margin-top: 10px;
+            min-height: 50px;
+            color: #333;
+        }
+        
+        #counter {
+            font-size: 48px;
+            color: #667eea;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
+        
+        #color-box {
+            width: 100%;
+            height: 100px;
+            background-color: #4ECDC4;
+            border-radius: 10px;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 JavaScript 互動範例</h1>
+        
+        <!-- 範例 1：問候語 -->
+        <div class="demo-section">
+            <h2>1. 互動問候</h2>
+            <button onclick="askName()">點我輸入姓名</button>
+            <div id="greeting"></div>
+        </div>
+        
+        <!-- 範例 2：計數器 -->
+        <div class="demo-section">
+            <h2>2. 計數器</h2>
+            <div id="counter">0</div>
+            <div class="button-group">
+                <button onclick="increment()">➕ 加 1</button>
+                <button onclick="decrement()">➖ 減 1</button>
+                <button onclick="reset()">🔄 重設</button>
+            </div>
+        </div>
+        
+        <!-- 範例 3：變換顏色 -->
+        <div class="demo-section">
+            <h2>3. 變換顏色</h2>
+            <button onclick="changeColor()">🎨 隨機變色</button>
+            <div id="color-box"></div>
+        </div>
+    </div>
+    
+    <script>
+        console.log('互動範例已載入！');
+        
+        // 範例 1：問候語
+        function askName() {
+            // 使用 prompt 詢問使用者
+            let userName = prompt('請輸入你的名字：');
+            
+            if (userName) {
+                let greetingDiv = document.getElementById('greeting');
+                greetingDiv.innerHTML = `
+                    <p style="font-size: 18px; color: #667eea;">
+                        🎉 你好，<strong>${userName}</strong>！
+                    </p>
+                    <p>歡迎來到 JavaScript 的世界！</p>
+                `;
+                console.log('使用者名稱：' + userName);
+            } else {
+                alert('你沒有輸入名字喔！');
+            }
+        }
+        
+        // 範例 2：計數器
+        let count = 0;
+        
+        function increment() {
+            count++;
+            updateCounter();
+            console.log('計數器：' + count);
+        }
+        
+        function decrement() {
+            count--;
+            updateCounter();
+            console.log('計數器：' + count);
+        }
+        
+        function reset() {
+            count = 0;
+            updateCounter();
+            console.log('計數器已重設');
+        }
+        
+        function updateCounter() {
+            document.getElementById('counter').textContent = count;
+        }
+        
+        // 範例 3：隨機變色
+        function changeColor() {
+            // 產生隨機顏色
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            let color = `rgb(${r}, ${g}, ${b})`;
+            
+            // 改變顏色
+            document.getElementById('color-box').style.backgroundColor = color;
+            
+            console.log('新顏色：' + color);
+        }
+    </script>
+</body>
+</html>

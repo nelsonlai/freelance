@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage 示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .note-section {
+            margin: 20px 0;
+        }
+        input {
+            width: 70%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        #notes-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        #notes-list li {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4ECDC4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-btn {
+            background: #FF6B6B;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        .delete-btn:hover {
+            background: #ff5252;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💾 Local Storage 筆記本</h1>
+        
+        <div class="note-section">
+            <h2>新增筆記</h2>
+            <input type="text" id="note-input" placeholder="輸入筆記內容...">
+            <button onclick="addNote()">新增</button>
+        </div>
+        
+        <div class="note-section">
+            <h2>我的筆記</h2>
+            <button onclick="displayNotes()">重新整理</button>
+            <button onclick="clearAll()" style="background: #FF6B6B;">清除全部</button>
+            <ul id="notes-list"></ul>
+        </div>
+    </div>
+    
+    <script>
+        // 新增筆記
+        function addNote() {
+            let input = document.getElementById('note-input');
+            let note = input.value.trim();
+            
+            if (note === '') {
+                alert('請輸入筆記內容！');
+                return;
+            }
+            
+            // 取得現有筆記
+            let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+            
+            // 新增筆記
+            notes.push({
+                id: Date.now(),
+                text: note,
+                date: new Date().toLocaleString('zh-TW')
+            });
+            
+            // 儲存回 localStorage
+            localStorage.setItem('notes', JSON.stringify(notes));
+            
+            input.value = '';
+            displayNotes();
+            console.log('新增筆記：', note);
+        }
+        
+        // 顯示筆記
+        function displayNotes() {
+            let notesList = document.getElementById('notes-list');
+            let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+            
+            if (notes.length === 0) {
+                notesList.innerHTML = '<li style="text-align: center; color: #999;">尚無筆記</li>';
+                return;
+            }
+            
+            notesList.innerHTML = '';
+            notes.forEach(note => {
+                let li = document.createElement('li');
+                li.innerHTML = `
+                    <div>
+                        <strong>${note.text}</strong>
+                        <br>
+                        <small style="color: #666;">${note.date}</small>
+                    </div>
+                    <button class="delete-btn" onclick="deleteNote(${note.id})">刪除</button>
+                `;
+                notesList.appendChild(li);
+            });
+            
+            console.log('顯示筆記數量：', notes.length);
+        }
+        
+        // 刪除筆記
+        function deleteNote(id) {
+            let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+            notes = notes.filter(note => note.id !== id);
+            localStorage.setItem('notes', JSON.stringify(notes));
+            displayNotes();
+            console.log('刪除筆記 ID：', id);
+        }
+        
+        // 清除全部
+        function clearAll() {
+            if (confirm('確定要清除所有筆記嗎？')) {
+                localStorage.removeItem('notes');
+                displayNotes();
+                console.log('已清除所有筆記');
+            }
+        }
+        
+        // 頁面載入時顯示筆記
+        window.addEventListener('load', function() {
+            displayNotes();
+            console.log('=== Local Storage 筆記本已載入 ===');
+        });
+    </script>
+</body>
+</html>

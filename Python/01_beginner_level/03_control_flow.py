@@ -211,6 +211,7 @@ def number_guessing_game(): # a simple number guessing game
     if attempts >= max_attempts:
         print(f"Game over! The secret number was {secret_number}")
 
+
 # Example 2: Grade Calculator
 def grade_calculator():
     """Calculate and display student grades."""
@@ -223,8 +224,8 @@ def grade_calculator():
     num_students = int(input("How many students? "))
     
     # Get student data
-    for i in range(num_students):
-        name = input(f"Enter student {i+1} name: ")
+    for i in range(1, num_students + 1):
+        name = input(f"Enter student {i} name: ")
         score = float(input(f"Enter {name}'s score (0-100): "))
         students.append({"name": name, "score": score})
     
@@ -251,6 +252,10 @@ def grade_calculator():
     
     # Calculate class average
     average = total_score / num_students
+    ## 69.97999999999999 -> 69.97
+    average = round(average, 2)
+    ## 69.97999999999999 -> 69.98
+    
     print(f"\nClass Average: {average:.2f}")
 
 # Example 3: Multiplication Table Generator
@@ -373,6 +378,43 @@ def menu_system():
 
 # Demonstrate the examples (commented out to avoid interactive input)
 print("Control flow examples completed!")
+
+float_number = 123.456
+rounded_number = round(float_number, 2)
+rounded_number.ceil()
+rounded_number.floor()
+rounded_number.trunc()
+rounded_number.round(2)
+
+
+a_string = "Hello, World!"
+a_string.upper()
+a_string.lower()
+a_string.title()
+a_string.capitalize()
+a_string.strip()
+a_string.lstrip()
+a_string.rstrip()
+a_string.replace("Hello", "Hi")
+a_string.split(",")
+a_string.join(",")
+a_string.count("o")
+a_string.find("o")
+a_string.startswith("H")
+a_string.endswith("!")
+a_string.isalpha()
+a_string.isdigit()
+a_string.isspace()
+a_string.isalnum()
+a_string.isupper()
+a_string.islower()
+a_string.istitle()
+a_string.isnumeric()
+a_string.isdecimal()
+a_string.isprintable()
+a_string.isidentifier()
+a_string.isascii()
+a_string.isascii()
 
 # Uncomment any of these to run the interactive examples:
 # number_guessing_game()

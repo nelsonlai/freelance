@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Flexbox 基礎示範</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin: 30px 0 15px;
+        }
+        
+        .flex-container {
+            display: flex;
+            background-color: #E8F8F5;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            min-height: 150px;
+        }
+        
+        .flex-item {
+            background-color: #4ECDC4;
+            color: white;
+            padding: 20px;
+            margin: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* justify-content 範例 */
+        .jc-start { justify-content: flex-start; }
+        .jc-center { justify-content: center; }
+        .jc-end { justify-content: flex-end; }
+        .jc-between { justify-content: space-between; }
+        .jc-around { justify-content: space-around; }
+        .jc-evenly { justify-content: space-evenly; }
+        
+        /* align-items 範例 */
+        .ai-start { align-items: flex-start; }
+        .ai-center { align-items: center; }
+        .ai-end { align-items: flex-end; }
+        
+        /* flex-direction 範例 */
+        .fd-row { flex-direction: row; }
+        .fd-column { flex-direction: column; }
+        
+        .code {
+            background-color: #333;
+            color: #FFE66D;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            display: inline-block;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Flexbox 布局示範</h1>
+        
+        <h2>justify-content（主軸對齊）</h2>
+        
+        <p class="code">justify-content: flex-start;</p>
+        <div class="flex-container jc-start">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+        
+        <p class="code">justify-content: center;</p>
+        <div class="flex-container jc-center">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+        
+        <p class="code">justify-content: space-between;</p>
+        <div class="flex-container jc-between">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+        
+        <p class="code">justify-content: space-evenly;</p>
+        <div class="flex-container jc-evenly">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+        
+        <h2>align-items（交叉軸對齊）</h2>
+        
+        <p class="code">align-items: flex-start;</p>
+        <div class="flex-container ai-start">
+            <div class="flex-item">1</div>
+            <div class="flex-item" style="height: 80px;">2<br>較高</div>
+            <div class="flex-item">3</div>
+        </div>
+        
+        <p class="code">align-items: center;</p>
+        <div class="flex-container ai-center">
+            <div class="flex-item">1</div>
+            <div class="flex-item" style="height: 80px;">2<br>較高</div>
+            <div class="flex-item">3</div>
+        </div>
+        
+        <h2>flex-direction（排列方向）</h2>
+        
+        <p class="code">flex-direction: column;</p>
+        <div class="flex-container fd-column ai-center">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+    </div>
+</body>
+</html>

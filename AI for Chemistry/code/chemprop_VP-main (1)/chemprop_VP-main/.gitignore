@@ -1,0 +1,9 @@
+*.pyc
+*.idea
+*.DS_Store
+*.vscode
+*.json
+*.sqlite3
+*.png
+*.txt
+*.svg

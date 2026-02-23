@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一個 JavaScript 程式</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #5568d3;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #E8F8F5;
+            border-left: 4px solid #4ECDC4;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+        .info {
+            background-color: #FFF4E6;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 我的第一個 JavaScript 程式</h1>
+        
+        <div class="info">
+            <strong>💡 提示：</strong>按 F12 開啟開發者工具，切換到 Console 標籤，查看 console.log() 的輸出！
+        </div>
+        
+        <button onclick="sayHello()">點我打招呼</button>
+        <button onclick="showTime()">顯示現在時間</button>
+        <button onclick="changeContent()">改變內容</button>
+        
+        <div id="output">
+            <p>點擊上面的按鈕看看會發生什麼事！</p>
+        </div>
+    </div>
+    
+    <script>
+        // 這是 JavaScript 代碼區域
+        
+        // 當網頁載入時執行
+        console.log('網頁已載入完成！');
+        console.log('歡迎來到 JavaScript 的世界！');
+        
+        // 函式：打招呼
+        function sayHello() {
+            // 在主控台輸出
+            console.log('Hello, JavaScript!');
+            
+            // 彈出警告框
+            alert('你好！歡迎學習 JavaScript！');
+            
+            // 改變輸出區域的內容
+            document.getElementById('output').innerHTML = 
+                '<p style="color: #667eea; font-weight: bold;">✨ 你好！歡迎學習 JavaScript！</p>';
+        }
+        
+        // 函式：顯示時間
+        function showTime() {
+            // 取得現在時間
+            let now = new Date();
+            let timeString = now.toLocaleString('zh-TW');
+            
+            console.log('現在時間：' + timeString);
+            
+            document.getElementById('output').innerHTML = 
+                '<p><strong>🕐 現在時間：</strong>' + timeString + '</p>';
+        }
+        
+        // 函式：改變內容
+        function changeContent() {
+            console.log('內容已改變！');
+            
+            document.getElementById('output').innerHTML = 
+                '<p style="color: #4ECDC4;">🎨 這是 JavaScript 動態改變的內容！</p>' +
+                '<p>JavaScript 可以即時修改網頁內容，讓網頁變得更生動！</p>';
+        }
+    </script>
+</body>
+</html>

@@ -1,29 +1,45 @@
 package concurrency.module02;
 
 /**
- * False sharing: two counters on the same cache line (e.g. 64 bytes) are
- * written by different threads -> cache line bounces. Padding (or @Contended)
- * puts them on different lines to reduce contention.
+ * Demonstrates <b>false sharing</b>: when two variables used by different threads
+ * lie on the same CPU cache line (typically 64 bytes), writes by one thread
+ * invalidate the line for the other, causing cache line "bounces" and slower execution.
  *
- * This is a simplified demo structure; on real hardware you may need many
- * iterations and specific JVM flags to see the effect clearly. Use JMH for
- * serious measurement.
+ * <p><b>Fix:</b> Pad the fields so {@code a} and {@code b} sit on different cache lines
+ * (e.g. ~56 bytes of padding between them). Alternatively use {@code @Contended} (JDK 8+)
+ * with -XX:-RestrictContended for non-JDK classes.
+ *
+ * <p>This is a simplified demo; results depend on layout and JVM. For serious
+ * measurement use JMH and multiple runs.
  */
 public class FalseSharingDemo {
 
-    // Unpadded: likely on same cache line
+    /**
+     * Two volatile longs with no padding. On a 64-byte cache line, both a and b
+     * often share the same line; two threads each updating one still cause invalidations.
+     */
     static class Unpadded {
         volatile long a;
         volatile long b;
     }
 
-    // Padded: put ~56 bytes between a and b so they tend to be on different cache lines
+    /**
+     * Same two longs but with 7 long fields (7*8=56 bytes) between them so a and b
+     * tend to fall on different cache lines. Reduces false sharing.
+     */
     static class Padded {
         volatile long a;
-        long p1, p2, p3, p4, p5, p6, p7;  // 7 * 8 = 56 bytes
+        long p1, p2, p3, p4, p5, p6, p7;  // padding to push b to another cache line
         volatile long b;
     }
 
+    /**
+     * Runs two threads on Unpadded (each updating one counter), then the same on Padded.
+     * Prints elapsed time for each; padded is often faster when false sharing matters.
+     *
+     * @param args unused
+     * @throws InterruptedException if interrupted during join
+     */
     public static void main(String[] args) throws InterruptedException {
         Unpadded u = new Unpadded();
         Padded p = new Padded();

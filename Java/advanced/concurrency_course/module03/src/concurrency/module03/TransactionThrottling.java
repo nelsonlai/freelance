@@ -4,8 +4,13 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Transaction throttling: cap concurrent transactions with a Semaphore.
- * Tracks accepted vs rejected and total completed for simple metrics.
+ * Transaction throttling: limit the number of concurrent "transactions" using
+ * a {@link java.util.concurrent.Semaphore}. When the limit is reached, new
+ * submissions can be rejected (tryAcquire) or block (acquire).
+ *
+ * <p>Tracks metrics: how many were accepted (permit acquired), rejected (tryAcquire
+ * failed), and completed (permit released after run). Useful for exchange-style
+ * systems that must cap concurrent orders or requests.
  */
 public class TransactionThrottling {
 
@@ -14,10 +19,23 @@ public class TransactionThrottling {
     private final AtomicLong rejected = new AtomicLong(0);
     private final AtomicLong completed = new AtomicLong(0);
 
+    /**
+     * Creates a throttler that allows at most maxConcurrent transactions at once.
+     *
+     * @param maxConcurrent maximum number of concurrent transactions
+     */
     public TransactionThrottling(int maxConcurrent) {
         this.permit = new Semaphore(maxConcurrent);
     }
 
+    /**
+     * Tries to run the transaction if a permit is available. If not, increments
+     * rejected count and returns false. If yes, increments accepted, runs the
+     * transaction, then in finally increments completed and releases the permit.
+     *
+     * @param transaction the runnable representing the transaction
+     * @return true if the transaction was run, false if rejected (no permit)
+     */
     public boolean submitTransaction(Runnable transaction) {
         if (!permit.tryAcquire()) {
             rejected.incrementAndGet();
@@ -33,6 +51,13 @@ public class TransactionThrottling {
         }
     }
 
+    /**
+     * Acquires a permit (blocking), runs the transaction, then releases the permit
+     * and increments completed. Use when you want to wait rather than reject.
+     *
+     * @param transaction the runnable representing the transaction
+     * @throws InterruptedException if interrupted while waiting for a permit
+     */
     public void submitTransactionBlocking(Runnable transaction) throws InterruptedException {
         permit.acquire();
         try {
@@ -47,6 +72,11 @@ public class TransactionThrottling {
     public long getRejected() { return rejected.get(); }
     public long getCompleted() { return completed.get(); }
 
+    /**
+     * Submits 20 "transactions" (each just sleeps 100ms) to a pool of 10 threads,
+     * with a throttle of 2 concurrent. Some will be rejected. Prints accepted,
+     * rejected, and completed counts.
+     */
     public static void main(String[] args) throws InterruptedException {
         TransactionThrottling throttle = new TransactionThrottling(2);
         ExecutorService exec = Executors.newFixedThreadPool(10);

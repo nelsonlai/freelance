@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- ✅ 傳統 CSS（優先） -->
+  <link rel="stylesheet" href="{% static 'core/css/global.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+
+  <!-- ✅ Tailwind（備用，暫時唔用） -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>{% block title %}My Site{% endblock %}</title>
+</head>
+<body>
+
+  {% block content %}{% endblock %}
+
+</body>
+</html>

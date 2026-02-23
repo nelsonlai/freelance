@@ -4,14 +4,22 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * ReadWriteLock: multiple readers or single writer. Good when reads dominate.
- * This demo uses a shared value; many threads read, one occasionally writes.
+ * Demonstrates {@link java.util.concurrent.locks.ReadWriteLock}: allows multiple
+ * readers to hold the lock concurrently, or a single writer (exclusive).
+ * Good when reads dominate and writes are infrequent — readers don't block each other.
+ *
+ * <p>This demo: one writer thread updates a long value occasionally; many reader
+ * threads repeatedly read it. We measure total time for all operations.
  */
 public class ReadWriteLockDemo {
 
     private final ReadWriteLock rwl = new ReentrantReadWriteLock();
     private volatile long value = 0;
 
+    /**
+     * Acquires the read lock so multiple threads can read concurrently.
+     * Must unlock in finally so the lock is always released.
+     */
     public long read() {
         rwl.readLock().lock();
         try {
@@ -21,6 +29,10 @@ public class ReadWriteLockDemo {
         }
     }
 
+    /**
+     * Acquires the write lock (exclusive); blocks until no readers or writers.
+     * Updates the shared value then releases the lock.
+     */
     public void write(long v) {
         rwl.writeLock().lock();
         try {
@@ -30,6 +42,13 @@ public class ReadWriteLockDemo {
         }
     }
 
+    /**
+     * Runs one writer (100 writes with small sleep) and many readers (each doing
+     * many reads). Measures total elapsed time to show read-heavy workload with ReadWriteLock.
+     *
+     * @param args unused
+     * @throws InterruptedException if interrupted during join
+     */
     public static void main(String[] args) throws InterruptedException {
         ReadWriteLockDemo demo = new ReadWriteLockDemo();
         int readers = 10;

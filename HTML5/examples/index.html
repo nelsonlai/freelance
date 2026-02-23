@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 課程範例索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            color: #764ba2;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .lesson-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4ECDC4;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .lesson-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .lesson-card ul {
+            list-style: none;
+        }
+        
+        .lesson-card li {
+            margin: 8px 0;
+        }
+        
+        .lesson-card a {
+            color: #667eea;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .lesson-card a:hover {
+            color: #5568d3;
+        }
+        
+        .lesson-card a::before {
+            content: "▶";
+            font-size: 10px;
+        }
+        
+        .info-box {
+            background-color: #E8F8F5;
+            border-left: 5px solid #4ECDC4;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 HTML5 課程範例</h1>
+        <p class="subtitle">點擊下方連結開啟範例檔案，在瀏覽器中查看效果</p>
+        
+        <div class="info-box">
+            <h3>💡 使用說明</h3>
+            <ul>
+                <li>✅ 每個範例都可以直接在瀏覽器中開啟</li>
+                <li>✅ 建議搭配課程內容一起學習</li>
+                <li>✅ 可以複製範例進行修改實驗</li>
+                <li>✅ 按 F12 開啟開發者工具查看代碼</li>
+            </ul>
+        </div>
+        
+        <!-- HTML 部分 -->
+        <div class="section">
+            <h2>📝 HTML 部分（第 1-9 課）</h2>
+            <div class="lesson-grid">
+                <div class="lesson-card">
+                    <h3>第 1 課：HTML 基礎介紹</h3>
+                    <ul>
+                        <li><a href="lesson-01/example-01-basic-structure.html">HTML 基本結構</a></li>
+                        <li><a href="lesson-01/example-02-self-introduction.html">自我介紹頁面</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 2 課：文字標籤和格式化</h3>
+                    <ul>
+                        <li><a href="lesson-02/example-01-text-formatting.html">文字格式化</a></li>
+                        <li><a href="lesson-02/example-02-complete-formatting.html">完整格式化範例</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 3 課：列表和連結</h3>
+                    <ul>
+                        <li><a href="lesson-03/example-01-lists.html">各種列表</a></li>
+                        <li><a href="lesson-03/example-02-navigation.html">導覽選單</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 6 課：表單基礎</h3>
+                    <ul>
+                        <li><a href="lesson-06/example-01-login-form.html">登入表單</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CSS 部分 -->
+        <div class="section">
+            <h2>🎨 CSS 部分（第 10-18 課）</h2>
+            <div class="lesson-grid">
+                <div class="lesson-card">
+                    <h3>第 10 課：CSS 基礎介紹</h3>
+                    <ul>
+                        <li><a href="lesson-10/example-01-css-methods.html">CSS 引入方式</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 14 課：Flexbox 布局</h3>
+                    <ul>
+                        <li><a href="lesson-14/example-01-flexbox-demo.html">Flexbox 示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 16 課：響應式設計</h3>
+                    <ul>
+                        <li><a href="lesson-16/example-01-responsive-demo.html">響應式網站</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 17 課：CSS 動畫和過渡</h3>
+                    <ul>
+                        <li><a href="lesson-17/example-01-transitions.html">Transition 效果</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- JavaScript 部分 -->
+        <div class="section">
+            <h2>💻 JavaScript 部分（第 19-30 課）</h2>
+            
+            <div class="lesson-grid">
+                <div class="lesson-card">
+                    <h3>第 19 課：JavaScript 基礎介紹</h3>
+                    <ul>
+                        <li><a href="lesson-19/example-01-first-javascript.html">我的第一個 JavaScript 程式</a></li>
+                        <li><a href="lesson-19/example-02-output-methods.html">JavaScript 輸出方法</a></li>
+                        <li><a href="lesson-19/example-03-interactive.html">互動範例</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 20 課：變數和資料型別</h3>
+                    <ul>
+                        <li><a href="lesson-20/example-01-variables.html">變數示範</a></li>
+                        <li><a href="lesson-20/example-02-datatypes.html">資料型別示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 21 課：運算子和控制流程</h3>
+                    <ul>
+                        <li><a href="lesson-21/example-01-operators.html">運算子和控制流程示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 22 課：函式</h3>
+                    <ul>
+                        <li><a href="lesson-22/example-01-functions.html">函式示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 23 課：陣列和物件</h3>
+                    <ul>
+                        <li><a href="lesson-23/example-01-arrays-objects.html">陣列和物件示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 24 課：DOM 操作</h3>
+                    <ul>
+                        <li><a href="lesson-24/example-01-dom.html">DOM 操作示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 25 課：事件處理</h3>
+                    <ul>
+                        <li><a href="lesson-25/example-01-events.html">事件處理示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 26 課：表單驗證</h3>
+                    <ul>
+                        <li><a href="lesson-26/example-01-validation.html">表單驗證示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 27 課：AJAX 和 Fetch API</h3>
+                    <ul>
+                        <li><a href="lesson-27/example-01-fetch.html">Fetch API 示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 28 課：ES6+ 新特性</h3>
+                    <ul>
+                        <li><a href="lesson-28/example-01-es6.html">ES6 新特性示範</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 29 課：本地儲存和 API</h3>
+                    <ul>
+                        <li><a href="lesson-29/example-01-storage.html">Local Storage 筆記本</a></li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-card">
+                    <h3>第 30 課：整合實戰專題 🎉</h3>
+                    <ul>
+                        <li><a href="lesson-30/example-01-todo-app.html">⭐ 待辦事項應用（完整專題）</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>🎓 HTML5 完整教學課程（共 30 課）</strong></p>
+            <p>涵蓋 HTML、CSS、JavaScript 完整內容</p>
+            <p>© 2026 版權所有 | 建議使用現代瀏覽器（Chrome、Firefox、Edge）</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -16,7 +16,7 @@ def greet_person(name):
     print(f"Hello, {name}!")
 
 # Function with return value
-def add_numbers(a, b):
+def add_numbers(a, b) -> int:
     """Add two numbers and return the result."""
     result = a + b
     return result
@@ -49,7 +49,7 @@ def calculate_area(length, width):
 print("\n=== Positional Arguments ===")
 # Positional arguments
 area1 = calculate_area(5, 3)  # length=5, width=3
-area2 = calculate_area(3, 5)  # length=3, width=5
+area2 = calculate_area(12, 7)  # length=12, width=7
 print(f"Area 1: {area1}, Area 2: {area2}")
 
 # Keyword Arguments
@@ -64,7 +64,7 @@ def create_profile(name, age, city, country="USA"):
 
 print("\n=== Keyword Arguments ===")
 # Using keyword arguments
-profile1 = create_profile(name="Alice", age=25, city="New York")
+profile1 = create_profile("Alice", 25, "New York")
 profile2 = create_profile(city="London", name="Bob", age=30, country="UK")
 print(f"Profile 1: {profile1}")
 print(f"Profile 2: {profile2}")
@@ -138,6 +138,7 @@ flexible_function(1, 2, 3, name="Alice", age=25)
 # Scope and Lifetime of Variables
 
 print("\n=== Variable Scope ===")
+
 # Global variable
 global_var = "I am global"
 
@@ -197,13 +198,16 @@ print("\n=== Lambda Functions ===")
 square = lambda x: x ** 2
 print(f"Square of 5: {square(5)}")
 
+def square(x):
+    return x ** 2
+
 # Lambda with multiple parameters
 add = lambda a, b: a + b
 print(f"Add 3 and 4: {add(3, 4)}")
 
 
 # Using lambda with built-in higher-order functions
-numbers = [1, 2, 3, 4, 5]
+numbers = [1, 2, 3, 4, 5] # [1, 4, 9, 16, 25]
 
 # Using map with lambda
 squared_numbers = list(map(lambda x: x**2, numbers))
@@ -211,13 +215,13 @@ print(f"Squared numbers: {squared_numbers}")
 
 # Using filter with lambda
 even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
-print(f"Even numbers: {even_numbers}")
+print(f"Even numbers: {even_numbers}") # [2, 4]
 
 # Using sorted with lambda
 students = [
-    {"name": "Alice", "grade": 85},
-    {"name": "Bob", "grade": 92},
-    {"name": "Charlie", "grade": 78}
+    {"name": "Alice", "grade": 85, "age": 20},
+    {"name": "Bob", "grade": 92, "age": 19},
+    {"name": "Charlie", "grade": 78, "age": 21}
 ]
 
 # Sort by grade

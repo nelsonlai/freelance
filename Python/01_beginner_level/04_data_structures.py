@@ -6,6 +6,9 @@ This file contains all the example code from the Data Structures lesson.
 # Strings - Text Data
 
 # Different ways to create strings
+from typing import Any
+
+
 single_quote = 'Hello World'    # ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
 double_quote = "Hello World"    # ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
 triple_quote = """This is a
@@ -25,17 +28,17 @@ print("\n=== String Indexing and Slicing ===")
 # Indexing (accessing individual characters)
 print(f"First character: {text[0]}")     # P
 print(f"Last character: {text[-1]}")     # g
-print(f"Character at index 7: {text[7]}") # p
+print(f"Character at index 7: {text[7]}") # P
 
 text = "Python Programming"    # ['P', 'y', 't', 'h', 'o', 'n', ' ', 'P', 'r', 'o', 'g', 'r', 'a', 'm', 'm', 'i', 'n', 'g']
 # Slicing (accessing substrings)
 print(f"First 6 characters: {text[0:6]}")    # ['P', 'y', 't', 'h', 'o', 'n']
 print(f"Characters 7 to end: {text[7:]}")    # ['P', 'r', 'o', 'g', 'r', 'a', 'm', 'm', 'i', 'n', 'g']
 print(f"Last 11 characters: {text[-11:]}")    # ['P', 'r', 'o', 'g', 'r', 'a', 'm', 'm', 'i', 'n', 'g']
-print(f"Every 2nd character: {text[::2]}")  # step of 2    ['P', 't', 'o', ' ', 'r', 'g', 'a', 'm', 'i', 'g']
+print(f"Every 2nd character: {text[::2]}")  # step of 2    ['P', 't', 'o', ' ', 'r', 'g', 'a', 'm', 'i', 'n']
 
 # Reverse string
-print(f"Reversed: {text[::-1]}")
+print(f"Reversed: {text[::-1]}") # ['g', 'n', 'i', 'm', 'm', 'a', 'r', 'g', 'o', 'r', 'P', ' ', 'n', 'o', 'h', 't', 'y', 'p']
 
 # String Methods/Functions
 text = "  Hello World  "
@@ -109,14 +112,6 @@ text = "Python" # text_list = ['P', 'y', 't', 'h', 'o', 'n']
 char_list = list(text)
 print(f"Characters: {char_list}")
 
-# List comprehension (basic)
-squares = []
-for x in range(1, 6):
-    y = x**2
-    squares.append(y)
-
-squares = [x**2 for x in range(1, 6)]
-print(f"Squares: {squares}")
 
 # List Indexing and Slicing
 fruits = ["apple", "banana", "orange", "grape", "kiwi"]
@@ -157,10 +152,10 @@ fruits.remove("banana")  # Remove first occurrence, raises error if not found
 print(f"After remove: {fruits}")
 
 # Other methods
-numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5]
 print(f"Length: {len(numbers)}")
 print(f"Count of 1: {numbers.count(1)}")
-print(f"Index of 5: {numbers.index(5)}")
+print(f"Index of 5: {numbers.index(5)}") # first occurrence
 
 # Sorting
 numbers.sort()  # In-place sorting - ascending order
@@ -178,6 +173,16 @@ print(f"Sorted copy: {sorted_copy}")
 # Reversing
 numbers.reverse()
 print(f"Reversed: {numbers}")
+
+# List comprehension (basic)
+squares = []
+for x in range(1, 6):
+    y = x**2
+    squares.append(y)
+
+squares = [x**2 for x in range(1, 6)]
+print(f"Squares: {squares}")
+
 
 # Tuples - Immutable Collections of lists
 
@@ -223,7 +228,7 @@ print(f"Student: {student}")
 print(f"Mixed dict: {mixed_dict}")
 
 # Dictionary comprehension
-squares_dict = {x: x**2 for x in range(1, 6)}
+squares_dict = {x: x**2 for x in range(1, 6)} # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
 print(f"Squares dict: {squares_dict}")
 
 # Accessing values
@@ -254,7 +259,7 @@ print(f"After del: {student}")
 # Dictionary methods
 print(f"Keys: {list(student.keys())}")
 print(f"Values: {list(student.values())}")
-print(f"Items: {list(student.items())}")
+print(f"Items: {list[tuple[Any, Any]](student.items())}") # [('name', 'Alice'), ('age', 20), ('major', 'Computer Science'), ('year', 3)]
 
 # Iterating over dictionaries
 print("\nIterating over dictionary:")
@@ -267,8 +272,8 @@ for key, value in student.items():
 
 # Dictionary methods
 print(f"\nLength: {len(student)}")
-print(f"Has 'age' key: {'age' in student}")
-print(f"Has 'city' key: {'city' in student}")
+print(f"Has 'age' key: {'age' in student}") # True
+print(f"Has 'city' key: {'city' in student}") # False
 
 # Sets - Unique Collections
 
@@ -291,19 +296,19 @@ print(f"Set2: {set2}")
 
 # Union
 union_set = set1 | set2 ## | pipe operator is used to union two sets
-print(f"Union: {union_set}")
+print(f"Union: {union_set}")    # {1, 2, 3, 4, 5, 6, 7, 8}
 
 # Intersection
 intersection = set1 & set2
-print(f"Intersection: {intersection}")
+print(f"Intersection: {intersection}")    # {4, 5}
 
 # Difference
 difference = set1 - set2
-print(f"Difference (set1 - set2): {difference}")
+print(f"Difference (set1 - set2): {difference}") # {1, 2, 3}
 
 # Symmetric difference
 symmetric_diff = set1 ^ set2
-print(f"Symmetric difference: {symmetric_diff}")
+print(f"Symmetric difference: {symmetric_diff}")    # {1, 2, 3, 6, 7, 8}
 
 # Set methods
 fruits = {"apple", "banana", "orange"}
@@ -366,7 +371,7 @@ def student_grade_manager():
             if name in students:
                 grades = students[name]
                 print(f"{name}'s grades: {grades}")
-                if grades:
+                if grades:  # if name in students:
                     average = sum(grades) / len(grades)
                     print(f"Average: {average:.2f}")
             else:
@@ -587,635 +592,3 @@ def contact_book():
 # shopping_cart()
 # contact_book()
 
-# ============================================================================
-# Balanced Binary Trees - AVL and Red-Black Trees
-# ============================================================================
-
-print("\n" + "="*80)
-print("BALANCED BINARY TREES - AVL AND RED-BLACK TREES")
-print("="*80)
-
-# ============================================================================
-# AVL Tree Implementation
-# ============================================================================
-
-class AVLNode:
-    """Node for AVL Tree with height tracking."""
-    def __init__(self, key):
-        self.key = key
-        self.left = None
-        self.right = None
-        self.height = 1
-
-class AVLTree:
-    """AVL Tree - Self-balancing binary search tree."""
-    
-    def __init__(self):
-        self.root = None
-    
-    def get_height(self, node):
-        """Get height of a node."""
-        if node is None:
-            return 0
-        return node.height
-    
-    def get_balance(self, node):
-        """Get balance factor of a node (difference between left and right subtree heights)."""
-        if node is None:
-            return 0
-        return self.get_height(node.left) - self.get_height(node.right)
-    
-    def update_height(self, node):
-        """Update height of a node."""
-        if node:
-            node.height = 1 + max(self.get_height(node.left), self.get_height(node.right))
-    
-    def rotate_right(self, y):
-        """Right rotation to balance the tree."""
-        x = y.left
-        T2 = x.right
-        
-        # Perform rotation
-        x.right = y
-        y.left = T2
-        
-        # Update heights
-        self.update_height(y)
-        self.update_height(x)
-        
-        return x
-    
-    def rotate_left(self, x):
-        """Left rotation to balance the tree."""
-        y = x.right
-        T2 = y.left
-        
-        # Perform rotation
-        y.left = x
-        x.right = T2
-        
-        # Update heights
-        self.update_height(x)
-        self.update_height(y)
-        
-        return y
-    
-    def insert(self, key):
-        """Insert a key into the AVL tree."""
-        self.root = self._insert(self.root, key)
-    
-    def _insert(self, node, key):
-        """Recursive helper to insert a key."""
-        # 1. Perform normal BST insertion
-        if node is None:
-            return AVLNode(key)
-        
-        if key < node.key:
-            node.left = self._insert(node.left, key)
-        elif key > node.key:
-            node.right = self._insert(node.right, key)
-        else:
-            return node  # Duplicate keys not allowed
-        
-        # 2. Update height of ancestor node
-        self.update_height(node)
-        
-        # 3. Get balance factor
-        balance = self.get_balance(node)
-        
-        # 4. If unbalanced, perform rotations
-        # Left Left Case
-        if balance > 1 and key < node.left.key:
-            return self.rotate_right(node)
-        
-        # Right Right Case
-        if balance < -1 and key > node.right.key:
-            return self.rotate_left(node)
-        
-        # Left Right Case
-        if balance > 1 and key > node.left.key:
-            node.left = self.rotate_left(node.left)
-            return self.rotate_right(node)
-        
-        # Right Left Case
-        if balance < -1 and key < node.right.key:
-            node.right = self.rotate_right(node.right)
-            return self.rotate_left(node)
-        
-        return node
-    
-    def delete(self, key):
-        """Delete a key from the AVL tree."""
-        self.root = self._delete(self.root, key)
-    
-    def _delete(self, node, key):
-        """Recursive helper to delete a key."""
-        # 1. Perform standard BST delete
-        if node is None:
-            return node
-        
-        if key < node.key:
-            node.left = self._delete(node.left, key)
-        elif key > node.key:
-            node.right = self._delete(node.right, key)
-        else:
-            # Node to be deleted found
-            if node.left is None:
-                return node.right
-            elif node.right is None:
-                return node.left
-            
-            # Node with two children: get inorder successor
-            temp = self._min_value_node(node.right)
-            node.key = temp.key
-            node.right = self._delete(node.right, temp.key)
-        
-        # 2. Update height
-        self.update_height(node)
-        
-        # 3. Get balance factor
-        balance = self.get_balance(node)
-        
-        # 4. If unbalanced, perform rotations
-        # Left Left Case
-        if balance > 1 and self.get_balance(node.left) >= 0:
-            return self.rotate_right(node)
-        
-        # Left Right Case
-        if balance > 1 and self.get_balance(node.left) < 0:
-            node.left = self.rotate_left(node.left)
-            return self.rotate_right(node)
-        
-        # Right Right Case
-        if balance < -1 and self.get_balance(node.right) <= 0:
-            return self.rotate_left(node)
-        
-        # Right Left Case
-        if balance < -1 and self.get_balance(node.right) > 0:
-            node.right = self.rotate_right(node.right)
-            return self.rotate_left(node)
-        
-        return node
-    
-    def _min_value_node(self, node):
-        """Find node with minimum key value."""
-        current = node
-        while current.left is not None:
-            current = current.left
-        return current
-    
-    def search(self, key):
-        """Search for a key in the AVL tree."""
-        return self._search(self.root, key)
-    
-    def _search(self, node, key):
-        """Recursive helper to search for a key."""
-        if node is None or node.key == key:
-            return node
-        
-        if key < node.key:
-            return self._search(node.left, key)
-        return self._search(node.right, key)
-    
-    def inorder_traversal(self):
-        """Inorder traversal of the tree."""
-        result = []
-        self._inorder(self.root, result)
-        return result
-    
-    def _inorder(self, node, result):
-        """Recursive helper for inorder traversal."""
-        if node:
-            self._inorder(node.left, result)
-            result.append(node.key)
-            self._inorder(node.right, result)
-    
-    def print_tree(self):
-        """Print tree structure."""
-        self._print_tree(self.root, "", True)
-    
-    def _print_tree(self, node, indent, last):
-        """Recursive helper to print tree structure."""
-        if node:
-            print(indent, end="")
-            if last:
-                print("└── ", end="")
-                indent += "    "
-            else:
-                print("├── ", end="")
-                indent += "│   "
-            
-            print(f"{node.key} (h:{node.height}, b:{self.get_balance(node)})")
-            
-            self._print_tree(node.left, indent, node.right is None)
-            self._print_tree(node.right, indent, True)
-
-
-# ============================================================================
-# Red-Black Tree Implementation
-# ============================================================================
-
-class Color:
-    """Color constants for Red-Black Tree."""
-    RED = 1
-    BLACK = 0
-
-class RBNode:
-    """Node for Red-Black Tree with color tracking."""
-    def __init__(self, key, color=Color.RED):
-        self.key = key
-        self.left = None
-        self.right = None
-        self.parent = None
-        self.color = color
-
-class RedBlackTree:
-    """Red-Black Tree - Self-balancing binary search tree."""
-    
-    def __init__(self):
-        self.NIL = RBNode(0, Color.BLACK)  # Sentinel node
-        self.root = self.NIL
-    
-    def left_rotate(self, x):
-        """Left rotation."""
-        y = x.right
-        x.right = y.left
-        
-        if y.left != self.NIL:
-            y.left.parent = x
-        
-        y.parent = x.parent
-        
-        if x.parent is None:
-            self.root = y
-        elif x == x.parent.left:
-            x.parent.left = y
-        else:
-            x.parent.right = y
-        
-        y.left = x
-        x.parent = y
-    
-    def right_rotate(self, x):
-        """Right rotation."""
-        y = x.left
-        x.left = y.right
-        
-        if y.right != self.NIL:
-            y.right.parent = x
-        
-        y.parent = x.parent
-        
-        if x.parent is None:
-            self.root = y
-        elif x == x.parent.right:
-            x.parent.right = y
-        else:
-            x.parent.left = y
-        
-        y.right = x
-        x.parent = y
-    
-    def insert(self, key):
-        """Insert a key into the Red-Black tree."""
-        node = RBNode(key)
-        node.left = self.NIL
-        node.right = self.NIL
-        
-        y = None
-        x = self.root
-        
-        # Find insertion point
-        while x != self.NIL:
-            y = x
-            if node.key < x.key:
-                x = x.left
-            else:
-                x = x.right
-        
-        node.parent = y
-        
-        if y is None:
-            self.root = node
-        elif node.key < y.key:
-            y.left = node
-        else:
-            y.right = node
-        
-        if node.parent is None:
-            node.color = Color.BLACK
-            return
-        
-        if node.parent.parent is None:
-            return
-        
-        self._fix_insert(node)
-    
-    def _fix_insert(self, k):
-        """Fix Red-Black tree properties after insertion."""
-        while k.parent.color == Color.RED:
-            if k.parent == k.parent.parent.right:
-                u = k.parent.parent.left  # Uncle
-                if u.color == Color.RED:
-                    # Case 1: Uncle is red
-                    u.color = Color.BLACK
-                    k.parent.color = Color.BLACK
-                    k.parent.parent.color = Color.RED
-                    k = k.parent.parent
-                else:
-                    # Case 2: Uncle is black
-                    if k == k.parent.left:
-                        k = k.parent
-                        self.right_rotate(k)
-                    # Case 3: Uncle is black, k is right child
-                    k.parent.color = Color.BLACK
-                    k.parent.parent.color = Color.RED
-                    self.left_rotate(k.parent.parent)
-            else:
-                u = k.parent.parent.right  # Uncle
-                if u.color == Color.RED:
-                    # Case 1: Uncle is red
-                    u.color = Color.BLACK
-                    k.parent.color = Color.BLACK
-                    k.parent.parent.color = Color.RED
-                    k = k.parent.parent
-                else:
-                    # Case 2: Uncle is black
-                    if k == k.parent.right:
-                        k = k.parent
-                        self.left_rotate(k)
-                    # Case 3: Uncle is black, k is left child
-                    k.parent.color = Color.BLACK
-                    k.parent.parent.color = Color.RED
-                    self.right_rotate(k.parent.parent)
-            
-            if k == self.root:
-                break
-        
-        self.root.color = Color.BLACK
-    
-    def delete(self, key):
-        """Delete a key from the Red-Black tree."""
-        z = self._search_node(self.root, key)
-        if z == self.NIL:
-            return
-        
-        y = z
-        y_original_color = y.color
-        
-        if z.left == self.NIL:
-            x = z.right
-            self._rb_transplant(z, z.right)
-        elif z.right == self.NIL:
-            x = z.left
-            self._rb_transplant(z, z.left)
-        else:
-            y = self._minimum(z.right)
-            y_original_color = y.color
-            x = y.right
-            if y.parent == z:
-                x.parent = y
-            else:
-                self._rb_transplant(y, y.right)
-                y.right = z.right
-                y.right.parent = y
-            
-            self._rb_transplant(z, y)
-            y.left = z.left
-            y.left.parent = y
-            y.color = z.color
-        
-        if y_original_color == Color.BLACK:
-            self._fix_delete(x)
-    
-    def _rb_transplant(self, u, v):
-        """Replace subtree rooted at u with subtree rooted at v."""
-        if u.parent is None:
-            self.root = v
-        elif u == u.parent.left:
-            u.parent.left = v
-        else:
-            u.parent.right = v
-        v.parent = u.parent
-    
-    def _minimum(self, node):
-        """Find minimum node in subtree."""
-        while node.left != self.NIL:
-            node = node.left
-        return node
-    
-    def _fix_delete(self, x):
-        """Fix Red-Black tree properties after deletion."""
-        while x != self.root and x.color == Color.BLACK:
-            if x == x.parent.left:
-                s = x.parent.right  # Sibling
-                if s.color == Color.RED:
-                    # Case 1: Sibling is red
-                    s.color = Color.BLACK
-                    x.parent.color = Color.RED
-                    self.left_rotate(x.parent)
-                    s = x.parent.right
-                
-                if s.left.color == Color.BLACK and s.right.color == Color.BLACK:
-                    # Case 2: Both children of sibling are black
-                    s.color = Color.RED
-                    x = x.parent
-                else:
-                    if s.right.color == Color.BLACK:
-                        # Case 3: Right child of sibling is black
-                        s.left.color = Color.BLACK
-                        s.color = Color.RED
-                        self.right_rotate(s)
-                        s = x.parent.right
-                    
-                    # Case 4: Right child of sibling is red
-                    s.color = x.parent.color
-                    x.parent.color = Color.BLACK
-                    s.right.color = Color.BLACK
-                    self.left_rotate(x.parent)
-                    x = self.root
-            else:
-                s = x.parent.left  # Sibling
-                if s.color == Color.RED:
-                    # Case 1: Sibling is red
-                    s.color = Color.BLACK
-                    x.parent.color = Color.RED
-                    self.right_rotate(x.parent)
-                    s = x.parent.left
-                
-                if s.right.color == Color.BLACK and s.left.color == Color.BLACK:
-                    # Case 2: Both children of sibling are black
-                    s.color = Color.RED
-                    x = x.parent
-                else:
-                    if s.left.color == Color.BLACK:
-                        # Case 3: Left child of sibling is black
-                        s.right.color = Color.BLACK
-                        s.color = Color.RED
-                        self.left_rotate(s)
-                        s = x.parent.left
-                    
-                    # Case 4: Left child of sibling is red
-                    s.color = x.parent.color
-                    x.parent.color = Color.BLACK
-                    s.left.color = Color.BLACK
-                    self.right_rotate(x.parent)
-                    x = self.root
-        
-        x.color = Color.BLACK
-    
-    def search(self, key):
-        """Search for a key in the Red-Black tree."""
-        node = self._search_node(self.root, key)
-        return node != self.NIL
-    
-    def _search_node(self, node, key):
-        """Recursive helper to search for a key."""
-        if node == self.NIL or key == node.key:
-            return node
-        
-        if key < node.key:
-            return self._search_node(node.left, key)
-        return self._search_node(node.right, key)
-    
-    def inorder_traversal(self):
-        """Inorder traversal of the tree."""
-        result = []
-        self._inorder(self.root, result)
-        return result
-    
-    def _inorder(self, node, result):
-        """Recursive helper for inorder traversal."""
-        if node != self.NIL:
-            self._inorder(node.left, result)
-            result.append(node.key)
-            self._inorder(node.right, result)
-    
-    def print_tree(self):
-        """Print tree structure."""
-        self._print_tree(self.root, "", True)
-    
-    def _print_tree(self, node, indent, last):
-        """Recursive helper to print tree structure."""
-        if node != self.NIL:
-            print(indent, end="")
-            if last:
-                print("└── ", end="")
-                indent += "    "
-            else:
-                print("├── ", end="")
-                indent += "│   "
-            
-            color_str = "R" if node.color == Color.RED else "B"
-            print(f"{node.key} ({color_str})")
-            
-            self._print_tree(node.left, indent, node.right == self.NIL)
-            self._print_tree(node.right, indent, True)
-
-
-# ============================================================================
-# Demonstration of Balanced Binary Trees
-# ============================================================================
-
-print("\n" + "-"*80)
-print("AVL TREE DEMONSTRATION")
-print("-"*80)
-
-# Create AVL tree
-avl = AVLTree()
-
-# Insert elements
-print("\n1. Inserting elements: [10, 20, 30, 40, 50, 25]")
-values = [10, 20, 30, 40, 50, 25]
-for val in values:
-    avl.insert(val)
-    print(f"   Inserted {val}")
-
-print("\n2. AVL Tree Structure:")
-avl.print_tree()
-
-print("\n3. Inorder Traversal (sorted order):")
-print(f"   {avl.inorder_traversal()}")
-
-print("\n4. Searching for keys:")
-test_keys = [20, 35, 25, 50]
-for key in test_keys:
-    result = avl.search(key)
-    if result:
-        print(f"   Key {key}: Found (height: {result.height}, balance: {avl.get_balance(result)})")
-    else:
-        print(f"   Key {key}: Not found")
-
-print("\n5. Deleting elements: [30, 40]")
-avl.delete(30)
-print("   Deleted 30")
-avl.delete(40)
-print("   Deleted 40")
-
-print("\n6. AVL Tree after deletion:")
-avl.print_tree()
-
-print("\n7. Inorder Traversal after deletion:")
-print(f"   {avl.inorder_traversal()}")
-
-print("\n" + "-"*80)
-print("RED-BLACK TREE DEMONSTRATION")
-print("-"*80)
-
-# Create Red-Black tree
-rb_tree = RedBlackTree()
-
-# Insert elements
-print("\n1. Inserting elements: [7, 3, 18, 10, 22, 8, 11, 26]")
-rb_values = [7, 3, 18, 10, 22, 8, 11, 26]
-for val in rb_values:
-    rb_tree.insert(val)
-    print(f"   Inserted {val}")
-
-print("\n2. Red-Black Tree Structure:")
-print("   (R = Red, B = Black)")
-rb_tree.print_tree()
-
-print("\n3. Inorder Traversal (sorted order):")
-print(f"   {rb_tree.inorder_traversal()}")
-
-print("\n4. Searching for keys:")
-rb_test_keys = [10, 5, 18, 26]
-for key in rb_test_keys:
-    result = rb_tree.search(key)
-    print(f"   Key {key}: {'Found' if result else 'Not found'}")
-
-print("\n5. Deleting elements: [18, 11]")
-rb_tree.delete(18)
-print("   Deleted 18")
-rb_tree.delete(11)
-print("   Deleted 11")
-
-print("\n6. Red-Black Tree after deletion:")
-rb_tree.print_tree()
-
-print("\n7. Inorder Traversal after deletion:")
-print(f"   {rb_tree.inorder_traversal()}")
-
-print("\n" + "-"*80)
-print("COMPARISON: AVL vs RED-BLACK TREE")
-print("-"*80)
-
-print("\nAVL Tree Characteristics:")
-print("  - Strictly balanced (height difference ≤ 1)")
-print("  - Faster lookups due to better balance")
-print("  - More rotations during insert/delete")
-print("  - Better for read-heavy workloads")
-
-print("\nRed-Black Tree Characteristics:")
-print("  - Loosely balanced (longest path ≤ 2 × shortest path)")
-print("  - Fewer rotations during insert/delete")
-print("  - Better for write-heavy workloads")
-print("  - Used in many standard libraries (C++ std::map, Java TreeMap)")
-
-print("\n" + "="*80)
-print("Both trees guarantee O(log n) time complexity for:")
-print("  - Insert: O(log n)")
-print("  - Delete: O(log n)")
-print("  - Search: O(log n)")
-print("="*80)

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>運算子和控制流程</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .demo-box {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4ECDC4;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        #output {
+            background: #E8F8F5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            min-height: 50px;
+        }
+        .loop-output {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 運算子和控制流程</h1>
+        
+        <!-- 算術運算 -->
+        <div class="demo-box">
+            <h2>1. 算術運算</h2>
+            <input type="number" id="num1" value="10" placeholder="數字1">
+            <input type="number" id="num2" value="3" placeholder="數字2">
+            <button onclick="calculate()">計算</button>
+            <div id="calc-output"></div>
+        </div>
+        
+        <!-- 條件判斷 -->
+        <div class="demo-box">
+            <h2>2. 條件判斷（年齡檢查）</h2>
+            <input type="number" id="age" value="18" placeholder="輸入年齡">
+            <button onclick="checkAge()">檢查年齡</button>
+            <div id="age-output"></div>
+        </div>
+        
+        <!-- 成績判定 -->
+        <div class="demo-box">
+            <h2>3. 成績判定</h2>
+            <input type="number" id="score" value="85" placeholder="輸入分數">
+            <button onclick="gradeScore()">判定等級</button>
+            <div id="grade-output"></div>
+        </div>
+        
+        <!-- for 迴圈 -->
+        <div class="demo-box">
+            <h2>4. for 迴圈</h2>
+            <button onclick="demoForLoop()">印出 1-10</button>
+            <button onclick="multiplicationTable()">九九乘法表</button>
+            <div id="loop-output" class="loop-output"></div>
+        </div>
+        
+        <!-- while 迴圈 -->
+        <div class="demo-box">
+            <h2>5. 猜數字遊戲</h2>
+            <p>我想了一個 1-100 的數字，你能猜到嗎？</p>
+            <input type="number" id="guess" placeholder="輸入你的猜測">
+            <button onclick="guessNumber()">猜！</button>
+            <button onclick="resetGame()">重新開始</button>
+            <div id="guess-output"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 算術運算
+        function calculate() {
+            let num1 = parseFloat(document.getElementById('num1').value);
+            let num2 = parseFloat(document.getElementById('num2').value);
+            
+            let output = `
+                <h3 style="color: #667eea;">計算結果：</h3>
+                <p>${num1} + ${num2} = ${num1 + num2}</p>
+                <p>${num1} - ${num2} = ${num1 - num2}</p>
+                <p>${num1} × ${num2} = ${num1 * num2}</p>
+                <p>${num1} ÷ ${num2} = ${(num1 / num2).toFixed(2)}</p>
+                <p>${num1} % ${num2} = ${num1 % num2} (餘數)</p>
+                <p>${num1} ** ${num2} = ${num1 ** num2} (次方)</p>
+            `;
+            
+            document.getElementById('calc-output').innerHTML = output;
+        }
+        
+        // 年齡檢查
+        function checkAge() {
+            let age = parseInt(document.getElementById('age').value);
+            let output = document.getElementById('age-output');
+            let message = '';
+            
+            if (age >= 18) {
+                message = `<p style="color: green;">✅ ${age} 歲，已成年！</p>`;
+            } else {
+                message = `<p style="color: orange;">⚠️ ${age} 歲，未成年。</p>`;
+            }
+            
+            output.innerHTML = message;
+        }
+        
+        // 成績判定
+        function gradeScore() {
+            let score = parseInt(document.getElementById('score').value);
+            let output = document.getElementById('grade-output');
+            let grade = '';
+            let color = '';
+            
+            if (score >= 90) {
+                grade = '優秀';
+                color = '#4CAF50';
+            } else if (score >= 80) {
+                grade = '良好';
+                color = '#2196F3';
+            } else if (score >= 70) {
+                grade = '普通';
+                color = '#FF9800';
+            } else if (score >= 60) {
+                grade = '及格';
+                color = '#FFC107';
+            } else {
+                grade = '不及格';
+                color = '#F44336';
+            }
+            
+            output.innerHTML = `
+                <p style="color: ${color}; font-size: 20px; font-weight: bold;">
+                    ${score} 分 → ${grade}
+                </p>
+            `;
+        }
+        
+        // for 迴圈示範
+        function demoForLoop() {
+            let output = '';
+            for (let i = 1; i <= 10; i++) {
+                output += `<p>數字：${i}</p>`;
+            }
+            document.getElementById('loop-output').innerHTML = output;
+        }
+        
+        // 九九乘法表
+        function multiplicationTable() {
+            let output = '<h3 style="color: #667eea;">九九乘法表：</h3>';
+            for (let i = 1; i <= 9; i++) {
+                output += '<p>';
+                for (let j = 1; j <= 9; j++) {
+                    output += `${i}×${j}=${i*j} &nbsp;&nbsp;`;
+                }
+                output += '</p>';
+            }
+            document.getElementById('loop-output').innerHTML = output;
+        }
+        
+        // 猜數字遊戲
+        let targetNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+        
+        function guessNumber() {
+            let guess = parseInt(document.getElementById('guess').value);
+            let output = document.getElementById('guess-output');
+            attempts++;
+            
+            if (guess === targetNumber) {
+                output.innerHTML = `
+                    <p style="color: green; font-size: 20px;">
+                        🎉 恭喜！猜對了！答案是 ${targetNumber}
+                    </p>
+                    <p>你總共猜了 ${attempts} 次</p>
+                `;
+            } else if (guess < targetNumber) {
+                output.innerHTML = `<p style="color: orange;">⬆️ 太小了！再試試看</p>`;
+            } else {
+                output.innerHTML = `<p style="color: orange;">⬇️ 太大了！再試試看</p>`;
+            }
+        }
+        
+        function resetGame() {
+            targetNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('guess').value = '';
+            document.getElementById('guess-output').innerHTML = '<p>遊戲已重新開始！</p>';
+            console.log('新的目標數字已產生（開發者可以看到）：', targetNumber);
+        }
+        
+        console.log('目標數字（秘密）：', targetNumber);
+    </script>
+</body>
+</html>

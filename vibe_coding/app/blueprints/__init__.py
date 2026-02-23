@@ -1,1 +1,0 @@
-# Blueprints: auth, blog, botchat

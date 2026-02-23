@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資料型別示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .type-card {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4ECDC4;
+        }
+        .type-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        #output {
+            background: #E8F8F5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 JavaScript 資料型別</h1>
+        
+        <div class="type-card">
+            <h3>1. Number（數字）</h3>
+            <div class="code">
+let age = 25;<br>
+let price = 19.99;<br>
+let negative = -10;
+            </div>
+        </div>
+        
+        <div class="type-card">
+            <h3>2. String（字串）</h3>
+            <div class="code">
+let name = '小明';<br>
+let message = "你好";<br>
+let template = `Hello, ${name}`;
+            </div>
+        </div>
+        
+        <div class="type-card">
+            <h3>3. Boolean（布林值）</h3>
+            <div class="code">
+let isStudent = true;<br>
+let hasLicense = false;
+            </div>
+        </div>
+        
+        <div class="type-card">
+            <h3>4. Object（物件）</h3>
+            <div class="code">
+let person = {<br>
+&nbsp;&nbsp;name: '小明',<br>
+&nbsp;&nbsp;age: 25<br>
+};
+            </div>
+        </div>
+        
+        <div class="type-card">
+            <h3>5. Array（陣列）</h3>
+            <div class="code">
+let colors = ['紅', '綠', '藍'];<br>
+let numbers = [1, 2, 3, 4, 5];
+            </div>
+        </div>
+        
+        <button onclick="showAllTypes()">顯示所有型別範例</button>
+        <div id="output"></div>
+    </div>
+    
+    <script>
+        function showAllTypes() {
+            // Number
+            let age = 25;
+            let price = 19.99;
+            
+            // String
+            let name = '小明';
+            let greeting = `你好，${name}！`;
+            
+            // Boolean
+            let isStudent = true;
+            let hasLicense = false;
+            
+            // Object
+            let person = {
+                name: '小明',
+                age: 25,
+                city: '台北'
+            };
+            
+            // Array
+            let colors = ['紅', '綠', '藍'];
+            let numbers = [1, 2, 3, 4, 5];
+            
+            // Undefined
+            let x;
+            
+            // Null
+            let y = null;
+            
+            let output = `
+                <h3 style="color: #667eea;">📊 型別檢測結果：</h3>
+                <p><strong>age (${age}):</strong> ${typeof age}</p>
+                <p><strong>name ("${name}"):</strong> ${typeof name}</p>
+                <p><strong>isStudent (${isStudent}):</strong> ${typeof isStudent}</p>
+                <p><strong>person:</strong> ${typeof person}</p>
+                <p><strong>colors:</strong> ${typeof colors}</p>
+                <p><strong>x:</strong> ${typeof x}</p>
+                <p><strong>y:</strong> ${typeof y}</p>
+                
+                <h3 style="color: #667eea; margin-top: 20px;">🔢 數值運算：</h3>
+                <p>age + 5 = ${age + 5}</p>
+                <p>price * 2 = ${price * 2}</p>
+                
+                <h3 style="color: #667eea; margin-top: 20px;">✨ 字串操作：</h3>
+                <p>greeting = "${greeting}"</p>
+                <p>name.length = ${name.length}</p>
+                <p>name.toUpperCase() = "${name.toUpperCase()}"</p>
+            `;
+            
+            document.getElementById('output').innerHTML = output;
+            
+            console.log('資料型別範例：');
+            console.log('Number:', age, typeof age);
+            console.log('String:', name, typeof name);
+            console.log('Boolean:', isStudent, typeof isStudent);
+            console.log('Object:', person, typeof person);
+            console.log('Array:', colors, typeof colors);
+        }
+    </script>
+</body>
+</html>

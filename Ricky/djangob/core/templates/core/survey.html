@@ -1,0 +1,194 @@
+{% extends "core/base.html" %}
+
+{% block title %}Weight Management V2{% endblock %}
+
+{% block content %}
+
+<div class="page-bg">
+
+  <!-- Header -->
+  <header class="page-header">
+    <h1 class="page-title">✨ Weight Management V2</h1>
+    <p class="page-subtitle">
+      Transform your body, transform your life. Start your journey today!
+    </p>
+  </header>
+
+  <!-- ✅ FORM START -->
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <main class="card survey-card">
+
+      <!-- Weight -->
+      <section class="form-group">
+        <label class="form-label">
+          <span class="icon icon-blue">⚖️</span>
+          Current Weight
+        </label>
+        <div class="input-wrapper">
+          <input
+            type="number"
+            name="weight"
+            placeholder="75.5"
+            class="input-field"
+            required
+          >
+          <span class="unit">kg</span>
+        </div>
+      </section>
+
+      <!-- Height -->
+      <section class="form-group">
+        <label class="form-label">
+          <span class="icon icon-green">📏</span>
+          Height
+        </label>
+        <div class="input-wrapper">
+          <input
+            type="number"
+            name="height"
+            placeholder="170"
+            class="input-field"
+            required
+          >
+          <span class="unit">cm</span>
+        </div>
+      </section>
+
+      <!-- Age -->
+      <section class="form-group">
+        <label class="form-label">
+          <span class="icon icon-purple">👤</span>
+          Age
+        </label>
+        <div class="input-wrapper">
+          <input
+            type="number"
+            name="age"
+            placeholder="30"
+            class="input-field"
+            required
+          >
+          <span class="unit">years</span>
+        </div>
+      </section>
+
+      <!-- Upload -->
+      <section class="form-group">
+        <label class="form-label">
+          <span class="icon icon-pink">📷</span>
+          Recent Photo
+        </label>
+
+        <!-- ✅ Clickable Upload UI -->
+        <label class="upload-box" for="photo-input" id="upload-label">
+          <div id="upload-content">
+            <div class="upload-icon">📸</div>
+            <p class="upload-title">Upload Your Photo</p>
+            <p class="upload-subtitle">Click to select or drag and drop</p>
+          </div>
+          <div id="image-preview-container" style="display: none;">
+            <img id="image-preview" src="" alt="Photo preview" />
+            <span class="file-name" id="file-name"></span>
+            <p class="upload-subtitle">Click to change photo</p>
+          </div>
+        </label>
+
+        <!-- ✅ REAL file input (hidden) -->
+        <input
+          id="photo-input"
+          type="file"
+          name="photo"
+          accept="image/*"
+          hidden
+          required
+        >
+      </section>
+
+      <!-- Button -->
+      <button type="submit" class="btn-primary">
+        🚀 Calculate My Transformation Plan
+      </button>
+
+      <!-- Privacy -->
+      <footer class="privacy-box">
+        🔒
+        <span>
+          <strong>Your Privacy Matters:</strong>
+          All information is processed securely and used only to create your personalized weight loss journey.
+        </span>
+      </footer>
+
+    </main>
+  </form>
+  <!-- ✅ FORM END -->
+
+</div>
+
+<script>
+  // File upload with image preview
+  const fileInput = document.getElementById('photo-input');
+  const uploadLabel = document.getElementById('upload-label');
+  const uploadContent = document.getElementById('upload-content');
+  const imagePreviewContainer = document.getElementById('image-preview-container');
+  const imagePreview = document.getElementById('image-preview');
+  const fileName = document.getElementById('file-name');
+
+  fileInput.addEventListener('change', function(e) {
+    if (this.files && this.files[0]) {
+      const file = this.files[0];
+      
+      // Check if it's an image
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file');
+        return;
+      }
+      
+      // Update UI to show selected file
+      uploadLabel.classList.add('has-file');
+      
+      // Show file name
+      fileName.textContent = file.name;
+      
+      // Read and display the image
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        imagePreview.src = e.target.result;
+        uploadContent.style.display = 'none';
+        imagePreviewContainer.style.display = 'flex';
+      };
+      
+      reader.readAsDataURL(file);
+      
+      console.log('File selected:', file.name);
+    }
+  });
+
+  // Drag and drop support
+  uploadLabel.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    this.style.borderColor = '#a855f7';
+    this.style.backgroundColor = '#faf5ff';
+  });
+
+  uploadLabel.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    if (!fileInput.files || !fileInput.files[0]) {
+      this.style.borderColor = '#d1d5db';
+      this.style.backgroundColor = '#f9fafb';
+    }
+  });
+
+  uploadLabel.addEventListener('drop', function(e) {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      fileInput.files = e.dataTransfer.files;
+      // Trigger change event
+      fileInput.dispatchEvent(new Event('change'));
+    }
+  });
+</script>
+
+{% endblock %}

@@ -4,28 +4,39 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Compares synchronized and ReentrantLock for the same critical section.
- * Also demonstrates tryLock (non-blocking / timeout) which synchronized cannot do.
+ * Compares {@code synchronized} and {@link java.util.concurrent.locks.ReentrantLock}
+ * for the same critical section (incrementing a counter).
+ *
+ * <p><b>ReentrantLock advantages:</b> tryLock (non-blocking or with timeout), fairness
+ * option, multiple condition queues, and lock status queries. synchronized is simpler
+ * and sufficient when you don't need those features.
+ *
+ * <p>Also demonstrates tryLock: one thread repeatedly tries to acquire the lock
+ * without blocking; when it gets the lock it increments and returns true.
  */
 public class SynchronizedVsReentrantLock {
 
     private int counterSync = 0;
     private int counterLock = 0;
+    /** Monitor used for synchronized blocks; could use this instead of a separate object. */
     private final Object monitor = new Object();
     private final Lock lock = new ReentrantLock();
 
+    /** Increment under the monitor lock; only one thread at a time. */
     public void incrementSync() {
         synchronized (monitor) {
             counterSync++;
         }
     }
 
+    /** Read under the same monitor so we see a consistent value. */
     public int getCounterSync() {
         synchronized (monitor) {
             return counterSync;
         }
     }
 
+    /** Increment under ReentrantLock. Unlock in finally so we never leave the lock held. */
     public void incrementLock() {
         lock.lock();
         try {
@@ -35,6 +46,7 @@ public class SynchronizedVsReentrantLock {
         }
     }
 
+    /** Read under the same lock for consistency. */
     public int getCounterLock() {
         lock.lock();
         try {
@@ -44,7 +56,12 @@ public class SynchronizedVsReentrantLock {
         }
     }
 
-    /** Returns true if lock was acquired and increment performed. */
+    /**
+     * Tries to acquire the lock without blocking. If acquired, increments and returns true;
+     * otherwise returns false immediately. This is not possible with synchronized.
+     *
+     * @return true if the lock was acquired and increment was performed, false if lock was busy
+     */
     public boolean tryIncrementLock() {
         if (lock.tryLock()) {
             try {
@@ -61,6 +78,7 @@ public class SynchronizedVsReentrantLock {
         SynchronizedVsReentrantLock demo = new SynchronizedVsReentrantLock();
         int n = 500_000;
 
+        // Benchmark synchronized: two threads each increment n times
         Thread s1 = new Thread(() -> { for (int i = 0; i < n; i++) demo.incrementSync(); });
         Thread s2 = new Thread(() -> { for (int i = 0; i < n; i++) demo.incrementSync(); });
         s1.start();
@@ -69,6 +87,7 @@ public class SynchronizedVsReentrantLock {
         s2.join();
         System.out.println("synchronized counter: " + demo.getCounterSync() + " (expected " + (2 * n) + ")");
 
+        // Same with ReentrantLock
         Thread l1 = new Thread(() -> { for (int i = 0; i < n; i++) demo.incrementLock(); });
         Thread l2 = new Thread(() -> { for (int i = 0; i < n; i++) demo.incrementLock(); });
         l1.start();
@@ -77,7 +96,7 @@ public class SynchronizedVsReentrantLock {
         l2.join();
         System.out.println("ReentrantLock counter: " + demo.getCounterLock() + " (expected " + (2 * n) + ")");
 
-        // tryLock: one thread spins until it gets the lock
+        // tryLock: one thread keeps trying until it has performed n increments
         demo.counterLock = 0;
         Thread tryT = new Thread(() -> {
             int done = 0;

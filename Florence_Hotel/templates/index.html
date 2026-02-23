@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="{{ html_lang }}">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>{{ t.meta_title }}</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#ec4913",
+            "background-light": "#f8f6f6",
+            "background-dark": "#221510",
+          },
+          fontFamily: {
+            "display": ["Work Sans", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: 'Work Sans', sans-serif; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#181311] dark:text-white transition-colors duration-300">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-primary/10">
+  <div class="max-w-7xl mx-auto px-4 min-h-16 py-3 flex flex-wrap items-center gap-3">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-3xl">castle</span>
+      <span class="text-lg font-bold tracking-tight uppercase">{{ t.hotel_name }}</span>
+    </div>
+    <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest md:ml-10">
+      <a class="hover:text-primary transition-colors" href="#about">{{ t.nav_about }}</a>
+      <a class="hover:text-primary transition-colors" href="#rooms">{{ t.nav_rooms }}</a>
+      <a class="hover:text-primary transition-colors" href="#amenities">{{ t.nav_amenities }}</a>
+      <a class="hover:text-primary transition-colors" href="#location">{{ t.nav_location }}</a>
+    </div>
+    <div class="flex items-center gap-3 ml-auto">
+      <form action="/" class="flex items-center gap-2" method="get">
+        <label class="text-xs font-semibold uppercase tracking-widest text-[#181311]/70 dark:text-white/70" for="lang">
+          {{ t.language_label }}
+        </label>
+        <select class="rounded-lg border-primary/20 bg-white dark:bg-background-dark text-sm py-1.5 px-2 focus:border-primary focus:ring-primary" id="lang" name="lang" onchange="this.form.submit()">
+          {% for language in languages %}
+            <option value="{{ language.code }}" {% if language.code == current_lang %}selected{% endif %}>{{ language.label }}</option>
+          {% endfor %}
+        </select>
+      </form>
+      <button class="bg-primary text-white px-6 py-2 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+        {{ t.book_now }}
+      </button>
+    </div>
+  </div>
+</nav>
+<!-- Hero Section -->
+<header class="relative h-screen w-full overflow-hidden">
+  <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105" data-alt="Luxury hotel balcony overlooking the Florence Duomo at sunset" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCkFvH-dQZoa9yGksAC1DKpxXl3LHy8fb70hf2tSOZkII8yU-UPXdfwG1FLsyQ_BBTKC7P6XGyC93C3dIc4AcNRpTKpCZV9qczfrsr3Z2Xyz-h70uq08hJq8RkKG057UHhHUR5IoayHy8iWBBT91Bs0zjyUe88xTd9rWDGZkMg1hX1CjHzIaDe5MBm4C-BDVDNjDDjjV2xwU4H05CVGIZuqt-CXdw6ha3kh-U_r2DBWVinjotFG-vAj7d3eUOuLuoGigZWnCkW55w');">
+  </div>
+  <div class="relative h-full flex flex-col items-center justify-center text-center px-4 pt-16">
+    <h1 class="text-white text-5xl md:text-7xl font-black leading-tight tracking-tighter mb-6 max-w-4xl drop-shadow-2xl">
+      {{ t.hero_title }}
+    </h1>
+    <p class="text-white/90 text-lg md:text-xl font-light mb-10 max-w-2xl leading-relaxed drop-shadow-lg">
+      {{ t.hero_subtitle }}
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <button class="bg-primary text-white px-10 py-4 rounded-xl text-lg font-bold tracking-wide hover:bg-primary/90 transition-all shadow-xl shadow-black/20">
+        {{ t.hero_cta_primary }}
+      </button>
+      <button class="bg-white/10 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-xl text-lg font-bold tracking-wide hover:bg-white/20 transition-all">
+        {{ t.hero_cta_secondary }}
+      </button>
+    </div>
+  </div>
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+    <span class="material-symbols-outlined text-white text-4xl font-extralight">expand_more</span>
+  </div>
+</header>
+<!-- About Section -->
+<section class="py-24 px-4 bg-background-light dark:bg-background-dark" id="about">
+  <div class="max-w-4xl mx-auto text-center">
+    <span class="text-primary font-bold tracking-[0.3em] uppercase text-sm mb-4 block">{{ t.about_kicker }}</span>
+    <h2 class="text-4xl md:text-5xl font-bold mb-8 text-[#181311] dark:text-white">{{ t.about_title }}</h2>
+    <p class="text-lg md:text-xl text-[#181311]/70 dark:text-white/70 leading-relaxed font-light italic">
+      {{ t.about_text }}
+    </p>
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+      {% for i in range(4) %}
+        <div>
+          <div class="text-3xl font-bold text-primary mb-1">{{ stats_values[i] }}</div>
+          <div class="text-xs uppercase tracking-widest opacity-60">{{ t.stats_labels[i] }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- Rooms & Suites -->
+<section class="py-24 px-4 overflow-hidden bg-white dark:bg-[#1a100c]" id="rooms">
+  <div class="max-w-7xl mx-auto mb-12 flex justify-between items-end">
+    <div>
+      <h2 class="text-4xl font-bold mb-2">{{ t.rooms_title }}</h2>
+      <p class="text-primary font-medium tracking-wide">{{ t.rooms_subtitle }}</p>
+    </div>
+    <div class="hidden md:flex gap-2">
+      <button class="p-3 rounded-full border border-primary/20 hover:bg-primary/10 transition-colors">
+        <span class="material-symbols-outlined text-primary">arrow_back</span>
+      </button>
+      <button class="p-3 rounded-full border border-primary/20 hover:bg-primary/10 transition-colors">
+        <span class="material-symbols-outlined text-primary">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+  <div class="flex gap-6 overflow-x-auto pb-8 hide-scrollbar snap-x snap-mandatory px-4 md:px-0">
+    {% set room_images = [
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuAVhHKuAvDRzAW2jQ-pRyuMIvcluqg6BkH_ked5GFhAMnzTySEG1ojOY5_SzCf1oo4kzE1NLbbNz-Xj8pqhb-dV8CUhsPeskEfBd68Ive_qFfD8Y8TC-tUGKFuXEMfmS3aIQsXkjTEsiMBXmdygjO-RsdazYfgVR-oDRtOoRGuo3v_N3PFwRseBNiHdTmiacKoal6p79maMd1-IKH6AM3xrtXJRgEFZLNJNzUG9FyGyuaZdAaS2yLY30RSLRapEXebG6TCT-7hydw",
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuC_Qu_6NZ4WU4b1137qWISTTxY9BjnMEV2wTJigkVVR8cOUtPiz9aAKhQPK6nN7UrcIRnjdr6ib8SPg9XrxxvPFB93w_KO0AMskoD8QdbUwau5cKkjFmjpSxd2BytGTCRwx-F6I78WRlBBFNaEl2qF0vImyWEtmDlLod7BdC7VAwE_GCp_yW4d_EQUo66K2kCqHcqPnAibfuFeI9ye2cSgfOIc9bx8a7a26-wV8RdkG36423jnCT1QO-PklxSmwgXWeH4OSVQd7BQ",
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuC6JM3535RMXwB0Q6kzlZu09biAhK77A34RVwY4pL4rr0Q7ZYHqmQ_rP4oMWi6itdzwnJWz8eDXN8BqBSniFIuXhoBMEWg0FVWW_6aZLmP-f80ENq8ZTj-I7wkkqduNNVEuLrI9YX0rj4e2OfMzMyKCKAAOV7rA9FNt75WgUuHgd73wAH2-Z0MzlAAVd9qgZlm9tyV2GXA5myNxXMbvFMS4sTU7QNOsSE0KH9Rd5nky0vuhK5hRMxwaLUTXUs9B0UDYNMd50ECaaA"
+    ] %}
+    {% for room in t.rooms %}
+      <div class="min-w-[300px] md:min-w-[450px] snap-start group">
+        <div class="aspect-[4/5] overflow-hidden rounded-xl mb-6 relative">
+          <img alt="{{ room.name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="{{ room_images[loop.index0] }}"/>
+          <div class="absolute top-4 right-4 bg-white/90 dark:bg-black/90 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest">{{ room.price }}</div>
+        </div>
+        <h3 class="text-2xl font-bold mb-2">{{ room.name }}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">{{ room.description }}</p>
+        <button class="w-full py-4 border border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">{{ t.view_details }}</button>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+<!-- Amenities Grid -->
+<section class="py-24 px-4 bg-background-light dark:bg-background-dark" id="amenities">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">{{ t.amenities_title }}</h2>
+      <p class="text-gray-600 dark:text-gray-400">{{ t.amenities_subtitle }}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {% for amenity in t.amenities %}
+        <div class="bg-white dark:bg-white/5 p-8 rounded-2xl shadow-sm border border-primary/5 hover:border-primary/20 transition-all text-center">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="material-symbols-outlined text-primary text-3xl">{{ amenity.icon }}</span>
+          </div>
+          <h4 class="text-xl font-bold mb-3">{{ amenity.name }}</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">{{ amenity.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- Location Section -->
+<section class="py-24 px-4 bg-white dark:bg-[#1a100c]" id="location">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 items-center">
+    <div class="flex-1 w-full h-[450px] rounded-2xl overflow-hidden shadow-2xl relative">
+      <img alt="Map of Florence City Center" class="w-full h-full object-cover grayscale brightness-75 contrast-125" data-alt="Artistic map view of Florence historical center" data-location="Florence, Italy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKNend5622J5zUTvpVRZI5jGLcMGgkje9ACrC-X7apejgK4xr46NXomWPYA7e48w5HEosJ-3AKI0TWxsOcnaLmaeR8UiLrfMi6KHWPupyeZyVhIpLL9YyXdD5sXoh-7aFiExmMMYfUBn9U_XJT7iW9IHrpEfYF_bC04MPcLdswUorAFAsQP-jRHt1QAwgm8G8LH7-fzpR8-8tFCgxVoRN906ha-C9t2DoJF35jh6yFXXlNuOkeV8sD35QPHj7TTjlR6LzzOmvYTQ"/>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="bg-primary p-4 rounded-full animate-pulse shadow-2xl">
+          <span class="material-symbols-outlined text-white text-3xl">location_on</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 space-y-8">
+      <div>
+        <span class="text-primary font-bold tracking-widest uppercase text-xs mb-2 block">{{ t.location_kicker }}</span>
+        <h2 class="text-4xl font-bold mb-4">{{ t.location_title }}</h2>
+        <p class="text-gray-600 dark:text-gray-400 leading-relaxed italic">{{ t.location_text }}</p>
+      </div>
+      <ul class="space-y-6">
+        {% for landmark in t.landmarks %}
+          <li class="flex items-start gap-4">
+            <div class="mt-1 w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-primary">directions_walk</span>
+            </div>
+            <div>
+              <h5 class="font-bold">{{ landmark.name }}</h5>
+              <p class="text-sm text-gray-500">{{ landmark.distance }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- Footer -->
+<footer class="bg-background-dark text-white pt-24 pb-12 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+      <div class="col-span-1 md:col-span-2">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="material-symbols-outlined text-primary text-4xl">castle</span>
+          <span class="text-2xl font-bold tracking-tighter uppercase">{{ t.hotel_name }}</span>
+        </div>
+        <p class="text-gray-400 max-w-sm mb-8 leading-relaxed">
+          {{ t.footer_text }}
+        </p>
+        <div class="flex gap-4">
+          <a class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-primary transition-colors" href="#">
+            <span class="material-symbols-outlined text-xl">share</span>
+          </a>
+          <a class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-primary transition-colors" href="#">
+            <span class="material-symbols-outlined text-xl">public</span>
+          </a>
+          <a class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-primary transition-colors" href="#">
+            <span class="material-symbols-outlined text-xl">camera</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h5 class="font-bold uppercase tracking-widest text-sm mb-6 text-primary">{{ t.contact_title }}</h5>
+        <ul class="space-y-4 text-gray-400">
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-sm">location_on</span>
+            Piazza della Signoria 1, Firenze
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-sm">call</span>
+            +39 055 123 4567
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-sm">mail</span>
+            stay@palazzofirenze.it
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-bold uppercase tracking-widest text-sm mb-6 text-primary">{{ t.quick_links_title }}</h5>
+        <ul class="space-y-4 text-gray-400">
+          {% for link in t.quick_links %}
+            <li><a class="hover:text-white transition-colors" href="#">{{ link }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+      <p class="text-sm text-gray-500">Copyright {{ current_year }} {{ t.hotel_name }}. {{ t.copyright_suffix }}</p>
+      <div class="flex items-center gap-8">
+        <button class="bg-primary text-white px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-primary/90 transition-all">
+          {{ t.book_now }}
+        </button>
+        <div class="flex gap-4 text-xs text-gray-500 uppercase font-medium">
+          <a href="#">{{ t.privacy }}</a>
+          <a href="#">{{ t.terms }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

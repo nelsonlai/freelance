@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS 引入方式比較</title>
+    
+    <!-- 內部樣式表 -->
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .method {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #4ECDC4;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #333;">CSS 引入方式示範</h1>
+    
+    <div class="section">
+        <h2>1. 內嵌樣式（Inline）</h2>
+        <div class="method">
+            <!-- 這裡使用內嵌樣式 -->
+            <p style="color: red; font-size: 20px; font-weight: bold;">
+                這段文字使用內嵌樣式（style 屬性）
+            </p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>2. 內部樣式表（Internal）</h2>
+        <div class="method">
+            <!-- 這裡使用內部樣式表（在 head 中的 style 標籤） -->
+            <p class="internal-style">
+                這段文字使用內部樣式表
+            </p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>3. 外部樣式表（External）</h2>
+        <div class="method">
+            <p>外部樣式表需要另外建立 .css 檔案並使用 link 標籤引入</p>
+            <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code>
+        </div>
+    </div>
+    
+    <style>
+        .internal-style {
+            color: green;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</body>
+</html>

@@ -2,14 +2,19 @@ package concurrency.module06;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Conceptual pipeline: ingest queue -> matching (single consumer) -> fill queue.
- * Demonstrates separation: matching, risk, settlement are separate stages.
+ * Conceptual exchange pipeline: orders enter an ingest queue; a single matching
+ * thread consumes from it, runs matching via {@link OrderBook}, and pushes fills
+ * to a fill queue. Downstream (risk, settlement, notifications) would consume
+ * from the fill queue. This separation keeps matching single-threaded and allows
+ * other stages to scale independently.
  */
 public class ExchangePipeline {
 
+    /** Order as submitted from the gateway; converted to OrderBook.Order for matching. */
     static class IncomingOrder {
         final long id;
         final boolean buy;
@@ -26,6 +31,7 @@ public class ExchangePipeline {
         }
     }
 
+    /** A fill (trade): order id, price, quantity. Emitted to fill queue for risk/settlement. */
     static class Fill {
         final long orderId;
         final double price;
@@ -45,12 +51,18 @@ public class ExchangePipeline {
     private volatile boolean running = true;
     private final Thread matchingThread;
 
+    /**
+     * Starts the matching thread: poll ingest queue, match each order against the book,
+     * push fills to fill queue. Single-threaded matching ensures order book consistency.
+     *
+     * @param symbol symbol for the order book (e.g. "BTC-USD")
+     */
     public ExchangePipeline(String symbol) {
         this.book = new OrderBook(symbol);
         matchingThread = new Thread(() -> {
             while (running) {
                 try {
-                    IncomingOrder in = ingestQueue.poll(100, java.util.concurrent.TimeUnit.MILLISECONDS);
+                    IncomingOrder in = ingestQueue.poll(100, TimeUnit.MILLISECONDS);
                     if (in != null) {
                         OrderBook.Order order = new OrderBook.Order(in.id, in.buy, in.price, in.quantity, in.userId);
                         for (double[] f : book.match(order)) {
@@ -66,12 +78,19 @@ public class ExchangePipeline {
         matchingThread.start();
     }
 
+    /**
+     * Submits an order to the pipeline. Returns immediately with an order id;
+     * matching runs asynchronously on the matching thread.
+     *
+     * @return assigned order id
+     */
     public long submitOrder(boolean buy, double price, int quantity, String userId) {
         long id = orderIdGen.incrementAndGet();
         ingestQueue.offer(new IncomingOrder(id, buy, price, quantity, userId));
         return id;
     }
 
+    /** Returns the fill queue so downstream (risk, settlement) can consume fills. */
     public BlockingQueue<Fill> getFillQueue() {
         return fillQueue;
     }

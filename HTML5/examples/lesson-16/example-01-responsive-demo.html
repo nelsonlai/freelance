@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>響應式設計示範</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+        }
+        
+        /* 預設樣式（桌機） */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #667eea;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        nav {
+            background-color: #764ba2;
+            padding: 15px;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        main {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        aside {
+            background-color: #E8F8F5;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* 平板（<= 992px） */
+        @media (max-width: 992px) {
+            nav ul {
+                gap: 20px;
+            }
+            
+            nav a {
+                font-size: 16px;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 手機（<= 768px） */
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+            }
+            
+            header h1 {
+                font-size: 24px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            main, aside {
+                padding: 20px;
+            }
+        }
+        
+        /* 小手機（<= 480px） */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 20px;
+            }
+            
+            nav a {
+                font-size: 14px;
+            }
+        }
+        
+        .device-info {
+            background-color: #FFE66D;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>響應式網站示範</h1>
+            <p>調整瀏覽器視窗大小看看效果</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#">首頁</a></li>
+                <li><a href="#">關於</a></li>
+                <li><a href="#">服務</a></li>
+                <li><a href="#">聯絡</a></li>
+            </ul>
+        </nav>
+        
+        <div class="device-info">
+            💡 提示：試著調整瀏覽器視窗大小，觀察布局如何改變
+        </div>
+        
+        <div class="content">
+            <main>
+                <h2>主要內容</h2>
+                <p>這是主要內容區域。在桌機上，它會佔據較大的空間。</p>
+                <p>在平板和手機上，布局會自動調整為單欄，提供更好的閱讀體驗。</p>
+            </main>
+            
+            <aside>
+                <h3>側邊欄</h3>
+                <p>這是側邊欄內容。</p>
+                <p>在手機上，它會移到主內容下方。</p>
+            </aside>
+        </div>
+        
+        <footer>
+            <p>&copy; 2026 響應式網站 版權所有</p>
+        </footer>
+    </div>
+</body>
+</html>

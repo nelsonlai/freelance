@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Personalized Weight Loss Journey</title>
+    <link rel="stylesheet" href="{% static 'core/css/assessment_result.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="title">Your Personalized Weight Loss Journey</h1>
+
+    <!-- Top Info Section -->
+<div class="info-grid">
+
+    <!-- 左邊：Your Information -->
+    <div class="card">
+        <h2>Your Information</h2>
+        <p>⚖️ Current Weight: {{ assessment.weight }} kg</p>
+        <p>📏 Height: {{ assessment.height }} cm</p>
+        <p>🎂 Age: {{ assessment.age }} years</p>
+
+        <div class="photo-box">
+            <img src="{{ assessment.photo.url }}" alt="Your Photo">
+        </div>
+    </div>
+
+    <!-- ✅ 右邊：Plan 專用容器 -->
+    <div class="plans">
+
+        <div class="card plan green">
+            <h3>Plan 1: Initial Goal</h3>
+            <p>Lose 10–15% of current weight</p>
+            <p><strong>Target Weight:</strong>
+                {{ assessment.weight|floatformat:1 }} – 
+                {{ assessment.weight|floatformat:1 }} kg
+            </p>
+        </div>
+
+        <div class="card plan blue">
+            <h3>Plan 2: Extended Goal</h3>
+            <p>Lose 20% of current weight</p>
+            <p><strong>Target Weight:</strong>
+                {{ assessment.weight|floatformat:1 }} kg
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- AI Section -->
+    <div class="ai-box">
+        <h2>See Your Future Self!</h2>
+        <p>
+            Ready to visualize your transformation?
+            Download the Banana API to see how your facial features
+            will change after weight loss.
+        </p>
+        <form method="post" action="{% url 'generate_ai_images' assessment.id %}">
+    {% csrf_token %}
+    <button class="btn-purple">
+        Generate AI Transformation
+    </button>
+</form>
+    </div>
+
+    <!-- Transformation Preview -->
+    <h2 class="subtitle">Your Transformation Preview</h2>
+
+    <div class="preview-grid">
+        <div class="preview-card green">
+    <h4>After Plan 1</h4>
+
+    {% if assessment.after_plan1 %}
+        <img src="{{ assessment.after_plan1.url }}" alt="After Plan 1">
+    {% else %}
+        <div class="placeholder">AI Generated Photo</div>
+    {% endif %}
+    </div>
+
+        <div class="preview-card blue">
+    <h4>After Plan 2</h4>
+
+    {% if assessment.after_plan2 %}
+        <img src="{{ assessment.after_plan2.url }}" alt="After Plan 2">
+    {% else %}
+        <div class="placeholder">AI Generated Photo</div>
+    {% endif %}
+</div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+        <a href="/" class="btn-primary">Start New Assessment</a>
+    </div>
+
+</div>
+
+</body>
+</html>

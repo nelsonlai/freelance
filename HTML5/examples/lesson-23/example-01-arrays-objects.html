@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陣列和物件示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .demo-section {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        #output {
+            background: #E8F8F5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .list-item {
+            background: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #4ECDC4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 陣列和物件示範</h1>
+        
+        <!-- 陣列操作 -->
+        <div class="demo-section">
+            <h2>1. 陣列操作</h2>
+            <button onclick="demoArray()">陣列基本操作</button>
+            <button onclick="arrayMethods()">陣列方法</button>
+            <div id="array-output"></div>
+        </div>
+        
+        <!-- 物件操作 -->
+        <div class="demo-section">
+            <h2>2. 物件操作</h2>
+            <button onclick="demoObject()">物件基本操作</button>
+            <button onclick="createPerson()">建立人物資料</button>
+            <div id="object-output"></div>
+        </div>
+        
+        <!-- 陣列+物件組合 -->
+        <div class="demo-section">
+            <h2>3. 學生名單（陣列+物件）</h2>
+            <button onclick="showStudents()">顯示學生名單</button>
+            <button onclick="addStudent()">新增學生</button>
+            <div id="students-output"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 1. 陣列基本操作
+        function demoArray() {
+            let fruits = ['蘋果', '香蕉', '橘子'];
+            let output = `
+                <h3 style="color: #667eea;">陣列基本操作：</h3>
+                <p>原始陣列：${fruits.join(', ')}</p>
+            `;
+            
+            // 新增元素
+            fruits.push('葡萄');
+            output += `<p>push('葡萄')：${fruits.join(', ')}</p>`;
+            
+            fruits.unshift('草莓');
+            output += `<p>unshift('草莓')：${fruits.join(', ')}</p>`;
+            
+            // 刪除元素
+            let last = fruits.pop();
+            output += `<p>pop()：移除 ${last}，剩下 ${fruits.join(', ')}</p>`;
+            
+            let first = fruits.shift();
+            output += `<p>shift()：移除 ${first}，剩下 ${fruits.join(', ')}</p>`;
+            
+            output += `<p>長度：${fruits.length}</p>`;
+            
+            document.getElementById('array-output').innerHTML = output;
+            console.log('陣列操作完成');
+        }
+        
+        function arrayMethods() {
+            let numbers = [1, 2, 3, 4, 5];
+            
+            let output = `
+                <h3 style="color: #667eea;">陣列方法：</h3>
+                <p>原始陣列：${numbers}</p>
+                <p>map (每個數*2)：${numbers.map(n => n * 2)}</p>
+                <p>filter (大於2)：${numbers.filter(n => n > 2)}</p>
+                <p>reduce (總和)：${numbers.reduce((sum, n) => sum + n, 0)}</p>
+                <p>includes(3)：${numbers.includes(3)}</p>
+                <p>indexOf(3)：${numbers.indexOf(3)}</p>
+            `;
+            
+            document.getElementById('array-output').innerHTML = output;
+        }
+        
+        // 2. 物件操作
+        function demoObject() {
+            let person = {
+                name: '小明',
+                age: 25,
+                city: '台北'
+            };
+            
+            let output = `
+                <h3 style="color: #667eea;">物件操作：</h3>
+                <p>姓名：${person.name}</p>
+                <p>年齡：${person.age}</p>
+                <p>城市：${person.city}</p>
+            `;
+            
+            // 修改屬性
+            person.age = 26;
+            output += `<p>修改後年齡：${person.age}</p>`;
+            
+            // 新增屬性
+            person.email = 'ming@example.com';
+            output += `<p>新增 Email：${person.email}</p>`;
+            
+            document.getElementById('object-output').innerHTML = output;
+            console.log('物件：', person);
+        }
+        
+        function createPerson() {
+            let person = {
+                name: '李小華',
+                age: 22,
+                city: '台中',
+                hobbies: ['閱讀', '旅行', '攝影'],
+                greet: function() {
+                    return `你好，我是${this.name}，來自${this.city}`;
+                }
+            };
+            
+            let output = `
+                <div style="background: white; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #667eea;">👤 人物資料卡</h3>
+                    <p><strong>姓名：</strong>${person.name}</p>
+                    <p><strong>年齡：</strong>${person.age} 歲</p>
+                    <p><strong>城市：</strong>${person.city}</p>
+                    <p><strong>興趣：</strong>${person.hobbies.join('、')}</p>
+                    <p><strong>自我介紹：</strong>${person.greet()}</p>
+                </div>
+            `;
+            
+            document.getElementById('object-output').innerHTML = output;
+            console.log('人物資料：', person);
+        }
+        
+        // 3. 學生名單
+        let students = [
+            {id: 1, name: '張三', score: 85},
+            {id: 2, name: '李四', score: 92},
+            {id: 3, name: '王五', score: 78}
+        ];
+        
+        function showStudents() {
+            let output = '<h3 style="color: #667eea;">📚 學生名單：</h3>';
+            
+            students.forEach(student => {
+                output += `
+                    <div class="list-item">
+                        <strong>${student.name}</strong> 
+                        (ID: ${student.id}) - 
+                        分數：<span style="color: #4ECDC4; font-weight: bold;">${student.score}</span>
+                    </div>
+                `;
+            });
+            
+            let avgScore = students.reduce((sum, s) => sum + s.score, 0) / students.length;
+            output += `<p style="margin-top: 15px;"><strong>平均分數：</strong>${avgScore.toFixed(1)}</p>`;
+            
+            document.getElementById('students-output').innerHTML = output;
+            console.log('學生名單：', students);
+        }
+        
+        function addStudent() {
+            let newId = students.length + 1;
+            let newStudent = {
+                id: newId,
+                name: '新同學' + newId,
+                score: Math.floor(Math.random() * 30) + 70
+            };
+            
+            students.push(newStudent);
+            showStudents();
+            console.log('新增學生：', newStudent);
+        }
+    </script>
+</body>
+</html>

@@ -35,29 +35,29 @@ class Dog:
         """Make the dog sleep."""
         return f"{self.name} is sleeping peacefully."
     
-    def __str__(self):  # dunder method
+    def __str__(self):  # dunder method (double underscore)
         """String representation of the dog."""
         return f"{self.name} is a {self.age}-year-old {self.breed}"
     
-    def __repr__(self):  # dunder method
+    def __repr__(self):  # dunder method (double underscore)
         """Developer representation of the dog."""
         return f"Dog('{self.name}', {self.age}, '{self.breed}')"
 
 # Creating objects (instances)
-dog1 = Dog("Buddy", 3, "Golden Retriever")
-dog2 = Dog("Max", 5, "German Shepherd")
-strName = str(dog1)
-print(dog1)
+dog_buddy = Dog("Buddy", 3, "Golden Retriever")
+dog_max = Dog("Max", 5, "German Shepherd")
+strName = str(dog_buddy)
+print(dog_buddy)
 
 print("=== Dog Class Demo ===")
-print(dog1)
-print(dog2)
+print(dog_buddy)
+print(dog_max)
 print(f"Species: {Dog.species}")  # Class attribute
 
-print(dog1.bark())
-print(dog1.eat())
-print(dog1.eat())  # Already fed
-print(dog2.sleep())
+print(dog_buddy.bark())
+print(dog_buddy.eat())
+print(dog_buddy.eat())  # Already fed
+print(dog_max.sleep())
 
 # Class Attributes and Methods
 
@@ -99,11 +99,6 @@ class Student:
         """Class method to get total number of students."""
         return cls.total_students
     
-    @classmethod
-    def create_from_string(cls, student_string):
-        """Class method to create student from string."""
-        name, student_id, grade = student_string.split(',')
-        return cls(name.strip(), student_id.strip(), grade.strip())
     
     @staticmethod
     def is_passing_grade(grade):
@@ -130,10 +125,6 @@ print(student1.add_course("Python Programming"))  # Duplicate
 
 print(f"Courses: {student1.courses}")
 print(f"Total students: {Student.get_total_students()}")
-
-# Using class method
-student4 = Student.create_from_string("Diana, S004, A")
-print(f"Created from string: {student4}")
 
 # Using static method
 print(f"Is 'B' passing? {Student.is_passing_grade('B')}")
@@ -330,8 +321,8 @@ print(dog.eat())
 print(cat.sleep())
 
 # Overridden methods
-print(dog.make_sound())
-print(cat.make_sound())
+print(dog.make_sound()) # Woof! Woof!
+print(cat.make_sound()) # Meow! Meow!
 
 # Dog-specific methods
 print(dog.learn_trick("sit"))
@@ -661,7 +652,7 @@ class Temperature:
     def __init__(self, celsius=0):
         self._celsius = celsius
     
-    @property
+    @property   # decorator
     def celsius(self):
         """Get temperature in Celsius."""
         return self._celsius
@@ -673,7 +664,7 @@ class Temperature:
             raise ValueError("Temperature cannot be below absolute zero (-273.15°C)")
         self._celsius = value
     
-    @property
+    @property   # decorator
     def fahrenheit(self):
         """Get temperature in Fahrenheit."""
         return self._celsius * 9/5 + 32

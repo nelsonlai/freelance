@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函式示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .demo-section {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        #output {
+            background: #E8F8F5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ JavaScript 函式示範</h1>
+        
+        <div class="demo-section">
+            <h2>1. 基本函式</h2>
+            <button onclick="sayHello()">打招呼</button>
+            <button onclick="showTime()">顯示時間</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2>2. 帶參數的函式</h2>
+            <button onclick="greet('小明')">問候小明</button>
+            <button onclick="greet('小華')">問候小華</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2>3. 有回傳值的函式</h2>
+            <button onclick="demoReturn()">計算範例</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2>4. 箭頭函式</h2>
+            <button onclick="demoArrow()">箭頭函式示範</button>
+        </div>
+        
+        <div id="output"></div>
+    </div>
+    
+    <script>
+        // 1. 基本函式
+        function sayHello() {
+            alert('你好！歡迎學習 JavaScript 函式！');
+            console.log('sayHello() 被呼叫');
+        }
+        
+        function showTime() {
+            let now = new Date();
+            let timeString = now.toLocaleString('zh-TW');
+            document.getElementById('output').innerHTML = 
+                `<p>現在時間：${timeString}</p>`;
+            console.log('現在時間：', timeString);
+        }
+        
+        // 2. 帶參數的函式
+        function greet(name) {
+            let message = `你好，${name}！很高興見到你！`;
+            document.getElementById('output').innerHTML = 
+                `<p style="color: #667eea; font-size: 18px;">${message}</p>`;
+            console.log(message);
+        }
+        
+        // 3. 有回傳值的函式
+        function add(a, b) {
+            return a + b;
+        }
+        
+        function multiply(a, b) {
+            return a * b;
+        }
+        
+        function demoReturn() {
+            let sum = add(5, 3);
+            let product = multiply(4, 6);
+            
+            let message = `
+                <h3 style="color: #667eea;">計算結果：</h3>
+                <p>add(5, 3) = ${sum}</p>
+                <p>multiply(4, 6) = ${product}</p>
+                <p>add(10, multiply(2, 3)) = ${add(10, multiply(2, 3))}</p>
+            `;
+            
+            document.getElementById('output').innerHTML = message;
+            console.log('sum:', sum);
+            console.log('product:', product);
+        }
+        
+        // 4. 箭頭函式
+        const square = (num) => num * num;
+        const cube = (num) => num * num * num;
+        const isEven = (num) => num % 2 === 0;
+        
+        function demoArrow() {
+            let num = 5;
+            let message = `
+                <h3 style="color: #667eea;">箭頭函式示範（數字 ${num}）：</h3>
+                <p>square(${num}) = ${square(num)}</p>
+                <p>cube(${num}) = ${cube(num)}</p>
+                <p>isEven(${num}) = ${isEven(num)}</p>
+                <p>isEven(6) = ${isEven(6)}</p>
+            `;
+            
+            document.getElementById('output').innerHTML = message;
+            console.log('箭頭函式範例');
+        }
+    </script>
+</body>
+</html>

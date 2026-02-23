@@ -4,8 +4,13 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * In-memory order book for one instrument: bids and asks (price-time priority).
- * Single-threaded use only (e.g. from one matching thread). Not thread-safe.
+ * In-memory order book for one instrument: bids (buy) and asks (sell) with
+ * price-time priority (best price first; within a price level, FIFO). Single-threaded
+ * use only — e.g. called from one matching thread. Not thread-safe.
+ *
+ * <p>Bids are sorted by price descending (best bid highest); asks ascending (best ask lowest).
+ * match() matches an incoming order against the opposite side and returns fills;
+ * unfilled quantity is added to the book.
  */
 public class OrderBook {
 
@@ -15,6 +20,7 @@ public class OrderBook {
     private final Map<Long, Order> byId = new HashMap<>();
     private final AtomicLong idGen = new AtomicLong(0);
 
+    /** Order: id, side (buy=true), limit price, remaining quantity, user. quantity is mutated by match. */
     public static class Order {
         final long id;
         final boolean buy;
@@ -35,6 +41,12 @@ public class OrderBook {
         this.symbol = symbol;
     }
 
+    /**
+     * Adds a resting order to the book. Assigns a new id and inserts at the
+     * given price level (appended to the list for time priority).
+     *
+     * @return the assigned order id
+     */
     public long addOrder(boolean buy, double price, int quantity, String userId) {
         long id = idGen.incrementAndGet();
         Order order = new Order(id, buy, price, quantity, userId);
@@ -44,6 +56,12 @@ public class OrderBook {
         return id;
     }
 
+    /**
+     * Removes the order by id from byId and from its price level. If the level
+     * becomes empty, the level is removed.
+     *
+     * @return true if the order existed and was cancelled
+     */
     public boolean cancelOrder(long orderId) {
         Order order = byId.remove(orderId);
         if (order == null) return false;
@@ -56,7 +74,14 @@ public class OrderBook {
         return true;
     }
 
-    /** Match incoming order against book; return list of fills (price, qty). */
+    /**
+     * Matches the incoming order against the opposite side: buy vs asks (lowest first),
+     * sell vs bids (highest first). Stops when price no longer crosses or quantity is filled.
+     * Each fill is [price, qty]. Unfilled quantity is added to the book.
+     *
+     * @param incoming the order to match
+     * @return list of fills (each double[] is price, quantity)
+     */
     public List<double[]> match(Order incoming) {
         List<double[]> fills = new ArrayList<>();
         TreeMap<Double, List<Order>> opposite = incoming.buy ? asks : bids;
@@ -88,10 +113,12 @@ public class OrderBook {
         return fills;
     }
 
+    /** Best (highest) bid price, or empty if no bids. */
     public OptionalDouble bestBid() {
         return bids.isEmpty() ? OptionalDouble.empty() : OptionalDouble.of(bids.firstKey());
     }
 
+    /** Best (lowest) ask price, or empty if no asks. */
     public OptionalDouble bestAsk() {
         return asks.isEmpty() ? OptionalDouble.empty() : OptionalDouble.of(asks.firstKey());
     }

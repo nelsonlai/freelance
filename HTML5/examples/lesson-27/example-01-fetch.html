@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API 示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .demo-section {
+            background: #f9f9f9;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        #output {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border: 2px solid #E8F8F5;
+        }
+        .loading {
+            text-align: center;
+            color: #667eea;
+            padding: 20px;
+        }
+        .user-card {
+            background: white;
+            border: 2px solid #E8F8F5;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4ECDC4;
+        }
+        .user-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Fetch API 示範</h1>
+        
+        <div class="demo-section">
+            <h2>1. 取得隨機使用者資料</h2>
+            <p>使用公開 API：randomuser.me</p>
+            <button onclick="fetchRandomUser()">取得隨機使用者</button>
+            <div id="user-output"></div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>2. 取得多個使用者</h2>
+            <button onclick="fetchMultipleUsers()">取得 5 個使用者</button>
+            <div id="users-output"></div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>3. JSON 測試</h2>
+            <button onclick="fetchJSONTest()">取得 JSON 資料</button>
+            <div id="json-output"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 1. 取得單一隨機使用者
+        async function fetchRandomUser() {
+            let output = document.getElementById('user-output');
+            output.innerHTML = '<div class="loading">⏳ 載入中...</div>';
+            
+            try {
+                console.log('開始取得使用者資料...');
+                
+                let response = await fetch('https://randomuser.me/api/');
+                let data = await response.json();
+                let user = data.results[0];
+                
+                console.log('使用者資料：', user);
+                
+                output.innerHTML = `
+                    <div class="user-card">
+                        <h3>👤 ${user.name.first} ${user.name.last}</h3>
+                        <p><strong>Email：</strong>${user.email}</p>
+                        <p><strong>城市：</strong>${user.location.city}, ${user.location.country}</p>
+                        <p><strong>電話：</strong>${user.phone}</p>
+                        <img src="${user.picture.large}" alt="頭像" style="border-radius: 50%; margin-top: 10px;">
+                    </div>
+                `;
+            } catch (error) {
+                console.error('錯誤：', error);
+                output.innerHTML = '<p style="color: red;">❌ 載入失敗：' + error.message + '</p>';
+            }
+        }
+        
+        // 2. 取得多個使用者
+        async function fetchMultipleUsers() {
+            let output = document.getElementById('users-output');
+            output.innerHTML = '<div class="loading">⏳ 載入中...</div>';
+            
+            try {
+                let response = await fetch('https://randomuser.me/api/?results=5');
+                let data = await response.json();
+                let users = data.results;
+                
+                console.log('取得', users.length, '個使用者');
+                
+                let html = '<h3 style="color: #667eea;">使用者列表：</h3>';
+                users.forEach((user, index) => {
+                    html += `
+                        <div class="user-card">
+                            <strong>${index + 1}. ${user.name.first} ${user.name.last}</strong><br>
+                            Email: ${user.email}<br>
+                            國家: ${user.location.country}
+                        </div>
+                    `;
+                });
+                
+                output.innerHTML = html;
+            } catch (error) {
+                console.error('錯誤：', error);
+                output.innerHTML = '<p style="color: red;">❌ 載入失敗</p>';
+            }
+        }
+        
+        // 3. JSON 測試
+        async function fetchJSONTest() {
+            let output = document.getElementById('json-output');
+            output.innerHTML = '<div class="loading">⏳ 載入中...</div>';
+            
+            try {
+                let response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+                let post = await response.json();
+                
+                console.log('文章資料：', post);
+                
+                output.innerHTML = `
+                    <div class="user-card">
+                        <h3>📄 文章 #${post.id}</h3>
+                        <h4 style="color: #667eea;">${post.title}</h4>
+                        <p>${post.body}</p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('錯誤：', error);
+                output.innerHTML = '<p style="color: red;">❌ 載入失敗</p>';
+            }
+        }
+        
+        console.log('=== Fetch API 示範 ===');
+    </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 輸出方法</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4ECDC4;
+        }
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #5568d3;
+            transform: translateY(-2px);
+        }
+        #innerHTML-demo {
+            padding: 15px;
+            background-color: #E8F8F5;
+            border-radius: 5px;
+            margin-top: 10px;
+            min-height: 50px;
+        }
+        .code {
+            background-color: #333;
+            color: #FFE66D;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .warning {
+            background-color: #FFF4E6;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #FFB84D;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📢 JavaScript 輸出方法示範</h1>
+        
+        <!-- 1. console.log() -->
+        <div class="section">
+            <h2>1. console.log() - 主控台輸出</h2>
+            <p>輸出到瀏覽器的開發者工具主控台，用於除錯。</p>
+            <div class="code">console.log('這是主控台訊息');</div>
+            <button onclick="demoConsoleLog()">執行 console.log()</button>
+            <div class="warning">
+                <strong>💡 提示：</strong>按 F12 開啟開發者工具 → Console 標籤查看輸出
+            </div>
+        </div>
+        
+        <!-- 2. alert() -->
+        <div class="section">
+            <h2>2. alert() - 彈出警告框</h2>
+            <p>顯示一個彈出式警告框，會阻止頁面操作直到關閉。</p>
+            <div class="code">alert('這是警告訊息');</div>
+            <button onclick="demoAlert()">執行 alert()</button>
+        </div>
+        
+        <!-- 3. document.write() -->
+        <div class="section">
+            <h2>3. document.write() - 寫入網頁</h2>
+            <p>直接將內容寫入 HTML 文件。</p>
+            <div class="code">document.write('這段文字會顯示在網頁上');</div>
+            <button onclick="demoDocumentWrite()">執行 document.write()</button>
+            <div class="warning">
+                <strong>⚠️ 注意：</strong>在頁面載入後使用會覆蓋整個頁面內容！
+            </div>
+        </div>
+        
+        <!-- 4. innerHTML -->
+        <div class="section">
+            <h2>4. innerHTML - 改變元素內容</h2>
+            <p>修改特定 HTML 元素的內容。</p>
+            <div class="code">document.getElementById('demo').innerHTML = '新內容';</div>
+            <button onclick="demoInnerHTML()">改變內容</button>
+            <button onclick="addContent()">新增內容</button>
+            <button onclick="clearContent()">清除內容</button>
+            <div id="innerHTML-demo">
+                <p>這是原始內容，點擊上方按鈕改變我！</p>
+            </div>
+        </div>
+        
+        <!-- 5. 綜合範例 -->
+        <div class="section">
+            <h2>5. 綜合範例</h2>
+            <p>點擊按鈕，同時使用多種輸出方法：</p>
+            <button onclick="demoAll()">執行全部輸出</button>
+        </div>
+    </div>
+    
+    <script>
+        // 頁面載入時的訊息
+        console.log('=== JavaScript 輸出方法示範 ===');
+        console.log('頁面已載入完成！');
+        
+        // 1. console.log() 示範
+        function demoConsoleLog() {
+            console.log('這是 console.log() 的輸出');
+            console.log('可以輸出文字：', 'Hello');
+            console.log('可以輸出數字：', 123);
+            console.log('可以輸出布林值：', true);
+            console.log('可以輸出物件：', {name: '小明', age: 25});
+            console.log('可以輸出陣列：', [1, 2, 3, 4, 5]);
+            alert('已輸出到 Console，請按 F12 查看！');
+        }
+        
+        // 2. alert() 示範
+        function demoAlert() {
+            alert('這是 alert() 彈出的警告框');
+            alert('可以用來提示使用者重要訊息');
+            alert('但會中斷使用者操作，要謹慎使用！');
+        }
+        
+        // 3. document.write() 示範
+        function demoDocumentWrite() {
+            let confirmed = confirm('警告：這會覆蓋整個頁面，確定要執行嗎？');
+            if (confirmed) {
+                document.write('<h1 style="color: red;">頁面已被 document.write() 覆蓋！</h1>');
+                document.write('<p>按 F5 重新整理頁面</p>');
+            }
+        }
+        
+        // 4. innerHTML 示範
+        function demoInnerHTML() {
+            let demo = document.getElementById('innerHTML-demo');
+            demo.innerHTML = '<p style="color: #667eea; font-weight: bold;">✨ 內容已被 innerHTML 改變！</p>';
+        }
+        
+        function addContent() {
+            let demo = document.getElementById('innerHTML-demo');
+            demo.innerHTML += '<p style="color: #4ECDC4;">🎉 這是新增的內容！</p>';
+        }
+        
+        function clearContent() {
+            let demo = document.getElementById('innerHTML-demo');
+            demo.innerHTML = '<p style="color: #999;">內容已清除</p>';
+        }
+        
+        // 5. 綜合示範
+        function demoAll() {
+            // 1. 主控台輸出
+            console.log('--- 綜合示範開始 ---');
+            console.log('步驟 1: console.log() 輸出');
+            
+            // 2. 警告框
+            alert('步驟 2: alert() 彈出警告框');
+            
+            // 3. 改變網頁內容
+            let demo = document.getElementById('innerHTML-demo');
+            demo.innerHTML = `
+                <h3 style="color: #667eea;">✅ 綜合示範完成！</h3>
+                <p>1. 已輸出到 Console（按 F12 查看）</p>
+                <p>2. 已顯示 alert 警告框</p>
+                <p>3. 已使用 innerHTML 改變此區域內容</p>
+                <p style="color: #4ECDC4; font-weight: bold;">時間：${new Date().toLocaleString('zh-TW')}</p>
+            `;
+            
+            console.log('--- 綜合示範結束 ---');
+        }
+    </script>
+</body>
+</html>

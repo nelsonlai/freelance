@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件處理示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .event-box {
+            background: #E8F8F5;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .event-box:hover {
+            background: #4ECDC4;
+            color: white;
+            transform: scale(1.05);
+        }
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        input {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin: 5px;
+            width: 200px;
+        }
+        #log {
+            background: #2d2d2d;
+            color: #4ECDC4;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👆 JavaScript 事件處理</h1>
+        
+        <h2>1. 點擊事件（click）</h2>
+        <button id="clickBtn">點我</button>
+        <button id="clickCount">點擊計數：0</button>
+        
+        <h2>2. 滑鼠事件</h2>
+        <div class="event-box" id="hoverBox">
+            移動滑鼠到這裡
+        </div>
+        
+        <h2>3. 鍵盤事件</h2>
+        <input type="text" id="keyInput" placeholder="在這裡輸入...">
+        <p id="keyOutput"></p>
+        
+        <h2>4. 表單事件</h2>
+        <input type="text" id="formInput" placeholder="失去焦點時觸發">
+        <p id="formOutput"></p>
+        
+        <h2>📝 事件日誌</h2>
+        <button onclick="clearLog()">清除日誌</button>
+        <div id="log"></div>
+    </div>
+    
+    <script>
+        // 日誌函式
+        function addLog(message) {
+            let log = document.getElementById('log');
+            let time = new Date().toLocaleTimeString('zh-TW');
+            log.innerHTML += `<p>[${time}] ${message}</p>`;
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        // 1. 點擊事件
+        document.getElementById('clickBtn').addEventListener('click', function() {
+            alert('按鈕被點擊了！');
+            addLog('🖱️ 按鈕被點擊');
+        });
+        
+        let clickCount = 0;
+        document.getElementById('clickCount').addEventListener('click', function() {
+            clickCount++;
+            this.textContent = `點擊計數：${clickCount}`;
+            addLog(`🔢 計數器：${clickCount}`);
+        });
+        
+        // 2. 滑鼠事件
+        let hoverBox = document.getElementById('hoverBox');
+        
+        hoverBox.addEventListener('mouseenter', function() {
+            this.textContent = '滑鼠進入了！';
+            addLog('➡️ 滑鼠移入');
+        });
+        
+        hoverBox.addEventListener('mouseleave', function() {
+            this.textContent = '滑鼠離開了！';
+            addLog('⬅️ 滑鼠移出');
+        });
+        
+        hoverBox.addEventListener('click', function() {
+            this.style.background = '#FFE66D';
+            this.textContent = '你點擊了這個區域！';
+            addLog('👆 區域被點擊');
+        });
+        
+        // 3. 鍵盤事件
+        document.getElementById('keyInput').addEventListener('keyup', function(event) {
+            let output = document.getElementById('keyOutput');
+            output.innerHTML = `
+                <p>輸入的值：${this.value}</p>
+                <p>按鍵：${event.key}</p>
+                <p>按鍵碼：${event.keyCode}</p>
+            `;
+            addLog(`⌨️ 輸入：${this.value}`);
+        });
+        
+        // 4. 表單事件
+        let formInput = document.getElementById('formInput');
+        
+        formInput.addEventListener('focus', function() {
+            this.style.borderColor = '#667eea';
+            this.style.boxShadow = '0 0 10px rgba(102, 126, 234, 0.3)';
+            addLog('📝 輸入框取得焦點');
+        });
+        
+        formInput.addEventListener('blur', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+            let output = document.getElementById('formOutput');
+            if (this.value) {
+                output.innerHTML = `<p style="color: #667eea;">你輸入了：${this.value}</p>`;
+                addLog(`✅ 輸入完成：${this.value}`);
+            }
+        });
+        
+        formInput.addEventListener('change', function() {
+            addLog(`🔄 值改變：${this.value}`);
+        });
+        
+        // 頁面載入完成
+        window.addEventListener('load', function() {
+            addLog('🚀 頁面載入完成');
+        });
+        
+        console.log('=== 事件處理示範 ===');
+    </script>
+</body>
+</html>

@@ -15,11 +15,22 @@ import java.util.List;
 import static org.apache.spark.sql.functions.*;
 
 /**
- * SparkSession; DataFrame from in-memory data; select, filter, groupBy, agg.
- * Shows structured concurrent processing with Catalyst optimization.
+ * Demonstrates Spark's DataFrame API (structured API): create a DataFrame from
+ * in-memory rows with a schema, then use column-based operations (filter, groupBy, agg).
+ *
+ * <p>DataFrames are executed by the same Spark engine as RDDs; the Catalyst
+ * optimizer can apply predicate pushdown and join strategies. Operations are
+ * still distributed across partitions and run in parallel. show() and other
+ * actions trigger execution.
  */
 public class SparkDataFrameDemo {
 
+    /**
+     * Creates a SparkSession in local mode, builds a small "sales" DataFrame,
+     * runs filter and groupBy/agg examples, then stops the session.
+     *
+     * @param args unused
+     */
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder()
                 .appName("SparkDataFrameDemo")
@@ -27,7 +38,7 @@ public class SparkDataFrameDemo {
                 .getOrCreate();
 
         try {
-            // Schema for simple "sales" data: product, amount, region
+            // Define schema: product (string), amount (int), region (string)
             StructType schema = new StructType(new StructField[]{
                     new StructField("product", DataTypes.StringType, false, Metadata.empty()),
                     new StructField("amount", DataTypes.IntegerType, false, Metadata.empty()),

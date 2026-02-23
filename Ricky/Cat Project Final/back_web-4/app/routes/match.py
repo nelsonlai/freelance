@@ -100,9 +100,10 @@ You are an AI consultant for cat breeding & care.
 {json.dumps(candidates, ensure_ascii=False, indent=2)}
 
 # Output Format (JSON ONLY, no markdown block, no extra text):
+# Write summary_md in English only.
 
 {{
-  "summary_md": "≤100 Chinese characters, markdown allowed",
+  "summary_md": "≤100 English words, markdown allowed. Brief compatibility summary in English.",
   "image_prompt": "≤100 English words, for image generation"
 }}
 """.strip()
@@ -138,7 +139,7 @@ def match_result():
     top_matches = scored[:5]
 
     # -------- Poe 文字分析 --------
-    review_md = "AI 分析暫時無法使用"
+    review_md = "AI analysis is temporarily unavailable"
     image_prompt = None
 
     try:
@@ -253,10 +254,11 @@ Analyze the potential offspring of these two cats. Consider:
 3. Expected temperament based on parent breeds
 
 # Output Format (JSON ONLY, no markdown block, no extra text):
+# Write summary_md in English only.
 
 {{
-  "summary_md": "≤150 Chinese characters markdown analysis of the potential offspring, including appearance, health predictions, and care recommendations",
-  "image_prompt": "≤100 English words describing a realistic cute kitten that would result from breeding a {my_cat.get('breed', 'cat')} with a {match_cat.get('breed', 'cat')}, include specific appearance details like fur color, pattern, eye color, and body type"
+  "summary_md": "≤200 English words, markdown allowed. Analysis of the potential offspring in English: appearance, health predictions, and care recommendations.",
+  "image_prompt": "≤200 English words describing a realistic cute kitten that would result from breeding a {my_cat.get('breed', 'cat')} with a {match_cat.get('breed', 'cat')}, include specific appearance details like fur color, pattern, eye color, and body type"
 }}
 """.strip()
 
@@ -310,7 +312,7 @@ def generate_offspring():
         }), 400
 
     # -------- Poe AI Analysis for this pair --------
-    review_md = "AI 分析暫時無法使用"
+    review_md = "AI analysis is temporarily unavailable"
     image_prompt = None
 
     try:

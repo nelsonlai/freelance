@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6+ 新特性示範</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .demo-section {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .output {
+            background: #E8F8F5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .code {
+            background: #2d2d2d;
+            color: #4ECDC4;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ ES6+ 新特性示範</h1>
+        
+        <!-- 箭頭函式 -->
+        <div class="demo-section">
+            <h2>1. 箭頭函式</h2>
+            <button onclick="demoArrowFunction()">執行示範</button>
+            <div id="arrow-output" class="output"></div>
+        </div>
+        
+        <!-- 解構賦值 -->
+        <div class="demo-section">
+            <h2>2. 解構賦值</h2>
+            <button onclick="demoDestructuring()">執行示範</button>
+            <div id="destructuring-output" class="output"></div>
+        </div>
+        
+        <!-- 展開運算子 -->
+        <div class="demo-section">
+            <h2>3. 展開運算子（Spread Operator）</h2>
+            <button onclick="demoSpread()">執行示範</button>
+            <div id="spread-output" class="output"></div>
+        </div>
+        
+        <!-- 模板字串 -->
+        <div class="demo-section">
+            <h2>4. 模板字串</h2>
+            <button onclick="demoTemplate()">執行示範</button>
+            <div id="template-output" class="output"></div>
+        </div>
+        
+        <!-- Promise -->
+        <div class="demo-section">
+            <h2>5. Promise 和 async/await</h2>
+            <button onclick="demoPromise()">執行示範</button>
+            <div id="promise-output" class="output"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 1. 箭頭函式
+        function demoArrowFunction() {
+            // 傳統函式
+            function add1(a, b) {
+                return a + b;
+            }
+            
+            // 箭頭函式
+            const add2 = (a, b) => a + b;
+            
+            // 陣列方法中使用
+            let numbers = [1, 2, 3, 4, 5];
+            let doubled = numbers.map(n => n * 2);
+            let evens = numbers.filter(n => n % 2 === 0);
+            
+            let output = `
+                <h3>箭頭函式結果：</h3>
+                <p>add1(3, 5) = ${add1(3, 5)}</p>
+                <p>add2(3, 5) = ${add2(3, 5)}</p>
+                <p>原陣列：${numbers}</p>
+                <p>每個數*2：${doubled}</p>
+                <p>偶數：${evens}</p>
+            `;
+            
+            document.getElementById('arrow-output').innerHTML = output;
+            console.log('箭頭函式示範完成');
+        }
+        
+        // 2. 解構賦值
+        function demoDestructuring() {
+            // 陣列解構
+            let [a, b, c] = [1, 2, 3];
+            
+            // 物件解構
+            let person = {name: '小明', age: 25, city: '台北'};
+            let {name, age, city} = person;
+            
+            // 巢狀解構
+            let user = {
+                id: 1,
+                profile: {
+                    name: '小華',
+                    contact: {
+                        email: 'hua@example.com'
+                    }
+                }
+            };
+            let {profile: {name: userName, contact: {email}}} = user;
+            
+            let output = `
+                <h3>解構賦值結果：</h3>
+                <p>陣列解構：a=${a}, b=${b}, c=${c}</p>
+                <p>物件解構：name="${name}", age=${age}, city="${city}"</p>
+                <p>巢狀解構：userName="${userName}", email="${email}"</p>
+            `;
+            
+            document.getElementById('destructuring-output').innerHTML = output;
+            console.log('解構賦值示範');
+        }
+        
+        // 3. 展開運算子
+        function demoSpread() {
+            // 陣列展開
+            let arr1 = [1, 2, 3];
+            let arr2 = [4, 5, 6];
+            let combined = [...arr1, ...arr2];
+            
+            // 物件展開
+            let obj1 = {a: 1, b: 2};
+            let obj2 = {c: 3, d: 4};
+            let merged = {...obj1, ...obj2};
+            
+            // 複製陣列
+            let original = [1, 2, 3];
+            let copy = [...original];
+            
+            let output = `
+                <h3>展開運算子結果：</h3>
+                <p>arr1: ${arr1}</p>
+                <p>arr2: ${arr2}</p>
+                <p>combined: ${combined}</p>
+                <p>merged: ${JSON.stringify(merged)}</p>
+                <p>original: ${original}</p>
+                <p>copy: ${copy}</p>
+            `;
+            
+            document.getElementById('spread-output').innerHTML = output;
+        }
+        
+        // 4. 模板字串
+        function demoTemplate() {
+            let name = '小明';
+            let age = 25;
+            let scores = [85, 90, 92];
+            
+            // 模板字串
+            let message = `
+                姓名：${name}
+                年齡：${age}
+                平均分數：${scores.reduce((a,b) => a+b) / scores.length}
+            `;
+            
+            // 多行字串
+            let html = `
+                <div style="background: #E8F8F5; padding: 15px; border-radius: 5px;">
+                    <h4 style="color: #667eea;">個人資料</h4>
+                    <p><strong>姓名：</strong>${name}</p>
+                    <p><strong>年齡：</strong>${age} 歲</p>
+                    <p><strong>成績：</strong>${scores.join(', ')}</p>
+                    <p><strong>平均：</strong>${(scores.reduce((a,b) => a+b) / scores.length).toFixed(1)}</p>
+                </div>
+            `;
+            
+            document.getElementById('template-output').innerHTML = html;
+            console.log('模板字串：', message);
+        }
+        
+        // 5. Promise 和 async/await
+        async function demoPromise() {
+            let output = document.getElementById('promise-output');
+            output.innerHTML = '<div class="loading">⏳ 執行中...</div>';
+            
+            // 模擬延遲
+            function delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            
+            try {
+                output.innerHTML = '<p>步驟 1：開始...</p>';
+                await delay(1000);
+                
+                output.innerHTML += '<p>步驟 2：處理中...</p>';
+                await delay(1000);
+                
+                output.innerHTML += '<p>步驟 3：即將完成...</p>';
+                await delay(1000);
+                
+                output.innerHTML += '<p style="color: #4ECDC4; font-weight: bold;">✅ 完成！</p>';
+                
+                console.log('非同步操作完成');
+            } catch (error) {
+                console.error('錯誤：', error);
+                output.innerHTML = '<p style="color: red;">❌ 發生錯誤</p>';
+            }
+        }
+        
+        console.log('=== ES6+ 特性示範 ===');
+    </script>
+</body>
+</html>

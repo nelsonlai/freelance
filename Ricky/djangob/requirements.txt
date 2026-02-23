@@ -1,0 +1,21 @@
+# Core Django Framework
+Django==5.2.10
+asgiref==3.11.0
+sqlparse==0.5.5
+tzdata==2025.3
+
+# Environment Variables
+python-dotenv==1.2.1
+
+# Image Processing (required for Django ImageField)
+Pillow>=10.0.0
+
+# Frontend/Tailwind Integration
+django-tailwind==4.4.2
+pytailwindcss==0.3.0
+
+# Browser Automation (for poe_*.py scripts)
+playwright>=1.40.0
+
+# Poe API Integration (for AI features)
+fastapi-poe>=0.0.40

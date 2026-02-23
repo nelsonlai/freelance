@@ -4,15 +4,21 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 /**
- * Mini matching engine: single trading pair; multiple producers enqueue orders
- * to one BlockingQueue; single consumer thread runs the matching loop and
- * applies orders to an in-memory book. Guaranteed ordering and consistency
- * by single-threaded consumer.
+ * Mini matching engine for a single trading pair: many threads can submit orders
+ * via a {@link BlockingQueue}; a single consumer thread runs the matching loop
+ * and updates an in-memory order book. Ordering and consistency are guaranteed
+ * because only one thread touches the book.
+ *
+ * <p>Matching: buy orders match against best (lowest) ask; sell orders against
+ * best (highest) bid. Filled quantity is reported via a callback; unfilled
+ * remainder is added to the book.
  */
 public class MiniMatchingEngine {
 
+    /** Immutable order: id, side (buy/sell), limit price, quantity, user. */
     public static final class Order {
         final long id;
         final boolean buy;
@@ -29,6 +35,11 @@ public class MiniMatchingEngine {
         }
     }
 
+    /**
+     * Order book: bids (price → quantity) descending, asks ascending.
+     * add() adds resting quantity; match() matches an incoming order against
+     * the opposite side, then adds any remainder to the book.
+     */
     static class Book {
         final TreeMap<Double, AtomicInteger> bids = new TreeMap<>(Collections.reverseOrder());
         final TreeMap<Double, AtomicInteger> asks = new TreeMap<>();
@@ -38,7 +49,12 @@ public class MiniMatchingEngine {
             side.computeIfAbsent(price, p -> new AtomicInteger(0)).addAndGet(qty);
         }
 
-        void match(Order order, java.util.function.Consumer<String> onFill) {
+        /**
+         * Matches the order against the opposite side: for a buy, walk asks from
+         * lowest; for a sell, walk bids from highest. Fill until price no longer
+         * crosses or quantity exhausted. Call onFill for each fill; add remainder to book.
+         */
+        void match(Order order, Consumer<String> onFill) {
             TreeMap<Double, AtomicInteger> opposite = order.buy ? asks : bids;
             Iterator<Map.Entry<Double, AtomicInteger>> it = opposite.entrySet().iterator();
             int remaining = order.quantity;
@@ -83,6 +99,12 @@ public class MiniMatchingEngine {
         matcherThread.start();
     }
 
+    /**
+     * Submits an order to the matching engine. Returns immediately with an order id;
+     * matching happens asynchronously on the matcher thread.
+     *
+     * @return the assigned order id
+     */
     public long submit(boolean buy, double price, int quantity, String userId) {
         long id = orderIdGen.incrementAndGet();
         orderQueue.offer(new Order(id, buy, price, quantity, userId));

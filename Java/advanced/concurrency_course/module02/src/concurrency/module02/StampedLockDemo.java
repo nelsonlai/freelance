@@ -3,8 +3,16 @@ package concurrency.module02;
 import java.util.concurrent.locks.StampedLock;
 
 /**
- * StampedLock: optimistic read — no lock held during read; validate at the end.
- * If validation fails, retry with full read lock.
+ * Demonstrates {@link java.util.concurrent.locks.StampedLock} and <b>optimistic reading</b>.
+ *
+ * <p>StampedLock has three modes: write lock (exclusive), read lock (shared), and
+ * optimistic read. With optimistic read we do <i>not</i> hold a lock while reading;
+ * we get a stamp, read the fields, then call {@code validate(stamp)}. If no write
+ * occurred in between, the read was consistent. If validate fails, we retry with a
+ * full read lock. This can improve throughput when writes are rare.
+ *
+ * <p>Coordinates (x, y) are updated under write lock; distance is computed with
+ * optimistic read and fallback to read lock if needed.
  */
 public class StampedLockDemo {
 
@@ -12,6 +20,9 @@ public class StampedLockDemo {
     private double x;
     private double y;
 
+    /**
+     * Updates x and y under the write lock. Must pair with unlockWrite(stamp).
+     */
     public void move(double dx, double dy) {
         long stamp = sl.writeLock();
         try {
@@ -22,12 +33,19 @@ public class StampedLockDemo {
         }
     }
 
-    /** Optimistic read: no lock held; must validate. */
+    /**
+     * Optimistic read: acquire a stamp (no lock held), read x and y, then validate.
+     * If validate returns true, no write occurred — use the read values. If false,
+     * retry with a full read lock to get a consistent snapshot.
+     *
+     * @return distance from origin sqrt(x^2 + y^2)
+     */
     public double distanceFromOrigin() {
         long stamp = sl.tryOptimisticRead();
         double cx = x;
         double cy = y;
         if (!sl.validate(stamp)) {
+            // A write happened after we took the stamp; re-read under read lock
             stamp = sl.readLock();
             try {
                 cx = x;
