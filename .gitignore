@@ -31,3 +31,4 @@ site-packages/
 .DS_Store
 .vscode/
 .idea/
+*.zip
